@@ -36,6 +36,7 @@ const Home = (props) => {
             (
               <div>
                 <p>Hello, {props.currentUser.displayName}.</p>
+                <br/>
                 <button onClick={signout}>Sign out</button>
               </div>
             )
