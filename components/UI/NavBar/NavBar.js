@@ -10,7 +10,7 @@ const NavBar = (props) => {
     const signout = (e) => {
         e.preventDefault()
         router.push("/login?signout=true")
-      }
+    }
 
     return (
     <>
@@ -26,7 +26,17 @@ const NavBar = (props) => {
                     <Navbar.Text>
                         {!props.isSignedIn 
                             ? 
-                            (<Link href="/login" ><a className={n.signIn}>Sign in</a></Link>) 
+                            (   <div className={n.userName}>
+                                    {
+                                        
+                                    }
+                                    <span className={n.signOutMsg}>
+                                        <img className={n.checkMark} src="https://img.icons8.com/emoji/48/000000/check-mark-emoji.png"/>
+                                        <p className={n.greeting}>Signed out!</p>
+                                    </span>
+                                    <Link href="/login" ><a className={n.signIn}>Sign in</a></Link>
+                                </div>
+                            ) 
                             : 
                             (
                                 <div className={n.userName}>
