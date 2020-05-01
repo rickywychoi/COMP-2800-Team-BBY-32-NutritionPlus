@@ -16,7 +16,7 @@ const Home = (props) => {
   return (
     <div className="container">
       <Head>
-        <title>Create Next App</title>
+        <title>Nutrition+ | Stay strong, stay healthy</title>
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
