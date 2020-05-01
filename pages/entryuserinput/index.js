@@ -1,5 +1,5 @@
-// entryuserinput.js
-import EntryUserInput from '../containers/EntryUserInput/EntryUserInput'
+// entryuserinput/index.js
+import EntryUserInput from '../../containers/EntryUserInput/EntryUserInput'
 
 const EntryUserInputPage = () => {
   return (

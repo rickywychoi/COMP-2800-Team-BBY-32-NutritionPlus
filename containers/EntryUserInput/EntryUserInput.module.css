@@ -1,0 +1,34 @@
+.body {
+  padding: 3% 10%;
+}
+
+.mainTitle {
+  text-align: center;
+  margin-bottom: 5%;
+}
+
+.pregnantTitle {
+  font-size: 1.5em;
+  margin-bottom: 1.2%;
+}
+
+.pregnantWrapper {
+  padding: 0 2% 1px 2%;
+}
+
+@media (max-width: 1025px) {
+  .body {
+    padding: 30px;
+  }
+  .mainTitle {
+    font-size: 1.5em;
+    margin-bottom: 40px;
+  }
+  .pregnantTitle {
+    font-size: 1.3em;
+    margin-bottom: 20px;
+  }
+  .wrapButton {
+    text-align: center;
+  }
+}

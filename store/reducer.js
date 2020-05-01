@@ -1,8 +1,11 @@
+// store/reducer.js
+
 import * as actions from '../store/actions'
 
 export const initialState = {
   isSignedIn: false,  // Signed-in state.
-  currentUser: null   // Current user signed-in.
+  currentUser: null,  // Current user signed-in.
+  userEER: 0          // Estimated Energy Requirement for user
 }
 
 const reducer = (state = initialState, action) => {
@@ -12,6 +15,11 @@ const reducer = (state = initialState, action) => {
         ...state,
         isSignedIn: !!action.payload,
         currentUser: action.payload
+      }
+    case actions.SUBMITENTRYUSERINPUT:
+      return {
+        ...state,
+        userEER: action.payload
       }
     default: 
       return {...state};
