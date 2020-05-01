@@ -1,17 +1,11 @@
 // index.js
 
 import Head from 'next/head'
-import Link from 'next/link'
 import { useRouter } from 'next/router'
 import { connect } from 'react-redux'
 
 const Home = (props) => {
   const router = useRouter()
-
-  const signout = (e) => {
-    e.preventDefault()
-    router.push("/login?signout=true")
-  }
 
   return (
     <div className="container">
@@ -21,25 +15,9 @@ const Home = (props) => {
       </Head>
 
       <main>
-        <h1 className="title">
-          Welcome to <a href="https://github.com/rickywychoi/BBY-32-Nutrition-Plus" target="_blank">Nutrition+!</a>
-        </h1>
-        <br/>
         <h2>
           <b>This is [dev] branch.</b>
         </h2>
-        <br/>
-        {!props.isSignedIn 
-          ? 
-            (<Link href="/login"><a id="signIn">Sign in</a></Link>) 
-          : 
-            (
-              <div>
-                <p>Hello, {props.currentUser.displayName}.</p>
-                <button onClick={signout}>Sign out</button>
-              </div>
-            )
-        }
       </main>
 
       <footer>

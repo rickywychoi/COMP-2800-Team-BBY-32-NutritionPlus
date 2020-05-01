@@ -1,0 +1,15 @@
+.nav {
+    font-size: 14px;
+}
+
+.appTitle {
+    font-size: 38px;
+}
+
+.signoutButton {
+  background: none!important;
+  border: none;
+  padding: 0!important;
+  color: #fff;
+  cursor: pointer;
+}
