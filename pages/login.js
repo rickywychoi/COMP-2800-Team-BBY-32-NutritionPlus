@@ -60,22 +60,24 @@ class SignInScreen extends React.Component {
         <div className="main">
           <h1 className="title" align="center">Nutrition+</h1>
           <p className="sign" align="center">Sign in</p>
+          {/*
           <form className="form1">
           <input className="un " type="text" align="center" placeholder="Username" />
           <input className="pass" type="password" align="center" placeholder="Password" />
           <a className="submit" align="center">Sign in</a>
           </form>
-          <p className="forgot" align="center"><a href="#">Forgot Password?</a></p>         
+          <p className="forgot" align="center"><a href="#">Forgot Password?</a></p>    
+          */}
           <br/>
           <StyledFirebaseAuth uiConfig={this.uiConfig} firebaseAuth={firebase.auth()}/>
-          
+          <br/>
           <Link href="/"><a className="back" align="center" >Back to home</a></Link>
 
           <style jsx>{`
             .main {
               background-color: #FFFFFF;
               width: 400px;
-              height: 750px;
+              height: 600px;
               margin: 1em auto;
               border-radius: 1.5em;
               box-shadow: 0px 11px 35px 2px rgba(0, 0, 0, 0.14);
