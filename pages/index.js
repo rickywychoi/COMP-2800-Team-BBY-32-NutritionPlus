@@ -28,18 +28,6 @@ const Home = (props) => {
         <h2>
           <b>This is [dev] branch.</b>
         </h2>
-        <br/>
-        {!props.isSignedIn 
-          ? 
-            (<Link href="/login"><a id="signIn">Sign in</a></Link>) 
-          : 
-            (
-              <div>
-                <p>Hello, {props.currentUser.displayName}.</p>
-                <button onClick={signout}>Sign out</button>
-              </div>
-            )
-        }
       </main>
 
       <footer>
