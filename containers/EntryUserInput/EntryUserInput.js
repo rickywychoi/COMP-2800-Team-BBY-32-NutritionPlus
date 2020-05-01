@@ -7,7 +7,6 @@ import entryStyles from './EntryUserInput.module.css'
 import * as actions from '../../store/actions'
 import { connect } from 'react-redux'
 import { useRouter } from 'next/router'
-const convert = require('convert-units')
 
 const EntryUserInput = (props) => {
   const router = useRouter()
@@ -86,9 +85,9 @@ const EntryUserInput = (props) => {
 
     // unit conversion for weight and height
     if (isPounds) 
-      weight = convert(weight).from('lb').to('kg')
+      weight *= 0.45359237
     if (isInches)
-      height = convert(height).from('in').to('cm')
+      height *= 2.54
 
     // default physical activity coefficients
     switch (physicalActivity) {
