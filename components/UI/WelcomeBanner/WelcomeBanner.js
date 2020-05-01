@@ -12,7 +12,7 @@ const WelcomeBanner = () => {
     <Jumbotron>
       <h1>Nutrition+</h1>
       <p>
-        To fight against COVID-19, we need to eat healthy and stay strong.
+        To fight against COVID-19, we need to <i>eat healthy</i> and stay strong.
       </p>
       <p>
         <Button 

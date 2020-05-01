@@ -26,9 +26,14 @@ const NavBar = (props) => {
                     <Navbar.Text>
                         {!props.isSignedIn 
                             ? 
-                            (<Link href="/login" ><a id="signIn">Sign in</a></Link>) 
+                            (<Link href="/login" ><a className={n.signIn}>Sign in</a></Link>) 
                             : 
-                            (<button onClick={signout} className={n.signoutButton}>Sign out</button>)
+                            (
+                                <div className={n.userName}>
+                                    <p className={n.greeting}>Hello, {props.currentUser.displayName}</p>
+                                    <button onClick={signout} className={n.signoutButton}>Sign out</button>
+                                </div>
+                            )
                         }
                     </Navbar.Text>
                 </Navbar.Collapse>

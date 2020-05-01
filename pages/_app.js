@@ -5,7 +5,7 @@ import 'bootstrap/dist/css/bootstrap.min.css'
 import React from 'react'
 import Layout from '../components/UI/Layout'
 import { useRouter } from 'next/router'
-import { createStore, compose } from 'redux'
+import { createStore } from 'redux'
 import { Provider } from 'react-redux'
 import withRedux from 'next-redux-wrapper'
 import { devToolsEnhancer } from 'redux-devtools-extension'
@@ -28,13 +28,13 @@ const App = ({ Component, pageProps, store }) => {
   return (
     <Provider store={store}>
       {
-        router.pathname.localeCompare("/login") == 0
+        router.pathname.localeCompare("/") == 0
           ?
-        <Component {...pageProps} />
-          :
         <Layout>
           <Component {...pageProps}/>
         </Layout>
+          :
+        <Component {...pageProps} />
       }
     </Provider>
   )
