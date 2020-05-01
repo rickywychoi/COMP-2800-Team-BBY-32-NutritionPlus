@@ -59,7 +59,7 @@ class SignInScreen extends React.Component {
       return (
         <div className="main">
           <h1 className="title" align="center">Nutrition+</h1>
-          <p className="sign" align="center">Sign in</p>
+          <p className="sign" align="center">Sign in options:</p>
           {/*
           <form className="form1">
           <input className="un " type="text" align="center" placeholder="Username" />
