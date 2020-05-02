@@ -5,7 +5,7 @@ import * as actions from '../store/actions'
 export const initialState = {
   isSignedIn: false,  // Signed-in state.
   currentUser: null,  // Current user signed-in.
-  userEER: 0          // Estimated Energy Requirement for user
+  userInfo: {}        // information of user to calculate nutrient result
 }
 
 const reducer = (state = initialState, action) => {
@@ -19,7 +19,7 @@ const reducer = (state = initialState, action) => {
     case actions.SUBMITENTRYUSERINPUT:
       return {
         ...state,
-        userEER: action.payload
+        userInfo: action.payload
       }
     default: 
       return {...state};

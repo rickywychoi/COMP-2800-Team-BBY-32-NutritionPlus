@@ -1,7 +1,11 @@
 // EntryUserInput.js
 
 import { useState } from 'react'
+<<<<<<< HEAD
 import { Form, Button, Row } from 'react-bootstrap'
+=======
+import { Form, Button } from 'react-bootstrap'
+>>>>>>> Ricky_Choi_Entry_User_Input
 import PopOver from '../../components/UI/PopOver/PopOver'
 import entryStyles from './EntryUserInput.module.css'
 import * as actions from '../../store/actions'
@@ -69,7 +73,6 @@ const EntryUserInput = (props) => {
   }
   
   const showResult = () => {
-    console.log("in show result")
     let eer, pa = 0
     let {
       age, 
@@ -150,12 +153,10 @@ const EntryUserInput = (props) => {
     else if (gender.localeCompare("female") == 0 && lactation.localeCompare("postpartum2") == 0)
       eer = eer + 400
 
-    console.log("after calc "+ eer)
-
-    setUserInfo({ ...userInfo, eer: eer, pa: pa })
+    setUserInfo({ ...userInfo, eer: Math.ceil(eer), pa: pa })
 
     if (validated) {
-      props.onSubmitEntryUserInput(Math.ceil(eer))
+      props.onSubmitEntryUserInput(userInfo)
       router.push("/entryuserinput/result")
     }    
   }
@@ -295,7 +296,7 @@ const EntryUserInput = (props) => {
 
 const mapDispatchToProps = dispatch => {
   return {
-    onSubmitEntryUserInput: (eer) => dispatch({type: actions.SUBMITENTRYUSERINPUT, payload: eer})
+    onSubmitEntryUserInput: (userInfo) => dispatch({type: actions.SUBMITENTRYUSERINPUT, payload: userInfo})
   }
 }
 

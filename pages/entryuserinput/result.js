@@ -5,14 +5,14 @@ import { connect } from 'react-redux'
 const EntryUserInputResult = (props) => {
   return (
     <>
-      <EntryResult eer={props.userEER}/>
+      <EntryResult userInfo={props.userInfo}/>
     </>
   )
 }
 
 const mapStateToProps = state => {
   return {
-    userEER: state.userEER
+    userInfo: state.userInfo
   }
 }
 
