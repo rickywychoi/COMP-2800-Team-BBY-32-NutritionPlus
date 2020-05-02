@@ -1,0 +1,17 @@
+.popoverButton {
+  padding: .1rem .5rem!important;
+  cursor: pointer;
+  font-size: 0.8em;
+  margin-left: 10px;
+}
+
+.list {
+  padding-left: 20px;
+}
+
+@media (max-width: 1025px) {
+  .popoverButton {
+    margin-left: 0;
+    margin-bottom: 15px;
+  }
+}
