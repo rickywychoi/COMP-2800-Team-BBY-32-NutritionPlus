@@ -158,9 +158,16 @@ const EntryUserInput = (props) => {
     }    
   }
 
+  const goBack = () => {
+    router.back()
+  }
+
   return (
     <div className={entryStyles.body}>
-      <h1 className={entryStyles.mainTitle}>We are retrieving some <br/>basic information from you.</h1>
+      <div className={entryStyles.header}>
+        <Button variant="secondary" onClick={goBack}>Go back</Button>
+        <h1 className={entryStyles.mainTitle}>We are retrieving some <br/>basic information from you.</h1>
+      </div>
       <Form validated={validated} onSubmit={handleSubmit}>
         <Form.Group controlId="formBasicAge">
           <Form.Label>What is your age?</Form.Label>
