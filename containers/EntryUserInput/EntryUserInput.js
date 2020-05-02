@@ -1,11 +1,8 @@
 // EntryUserInput.js
 
 import { useState } from 'react'
-<<<<<<< HEAD
-import { Form, Button, Row } from 'react-bootstrap'
-=======
+
 import { Form, Button } from 'react-bootstrap'
->>>>>>> Ricky_Choi_Entry_User_Input
 import PopOver from '../../components/UI/PopOver/PopOver'
 import entryStyles from './EntryUserInput.module.css'
 import * as actions from '../../store/actions'
