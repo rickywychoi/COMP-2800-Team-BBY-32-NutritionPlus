@@ -1,3 +1,4 @@
+import { useRef, useEffect } from 'react'
 import { Navbar, Nav } from 'react-bootstrap'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
@@ -6,6 +7,17 @@ import n from './NavBar.module.css'
 
 const NavBar = (props) => {
     const router = useRouter()
+    
+    // Apply css on signout message
+    const signoutRef = useRef(null)
+    useEffect(() => {
+        // Hides signout message after 10s (10000ms)
+        setTimeout(() => {
+            if (signoutRef.current !== null) {
+                signoutRef.current.style.display = "none"
+            }
+        }, 10000);
+    })
 
     const signout = (e) => {
         e.preventDefault()
@@ -26,11 +38,9 @@ const NavBar = (props) => {
                     <Navbar.Text>
                         {!props.isSignedIn 
                             ? 
-                            (   <div className={n.userName}>
-                                    {
-                                        
-                                    }
-                                    <span className={n.signOutMsg}>
+                            (   
+                                <div className={n.userName}>
+                                    <span className={n.signOutMsg} ref={signoutRef}>
                                         <img className={n.checkMark} src="https://img.icons8.com/emoji/48/000000/check-mark-emoji.png"/>
                                         <p className={n.greeting}>Signed out!</p>
                                     </span>

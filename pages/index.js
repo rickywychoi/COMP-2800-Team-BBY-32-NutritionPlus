@@ -26,7 +26,7 @@ const Home = (props) => {
           target="_blank"
           rel="noopener noreferrer"
         >
-          Powered by <img src="/zeit.svg" alt="ZEIT Logo" />
+          This is footer.
         </a>
       </footer>
 
