@@ -19,7 +19,7 @@ const NavBar = (props) => {
         }, 10000);
     })
 
-    const signout = (e) => {
+    const signout = e => {
         e.preventDefault()
         router.push("/login?signout=true")
     }
