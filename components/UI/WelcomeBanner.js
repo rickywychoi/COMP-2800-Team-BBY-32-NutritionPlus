@@ -4,7 +4,7 @@ import { Jumbotron, Button } from 'react-bootstrap'
 const WelcomeBanner = () => {
   const router = useRouter()
 
-  const toEntryUserInput = () => {
+  const toEntryInput = () => {
     router.push("/entryuserinput")
   }
 
@@ -18,7 +18,7 @@ const WelcomeBanner = () => {
         <Button 
           variant="primary" 
           className="mr-2" 
-          onClick={toEntryUserInput}
+          onClick={toEntryInput}
         >
           Calculate Your Required Energy Intake
         </Button>

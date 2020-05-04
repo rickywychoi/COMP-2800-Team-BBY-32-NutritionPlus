@@ -1,5 +1,5 @@
-import NavBar from './NavBar/NavBar'
-import WelcomeBanner from './WelcomeBanner/WelcomeBanner'
+import NavBar from './NavBar'
+import WelcomeBanner from './WelcomeBanner'
 
 const Layout = ({ children }) => {
   return (

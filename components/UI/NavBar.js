@@ -3,7 +3,7 @@ import { Navbar, Nav } from 'react-bootstrap'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
 import { connect } from 'react-redux'
-import n from './NavBar.module.css'
+import n from '../../styles/NavBar.module.css'
 
 const NavBar = (props) => {
     const router = useRouter()

@@ -11,7 +11,7 @@ import firebase from 'firebase';
 import firebaseConfig from '../firebaseConfig'
 import { connect } from 'react-redux'
 import * as actions from '../store/actions'
-import Spinner from '../components/UI/Spinner/Spinner'
+import Spinner from '../components/UI/Spinner'
 
 if (!firebase.apps.length) {
   firebase.initializeApp(firebaseConfig);

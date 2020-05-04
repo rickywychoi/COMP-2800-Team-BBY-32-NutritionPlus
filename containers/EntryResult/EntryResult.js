@@ -1,6 +1,6 @@
 // EntryResult.js
 
-import resultStyles from './EntryResult.module.css'
+import resultStyles from '../../styles/EntryResult.module.css'
 import Link from 'next/link'
 import { useState, useEffect } from 'react'
 import { Accordion, Card, Button, Table } from 'react-bootstrap'
