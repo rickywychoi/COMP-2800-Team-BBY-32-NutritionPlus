@@ -11,7 +11,7 @@
 
 @media (max-width: 1025px) {
   .popoverButton {
-    margin-left: 0;
+    margin-left: 10;
     margin-bottom: 15px;
   }
 }

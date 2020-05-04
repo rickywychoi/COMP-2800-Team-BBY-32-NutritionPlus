@@ -1,12 +1,12 @@
 // EntryResult.js
 
-import resultStyles from './EntryResult.module.css'
+import resultStyles from './QuestionnaireResult.module.css'
 import Link from 'next/link'
 import { useState, useEffect } from 'react'
 import { Accordion, Card, Button, Table } from 'react-bootstrap'
 import data from './dailyValue.json'
 
-const EntryResult = (props) => {
+const QuestionnaireResult = (props) => {
   const [isInfants, setInfants] = useState(false)
   const [isChildren, setChildren] = useState(false)
   const [isAdults, setAdults] = useState(false)
@@ -22,10 +22,6 @@ const EntryResult = (props) => {
       setAdults(true)
   })
 
-  // data.infants.vitaminMineral.map(e =>{
-  //   console.log(e.name)
-  // })
-
   return (
     <>
       <div className={resultStyles.body}>
@@ -35,13 +31,18 @@ const EntryResult = (props) => {
         <Accordion defaultActiveKey="0" className="mt-4">
           <Card>
             <Card.Header>
-              <Accordion.Toggle as={Button} variant="link" eventKey="1">
+              <Accordion.Toggle as={Button} variant="link" eventKey="1" className={resultStyles.accordionButton}>
                 Click to see your Daily Values
               </Accordion.Toggle>
             </Card.Header>
             <Accordion.Collapse eventKey="1">
               <Card.Body>
                 <div className={resultStyles.dvResult}>
+                  <div className={resultStyles.informationMsg}>
+                    <p>
+                      Click each of nutrient to see a brief information - provided by <a href="https://www.webmd.com/" target="_blank">WebMD</a>.
+                    </p>
+                  </div>
                   <h2 className={resultStyles.dailyValueTitle}>Part 1 – Daily values for macronutrients and sodium</h2>
                   {
                     isInfants
@@ -69,6 +70,7 @@ const EntryResult = (props) => {
                           </tbody>
                         </Table>
                       }
+                      <p>g = grams; mg = milligrams</p>
                     </div>
                       :
                     null
@@ -99,6 +101,7 @@ const EntryResult = (props) => {
                           </tbody>
                         </Table>
                       }
+                      <p>g = grams; mg = milligrams</p>
                     </div>
                       :
                     null
@@ -129,6 +132,7 @@ const EntryResult = (props) => {
                           </tbody>
                         </Table>
                       }
+                      <p>g = grams; mg = milligrams</p>
                     </div>
                       :
                     null
@@ -160,6 +164,9 @@ const EntryResult = (props) => {
                           </tbody>
                         </Table>
                       }
+                      <p>mg = milligrams; µg = micrograms</p>
+                      <p>DFE = Dietary Folate Equivalents</p>
+                      <p>Calculations for vitamins are set out in Section D.01.003 of the Food and Drug Regulations.</p>
                     </div>
                       :
                     null
@@ -190,6 +197,9 @@ const EntryResult = (props) => {
                           </tbody>
                         </Table>
                       }
+                      <p>mg = milligrams; µg = micrograms</p>
+                      <p>DFE = Dietary Folate Equivalents</p>
+                      <p>Calculations for vitamins are set out in Section D.01.003 of the Food and Drug Regulations.</p>
                     </div>
                       :
                     null
@@ -220,10 +230,18 @@ const EntryResult = (props) => {
                           </tbody>
                         </Table>
                       }
+                      <p>mg = milligrams; µg = micrograms</p>
+                      <p>DFE = Dietary Folate Equivalents</p>
+                      <p>Calculations for vitamins are set out in Section D.01.003 of the Food and Drug Regulations.</p>
                     </div>
                       :
                     null
                   }
+                  <div className={resultStyles.informationMsg}>
+                    <p>
+                      Table of Daily Values retrieved from <a href="https://www.canada.ca/en/health-canada/services/technical-documents-labelling-requirements/table-daily-values/nutrition-labelling.html#p1" target="_blank">Gov. of Canada</a>.
+                    </p>
+                  </div>
                 </div>
               </Card.Body>
             </Accordion.Collapse>
@@ -234,4 +252,4 @@ const EntryResult = (props) => {
   )
 }
 
-export default EntryResult
+export default QuestionnaireResult

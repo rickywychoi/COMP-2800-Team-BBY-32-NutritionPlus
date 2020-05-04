@@ -4,8 +4,17 @@
   padding: 3% 10%;
 }
 
+.accordionButton {
+  text-decoration: none;
+}
+
 .dvResult {
   text-align: left;
+}
+
+.informationMsg {
+  text-align: center;
+  font-size: 0.9rem;
 }
 
 .nut {

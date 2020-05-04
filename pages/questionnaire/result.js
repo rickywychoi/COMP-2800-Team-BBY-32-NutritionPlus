@@ -1,11 +1,11 @@
 // entryuserinput/result.js
-import EntryResult from '../../containers/EntryResult/EntryResult'
+import QuestionnaireResult from '../../containers/QuestionnaireResult/QuestionnaireResult'
 import { connect } from 'react-redux'
 
 const EntryUserInputResult = (props) => {
   return (
     <>
-      <EntryResult userInfo={props.userInfo}/>
+      <QuestionnaireResult userInfo={props.userInfo}/>
     </>
   )
 }
