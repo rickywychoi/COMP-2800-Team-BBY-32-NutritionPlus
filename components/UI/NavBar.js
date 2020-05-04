@@ -3,7 +3,7 @@ import { Navbar, Nav } from 'react-bootstrap'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
 import { connect } from 'react-redux'
-import n from './NavBar.module.css'
+import n from '../../styles/NavBar.module.css'
 
 const NavBar = (props) => {
     const router = useRouter()
@@ -19,7 +19,7 @@ const NavBar = (props) => {
         }, 10000);
     })
 
-    const signout = (e) => {
+    const signout = e => {
         e.preventDefault()
         router.push("/login?signout=true")
     }

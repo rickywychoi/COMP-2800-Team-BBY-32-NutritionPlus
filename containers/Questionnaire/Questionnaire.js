@@ -3,8 +3,8 @@
 import { useState } from 'react'
 
 import { Form, Button } from 'react-bootstrap'
-import PopOver from '../../components/UI/PopOver/PopOver'
-import entryStyles from './Questionnaire.module.css'
+import PopOver from '../../components/UI/PopOver'
+import entryStyles from '../../styles/EntryUserInput.module.css'
 import * as actions from '../../store/actions'
 import { connect } from 'react-redux'
 import { useRouter } from 'next/router'

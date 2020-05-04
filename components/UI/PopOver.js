@@ -1,5 +1,5 @@
 import { Popover, OverlayTrigger, Button } from 'react-bootstrap'
-import popoverStyles from './PopOver.module.css'
+import popoverStyles from '../../styles/PopOver.module.css'
 
 const popover = (
   <Popover id="popover-basic">
