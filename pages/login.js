@@ -1,11 +1,8 @@
 // login.js
 
-import { useState, useEffect } from 'react'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
-import loginStyles from '../styles/login.module.css'
 // Import FirebaseAuth and firebase.
-// import React from 'react'
 import StyledFirebaseAuth from 'react-firebaseui/StyledFirebaseAuth'
 import firebase from 'firebase';
 import firebaseConfig from '../firebaseConfig'
