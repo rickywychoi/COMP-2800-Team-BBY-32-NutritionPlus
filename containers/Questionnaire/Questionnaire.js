@@ -9,7 +9,7 @@ import * as actions from '../../store/actions'
 import { connect } from 'react-redux'
 import { useRouter } from 'next/router'
 
-const EntryUserInput = (props) => {
+const Questionnaire = (props) => {
   const router = useRouter()
   const [validated, setValidated] = useState(false);
   const [userInfo, setUserInfo] = useState({
@@ -154,7 +154,7 @@ const EntryUserInput = (props) => {
 
     if (validated) {
       props.onSubmitEntryUserInput(userInfo)
-      router.push("/entryuserinput/result")
+      router.push("/questionnaire/result")
     }    
   }
 
@@ -184,8 +184,8 @@ const EntryUserInput = (props) => {
         </Form.Group>
         <Form.Group controlId="formBasicGender">
           <Form.Label>What is your gender?</Form.Label>
-          <Form.Control required as="select" defaultValue="Select your gender" onChange={handleGenderChange}>
-            <option disabled>Select your gender</option>
+          <Form.Control required as="select" defaultValue="" onChange={handleGenderChange}>
+            <option disabled value="">Select your gender</option>
             <option value="male">Male</option>
             <option value="female">Female</option>
           </Form.Control>
@@ -271,9 +271,9 @@ const EntryUserInput = (props) => {
           <Form.Control 
             required
             as="select"
-            defaultValue="Choose your level of physical activity" 
+            defaultValue="" 
             onChange={handleActivityChange}>
-            <option disabled>Choose your level of physical activity</option>
+            <option disabled value="">Choose your level of physical activity</option>
             <option value="sedentary">Sedentary</option>
             <option value="lowActive">Low Active</option>
             <option value="active">Active</option>
@@ -304,4 +304,4 @@ const mapDispatchToProps = dispatch => {
   }
 }
 
-export default connect(null, mapDispatchToProps)(EntryUserInput)
+export default connect(null, mapDispatchToProps)(Questionnaire)
