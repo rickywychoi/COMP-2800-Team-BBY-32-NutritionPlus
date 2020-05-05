@@ -3,9 +3,9 @@
 import { useState } from 'react'
 
 import { Form, Button } from 'react-bootstrap'
-import PopOver from '../../components/UI/PopOver'
-import entryStyles from '../../styles/EntryUserInput.module.css'
-import * as actions from '../../store/actions'
+import PopOver from '../components/UI/PopOver'
+import questionStyles from '../styles/Questionnaire.module.css'
+import * as actions from '../store/actions'
 import { connect } from 'react-redux'
 import { useRouter } from 'next/router'
 
@@ -163,10 +163,10 @@ const Questionnaire = (props) => {
   }
 
   return (
-    <div className={entryStyles.body}>
-      <div className={entryStyles.header}>
+    <div className={questionStyles.body}>
+      <div className={questionStyles.header}>
         <Button variant="secondary" onClick={goBack}>Go back</Button>
-        <h1 className={entryStyles.mainTitle}>We are retrieving some <br/>basic information from you.</h1>
+        <h1 className={questionStyles.mainTitle}>We are retrieving some <br/>basic information from you.</h1>
       </div>
       <Form validated={validated} onSubmit={handleSubmit}>
         <Form.Group controlId="formBasicAge">
@@ -199,8 +199,8 @@ const Questionnaire = (props) => {
           (
             <>
               <hr />
-              <div className={entryStyles.pregnantWrapper}>
-                <h2 className={entryStyles.pregnantTitle}>If you are pregnant:</h2>
+              <div className={questionStyles.pregnantWrapper}>
+                <h2 className={questionStyles.pregnantTitle}>If you are pregnant:</h2>
                 <Form.Group controlId="formBasicPregnancy">
                   <Form.Label>What stage of pregnancy are you in?</Form.Label>
                   <Form.Control as="select" defaultValue="Select your trimester" onChange={handlePregnancyChange}>
@@ -229,7 +229,7 @@ const Questionnaire = (props) => {
           <Form.Label>What is your weight in <i>{userInfo.isPounds ? `pounds` : `kg`}</i>?</Form.Label>
           <Button 
             onClick={handlePoundsChange}
-            className={entryStyles.weightUnitToggle}
+            className={questionStyles.weightUnitToggle}
             variant={userInfo.isPounds ? `success` : `warning`}
           >
             {userInfo.isPounds ? `kg?` : `pounds?`}
@@ -249,7 +249,7 @@ const Questionnaire = (props) => {
         <Form.Label>What is your height in <i>{userInfo.isInches ? `inches` : `cm`}</i>?</Form.Label>
           <Button 
             onClick={handleInchesChange}
-            className={entryStyles.heightUnitToggle}
+            className={questionStyles.heightUnitToggle}
             variant={userInfo.isInches ? `success` : `warning`}
           >
             {userInfo.isInches ? `cm?` : `inches?`}
@@ -283,7 +283,7 @@ const Questionnaire = (props) => {
             Please select your PAL.
           </Form.Control.Feedback>
         </Form.Group>
-        <div className={entryStyles.wrapButton}>
+        <div className={questionStyles.wrapButton}>
           <Button 
             className="mt-3" 
             variant={!validated ? `primary`: `success`} 
