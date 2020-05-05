@@ -1,5 +1,5 @@
 // entryuserinput/index.js
-import Questionnaire from '../../containers/Questionnaire/Questionnaire'
+import Questionnaire from '../../containers/Questionnaire'
 
 const QuestionnairePage = () => {
   return (
