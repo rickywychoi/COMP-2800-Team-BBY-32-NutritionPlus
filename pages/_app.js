@@ -28,13 +28,13 @@ const App = ({ Component, pageProps, store }) => {
   return (
     <Provider store={store}>
       {
-        router.pathname.localeCompare("/") == 0
+        router.pathname.localeCompare("/login") == 0
           ?
+        <Component {...pageProps} />
+          :
         <Layout>
           <Component {...pageProps}/>
         </Layout>
-          :
-        <Component {...pageProps} />
       }
     </Provider>
   )
