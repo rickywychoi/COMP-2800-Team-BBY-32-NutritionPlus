@@ -35,9 +35,6 @@ const ItemSearch = () => {
   const handlePagination = () => {
     console.log("In pagination")
     setPagination([])
-    pagination.push(
-
-    )
   }
 
   return (
