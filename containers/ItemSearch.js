@@ -8,16 +8,17 @@ import { USDA_API_KEY } from '../apiKey'
 const ItemSearch = () => {
   const [search, setSearch] = useState("")
   const [result, setResult] = useState([])
-  const [currentPage, setCurrentPage] = useState()
+  const [currentPage, setCurrentPage] = useState(1)
   const [totalPages, setTotalPages] = useState()
   const [pagination, setPagination] = useState([])
   const url = `https://api.nal.usda.gov/fdc/v1/foods/search?API_KEY=${USDA_API_KEY}`
   
   const handleSearchChange = e => {
-    setSearch(e.target.value)
+    let value = e.target.value
+    setSearch(value)
     axios.get(url, {
       params: {
-        query: search,
+        query: value,
         pageSize: 20
       }
     }).then(
@@ -29,9 +30,12 @@ const ItemSearch = () => {
     )
   }
 
-  const handlePagination = (props) => {
-    console.log(props)
-    setCurrentPage()
+  const handlePagination = () => {
+    console.log("In pagination")
+    setPagination([])
+    pagination.push(
+
+    )
   }
 
   return (
@@ -52,7 +56,7 @@ const ItemSearch = () => {
               <Link href="/search/[fdcId]" as={`/search/${item.fdcId}`}>
                 <a>
                   {item.description}
-                  {item.brandOwner ? item.brandOwner : null}
+                  {item.brandOwner ? " - " + item.brandOwner : null}
                 </a>
               </Link>
             </li>
