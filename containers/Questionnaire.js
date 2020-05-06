@@ -259,11 +259,7 @@ const Questionnaire = (props) => {
             type="number" 
             min="0" 
             max="250" 
-<<<<<<< HEAD:containers/Questionnaire.js
-            placeholder="Your weight (example: 177 cm or 70 inches)" 
-=======
             placeholder="Your height (example: 177)" 
->>>>>>> Ricky_Choi_Entry_User_Input:containers/EntryUserInput/EntryUserInput.js
             onChange={handleHeightChange} />
           <Form.Control.Feedback type="invalid">
             Please enter your height.
