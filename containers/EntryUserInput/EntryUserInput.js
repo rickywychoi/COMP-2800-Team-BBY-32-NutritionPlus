@@ -216,7 +216,7 @@ const EntryUserInput = (props) => {
             type="number" 
             min="0" 
             max="250" 
-            placeholder="Your weight (example: 177)" 
+            placeholder="Your height (example: 177)" 
             onChange={handleHeightChange} />
           <Form.Control.Feedback type="invalid">
             Please enter your height.
