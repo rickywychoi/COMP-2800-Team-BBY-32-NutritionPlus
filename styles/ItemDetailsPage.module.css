@@ -1,0 +1,29 @@
+.mainBody {
+  padding: 3% 10%;
+}
+
+.imgFrame {
+  width: 250px;
+  height: 250px;
+  border: 1px solid black;
+}
+
+.img {
+  height: 100%;
+  width: auto;
+  margin: 0 auto;
+}
+
+.report {
+  display: flex;
+}
+
+.reportButton {
+  margin-left: 0.5rem;
+}
+
+.reportButton:hover {
+  color: red!important;
+  text-decoration: underline!important;
+  cursor: pointer;
+}

@@ -26,7 +26,7 @@ const ItemSearch = () => {
         pageSize: pageSizeLimit
       }
     }).then(res => {
-      console.log(res.data)
+      // console.log(res.data)
       res.data.foods.forEach(item => results.push(item))
       setResult(results)
       let maxPage = res.data.totalPages
@@ -429,7 +429,10 @@ const ItemSearch = () => {
         {result.map(item => {
           return (
             <li key={item.fdcId} className={searchStyles.listItem}>
-              <Link href="/search/[fdcId]" as={`/search/${item.fdcId}`}>
+              <Link 
+                href={{pathname: 'search/[fdcId]', query: {itemname: (item.brandOwner ? item.description + " - " + item.brandOwner : item.description)}}} 
+                as={`/search/${item.fdcId}?itemname=${item.brandOwner ? item.description + " - " + item.brandOwner : item.description}`}
+              >
                 <a className={searchStyles.itemLink}>
                   {item.description}
                   {item.brandOwner ? " - " + item.brandOwner : null}
