@@ -12,6 +12,10 @@ const WelcomeBanner = () => {
     router.push("/search")
   }
 
+  const toRecipeSearch = () => {
+    router.push("/recipe")
+  }
+
   return (
     <Jumbotron>
       <h1>Nutrition+</h1>
@@ -21,16 +25,24 @@ const WelcomeBanner = () => {
       <p>
         <Button 
           variant="primary" 
-          className="mr-2" 
+          className="mr-2 mb-2" 
           onClick={toQuestionnaire}
         >
           Calculate Your Required Energy Intake
         </Button>
         <Button 
           variant="primary"
+          className="mr-2 mb-2"
           onClick={toItemSearch}
         >
           Search Grocery Items
+        </Button>
+        <Button 
+          variant="primary"
+          className="mr-2 mb-2"
+          onClick={toRecipeSearch}
+        >
+          Search Recipes
         </Button>
       </p>
     </Jumbotron>
