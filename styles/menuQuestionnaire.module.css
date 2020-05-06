@@ -1,0 +1,56 @@
+.body {
+    padding: 3% 10%;
+    box-sizing: border-box;
+}
+  
+.mainTitle {
+    text-align: center;
+    margin-bottom: 5%;
+}
+
+/* Float four columns side by side */
+.col {
+    display: flex;
+    float: left;
+    width: 25%;
+    padding: 0 10px;
+    justify-content: center;
+    align-items: center;
+}
+
+/* Remove extra left and right margins, due to padding in columns */
+.row {
+    display: inline-grid;
+    grid-template-columns: 100% 100%;
+    grid-row-gap: 20px;
+}
+
+/* Clear floats after the columns */
+.row:after {
+    content: "";
+    display: table;
+    clear: both;
+}
+
+/* Style the counter cards */
+.card {
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2); /* this adds the "card" effect */
+    padding: 16px;
+    display: block;
+    background-color: #f1f1f1;
+}
+
+.img {
+    text-align: center;
+    margin: auto;
+    margin-bottom: 10%;
+}
+
+/* Responsive columns - one column layout (vertical) on small screens */
+@media screen and (max-width: 600px) {
+    .col {
+        width: 100%;
+        display: block;
+        margin-bottom: 20px;
+    }
+}
