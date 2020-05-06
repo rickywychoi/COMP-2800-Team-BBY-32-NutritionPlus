@@ -4,6 +4,7 @@ import Head from 'next/head'
 import { useRouter } from 'next/router'
 import { connect } from 'react-redux'
 import WelcomeBanner from '../components/UI/WelcomeBanner'
+import NewsFeed from '../components/NewsFeed/NewsFeed'
 import mainHomeStyles from '../styles/mainHome.module.css'
 
 const MainHome = (props) => {
@@ -17,9 +18,7 @@ const MainHome = (props) => {
       </Head>
       <WelcomeBanner />
       <main className={mainHomeStyles.mainBody}>
-        <h2>
-          <b>This is [dev] branch.</b>
-        </h2>
+        <NewsFeed />
       </main>
 
       <footer className={mainHomeStyles.footer}>
