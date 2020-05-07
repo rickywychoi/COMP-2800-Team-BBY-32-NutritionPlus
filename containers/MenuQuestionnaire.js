@@ -83,9 +83,9 @@ const MenuQuestionnaire = () => {
           let results = []
           axios.get(url, {
             params: {
-                q: search,
-                from: pageSizeLimit * number + 1,
-                to: pageSizeLimit * (prevNumber + 1),
+              q: search,
+              from: pageSizeLimit * (prevNumber - 1),
+              to: (pageSizeLimit * prevNumber) - 1,
             }
           }).then(res => {
             res.data.hits.forEach(item => results.push(item))
@@ -123,8 +123,8 @@ const MenuQuestionnaire = () => {
         axios.get(url, {
           params: {
             q: search,
-            from: pageSizeLimit * (prevNumber - 1) + 1,
-            to: pageSizeLimit * number,
+            from: pageSizeLimit * (prevNumber - 1),
+            to: (pageSizeLimit * prevNumber) - 1,
           }
         }).then(res => {
             res.data.hits.forEach(item => results.push(item))
@@ -190,7 +190,8 @@ const MenuQuestionnaire = () => {
         axios.get(url, {
           params: {
             q: search,
-            to: searchLimit,
+            from: 0,
+            to: pageSizeLimit - 1,
           }
         }).then(res => {
             res.data.hits.forEach(item => results.push(item))
@@ -211,14 +212,15 @@ const MenuQuestionnaire = () => {
         setPagination(paginationItems)
       }
     
-      // >> arrow
+      // last number
       const handleNumberLast = (totalPages, value) => {
         let results = []
         const numberLast = totalPages
         axios.get(url, {
           params: {
             q: search,
-            to: searchLimit,
+            from: pageSizeLimit * (numberLast - 1),
+            to: (pageSizeLimit * numberLast) - 1,
           }
         }).then(res => {
             res.data.hits.forEach(item => results.push(item))
@@ -246,7 +248,8 @@ const MenuQuestionnaire = () => {
         axios.get(url, {
           params: {
             q: search,
-            to: searchLimit,
+            from: pageSizeLimit * number,
+            to: (pageSizeLimit * nextNumber) - 1,
           }
         }).then(res => {
             res.data.hits.forEach(item => results.push(item))
@@ -304,15 +307,16 @@ const MenuQuestionnaire = () => {
         }
       }
     
-      // when on last page
+      // >> arrow
       const handleLast = (number, totalPages, value) => {
         let nextNumber = number + 5
         if (nextNumber <= totalPages) {
           let results = []
           axios.get(url, {
             params: {
-                q: search,
-                to: searchLimit,
+              q: search,
+              from: pageSizeLimit * (nextNumber - 1),
+              to: (pageSizeLimit * nextNumber) - 1,
             }
           }).then(res => {
             res.data.hits.forEach(item => results.push(item))
@@ -343,7 +347,7 @@ const MenuQuestionnaire = () => {
         }
       }
     
-      // pageNum?
+      // handles the results of each numbered page
       const handlePagination = (number, totalPages, value) => {
         const prevNum = number - 1;
         let results = []
@@ -351,7 +355,7 @@ const MenuQuestionnaire = () => {
           params: {
             q: search,
             from: pageSizeLimit * prevNum,
-            to: pageSizeLimit * number - 1,
+            to: (pageSizeLimit * number) - 1,
           }
         }).then(res => {
             res.data.hits.forEach(item => results.push(item))
