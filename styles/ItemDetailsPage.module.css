@@ -27,3 +27,17 @@
   text-decoration: underline!important;
   cursor: pointer;
 }
+
+.table {
+  font-family: "Montserrat SemiBold", HelveticaNeueBold, HelveticaNeue-Bold, "Helvetica Neue Bold", HelveticaBold, Helvetica-Bold, "Helvetica Bold", HelveticaNeue, "Helvetica Neue", Helvetica, Arial, sans-serif;
+  border: 1px solid black;
+  padding: 15px 2px;
+}
+
+.thead {
+  border-bottom: 1px solid black;
+}
+
+.tbody {
+  border-bottom: 1px solid black;
+}
