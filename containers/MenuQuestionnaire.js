@@ -9,7 +9,6 @@ const MenuQuestionnaire = () => {
     const [search, setSearch] = useState("")
     const [result, setResult] = useState([]) 
     let value
-
     const url = `https://api.edamam.com/search?&app_id=${EDAMAM_RECIPE_APP_ID}&app_key=${EDAMAM_RECIPE_APP_KEY}`
 
     const handleSearchInput = event => {
@@ -22,6 +21,7 @@ const MenuQuestionnaire = () => {
     const handleSearchQuery = e => {
         console.log(search);
         let results = []
+
         axios.get(url, {
           params: {
             q: search,
