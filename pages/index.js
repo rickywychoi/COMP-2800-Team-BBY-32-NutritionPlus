@@ -13,7 +13,7 @@ const MainHome = (props) => {
     <div>
       <Head>
         <title>Nutrition+ | Stay strong, stay healthy</title>
-        <link rel="icon" href="/favicon.ico" />
+        <link rel="icon" href="/favicon2.ico" />
       </Head>
       <WelcomeBanner />
       <main className={mainHomeStyles.mainBody}>

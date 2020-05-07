@@ -1,7 +1,11 @@
+import { useRouter } from 'next/router'
+
 const ItemDetailsPage = () => {
+  const router = useRouter()
+  console.log(router)
   return (
     <div>
-      ItemDetails
+      <p>{router.query.fdcId}</p>
     </div>
   )
 }
