@@ -1,7 +1,7 @@
 import { useRouter } from 'next/router'
 import Link from 'next/link'
 import { useState, useEffect } from 'react'
-import { Button, Accordion, Card, OverlayTrigger, Popover } from 'react-bootstrap'
+import { Button, Accordion, Card, OverlayTrigger, Popover, Form } from 'react-bootstrap'
 import { connect } from 'react-redux'
 import axios from 'axios'
 import firebase from 'firebase'
@@ -29,6 +29,7 @@ const ItemDetailsPage = (props) => {
   const [calories, setCalories] = useState({})
   const [foodPortions, setFoodPortions] = useState([])
   const [userDailyValue, setUserDailyValue] = useState([])
+  const [quantity, setQuantity] = useState(0)
   // const [gramWeight, setGramWeight] = useState(0)
   
   let FOOD_API_URL = `https://api.nal.usda.gov/fdc/v1/food/${router.query.fdcId}?API_KEY=${USDA_API_KEY}`
@@ -49,11 +50,7 @@ const ItemDetailsPage = (props) => {
       })
     }
     // GET request for Food api
-    axios.get(FOOD_API_URL, {
-      params: {
-        
-      }
-    }).then(res => {
+    axios.get(FOOD_API_URL).then(res => {
       setResult(res.data)
       setFoodPortions(res.data.foodPortions)
       let newArray = []
@@ -314,12 +311,65 @@ const ItemDetailsPage = (props) => {
   const addToCart = () => {
     console.log("Added")
   }
+  
+  // const handleChangeQuantity = e => {
+  //   e.preventDefault()
+  //   console.log("asdfasdfasdf")
+  //   setQuantity(e.target.value)
+  // }
+
+  const incrementQuantity = () => {
+    if (quantity < 99) {
+      setQuantity(prevState => prevState + 1)
+    }
+  }
+
+  const decrementQuantity = () => {
+    if (quantity > 0) {
+      setQuantity(prevState => prevState - 1)
+    }
+  }
+
+  const resetQuantity = () => {
+    setQuantity(0)
+  }
+
+
+  const checkoutItem = () => {
+    db.collection('users').doc(props.currentUser.uid).get().then(userInfo => {
+      // get user info object from firestore
+      let currentUserInfo = {}
+      Object.assign(currentUserInfo, userInfo.data())
+      
+      // get cart from firestore
+      let currentCart = []
+      currentCart.push(...currentUserInfo.cart)
+      // add items into cart
+      for (let i = 0; i < quantity; i++) {
+        currentCart.push(result)
+      }
+      // update cart
+      currentUserInfo.cart = currentCart
+
+      // store user info object with updated cart in firestore
+      db.collection('users').doc(props.currentUser.uid).set(currentUserInfo)    
+    }).catch(err => console.log(err))
+  }
 
   const popover = (
     <Popover id="popover-basic">
-      <Popover.Title as="h3">Added <strong>{router.query.itemname}</strong> to my cart!</Popover.Title>
+      <Popover.Title as="h3" className={detailStyles.popupTitle}>Quantity</Popover.Title>
       <Popover.Content>
-        <Link href="/mycart"><a>Checkout your cart.</a></Link>
+        <div className={detailStyles.quantityButtonWrapper}>
+          <Button variant="outline-danger" onClick={decrementQuantity} className={detailStyles.decrement}>-</Button>
+          {/* <Form.Group controlId="quantity">
+            <Form.Control type="number" className={detailStyles.quantity} placeholder={quantity} onChange={handleChangeQuantity}/>
+          </Form.Group> */}
+          <p className={detailStyles.quantity}>{quantity}</p>
+          <Button variant="outline-primary" onClick={incrementQuantity} className={detailStyles.increment}>+</Button>
+        </div>
+        <Button variant="danger" onClick={resetQuantity} className={detailStyles.reset}>Reset</Button>
+        <Link href="/mycart"><a onClick={checkoutItem}>Checkout your items.</a></Link>
       </Popover.Content>
     </Popover>
   );
