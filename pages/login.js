@@ -10,9 +10,12 @@ import { connect } from 'react-redux'
 import * as actions from '../store/actions'
 import Spinner from '../components/UI/Spinner'
 
+
 if (!firebase.apps.length) {
   firebase.initializeApp(firebaseConfig);
 }
+
+let db = firebase.firestore()
 
 const SignInScreenWithRouter = (props) => {
   const router = useRouter()
@@ -26,15 +29,15 @@ class SignInScreen extends React.Component {
       isLoaded: false
     }
   }
-
+  
   // Configure FirebaseUI.
   uiConfig = {
     callbacks: {
       signInSuccessWithAuthResult: function (authResult, redirectUrl) {
-          // User successfully signed in.
-          // Return type determines whether we continue the redirect automatically
-          // or whether we leave that to developer to handle.
-          return true;
+        // User successfully signed in.
+        // Return type determines whether we continue the redirect automatically
+        // or whether we leave that to developer to handle.
+        return true;
       }
     },
     // Popup signin flow rather than redirect flow.
@@ -49,18 +52,32 @@ class SignInScreen extends React.Component {
     // Privacy policy url.
     privacyPolicyUrl: '/'
   }
-
+  
   componentDidMount() {
     this.unregisterAuthObserver = firebase.auth().onAuthStateChanged(
       user => {
+
+        // firestore
+        if (user) {
+          db.collection('users').doc(user.uid).set({
+            email: user.email,
+            uid: user.uid,
+            name: user.displayName,
+            healthInfo: {},
+            cart: [],
+            recipes: []
+          })
+        }
+        
+        // redux
         this.props.onSignIn(user)
         this.setState({ isLoaded: true })
       }
-    )
-    if (this.props.router.query.signout) {
-      firebase.auth().signOut()
-      this.props.router.replace("/")
-      this.setState({ isLoaded: false })
+      )
+      if (this.props.router.query.signout) {
+        firebase.auth().signOut()
+        this.props.router.replace("/")
+        this.setState({ isLoaded: false })
     }
   }
 

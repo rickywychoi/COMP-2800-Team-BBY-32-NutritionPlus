@@ -14,7 +14,6 @@ const NewsFeed = () => {
       res.data.articles.forEach(item => {
         results.push(item)
       })
-      console.log(res)
       setNewsList(results)
     })
   }, [])
