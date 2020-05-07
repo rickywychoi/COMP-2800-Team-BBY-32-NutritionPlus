@@ -1,6 +1,7 @@
 import { useRouter } from 'next/router'
+import Link from 'next/link'
 import { useState, useEffect } from 'react'
-import { Button, Accordion, Card } from 'react-bootstrap'
+import { Button, Accordion, Card, OverlayTrigger, Popover } from 'react-bootstrap'
 import { connect } from 'react-redux'
 import axios from 'axios'
 import firebase from 'firebase'
@@ -296,10 +297,6 @@ const ItemDetailsPage = (props) => {
     })
   }, [])
   
-  const goBack = () => {
-    router.back()
-  }
-  
   const reportWrongImg = () => {
     alert("reported.")
   }
@@ -309,10 +306,32 @@ const ItemDetailsPage = (props) => {
       return !prevState
     })
   }
+  
+  const goBack = () => {
+    router.back()
+  }
 
+  const addToCart = () => {
+    console.log("Added")
+  }
+
+  const popover = (
+    <Popover id="popover-basic">
+      <Popover.Title as="h3">Added <strong>{router.query.itemname}</strong> to my cart!</Popover.Title>
+      <Popover.Content>
+        <Link href="/mycart"><a>Checkout your cart.</a></Link>
+      </Popover.Content>
+    </Popover>
+  );
+  
   return (
     <div className={detailStyles.mainBody}>
-      <Button variant="secondary" onClick={goBack}>Go back</Button>
+      <div className={detailStyles.buttonWrapper}>
+        <Button variant="secondary" onClick={goBack}>Go back</Button>
+        <OverlayTrigger trigger="click" placement="bottom" overlay={popover}>
+          <Button variant="success" onClick={addToCart}>Add to Cart</Button>
+        </OverlayTrigger>
+      </div>
       <p>{router.query.fdcId}</p>
       <p>{router.query.itemname}</p>
       {

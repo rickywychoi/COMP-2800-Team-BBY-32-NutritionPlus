@@ -2,6 +2,11 @@
   padding: 3% 10%;
 }
 
+.buttonWrapper {
+  display: flex;
+  justify-content: space-between;
+}
+
 .imgFrame {
   width: 250px;
   height: 250px;
