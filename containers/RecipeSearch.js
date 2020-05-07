@@ -6,13 +6,15 @@ import { Form, Pagination } from 'react-bootstrap'
 import { useState } from 'react'
 import axios from 'axios'
 import { USDA_API_KEY } from '../apiKey'
+import { EDAMAM_RECIPE_API_KEY} from '../apiKey'
 
 const RecipeSearch = () => {
   const [search, setSearch] = useState("")
   const [result, setResult] = useState([])
   const [pagination, setPagination] = useState([])
   const [totalPages, setTotalPages] = useState()
-  const url = `https://api.nal.usda.gov/fdc/v1/foods/search?API_KEY=${USDA_API_KEY}`
+  const urlUSDA = `https://api.nal.usda.gov/fdc/v1/foods/search?API_KEY=${USDA_API_KEY}`
+  const url = `https://api.edamam.com/search?app_id=6b733ca0&app_key=${EDAMAM_RECIPE_API_KEY}`
   
   const pageSizeLimit = 15
   const searchLimit = 10000
@@ -20,11 +22,12 @@ const RecipeSearch = () => {
   const handleSearchChange = e => {
     e.preventDefault()
     let value = e.target.value
+    console.log(value)
     setSearch(value)
     let results = []
     axios.get(url, {
       params: {
-        query: value,
+        q: value,
         pageSize: pageSizeLimit
       }
     }).then(res => {
