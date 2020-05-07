@@ -25,3 +25,21 @@
     border-left: none;
     cursor: pointer;
 }
+
+.results {
+    margin-top: 150px;
+}
+
+.listItem {
+    padding: 2px 0;
+    border-bottom: 1px solid #CFD4DA;
+}
+  
+.itemLink:hover {
+    text-decoration: none;
+}
+  
+.pagination {
+    margin-top: 1.5em;
+    justify-content: center;
+}
