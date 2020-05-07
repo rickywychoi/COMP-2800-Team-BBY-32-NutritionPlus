@@ -9,34 +9,33 @@ const MenuQuestionnaire = () => {
     const [search, setSearch] = useState("")
     const [result, setResult] = useState([]) 
     let value
-    // console.log('EDAMAM_RECIPE_APP_ID:', EDAMAM_RECIPE_APP_ID);
-    // console.log('EDAMAM_RECIPE_APP_KEY:', EDAMAM_RECIPE_APP_KEY);
-    const url = `https://api.edamam.com/search?q=${value}&app_id=${EDAMAM_RECIPE_APP_ID}&app_key=${EDAMAM_RECIPE_APP_KEY}`
+
+    const url = `https://api.edamam.com/search?&app_id=${EDAMAM_RECIPE_APP_ID}&app_key=${EDAMAM_RECIPE_APP_KEY}`
 
     const handleSearchInput = event => {
         // console.log('This happens when you change the text')
+        // console.log(value)
         value = event.target.value
-        console.log(value)
-    }
-
-    const findValue = a => {
-        console.log(value)
+        setSearch(value)
     }
 
     const handleSearchQuery = e => {
-        console.log(value);
+        console.log(search);
+        let results = []
         axios.get(url, {
           params: {
-            q: value,
+            q: search,
             // pageSize: 20
           }
         }).then(
           res => {
             console.log(res.data)
-            setResult(res.data.recipe)
+            // console.log(res.data.hits)
+            res.data.hits.forEach(item => results.push(item))
+            setResult(results)
           }
         )
-      }
+    }
 
     return (
         <div className={menuQuestionnaireStyles.body}>
@@ -57,22 +56,7 @@ const MenuQuestionnaire = () => {
                     Search
                 </Button>
             </div>
-            <Button className = {menuQuestionnaireStyles.button}
-                    onClick = {findValue}>Value</Button>
-            <ul className={menuQuestionnaireStyles.list}>
-                {result.map(item => {
-                return (
-                    <li key={item.fdcId}>
-                    <Link href="/search/[fdcId]" as={`/search/${item.fdcId}`}>
-                        <a>
-                        {item.description}
-                        {item.brandOwner ? " - " + item.brandOwner : null}
-                        </a>
-                    </Link>
-                    </li>
-                )
-                })}
-            </ul>
+            
         </div>
     )
 }
