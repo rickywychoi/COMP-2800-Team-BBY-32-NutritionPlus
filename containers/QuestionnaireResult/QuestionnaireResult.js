@@ -14,7 +14,6 @@ if (!firebase.apps.length) {
 }
 let db = firebase.firestore()
 
-
 const QuestionnaireResult = (props) => {
   const [isInfants, setInfants] = useState(false)
   const [isChildren, setChildren] = useState(false)
@@ -37,48 +36,54 @@ const QuestionnaireResult = (props) => {
         data.infants.macronutrientsSodium.forEach(nut => {
           dailyValue.push({
             name: nut.name,
-            value: parseFloat(nut.value)
+            value: parseFloat(nut.value),
+            id: nut.id
           })
         })
         data.infants.vitaminMineral.forEach(nut => {
           dailyValue.push({
             name: nut.name,
-            value: parseFloat(nut.value)
+            value: parseFloat(nut.value),
+            id: nut.id
           })
         })
       } else if (user.age >= 1 && user.age < 4) {
         data.children.macronutrientsSodium.forEach(nut => {
           dailyValue.push({
             name: nut.name,
-            value: parseFloat(nut.value)
+            value: parseFloat(nut.value),
+            id: nut.id
           })
         })
         data.children.vitaminMineral.forEach(nut => {
           dailyValue.push({
             name: nut.name,
-            value: parseFloat(nut.value)
+            value: parseFloat(nut.value),
+            id: nut.id
           })
         })
       } else if (user.age >= 4) {
         data.adults.macronutrientsSodium.forEach(nut => {
           dailyValue.push({
             name: nut.name,
-            value:parseFloat(nut.value)
+            value:parseFloat(nut.value),
+            id: nut.id
           })
         })
         data.adults.vitaminMineral.forEach(nut => {
           dailyValue.push({
             name: nut.name,
-            value: parseFloat(nut.value)
+            value: parseFloat(nut.value),
+            id: nut.id
           })
         })
       }
+      db.collection('users').doc(props.currentUser.uid).update({
+        healthInfo: {
+          dailyValue: dailyValue
+        }
+      })
     }
-    db.collection('users').doc(props.currentUser.uid).update({
-      healthInfo: {
-        dailyValue: dailyValue
-      }
-    })
   })
 
   return (

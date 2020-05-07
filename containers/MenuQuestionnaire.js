@@ -11,12 +11,12 @@ const MenuQuestionnaire = () => {
     let value
     // console.log('EDAMAM_RECIPE_APP_ID:', EDAMAM_RECIPE_APP_ID);
     // console.log('EDAMAM_RECIPE_APP_KEY:', EDAMAM_RECIPE_APP_KEY);
-    const url = `https://api.edamam.com/search?q=${value}&app_id=${EDAMAM_RECIPE_APP_ID}&app_key=${EDAMAM_RECIPE_APP_KEY}`
+    const url = `https://api.edamam.com/search?&app_id=${EDAMAM_RECIPE_APP_ID}&app_key=${EDAMAM_RECIPE_APP_KEY}`
 
     const handleSearchInput = event => {
         // console.log('This happens when you change the text')
         value = event.target.value
-        console.log(value)
+        setSearch(value)
     }
 
     const findValue = a => {
@@ -24,10 +24,11 @@ const MenuQuestionnaire = () => {
     }
 
     const handleSearchQuery = e => {
-        console.log(value);
+        // console.log(e.target.value)
+        console.log(typeof search);
         axios.get(url, {
           params: {
-            q: value,
+            q: search,
             // pageSize: 20
           }
         }).then(

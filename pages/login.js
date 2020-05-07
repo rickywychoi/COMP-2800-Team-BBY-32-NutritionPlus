@@ -59,13 +59,17 @@ class SignInScreen extends React.Component {
 
         // firestore
         if (user) {
-          db.collection('users').doc(user.uid).set({
-            email: user.email,
-            uid: user.uid,
-            name: user.displayName,
-            healthInfo: {},
-            cart: [],
-            recipes: []
+          db.collection('users').doc(user.uid).get().then(doc => {
+            if (!doc.exists) {
+              db.collection('users').doc(user.uid).set({
+                email: user.email,
+                uid: user.uid,
+                name: user.displayName,
+                healthInfo: {},
+                cart: [],
+                recipes: []
+              })
+            }
           })
         }
         
@@ -232,7 +236,7 @@ class SignInScreen extends React.Component {
         </div>
       )
     }
-    this.props.router.replace("/")
+    this.props.router.back()
     return null
   }
 }

@@ -4,31 +4,37 @@
       {
         "name": "Fat",
         "value": "44 g",
+        "id": "1",
         "url": "https://www.webmd.com/food-recipes/features/truth-about-fats#1"
       },
       {
         "name": "Sum of saturated fatty acids and trans fatty acids",
         "value": "10 g",
+        "id": "2",
         "url": "https://www.webmd.com/food-recipes/features/good-fats-bad-fats#1"
       },
       {
         "name": "Fibre",
         "value": "14 g",
+        "id": "3",
         "url": "https://www.webmd.com/diet/guide/fiber-how-much-do-you-need#1"
       },
       {
         "name": "Sugars",
         "value": "50 g",
+        "id": "4",
         "url": "https://www.webmd.com/diabetes/features/how-sugar-affects-your-body"
       },
       {
         "name": "Cholesterol",
         "value": "300 mg",
+        "id": "5",
         "url": "https://www.webmd.com/cholesterol-management/default.htm"
       },
       {
         "name": "Sodium",
         "value": "1500 mg",
+        "id": "6",
         "url": "https://www.webmd.com/vitamins/ai/ingredientmono-1535/sodium"
       }
     ],
@@ -36,136 +42,163 @@
       {
         "name": "Potassium",
         "value": "700 mg",
+        "id": "7",
         "url": "https://www.webmd.com/diet/foods-rich-in-potassium"
       },
       {
         "name": "Calcium",
         "value": "260 mg",
+        "id": "8",
         "url": "https://www.webmd.com/vitamins-and-supplements/calcium"
       },
       {
         "name": "Iron",
         "value": "11 mg",
+        "id": "9",
         "url": "https://www.webmd.com/vitamins-and-supplements/features/iron-supplements"
       },
       {
         "name": "Vitamin A",
         "value": "500 µg",
+        "id": "10",
         "url": "https://www.webmd.com/vitamins/ai/ingredientmono-964/vitamin-a"
       },
       {
         "name": "Vitamin C",
         "value": "50 mg",
+        "id": "11",
         "url": "https://www.webmd.com/diet/features/the-benefits-of-vitamin-c#1"
       },
       {
         "name": "Vitamin D",
         "value": "10 µg",
+        "id": "12",
         "url": "https://www.webmd.com/food-recipes/features/vitamin-d-vital-role-in-your-health"
       },
       {
         "name": "Vitamin E",
         "value": "5 mg",
+        "id": "13",
         "url": "https://www.webmd.com/diet/supplement-guide-vitamin-e#1"
       },
       {
         "name": "Vitamin K",
         "value": "2.5 µg",
+        "id": "14",
         "url": "https://www.webmd.com/vitamins-and-supplements/ss/slideshow-ways-to-get-vitamin-k"
       },
       {
         "name": "Thiamin, Thiamine or Vitamin B1",
         "value": "0.3 mg",
+        "id": "15",
         "url": "https://www.webmd.com/vitamins/ai/ingredientmono-965/thiamine-vitamin-b1"
       },
       {
         "name": "Riboflavin or Vitamin B2",
         "value": "0.4 mg",
+        "id": "16",
         "url": "https://www.webmd.com/vitamins/ai/ingredientmono-957/riboflavin"
       },
       {
         "name": "Niacin",
         "value": "4 mg",
+        "id": "17",
         "url": "https://www.webmd.com/diet/supplement-guide-niacin#1"
       },
       {
         "name": "Vitamin B6",
         "value": "0.3 mg",
+        "id": "18",
         "url": "https://www.webmd.com/vitamins/ai/ingredientmono-934/pyridoxine-vitamin-b6"
       },
       {
         "name": "Folate",
         "value": "80 µg DFE",
+        "id": "19",
         "url": "https://www.webmd.com/diet/supplement-guide-folic-acid#1"
       },
       {
         "name": "Vitamin B12",
         "value": "0.5 µg",
+        "id": "20",
         "url": "https://www.webmd.com/vitamins/ai/ingredientmono-926/vitamin-b12"
       },
       {
         "name": "Choline",
         "value": "150 mg",
+        "id": "21",
         "url": "https://www.webmd.com/vitamins/ai/ingredientmono-436/choline"
       },
       {
         "name": "Biotin",
         "value": "6 µg",
+        "id": "22",
         "url": "https://www.webmd.com/vitamins/ai/ingredientmono-313/biotin"
       },
       {
         "name": "Pantothenic Acid or Pantothenate",
         "value": "1.8 mg",
+        "id": "23",
         "url": "https://www.webmd.com/vitamins/ai/ingredientmono-853/pantothenic-acid-vitamin-b5"
       },
       {
         "name": "Phosphorous",
         "value": "275 mg",
+        "id": "24",
         "url": "https://www.webmd.com/vitamins-and-supplements/what-is-phosphorus"
       },
       {
         "name": "Iodide",
         "value": "130 µg",
+        "id": "25",
         "url": "https://www.webmd.com/vitamins/ai/ingredientmono-35/iodine"
       },
       {
         "name": "Magnesium",
         "value": "75 mg",
+        "id": "26",
         "url": "https://www.webmd.com/vitamins/ai/ingredientmono-998/magnesium"
       },
       {
         "name": "Zinc",
         "value": "3 mg",
+        "id": "27",
         "url": "https://www.webmd.com/vitamins/ai/ingredientmono-982/zinc"
       },
       {
         "name": "Selenium",
         "value": "20 µg",
+        "id": "28",
         "url": "https://www.webmd.com/vitamins/ai/ingredientmono-1003/selenium"
       },
       {
         "name": "Copper",
         "value": "0.2 mg",
+        "id": "29",
         "url": "https://www.webmd.com/vitamins/ai/ingredientmono-902/copper"
       },
       {
         "name": "Manganese",
         "value": "0.6 mg",
+        "id": "30",
         "url": "https://www.webmd.com/vitamins/ai/ingredientmono-182/manganese"
       },
       {
         "name": "Chromium",
         "value": "5.5 µg",
+        "id": "31",
         "url:": "https://www.webmd.com/vitamins/ai/ingredientmono-932/chromium"
       },
       {
         "name": "Molybdenum",
         "value": "3 µg",
+        "id": "32",
         "url": "https://www.webmd.com/vitamins/ai/ingredientmono-1249/molybdenum"
       },
       {
         "name": "Chloride",
         "value": "570 mg",
+        "id": "33",
         "url": "https://www.uofmhealth.org/health-library/hw6323"
       }
     ]
@@ -175,31 +208,37 @@
       {
         "name": "Fat",
         "value": "44 g",
+        "id": "1",
         "url": "https://www.webmd.com/food-recipes/features/truth-about-fats#1"
       },
       {
         "name": "Sum of saturated fatty acids and trans fatty acids",
         "value": "10 g",
+        "id": "2",
         "url": "https://www.webmd.com/food-recipes/features/good-fats-bad-fats#1"
       },
       {
         "name": "Fibre",
         "value": "14 g",
+        "id": "3",
         "url": "https://www.webmd.com/diet/guide/fiber-how-much-do-you-need#1"
       },
       {
         "name": "Sugars",
         "value": "50 g",
+        "id": "4",
         "url": "https://www.webmd.com/diabetes/features/how-sugar-affects-your-body"
       },
       {
         "name": "Cholesterol",
         "value": "300 mg",
+        "id": "5",
         "url": "https://www.webmd.com/cholesterol-management/default.htm"
       },
       {
         "name": "Sodium",
         "value": "1500 mg",
+        "id": "6",
         "url": "https://www.webmd.com/vitamins/ai/ingredientmono-1535/sodium"
       }
     ],
@@ -207,136 +246,163 @@
       {
         "name": "Potassium",
         "value": "3000 mg",
+        "id": "7",
         "url": "https://www.webmd.com/diet/foods-rich-in-potassium"
       },
       {
         "name": "Calcium",
         "value": "700 mg",
+        "id": "8",
         "url": "https://www.webmd.com/vitamins-and-supplements/calcium"
       },
       {
         "name": "Iron",
         "value": "7 mg",
+        "id": "9",
         "url": "https://www.webmd.com/vitamins-and-supplements/features/iron-supplements"
       },
       {
         "name": "Vitamin A",
         "value": "300 µg",
+        "id": "10",
         "url": "https://www.webmd.com/vitamins/ai/ingredientmono-964/vitamin-a"
       },
       {
         "name": "Vitamin C",
         "value": "15 mg",
+        "id": "11",
         "url": "https://www.webmd.com/diet/features/the-benefits-of-vitamin-c#1"
       },
       {
         "name": "Vitamin D",
         "value": "15 µg",
+        "id": "12",
         "url": "https://www.webmd.com/food-recipes/features/vitamin-d-vital-role-in-your-health"
       },
       {
         "name": "Vitamin E",
         "value": "6 mg",
+        "id": "13",
         "url": "https://www.webmd.com/diet/supplement-guide-vitamin-e#1"
       },
       {
         "name": "Vitamin K",
         "value": "30 µg",
+        "id": "14",
         "url": "https://www.webmd.com/vitamins-and-supplements/ss/slideshow-ways-to-get-vitamin-k"
       },
       {
         "name": "Thiamin, Thiamine or Vitamin B1",
         "value": "0.5 mg",
+        "id": "15",
         "url": "https://www.webmd.com/vitamins/ai/ingredientmono-965/thiamine-vitamin-b1"
       },
       {
         "name": "Riboflavin or Vitamin B2",
         "value": "0.5 mg",
+        "id": "16",
         "url": "https://www.webmd.com/vitamins/ai/ingredientmono-957/riboflavin"
       },
       {
         "name": "Niacin",
         "value": "6 mg",
+        "id": "17",
         "url": "https://www.webmd.com/diet/supplement-guide-niacin#1"
       },
       {
         "name": "Vitamin B6",
         "value": "0.5 mg",
+        "id": "18",
         "url": "https://www.webmd.com/vitamins/ai/ingredientmono-934/pyridoxine-vitamin-b6"
       },
       {
         "name": "Folate",
         "value": "150 µg DFE",
+        "id": "19",
         "url": "https://www.webmd.com/diet/supplement-guide-folic-acid#1"
       },
       {
         "name": "Vitamin B12",
         "value": "0.9 µg",
+        "id": "20",
         "url": "https://www.webmd.com/vitamins/ai/ingredientmono-926/vitamin-b12"
       },
       {
         "name": "Choline",
         "value": "200 mg",
+        "id": "21",
         "url": "https://www.webmd.com/vitamins/ai/ingredientmono-436/choline"
       },
       {
         "name": "Biotin",
         "value": "8 µg",
+        "id": "22",
         "url": "https://www.webmd.com/vitamins/ai/ingredientmono-313/biotin"
       },
       {
         "name": "Pantothenic Acid or Pantothenate",
         "value": "2 mg",
+        "id": "23",
         "url": "https://www.webmd.com/vitamins/ai/ingredientmono-853/pantothenic-acid-vitamin-b5"
       },
       {
         "name": "Phosphorous",
         "value": "460 mg",
+        "id": "24",
         "url": "https://www.webmd.com/vitamins-and-supplements/what-is-phosphorus"
       },
       {
         "name": "Iodide",
         "value": "90 µg",
+        "id": "25",
         "url": "https://www.webmd.com/vitamins/ai/ingredientmono-35/iodine"
       },
       {
         "name": "Magnesium",
         "value": "80 mg",
+        "id": "26",
         "url": "https://www.webmd.com/vitamins/ai/ingredientmono-998/magnesium"
       },
       {
         "name": "Zinc",
         "value": "3 mg",
+        "id": "27",
         "url": "https://www.webmd.com/vitamins/ai/ingredientmono-982/zinc"
       },
       {
         "name": "Selenium",
         "value": "20 µg",
+        "id": "28",
         "url": "https://www.webmd.com/vitamins/ai/ingredientmono-1003/selenium"
       },
       {
         "name": "Copper",
         "value": "0.3 mg",
+        "id": "29",
         "url": "https://www.webmd.com/vitamins/ai/ingredientmono-902/copper"
       },
       {
         "name": "Manganese",
         "value": "1.2 mg",
+        "id": "30",
         "url": "https://www.webmd.com/vitamins/ai/ingredientmono-182/manganese"
       },
       {
         "name": "Chromium",
         "value": "11 µg",
+        "id": "31",
         "url:": "https://www.webmd.com/vitamins/ai/ingredientmono-932/chromium"
       },
       {
         "name": "Molybdenum",
         "value": "17 µg",
+        "id": "32",
         "url": "https://www.webmd.com/vitamins/ai/ingredientmono-1249/molybdenum"
       },
       {
         "name": "Chloride",
         "value": "1500 mg",
+        "id": "33",
         "url": "https://www.uofmhealth.org/health-library/hw6323"
       }
     ]
@@ -346,31 +412,37 @@
       {
         "name": "Fat",
         "value": "75 g",
+        "id": "1",
         "url": "https://www.webmd.com/food-recipes/features/truth-about-fats#1"
       },
       {
         "name": "Sum of saturated fatty acids and trans fatty acids",
         "value": "20 g",
+        "id": "2",
         "url": "https://www.webmd.com/food-recipes/features/good-fats-bad-fats#1"
       },
       {
         "name": "Fibre",
         "value": "28 g",
+        "id": "3",
         "url": "https://www.webmd.com/diet/guide/fiber-how-much-do-you-need#1"
       },
       {
         "name": "Sugars",
         "value": "100 g",
+        "id": "4",
         "url": "https://www.webmd.com/diabetes/features/how-sugar-affects-your-body"
       },
       {
         "name": "Cholesterol",
         "value": "300 mg",
+        "id": "5",
         "url": "https://www.webmd.com/cholesterol-management/default.htm"
       },
       {
         "name": "Sodium",
         "value": "2300 mg",
+        "id": "6",
         "url": "https://www.webmd.com/vitamins/ai/ingredientmono-1535/sodium"
       }
     ],
@@ -378,136 +450,163 @@
       {
         "name": "Potassium",
         "value": "4700 mg",
+        "id": "7",
         "url": "https://www.webmd.com/diet/foods-rich-in-potassium"
       },
       {
         "name": "Calcium",
         "value": "1300 mg",
+        "id": "8",
         "url": "https://www.webmd.com/vitamins-and-supplements/calcium"
       },
       {
         "name": "Iron",
         "value": "18 mg",
+        "id": "9",
         "url": "https://www.webmd.com/vitamins-and-supplements/features/iron-supplements"
       },
       {
         "name": "Vitamin A",
         "value": "900 µg",
+        "id": "10",
         "url": "https://www.webmd.com/vitamins/ai/ingredientmono-964/vitamin-a"
       },
       {
         "name": "Vitamin C",
         "value": "90 mg",
+        "id": "11",
         "url": "https://www.webmd.com/diet/features/the-benefits-of-vitamin-c#1"
       },
       {
         "name": "Vitamin D",
         "value": "20 µg",
+        "id": "12",
         "url": "https://www.webmd.com/food-recipes/features/vitamin-d-vital-role-in-your-health"
       },
       {
         "name": "Vitamin E",
         "value": "15 mg",
+        "id": "13",
         "url": "https://www.webmd.com/diet/supplement-guide-vitamin-e#1"
       },
       {
         "name": "Vitamin K",
         "value": "120 µg",
+        "id": "14",
         "url": "https://www.webmd.com/vitamins-and-supplements/ss/slideshow-ways-to-get-vitamin-k"
       },
       {
         "name": "Thiamin, Thiamine or Vitamin B1",
         "value": "1.2 mg",
+        "id": "15",
         "url": "https://www.webmd.com/vitamins/ai/ingredientmono-965/thiamine-vitamin-b1"
       },
       {
         "name": "Riboflavin or Vitamin B2",
         "value": "1.3 mg",
+        "id": "16",
         "url": "https://www.webmd.com/vitamins/ai/ingredientmono-957/riboflavin"
       },
       {
         "name": "Niacin",
         "value": "16 mg",
+        "id": "17",
         "url": "https://www.webmd.com/diet/supplement-guide-niacin#1"
       },
       {
         "name": "Vitamin B6",
         "value": "1.7 mg",
+        "id": "18",
         "url": "https://www.webmd.com/vitamins/ai/ingredientmono-934/pyridoxine-vitamin-b6"
       },
       {
         "name": "Folate",
         "value": "400 µg DFE",
+        "id": "19",
         "url": "https://www.webmd.com/diet/supplement-guide-folic-acid#1"
       },
       {
         "name": "Vitamin B12",
         "value": "2.4 µg",
+        "id": "20",
         "url": "https://www.webmd.com/vitamins/ai/ingredientmono-926/vitamin-b12"
       },
       {
         "name": "Choline",
         "value": "550 mg",
+        "id": "21",
         "url": "https://www.webmd.com/vitamins/ai/ingredientmono-436/choline"
       },
       {
         "name": "Biotin",
         "value": "30 µg",
+        "id": "22",
         "url": "https://www.webmd.com/vitamins/ai/ingredientmono-313/biotin"
       },
       {
         "name": "Pantothenic Acid or Pantothenate",
         "value": "5 mg",
+        "id": "23",
         "url": "https://www.webmd.com/vitamins/ai/ingredientmono-853/pantothenic-acid-vitamin-b5"
       },
       {
         "name": "Phosphorous",
         "value": "1250 mg",
+        "id": "24",
         "url": "https://www.webmd.com/vitamins-and-supplements/what-is-phosphorus"
       },
       {
         "name": "Iodide",
         "value": "150 µg",
+        "id": "25",
         "url": "https://www.webmd.com/vitamins/ai/ingredientmono-35/iodine"
       },
       {
         "name": "Magnesium",
         "value": "420 mg",
+        "id": "26",
         "url": "https://www.webmd.com/vitamins/ai/ingredientmono-998/magnesium"
       },
       {
         "name": "Zinc",
         "value": "11 mg",
+        "id": "27",
         "url": "https://www.webmd.com/vitamins/ai/ingredientmono-982/zinc"
       },
       {
         "name": "Selenium",
         "value": "55 µg",
+        "id": "28",
         "url": "https://www.webmd.com/vitamins/ai/ingredientmono-1003/selenium"
       },
       {
         "name": "Copper",
         "value": "0.9 mg",
+        "id": "29",
         "url": "https://www.webmd.com/vitamins/ai/ingredientmono-902/copper"
       },
       {
         "name": "Manganese",
         "value": "2.3 mg",
+        "id": "30",
         "url": "https://www.webmd.com/vitamins/ai/ingredientmono-182/manganese"
       },
       {
         "name": "Chromium",
         "value": "35 µg",
+        "id": "31",
         "url:": "https://www.webmd.com/vitamins/ai/ingredientmono-932/chromium"
       },
       {
         "name": "Molybdenum",
         "value": "45 µg",
+        "id": "32",
         "url": "https://www.webmd.com/vitamins/ai/ingredientmono-1249/molybdenum"
       },
       {
         "name": "Chloride",
         "value": "2300 mg",
+        "id": "33",
         "url": "https://www.uofmhealth.org/health-library/hw6323"
       }
     ]

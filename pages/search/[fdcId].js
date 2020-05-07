@@ -1,14 +1,22 @@
 import { useRouter } from 'next/router'
 import { useState, useEffect } from 'react'
 import { Button, Accordion, Card } from 'react-bootstrap'
+import { connect } from 'react-redux'
 import axios from 'axios'
+import firebase from 'firebase'
+import firebaseConfig from '../../firebaseConfig'
 import { GOOGLE_IMAGE_SEARCH_API_KEY, GOOGLE_IMAGE_SEARCH_CX, USDA_API_KEY } from '../../apiKey'
 import detailStyles from '../../styles/ItemDetailsPage.module.css'
+
+if (!firebase.apps.length) {
+  firebase.initializeApp(firebaseConfig);
+}
+let db = firebase.firestore()
 
 // daily search limited to 10,000 queries
 const GOOGLE_API_URL = `https://www.googleapis.com/customsearch/v1?key=${GOOGLE_IMAGE_SEARCH_API_KEY}&cx=${GOOGLE_IMAGE_SEARCH_CX}`
 
-const ItemDetailsPage = () => {
+const ItemDetailsPage = (props) => {
   const router = useRouter()
   const [itemImg, setItemImg] = useState({})
   const [itemName, setItemName] = useState("")
@@ -19,15 +27,32 @@ const ItemDetailsPage = () => {
   const [additionalNutrients, setAdditionalNutrients] = useState(null)
   const [calories, setCalories] = useState({})
   const [foodPortions, setFoodPortions] = useState([])
+  const [userDailyValue, setUserDailyValue] = useState([])
   // const [gramWeight, setGramWeight] = useState(0)
   
-  const FOOD_API_URL = `https://api.nal.usda.gov/fdc/v1/food/${router.query.fdcId}?API_KEY=${USDA_API_KEY}`
+  let FOOD_API_URL = `https://api.nal.usda.gov/fdc/v1/food/${router.query.fdcId}?API_KEY=${USDA_API_KEY}`
   
   useEffect(() => {
     setItemName(router.query.itemname)
     
+    // retrieve daily value of the user
+    if (props.currentUser) {
+      let userDV = []
+      db.collection('users').doc(props.currentUser.uid).get().then(userInfo => {
+        userInfo.data().healthInfo.dailyValue.forEach(nut => {
+          userDV.push(nut)
+        })
+        setUserDailyValue(userDV)
+      }).catch(error => {
+        console.log(error)
+      })
+    }
     // GET request for Food api
-    axios.get(FOOD_API_URL).then(res => {
+    axios.get(FOOD_API_URL, {
+      params: {
+        
+      }
+    }).then(res => {
       setResult(res.data)
       setFoodPortions(res.data.foodPortions)
       let newArray = []
@@ -46,7 +71,6 @@ const ItemDetailsPage = () => {
         }
         if ( myNutrient.name.localeCompare("Total lipid (fat)") == 0
           || myNutrient.name.localeCompare("Fatty acids, total saturated") == 0
-          || myNutrient.name.localeCompare("Fatty acids, total trans") == 0
           || myNutrient.name.localeCompare("Cholesterol") == 0
           || myNutrient.name.localeCompare("Sodium, Na") == 0
           || myNutrient.name.localeCompare("Carbohydrates") == 0
@@ -100,15 +124,156 @@ const ItemDetailsPage = () => {
           || myNutrient.name.toLowerCase().includes("chlori")
           ) {
             extraArray.push({
-            id: myNutrient.id,
-            number: myNutrient.number,
-            name: myNutrient.name,
-            unitName: myNutrient.unitName,
-            isExist: true,
-            group: "additional"
+              id: myNutrient.id,
+              number: myNutrient.number,
+              name: myNutrient.name,
+              unitName: myNutrient.unitName,
+              isExist: true,
+              group: "additional"
+            })
+          }
+          
+          // change each id corresponding to id from daily value
+          newArray.forEach(nut => {
+            if (nut.name.localeCompare("Total lipid (fat)") == 0)
+              nut.id = "1"
+            else if (nut.name.localeCompare("Fatty acids, total saturated") == 0)
+              nut.id = "2"
+            else if (nut.name.localeCompare("Fiber, total dietary") == 0)
+              nut.id = "3"
+            else if (nut.name.localeCompare("Sugars, total including NLEA") == 0)
+              nut.id = "4"
+            else if (nut.name.localeCompare("Cholesterol") == 0)
+              nut.id = "5"
+            else if (nut.name.localeCompare("Sodium, Na") == 0)
+              nut.id = "6"
+            else if (nut.name.localeCompare("Potassium, K") == 0)
+              nut.id = "7"
+            else if (nut.name.localeCompare("Calcium, Ca") == 0)
+              nut.id = "8"
+            else if (nut.name.localeCompare("Iron, Fe") == 0)
+              nut.id = "9"
+            else if (nut.name.localeCompare("Vitamin A, RAE") == 0)
+              nut.id = "10"
+            else if (nut.name.localeCompare("Vitamin C, total ascorbic acid") == 0)
+              nut.id = "11"
+            else if (nut.name.localeCompare("Vitamin D (D2 + D3)") == 0)
+              nut.id = "12"
+            else if (nut.name.localeCompare("Vitamin E (alpha-tocopherol)") == 0)
+              nut.id = "13"
+            else if (nut.name.localeCompare("Vitamin K (phylloquinone)") == 0)
+              nut.id = "14"
+            else if (nut.name.localeCompare("Thiamin") == 0)
+              nut.id = "15"
+            else if (nut.name.localeCompare("Riboflavin") == 0)
+              nut.id = "16"
+            else if (nut.name.localeCompare("Niacin") == 0)
+              nut.id = "17"
+            else if (nut.name.localeCompare("Vitamin B-6") == 0)
+              nut.id = "18"
+            else if (nut.name.localeCompare("Folate, DFE") == 0)
+              nut.id = "19"
+            else if (nut.name.localeCompare("Vitamin B-12") == 0)
+              nut.id = "20"
+            else if (nut.name.toLowerCase().includes("chlori"))
+              nut.id = "21"
+            else if (nut.name.toLowerCase().includes("biotin"))
+              nut.id = "22"
+            else if (nut.name.localeCompare("Pantothenic acid") == 0)
+              nut.id = "23"
+            else if (nut.name.localeCompare("Phosphorus, P") == 0)
+              nut.id = "24"
+            else if (nut.name.localeCompare("Iodine, I") == 0)
+              nut.id = "25"
+            else if (nut.name.localeCompare("Magnesium, Mg") == 0)
+              nut.id = "26"
+            else if (nut.name.localeCompare("Zinc, Zn") == 0)
+              nut.id = "27"
+            else if (nut.name.localeCompare("Selenium, Se") == 0)
+              nut.id = "28"
+            else if (nut.name.localeCompare("Copper, Cu") == 0)
+              nut.id = "29"
+            else if (nut.name.localeCompare("Manganese, Mn") == 0)
+              nut.id = "30"
+            else if (nut.name.toLowerCase().includes("chromium"))
+              nut.id = "31"
+            else if (nut.name.localeCompare("Molybdenum, Mo") == 0)
+              nut.id = "32"
+            else if (nut.name.toLowerCase().includes("chlori"))
+              nut.id = "33"
           })
-        }
+
+          // change each id corresponding to id from daily value
+          extraArray.forEach(nut => {
+            if (nut.name.localeCompare("Total lipid (fat)") == 0)
+              nut.id = "1"
+            else if (nut.name.localeCompare("Fatty acids, total saturated") == 0)
+              nut.id = "2"
+            else if (nut.name.localeCompare("Fiber, total dietary") == 0)
+              nut.id = "3"
+            else if (nut.name.localeCompare("Sugars, total including NLEA") == 0)
+              nut.id = "4"
+            else if (nut.name.localeCompare("Cholesterol") == 0)
+              nut.id = "5"
+            else if (nut.name.localeCompare("Sodium, Na") == 0)
+              nut.id = "6"
+            else if (nut.name.localeCompare("Potassium, K") == 0)
+              nut.id = "7"
+            else if (nut.name.localeCompare("Calcium, Ca") == 0)
+              nut.id = "8"
+            else if (nut.name.localeCompare("Iron, Fe") == 0)
+              nut.id = "9"
+            else if (nut.name.localeCompare("Vitamin A, RAE") == 0)
+              nut.id = "10"
+            else if (nut.name.localeCompare("Vitamin C, total ascorbic acid") == 0)
+              nut.id = "11"
+            else if (nut.name.localeCompare("Vitamin D (D2 + D3)") == 0)
+              nut.id = "12"
+            else if (nut.name.localeCompare("Vitamin E (alpha-tocopherol)") == 0)
+              nut.id = "13"
+            else if (nut.name.localeCompare("Vitamin K (phylloquinone)") == 0)
+              nut.id = "14"
+            else if (nut.name.localeCompare("Thiamin") == 0)
+              nut.id = "15"
+            else if (nut.name.localeCompare("Riboflavin") == 0)
+              nut.id = "16"
+            else if (nut.name.localeCompare("Niacin") == 0)
+              nut.id = "17"
+            else if (nut.name.localeCompare("Vitamin B-6") == 0)
+              nut.id = "18"
+            else if (nut.name.localeCompare("Folate, DFE") == 0)
+              nut.id = "19"
+            else if (nut.name.localeCompare("Vitamin B-12") == 0)
+              nut.id = "20"
+            else if (nut.name.toLowerCase().includes("chlori"))
+              nut.id = "21"
+            else if (nut.name.toLowerCase().includes("biotin"))
+              nut.id = "22"
+            else if (nut.name.localeCompare("Pantothenic acid") == 0)
+              nut.id = "23"
+            else if (nut.name.localeCompare("Phosphorus, P") == 0)
+              nut.id = "24"
+            else if (nut.name.localeCompare("Iodine, I") == 0)
+              nut.id = "25"
+            else if (nut.name.localeCompare("Magnesium, Mg") == 0)
+              nut.id = "26"
+            else if (nut.name.localeCompare("Zinc, Zn") == 0)
+              nut.id = "27"
+            else if (nut.name.localeCompare("Selenium, Se") == 0)
+              nut.id = "28"
+            else if (nut.name.localeCompare("Copper, Cu") == 0)
+              nut.id = "29"
+            else if (nut.name.localeCompare("Manganese, Mn") == 0)
+              nut.id = "30"
+            else if (nut.name.toLowerCase().includes("chromium"))
+              nut.id = "31"
+            else if (nut.name.localeCompare("Molybdenum, Mo") == 0)
+              nut.id = "32"
+            else if (nut.name.toLowerCase().includes("chlori"))
+              nut.id = "33"
+          })
       })
+
       setNutrients(newArray)
       setAdditionalNutrients(extraArray)
     })
@@ -145,7 +310,6 @@ const ItemDetailsPage = () => {
     })
   }
 
-  console.log(result)
   return (
     <div className={detailStyles.mainBody}>
       <Button variant="secondary" onClick={goBack}>Go back</Button>
@@ -219,7 +383,17 @@ const ItemDetailsPage = () => {
                       <strong>{nut.name}</strong> {nut.number}{nut.unitName}
                     </td>
                     <td>
-                      %
+                      {
+                        nut.name.localeCompare("Protein") === 0 || nut.name.localeCompare("Sugars, total including NLEA") === 0
+                          ?
+                        ""
+                          :
+                        userDailyValue.map(dv => {
+                          if (dv.id.localeCompare(nut.id) === 0) {
+                            return Math.ceil(100 * nut.number / dv.value) + "%"
+                          }
+                        })
+                      }
                     </td>
                   </tr>
                     :
@@ -239,7 +413,13 @@ const ItemDetailsPage = () => {
                       <strong>{nut.name}</strong> {nut.number}{nut.unitName}
                     </td>
                     <td>
-                      %
+                      {
+                        userDailyValue.map(dv => {
+                          if (dv.id.localeCompare(nut.id) === 0) {
+                            return Math.ceil(100 * nut.number / dv.value) + "%"
+                          }
+                        })
+                      }
                     </td>
                   </tr>
                     :
@@ -276,7 +456,13 @@ const ItemDetailsPage = () => {
                               <strong>{nut.name}</strong> {nut.number}{nut.unitName}
                             </td>
                             <td>
-                              %
+                              {
+                                userDailyValue.map(dv => {
+                                  if (dv.id.localeCompare(nut.id) === 0) {
+                                    return Math.ceil(100 * nut.number / dv.value) + "%"
+                                  }
+                                })
+                              }
                             </td>
                           </tr>
                             :
@@ -297,4 +483,10 @@ const ItemDetailsPage = () => {
   )
 }
 
-export default ItemDetailsPage
+const mapStateToProps = state => {
+  return {
+    currentUser: state.currentUser
+  }
+}
+
+export default connect(mapStateToProps)(ItemDetailsPage)
