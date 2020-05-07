@@ -1,0 +1,33 @@
+.body {
+    box-sizing: border-box;
+}
+
+.title {
+    text-align: center;
+    margin: 5% 0;
+}
+
+.search {
+    padding: 10px;
+    font-size: 17px;
+    float: left;
+    margin-left: 5%;
+    width: 80%;
+}
+
+.button {
+    float: left;
+    margin-top: 10px;
+    background: #2196F3;
+    color: white;
+    font-size: 17px;
+    border: 1px solid grey;
+    border-left: none;
+    cursor: pointer;
+}
+
+.list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
