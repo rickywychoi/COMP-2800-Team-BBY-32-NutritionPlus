@@ -58,6 +58,17 @@
   border-right: 1px solid grey;
 }
 
+.myCart {
+  margin-bottom: 0;
+  margin-right: 0.9em;
+  padding-right: 0.9em;
+  border-right: 1px solid grey;
+}
+
+.myCart:hover {
+  text-decoration: none;
+}
+
 a.signIn:hover {
   text-decoration: none;
 }

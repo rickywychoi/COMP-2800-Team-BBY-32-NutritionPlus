@@ -51,6 +51,7 @@ const NavBar = (props) => {
                             (
                                 <div className={n.userName}>
                                     <p className={n.greeting}>Hello, {props.currentUser.displayName}</p>
+                                    <Link href="/mycart"><a className={n.myCart}>My Cart</a></Link>
                                     <button onClick={signout} className={n.signoutButton}>Sign out</button>
                                 </div>
                             )
