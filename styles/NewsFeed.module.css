@@ -1,0 +1,31 @@
+.mainBody {
+  display: grid;
+  grid-template-columns: repeat(3, auto);
+  grid-column-gap: 15px;
+  grid-row-gap: 2rem;
+}
+
+.newsItem {
+  justify-self: center;
+  width: 80%; 
+}
+
+.newsItem:hover {
+  text-decoration: none;
+}
+
+.newsImg {
+  max-height: 200px;
+  object-fit: contain;
+}
+
+@media (max-width: 1024px) {
+  .mainBody {
+    grid-template-columns: repeat(1, auto);
+  }
+
+  .newsImg {
+    max-height: 300px;
+    object-fit: contain;
+  }
+}

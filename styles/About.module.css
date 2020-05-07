@@ -1,0 +1,68 @@
+/* screen size less than 400px: mobile */
+.about {
+    padding: 20px 20px 40px 20px;
+    text-align: center;
+    background-color: RGBA(255, 255, 255, 0.8);
+    width: 90%;
+    margin: 20px auto 4em;
+    border: 2px solid rgb(197, 201, 209);
+    border-radius: 12px;
+    box-shadow: rgb(0, 0, 0) 0px 0px 15px;
+    overflow: auto;
+}
+
+.title {
+    text-align: center;
+    margin-bottom: 10px;
+}
+
+.team {
+    display: grid;
+    grid-template-columns: 1fr;
+    margin: 0 auto;
+    text-align: center;
+    width: 65%;
+}
+
+.picture {
+    width: 250px;
+    height: 250px;
+    position: relative;
+    overflow: hidden;
+    border-radius: 50%;
+    margin: auto;
+}
+
+.name {
+    font-size: 20px;
+    font-family: 'Roboto';
+    font-weight: bold;
+    margin-top: 5px;
+}
+
+.bio {
+    font-size: 16px;
+    width: 90%;
+    padding-bottom: 15px;
+    margin: auto;
+}
+
+/* screen size between 400px and 1024px: tablet */
+@media screen and (min-width: 600px){
+    .team {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        grid-column-gap: 60px;
+    }
+}
+
+/* screen size greater than 1025px: desktop */
+@media screen and (min-width: 1025px){
+    .team {
+        display: grid;
+        grid-template-columns: 1fr 1fr 1fr 1fr;
+        margin: 0 auto;
+        width: auto;
+        padding: 0px 5px;
+    }
+}

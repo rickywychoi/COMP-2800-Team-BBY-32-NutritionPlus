@@ -155,7 +155,7 @@ const Questionnaire = (props) => {
     if (validated) {
       props.onSubmitEntryUserInput(userInfo)
       router.push("/questionnaire/result")
-    }    
+    }
   }
 
   const goBack = () => {
@@ -259,7 +259,7 @@ const Questionnaire = (props) => {
             type="number" 
             min="0" 
             max="250" 
-            placeholder="Your weight (example: 177 cm or 70 inches)" 
+            placeholder="Your height (example: 177 cm or 70 inches)" 
             onChange={handleHeightChange} />
           <Form.Control.Feedback type="invalid">
             Please enter your height.

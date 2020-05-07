@@ -1,3 +1,5 @@
+// ItemSearch.js
+
 import searchStyles from '../styles/ItemSearch.module.css'
 import Link from 'next/link'
 import { Form, Pagination } from 'react-bootstrap'
@@ -266,7 +268,6 @@ const ItemSearch = () => {
       setPagination(paginationItems)
     }
     if (nextNumber >= 4 && nextNumber < totalPages - 2) {
-      // console.log("sdfasdfasdf")
       paginationItems.push(<Pagination.First key="first" onClick={() => {handleFirst(nextNumber, totalPages, value)}}/>)
       paginationItems.push(<Pagination.Prev key="prev" onClick={() => {handlePrev(nextNumber, totalPages, value)}}/>)
       paginationItems.push(<Pagination.Item key="firstPage" onClick={() => {handleNumberOne(totalPages, value)}}>{1}</Pagination.Item>)
@@ -321,7 +322,6 @@ const ItemSearch = () => {
       })
       let paginationItems = []
       if (nextNumber < totalPages - 1) {
-        // console.log("sdfasdfasdf")
         paginationItems.push(<Pagination.First key="first" onClick={() => {handleFirst(nextNumber, totalPages, value)}}/>)
         paginationItems.push(<Pagination.Prev key="prev" onClick={() => {handlePrev(nextNumber, totalPages, value)}}/>)
         paginationItems.push(<Pagination.Item key="firstPage" onClick={() => {handleNumberOne(totalPages, value)}}>{1}</Pagination.Item>)
@@ -375,7 +375,6 @@ const ItemSearch = () => {
       setPagination(paginationItems)
     }
     if (number >= 4 && number < totalPages - 2) {
-      // console.log("sdfasdfasdf")
       paginationItems.push(<Pagination.First key="first" onClick={() => {handleFirst(number, totalPages, value)}}/>)
       paginationItems.push(<Pagination.Prev key="prev" onClick={() => {handlePrev(number, totalPages, value)}}/>)
       paginationItems.push(<Pagination.Item key="firstPage" onClick={() => {handleNumberOne(totalPages, value)}}>{1}</Pagination.Item>)

@@ -2,9 +2,18 @@
 
 import resultStyles from '../../styles/QuestionnaireResult.module.css'
 import Link from 'next/link'
+import firebase from 'firebase'
+import firebaseConfig from '../../firebaseConfig'
 import { useState, useEffect } from 'react'
+import { connect } from 'react-redux'
 import { Accordion, Card, Button, Table } from 'react-bootstrap'
 import data from './dailyValue.json'
+
+if (!firebase.apps.length) {
+  firebase.initializeApp(firebaseConfig);
+}
+let db = firebase.firestore()
+
 
 const QuestionnaireResult = (props) => {
   const [isInfants, setInfants] = useState(false)
@@ -20,6 +29,56 @@ const QuestionnaireResult = (props) => {
       setChildren(true)
     else if (user.age >= 4)
       setAdults(true)
+    
+    // firestore
+    let dailyValue = []
+    if (props.currentUser) {
+      if (user.age < 1) {
+        data.infants.macronutrientsSodium.forEach(nut => {
+          dailyValue.push({
+            name: nut.name,
+            value: parseFloat(nut.value)
+          })
+        })
+        data.infants.vitaminMineral.forEach(nut => {
+          dailyValue.push({
+            name: nut.name,
+            value: parseFloat(nut.value)
+          })
+        })
+      } else if (user.age >= 1 && user.age < 4) {
+        data.children.macronutrientsSodium.forEach(nut => {
+          dailyValue.push({
+            name: nut.name,
+            value: parseFloat(nut.value)
+          })
+        })
+        data.children.vitaminMineral.forEach(nut => {
+          dailyValue.push({
+            name: nut.name,
+            value: parseFloat(nut.value)
+          })
+        })
+      } else if (user.age >= 4) {
+        data.adults.macronutrientsSodium.forEach(nut => {
+          dailyValue.push({
+            name: nut.name,
+            value:parseFloat(nut.value)
+          })
+        })
+        data.adults.vitaminMineral.forEach(nut => {
+          dailyValue.push({
+            name: nut.name,
+            value: parseFloat(nut.value)
+          })
+        })
+      }
+    }
+    db.collection('users').doc(props.currentUser.uid).update({
+      healthInfo: {
+        dailyValue: dailyValue
+      }
+    })
   })
 
   return (
@@ -252,4 +311,10 @@ const QuestionnaireResult = (props) => {
   )
 }
 
-export default QuestionnaireResult
+const mapStateToProps = state => {
+  return {
+    currentUser: state.currentUser
+  }
+}
+
+export default connect(mapStateToProps)(QuestionnaireResult)
