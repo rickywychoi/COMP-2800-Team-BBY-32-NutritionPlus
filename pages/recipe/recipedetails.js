@@ -3,7 +3,7 @@ import { Table, Accordion,Button, Card} from 'react-bootstrap'
 import axios from 'axios'
 import { useState, useEffect} from 'react'
 import { useRouter } from 'next/router'
-import {  EDAMAM_RECIPE_API_KEY } from '../../apiKey'
+import {  EDAMAM_RECIPE_APP_KEY } from '../../apiKey'
 import RecipeStyles from '../../styles/RecipeDetails.module.css'
 
 const RecipeDetails = () => { 
@@ -11,7 +11,7 @@ const RecipeDetails = () => {
   // // console.log(router)
   // // console.log(router.query.facid)
 
-    const url = `https://api.edamam.com/search?r=http%3A%2F%2Fwww.edamam.com%2Fontologies%2Fedamam.owl%23recipe_b79327d05b8e5b838ad6cfd9576b30b6&app_id=6b733ca0&app_key=${EDAMAM_RECIPE_API_KEY}`
+    const url = `https://api.edamam.com/search?r=http%3A%2F%2Fwww.edamam.com%2Fontologies%2Fedamam.owl%23recipe_b79327d05b8e5b838ad6cfd9576b30b6&app_id=6b733ca0&app_key=${EDAMAM_RECIPE_APP_KEY}`
     
     const [result, setResult] = useState({})
     const [ing, setIng] = useState([])
