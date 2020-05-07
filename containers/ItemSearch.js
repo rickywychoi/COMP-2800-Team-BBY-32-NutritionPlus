@@ -43,6 +43,7 @@ const ItemSearch = () => {
         <Form.Group controlId="formBasicPassword">
           <Form.Control 
             type="text" 
+            className={searchStyles.searchTerm}
             placeholder="Search items..."
             onChange={handleSearchChange}
           />
