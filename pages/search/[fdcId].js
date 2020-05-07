@@ -63,7 +63,7 @@ const ItemDetailsPage = (props) => {
         if (myNutrient.name.localeCompare("Energy") == 0 && myNutrient.unitName.localeCompare("kcal") == 0) {
           setCalories({
             id: myNutrient.id,
-            number: myNutrient.number,
+            amount: nut.amount,
             name: myNutrient.name,
             unitName: myNutrient.unitName,
             isExist: true,
@@ -81,7 +81,7 @@ const ItemDetailsPage = (props) => {
         ) {
           newArray.push({
             id: myNutrient.id,
-            number: myNutrient.number,
+            amount: nut.amount,
             name: myNutrient.name,
             unitName: myNutrient.unitName,
             isExist: true,
@@ -91,48 +91,48 @@ const ItemDetailsPage = (props) => {
           || myNutrient.name.localeCompare("Calcium, Ca") == 0
           || myNutrient.name.localeCompare("Iron, Fe") == 0
           || myNutrient.name.localeCompare("Potassium, K") == 0
-          ) {
-            newArray.push({
-              id: myNutrient.id,
-              number: myNutrient.number,
-              name: myNutrient.name,
-              unitName: myNutrient.unitName,
-              isExist: true,
-              group: "getMoreOf"
-            })
-          } else if ( myNutrient.name.localeCompare("Vitamin A, RAE") == 0
-          || myNutrient.name.localeCompare("Vitamin C, total ascorbic acid") == 0
-          || myNutrient.name.localeCompare("Vitamin E (alpha-tocopherol)") == 0
-          || myNutrient.name.localeCompare("Vitamin K (phylloquinone)") == 0
-          || myNutrient.name.localeCompare("Thiamin") == 0
-          || myNutrient.name.localeCompare("Riboflavin") == 0
-          || myNutrient.name.localeCompare("Niacin") == 0
-          || myNutrient.name.localeCompare("Vitamin B-6") == 0
-          || myNutrient.name.localeCompare("Folate, DFE") == 0
-          || myNutrient.name.localeCompare("Vitamin B-12") == 0
-          || myNutrient.name.localeCompare("Choline, total") == 0
-          || myNutrient.name.toLowerCase().includes("biotin")
-          || myNutrient.name.localeCompare("Pantothenic acid") == 0
-          || myNutrient.name.localeCompare("Phosphorus, P") == 0
-          || myNutrient.name.localeCompare("Iodine, I") == 0
-          || myNutrient.name.localeCompare("Magnesium, Mg") == 0
-          || myNutrient.name.localeCompare("Zinc, Zn") == 0
-          || myNutrient.name.localeCompare("Selenium, Se") == 0
-          || myNutrient.name.localeCompare("Copper, Cu") == 0
-          || myNutrient.name.localeCompare("Manganese, Mn") == 0
-          || myNutrient.name.toLowerCase().includes("chromium")
-          || myNutrient.name.localeCompare("Molybdenum, Mo") == 0
-          || myNutrient.name.toLowerCase().includes("chlori")
-          ) {
-            extraArray.push({
-              id: myNutrient.id,
-              number: myNutrient.number,
-              name: myNutrient.name,
-              unitName: myNutrient.unitName,
-              isExist: true,
-              group: "additional"
-            })
-          }
+        ) {
+          newArray.push({
+            id: myNutrient.id,
+            amount: nut.amount,
+            name: myNutrient.name,
+            unitName: myNutrient.unitName,
+            isExist: true,
+            group: "getMoreOf"
+          })
+        } else if ( myNutrient.name.localeCompare("Vitamin A, RAE") == 0
+        || myNutrient.name.localeCompare("Vitamin C, total ascorbic acid") == 0
+        || myNutrient.name.localeCompare("Vitamin E (alpha-tocopherol)") == 0
+        || myNutrient.name.localeCompare("Vitamin K (phylloquinone)") == 0
+        || myNutrient.name.localeCompare("Thiamin") == 0
+        || myNutrient.name.localeCompare("Riboflavin") == 0
+        || myNutrient.name.localeCompare("Niacin") == 0
+        || myNutrient.name.localeCompare("Vitamin B-6") == 0
+        || myNutrient.name.localeCompare("Folate, DFE") == 0
+        || myNutrient.name.localeCompare("Vitamin B-12") == 0
+        || myNutrient.name.localeCompare("Choline, total") == 0
+        || myNutrient.name.toLowerCase().includes("biotin")
+        || myNutrient.name.localeCompare("Pantothenic acid") == 0
+        || myNutrient.name.localeCompare("Phosphorus, P") == 0
+        || myNutrient.name.localeCompare("Iodine, I") == 0
+        || myNutrient.name.localeCompare("Magnesium, Mg") == 0
+        || myNutrient.name.localeCompare("Zinc, Zn") == 0
+        || myNutrient.name.localeCompare("Selenium, Se") == 0
+        || myNutrient.name.localeCompare("Copper, Cu") == 0
+        || myNutrient.name.localeCompare("Manganese, Mn") == 0
+        || myNutrient.name.toLowerCase().includes("chromium")
+        || myNutrient.name.localeCompare("Molybdenum, Mo") == 0
+        || myNutrient.name.toLowerCase().includes("chlori")
+        ) {
+          extraArray.push({
+            id: myNutrient.id,
+            amount: nut.amount,
+            name: myNutrient.name,
+            unitName: myNutrient.unitName,
+            isExist: true,
+            group: "additional"
+          })
+        }
           
           // change each id corresponding to id from daily value
           newArray.forEach(nut => {
@@ -386,7 +386,7 @@ const ItemDetailsPage = (props) => {
             </tr>
             <tr>
               <td>Calories</td>
-              <td>{calories.number}</td>
+              <td>{calories.amount}</td>
             </tr>
             <tr>
               <td></td>
@@ -399,7 +399,7 @@ const ItemDetailsPage = (props) => {
                     ?
                   <tr key={nut.id}>
                     <td>
-                      <strong>{nut.name}</strong> {nut.number}{nut.unitName}
+                      <strong>{nut.name}</strong> {nut.amount}{nut.unitName}
                     </td>
                     <td>
                       {
@@ -409,7 +409,7 @@ const ItemDetailsPage = (props) => {
                           :
                         userDailyValue.map(dv => {
                           if (dv.id.localeCompare(nut.id) === 0) {
-                            return Math.ceil(100 * nut.number / dv.value) + "%"
+                            return Math.ceil(100 * nut.amount / dv.value) + "%"
                           }
                         })
                       }
@@ -429,13 +429,13 @@ const ItemDetailsPage = (props) => {
                     ?
                   <tr key={nut.id}>
                     <td>
-                      <strong>{nut.name}</strong> {nut.number}{nut.unitName}
+                      <strong>{nut.name}</strong> {nut.amount}{nut.unitName}
                     </td>
                     <td>
                       {
                         userDailyValue.map(dv => {
                           if (dv.id.localeCompare(nut.id) === 0) {
-                            return Math.ceil(100 * nut.number / dv.value) + "%"
+                            return Math.ceil(100 * nut.amount / dv.value) + "%"
                           }
                         })
                       }
@@ -472,13 +472,13 @@ const ItemDetailsPage = (props) => {
                             ?
                           <tr key={nut.id}>
                             <td>
-                              <strong>{nut.name}</strong> {nut.number}{nut.unitName}
+                              <strong>{nut.name}</strong> {nut.amount}{nut.unitName}
                             </td>
                             <td>
                               {
                                 userDailyValue.map(dv => {
                                   if (dv.id.localeCompare(nut.id) === 0) {
-                                    return Math.ceil(100 * nut.number / dv.value) + "%"
+                                    return Math.ceil(100 * nut.amount / dv.value) + "%"
                                   }
                                 })
                               }
