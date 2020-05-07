@@ -1,56 +1,33 @@
 .body {
-    padding: 3% 10%;
     box-sizing: border-box;
 }
-  
-.mainTitle {
+
+.title {
     text-align: center;
-    margin-bottom: 5%;
+    margin: 5% 0;
 }
 
-/* Float four columns side by side */
-.col {
-    display: flex;
+.search {
+    padding: 10px;
+    font-size: 17px;
     float: left;
-    width: 25%;
-    padding: 0 10px;
-    justify-content: center;
-    align-items: center;
+    margin-left: 5%;
+    width: 80%;
 }
 
-/* Remove extra left and right margins, due to padding in columns */
-.row {
-    display: inline-grid;
-    grid-template-columns: 100% 100%;
-    grid-row-gap: 20px;
+.button {
+    float: left;
+    margin-top: 10px;
+    background: #2196F3;
+    color: white;
+    font-size: 17px;
+    border: 1px solid grey;
+    border-left: none;
+    cursor: pointer;
 }
 
-/* Clear floats after the columns */
-.row:after {
-    content: "";
-    display: table;
-    clear: both;
-}
-
-/* Style the counter cards */
-.card {
-    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2); /* this adds the "card" effect */
-    padding: 16px;
-    display: block;
-    background-color: #f1f1f1;
-}
-
-.img {
-    text-align: center;
-    margin: auto;
-    margin-bottom: 10%;
-}
-
-/* Responsive columns - one column layout (vertical) on small screens */
-@media screen and (max-width: 600px) {
-    .col {
-        width: 100%;
-        display: block;
-        margin-bottom: 20px;
-    }
-}
+.list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
