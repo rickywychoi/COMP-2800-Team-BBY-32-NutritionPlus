@@ -155,7 +155,7 @@ const Questionnaire = (props) => {
     if (validated) {
       props.onSubmitEntryUserInput(userInfo)
       router.push("/questionnaire/result")
-    }    
+    }
   }
 
   const goBack = () => {
