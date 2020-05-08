@@ -1,8 +1,8 @@
 // EntryResult.js
 
 import resultStyles from '../../styles/QuestionnaireResult.module.css'
-import Link from 'next/link'
 import { useState, useEffect } from 'react'
+import { useRouter} from 'next/router'
 import { Accordion, Card, Button, Table } from 'react-bootstrap'
 import data from './dailyValue.json'
 
@@ -11,6 +11,8 @@ const QuestionnaireResult = (props) => {
   const [isChildren, setChildren] = useState(false)
   const [isAdults, setAdults] = useState(false)
   const user = props.userInfo
+
+  const router = useRouter()
 
   useEffect(() => {
     // get data from JSON file
@@ -22,12 +24,18 @@ const QuestionnaireResult = (props) => {
       setAdults(true)
   })
 
+  const goHome = () => {
+    router.push("/")
+  }
+
+  const goRecipe = () => {
+    router.push("/menuQuestionnaire")
+  }
+
   return (
     <>
       <div className={resultStyles.body}>
         <h3>Your average dietary energy intake is <i>{user.eer}</i> kcal/day.</h3>
-        <br />
-        <Link href="/"><a>Back to home</a></Link>
         <Accordion defaultActiveKey="0" className="mt-4">
           <Card>
             <Card.Header>
@@ -40,7 +48,7 @@ const QuestionnaireResult = (props) => {
                 <div className={resultStyles.dvResult}>
                   <div className={resultStyles.informationMsg}>
                     <p>
-                      Click each of nutrient to see a brief information - provided by <a href="https://www.webmd.com/" target="_blank">WebMD</a>.
+                      Click each nutrient to see some information - provided by <a href="https://www.webmd.com/" target="_blank">WebMD</a>.
                     </p>
                   </div>
                   <h2 className={resultStyles.dailyValueTitle}>Part 1 – Daily values for macronutrients and sodium</h2>
@@ -247,6 +255,17 @@ const QuestionnaireResult = (props) => {
             </Accordion.Collapse>
           </Card>
         </Accordion>
+        <br />
+        <div className = {resultStyles.nav}>
+          <Button
+            variant = "secondary"
+            className = {resultStyles.btnHome}
+            onClick = {goHome}>Back to Home</Button>
+          <Button
+            variant = "secondary"
+            className = {resultStyles.btnMenu}
+            onClick = {goRecipe}>Evaluate Your Meal</Button>
+        </div>
       </div>
     </>
   )
