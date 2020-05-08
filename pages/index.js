@@ -1,14 +1,12 @@
 // index.js
 
 import Head from 'next/head'
-import { useRouter } from 'next/router'
 import { connect } from 'react-redux'
 import WelcomeBanner from '../components/UI/WelcomeBanner'
 import NewsFeed from '../components/NewsFeed/NewsFeed'
 import mainHomeStyles from '../styles/mainHome.module.css'
 
 const MainHome = (props) => {
-  const router = useRouter()
 
   return (
     <div>
