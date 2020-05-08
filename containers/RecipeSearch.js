@@ -447,7 +447,13 @@ const RecipeSearch = () => {
         {result.map(item => {
           return (
             <li key={item.recipe.uri} className={searchStyles.listItem}>
-              <Link href="/recipe/[recipeId]?search=" as={`/recipe/${getURI(item.recipe.uri)}?search=${search}`}>
+              <Link 
+              href={{ 
+                pathname: "/recipe/[recipeId]", 
+                query: { search: `${search}` } 
+                }}
+              as={`/recipe/${getURI(item.recipe.uri)}`}
+              >
                 <a className={searchStyles.itemLink}>
                   {item.recipe.label}
                 </a>
