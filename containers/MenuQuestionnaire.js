@@ -417,7 +417,7 @@ const MenuQuestionnaire = () => {
     return (
         <div className={menuQuestionnaireStyles.body}>
             <h1 className = {menuQuestionnaireStyles.title}>Enter a Recent Meal..</h1>
-            <div className = {menuQuestionnaireStyles.searchContainer}>
+            <div className = {menuQuestionnaireStyles.first}>
                 <Form>
                     <Form.Group controlId="formBasicPassword" className = {menuQuestionnaireStyles.search}>
                         <Form.Control 
@@ -435,12 +435,12 @@ const MenuQuestionnaire = () => {
             </div>
 
             <div className = {menuQuestionnaireStyles.second}>
-                <ul className = {menuQuestionnaireStyles.results}>
+                <ul className = {menuQuestionnaireStyles.list}>
                     {result.map(item => {
                         return (
-                            <li key={item.recipe.uri} className={menuQuestionnaireStyles.recipes}>
+                            <li key={item.recipe.uri} className={menuQuestionnaireStyles.listItem}>
                                 <Link href = "/recipe/recipedetails" as = {`/recipe/${item.recipe.uri}`}>
-                                    <a className = {menuQuestionnaireStyles.listItem}>
+                                    <a className = {menuQuestionnaireStyles.itemLink}>
                                         {item.recipe.label}
                                     </a>
                                 </Link>

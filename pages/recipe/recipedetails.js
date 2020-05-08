@@ -44,7 +44,9 @@ const RecipeDetails = () => {
             })}
         </ul>
         <br />
-        <Link href={''+ result.url}><a>See Directions</a></Link> 
+        
+        {/* <Link href={''+ result.url} target="_blank" ><a>See Directions</a></Link>  */}
+
         <Accordion defaultActiveKey="0" className="mt-4">
           
             <Accordion.Toggle as={Button} variant="outline-primary" eventKey="1" className={RecipeStyles.accordionButton}>
@@ -80,7 +82,7 @@ const RecipeDetails = () => {
             </Accordion.Collapse>                             
         </Accordion>
         <br />
-        <Link href='/'><a>Back to Search</a></Link>
+        <Link href='/menuQuestionnaire'><a>Back to Search</a></Link>
         
              
 
