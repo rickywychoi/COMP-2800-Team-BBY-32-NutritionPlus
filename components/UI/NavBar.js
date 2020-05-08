@@ -29,9 +29,8 @@ const NavBar = (props) => {
         <Navbar bg="dark" variant="dark" className = { n.nav }>
             <Navbar.Brand href="/">Nutrition+</Navbar.Brand>
                 <Nav>
-                    <Nav.Link href = "#table">Nutrition Table</Nav.Link>
                     <Nav.Link href="../questionnaire" >Your Intake</Nav.Link>
-                    <Nav.Link href="../search">Nutrition Facts</Nav.Link>
+                    <Nav.Link href="../search">Search an Item</Nav.Link>
                     <Nav.Link href="../about">About Us</Nav.Link>
                 </Nav>
                 <Navbar.Collapse className="justify-content-end">

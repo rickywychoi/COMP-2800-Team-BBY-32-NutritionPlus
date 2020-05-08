@@ -5,7 +5,7 @@ import Link from 'next/link'
 import firebase from 'firebase'
 import firebaseConfig from '../../firebaseConfig'
 import { useState, useEffect } from 'react'
-import { connect } from 'react-redux'
+import { useRouter } from 'next/router'
 import { Accordion, Card, Button, Table } from 'react-bootstrap'
 import data from './dailyValue.json'
 
@@ -15,12 +15,12 @@ if (!firebase.apps.length) {
 let db = firebase.firestore()
 
 const QuestionnaireResult = (props) => {
+  const router = useRouter()
+
   const [isInfants, setInfants] = useState(false)
   const [isChildren, setChildren] = useState(false)
   const [isAdults, setAdults] = useState(false)
   const user = props.userInfo
-
-  const router = useRouter()
 
   useEffect(() => {
     // get data from JSON file
