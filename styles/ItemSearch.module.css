@@ -9,18 +9,23 @@
   margin: 5% 0;
 }
 
-.searchContainer {
-  display: block;
-  margin: 0 5%;
+.container {
+  width: 100%;
+  display: grid;
+  grid-template-columns: 1fr;
+  /* grid-template-rows: 50px, repeat(auto-fill, 120px); */
+  /* grid-row-gap: 1rem; */
+  /* grid-column-gap: 1rem; */
 }
 
+.searchContainer {
+  margin: 0 10px;
+}
 
 .search {
   padding: 10px;
   font-size: 17px;
   float: left;
-  margin-left: 0%;
-  margin-bottom: 10px;
   width: 80%;
 }
 
@@ -28,18 +33,12 @@
   float: right;
   width: 20%;
   margin-top: 10px;
-  margin-bottom: 10px;
   background: #2196F3;
   color: white;
   font-size: 17px;
   border: 1px solid grey;
   border-left: none;
   cursor: pointer;
-}
-
-.listContainer {
-  display: block;
-  margin: 0 5%;
 }
 
 .list {
@@ -49,7 +48,6 @@
 }
 
 .listCards {
-  margin-top: 130px;
   display: flex;
   flex-wrap: wrap;
   justify-content: flex-start;
@@ -62,10 +60,10 @@
   border-bottom: 1px solid #CFD4DA;
 }
 
-.itemCard {
+.card {
   margin: 2.5%;
   text-align: center;
-  width: 45%;
+  width: 95%;
   border: 1px solid #CFD4DA;
 }
 
@@ -107,8 +105,23 @@
   font-size: 0.9em;
 }
 
-
 .pagination {
   margin-top: 1.5em;
   justify-content: center;
+}
+
+/* screen size between 400px and 1024px: tablet */
+@media screen and (min-width: 600px){
+  .card {
+    margin: 2.5%;
+    width: 45%;
+  }
+}
+
+/* screen size greater than 1025px: desktop */
+@media screen and (min-width: 1025px){
+  .card {
+    margin: 2.5%;
+    width: 20%;
+  }
 }
