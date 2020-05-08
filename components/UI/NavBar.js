@@ -43,18 +43,11 @@ const NavBar = (props) => {
 
     return (
     <>
-<<<<<<< HEAD
         <Navbar collapseOnSelect expand="lg" bg="dark" variant="dark">
             <Navbar.Brand href="/">Nutrition+</Navbar.Brand>
                 <Navbar.Toggle aria-controls="responsive-navbar-nav" />
                 <Navbar.Collapse id="responsive-navbar-nav">
                 <Nav className="mr-auto">
-=======
-        <Navbar bg="dark" variant="dark" className = { n.nav }>
-            {/* <Navbar.Brand href="/">Nutrition+</Navbar.Brand> */}
-            <Link href="/"><a>Nutrition+</a></Link>
-                <Nav>
->>>>>>> 48a1079d25d2df728564e16bc1e09e550c178ad5
                     <Nav.Link href="/questionnaire" >Your Intake</Nav.Link>
                     <Nav.Link href="/search">Search an Item</Nav.Link>
                     <Nav.Link href="/recipe">Search Recipes</Nav.Link>
