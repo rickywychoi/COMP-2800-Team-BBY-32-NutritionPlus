@@ -3,7 +3,7 @@ import { Table, Accordion,Button, Card} from 'react-bootstrap'
 import axios from 'axios'
 import { useState, useEffect} from 'react'
 import { useRouter } from 'next/router'
-import {  EDAMAM_RECIPE_APP_KEY } from '../../apiKey'
+import { EDAMAM_RECIPE_APP_ID, EDAMAM_RECIPE_APP_KEY } from '../../apiKey'
 import RecipeStyles from '../../styles/RecipeDetails.module.css'
 
 const RecipeDetails = () => { 
@@ -11,11 +11,11 @@ const RecipeDetails = () => {
   const str = router.asPath
   const id = str.substring(56)
   
-    const url = `https://api.edamam.com/search?r=http%3A%2F%2Fwww.edamam.com%2Fontologies%2Fedamam.owl%23recipe_${id}&app_id=6b733ca0&app_key=${EDAMAM_RECIPE_APP_KEY}`
+    const url = `https://api.edamam.com/search?r=http%3A%2F%2Fwww.edamam.com%2Fontologies%2Fedamam.owl%23recipe_${id}&app_id=${EDAMAM_RECIPE_APP_ID}&app_key=${EDAMAM_RECIPE_APP_KEY}`
     
     const [result, setResult] = useState({})
     const [ing, setIng] = useState([])
-    const [nutrients,setNutrients] = useState({})
+    const [nutrients, setNutrients] = useState({})
     
     useEffect(()=>{
       axios.get(url).then(
@@ -55,14 +55,19 @@ const RecipeDetails = () => {
             <Accordion.Collapse eventKey="1">
                 <div className={RecipeStyles.dvResult}>
                     <div>
-                        <Table striped bordered hover>
-                          <thead>
-                            <tr>
+                        <table className={RecipeStyles.table}>
+                          <thead className={RecipeStyles.thead}>
+                            <tr className = {RecipeStyles.trow} >
                               <th>Nutrient</th>
                               <th>Value</th>
                             </tr>
+                            <tr></tr>
                           </thead>
-                           <tbody>                           
+                           <tbody>
+                           <tr>
+                             <th>Calories</th>
+                             <th>{Math.ceil(result.calories)}</th>
+                           </tr>
                             {
                               Object.values(nutrients).slice(1).map(nut => {
                                 return (
@@ -75,7 +80,7 @@ const RecipeDetails = () => {
                             }
 
                           </tbody>  
-                        </Table>
+                        </table>
                       <p>g = Grams; mg = Milligrams; µg = Micrograms</p>
                     </div>              
                 </div>
