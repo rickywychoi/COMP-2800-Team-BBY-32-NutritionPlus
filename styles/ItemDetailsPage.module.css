@@ -2,6 +2,11 @@
   padding: 3% 10%;
 }
 
+.buttonWrapper {
+  display: flex;
+  justify-content: space-between;
+}
+
 .imgFrame {
   width: 250px;
   height: 250px;
@@ -40,4 +45,47 @@
 
 .tbody {
   border-bottom: 1px solid black;
+}
+
+.popupTitle {
+  text-align: center;
+}
+
+.quantityButtonWrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 0.8rem;
+  margin-top: 0.2rem;
+}
+
+.decrement {
+  margin-right: 1.5rem;
+  padding: .2rem .6rem;
+}
+
+.increment {
+  margin-left: 1.5rem;
+  padding: .2rem .6rem;
+}
+
+.quantity {
+  margin-bottom: 0;
+  font-size: 1rem;
+  /* -moz-appearance: textfield; */
+}
+
+/* .quantity::-webkit-outer-spin-button,
+.quantity::-webkit-inner-spin-button  {
+  -webkit-appearance: none;
+  margin: 0;
+} */
+
+
+.reset {
+  display: block;
+  margin: 0 auto;
+  font-size: 0.9rem;
+  padding: .2rem .6rem;
+  margin-bottom: 0.5rem;
 }

@@ -3,7 +3,14 @@ import { Navbar, Nav } from 'react-bootstrap'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
 import { connect } from 'react-redux'
+import firebase from 'firebase'
+import firebaseConfig from '../../firebaseConfig'
 import n from '../../styles/NavBar.module.css'
+
+if (!firebase.apps.length) {
+    firebase.initializeApp(firebaseConfig);
+  }
+  let db = firebase.firestore()
 
 const NavBar = (props) => {
     const router = useRouter()
@@ -24,6 +31,16 @@ const NavBar = (props) => {
         router.push("/login?signout=true")
     }
 
+    // const signedIn = () => {
+    //     firebase.auth().onAuthStateChanged(function(user) {
+    //         if (user) {
+    //             console.log("I am signed in")
+    //         } else {
+    //             console.log("I am signed out")
+    //         }
+    //     });
+    // }
+
     return (
     <>
         <Navbar bg="dark" variant="dark" className = { n.nav }>
@@ -31,7 +48,7 @@ const NavBar = (props) => {
                 <Nav>
                     <Nav.Link href="/questionnaire" >Your Intake</Nav.Link>
                     <Nav.Link href="/search">Search an Item</Nav.Link>
-                    <Nav.Link href="/about">About Us</Nav.Link>
+                    <Nav.Link href="/aboutus">About Us</Nav.Link>
                 </Nav>
                 <Navbar.Collapse className="justify-content-end">
                     <Navbar.Text>
@@ -50,6 +67,8 @@ const NavBar = (props) => {
                             (
                                 <div className={n.userName}>
                                     <p className={n.greeting}>Hello, {props.currentUser.displayName}</p>
+                                    <Link href = "#"><a className={n.myCart}>My List</a></Link>
+                                    <Link href="/mycart"><a className={n.myCart}>My Cart</a></Link>
                                     <button onClick={signout} className={n.signoutButton}>Sign out</button>
                                 </div>
                             )

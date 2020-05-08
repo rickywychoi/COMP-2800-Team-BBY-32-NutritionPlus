@@ -1,6 +1,7 @@
 import { useRouter } from 'next/router'
+import Link from 'next/link'
 import { useState, useEffect } from 'react'
-import { Button, Accordion, Card } from 'react-bootstrap'
+import { Button, Accordion, Card, OverlayTrigger, Popover, Form } from 'react-bootstrap'
 import { connect } from 'react-redux'
 import axios from 'axios'
 import firebase from 'firebase'
@@ -28,6 +29,7 @@ const ItemDetailsPage = (props) => {
   const [calories, setCalories] = useState({})
   const [foodPortions, setFoodPortions] = useState([])
   const [userDailyValue, setUserDailyValue] = useState([])
+  const [quantity, setQuantity] = useState(0)
   // const [gramWeight, setGramWeight] = useState(0)
   
   let FOOD_API_URL = `https://api.nal.usda.gov/fdc/v1/food/${router.query.fdcId}?API_KEY=${USDA_API_KEY}`
@@ -48,11 +50,7 @@ const ItemDetailsPage = (props) => {
       })
     }
     // GET request for Food api
-    axios.get(FOOD_API_URL, {
-      params: {
-        
-      }
-    }).then(res => {
+    axios.get(FOOD_API_URL).then(res => {
       setResult(res.data)
       setFoodPortions(res.data.foodPortions)
       let newArray = []
@@ -62,7 +60,7 @@ const ItemDetailsPage = (props) => {
         if (myNutrient.name.localeCompare("Energy") == 0 && myNutrient.unitName.localeCompare("kcal") == 0) {
           setCalories({
             id: myNutrient.id,
-            number: myNutrient.number,
+            amount: nut.amount,
             name: myNutrient.name,
             unitName: myNutrient.unitName,
             isExist: true,
@@ -80,7 +78,7 @@ const ItemDetailsPage = (props) => {
         ) {
           newArray.push({
             id: myNutrient.id,
-            number: myNutrient.number,
+            amount: nut.amount,
             name: myNutrient.name,
             unitName: myNutrient.unitName,
             isExist: true,
@@ -90,48 +88,48 @@ const ItemDetailsPage = (props) => {
           || myNutrient.name.localeCompare("Calcium, Ca") == 0
           || myNutrient.name.localeCompare("Iron, Fe") == 0
           || myNutrient.name.localeCompare("Potassium, K") == 0
-          ) {
-            newArray.push({
-              id: myNutrient.id,
-              number: myNutrient.number,
-              name: myNutrient.name,
-              unitName: myNutrient.unitName,
-              isExist: true,
-              group: "getMoreOf"
-            })
-          } else if ( myNutrient.name.localeCompare("Vitamin A, RAE") == 0
-          || myNutrient.name.localeCompare("Vitamin C, total ascorbic acid") == 0
-          || myNutrient.name.localeCompare("Vitamin E (alpha-tocopherol)") == 0
-          || myNutrient.name.localeCompare("Vitamin K (phylloquinone)") == 0
-          || myNutrient.name.localeCompare("Thiamin") == 0
-          || myNutrient.name.localeCompare("Riboflavin") == 0
-          || myNutrient.name.localeCompare("Niacin") == 0
-          || myNutrient.name.localeCompare("Vitamin B-6") == 0
-          || myNutrient.name.localeCompare("Folate, DFE") == 0
-          || myNutrient.name.localeCompare("Vitamin B-12") == 0
-          || myNutrient.name.localeCompare("Choline, total") == 0
-          || myNutrient.name.toLowerCase().includes("biotin")
-          || myNutrient.name.localeCompare("Pantothenic acid") == 0
-          || myNutrient.name.localeCompare("Phosphorus, P") == 0
-          || myNutrient.name.localeCompare("Iodine, I") == 0
-          || myNutrient.name.localeCompare("Magnesium, Mg") == 0
-          || myNutrient.name.localeCompare("Zinc, Zn") == 0
-          || myNutrient.name.localeCompare("Selenium, Se") == 0
-          || myNutrient.name.localeCompare("Copper, Cu") == 0
-          || myNutrient.name.localeCompare("Manganese, Mn") == 0
-          || myNutrient.name.toLowerCase().includes("chromium")
-          || myNutrient.name.localeCompare("Molybdenum, Mo") == 0
-          || myNutrient.name.toLowerCase().includes("chlori")
-          ) {
-            extraArray.push({
-              id: myNutrient.id,
-              number: myNutrient.number,
-              name: myNutrient.name,
-              unitName: myNutrient.unitName,
-              isExist: true,
-              group: "additional"
-            })
-          }
+        ) {
+          newArray.push({
+            id: myNutrient.id,
+            amount: nut.amount,
+            name: myNutrient.name,
+            unitName: myNutrient.unitName,
+            isExist: true,
+            group: "getMoreOf"
+          })
+        } else if ( myNutrient.name.localeCompare("Vitamin A, RAE") == 0
+        || myNutrient.name.localeCompare("Vitamin C, total ascorbic acid") == 0
+        || myNutrient.name.localeCompare("Vitamin E (alpha-tocopherol)") == 0
+        || myNutrient.name.localeCompare("Vitamin K (phylloquinone)") == 0
+        || myNutrient.name.localeCompare("Thiamin") == 0
+        || myNutrient.name.localeCompare("Riboflavin") == 0
+        || myNutrient.name.localeCompare("Niacin") == 0
+        || myNutrient.name.localeCompare("Vitamin B-6") == 0
+        || myNutrient.name.localeCompare("Folate, DFE") == 0
+        || myNutrient.name.localeCompare("Vitamin B-12") == 0
+        || myNutrient.name.localeCompare("Choline, total") == 0
+        || myNutrient.name.toLowerCase().includes("biotin")
+        || myNutrient.name.localeCompare("Pantothenic acid") == 0
+        || myNutrient.name.localeCompare("Phosphorus, P") == 0
+        || myNutrient.name.localeCompare("Iodine, I") == 0
+        || myNutrient.name.localeCompare("Magnesium, Mg") == 0
+        || myNutrient.name.localeCompare("Zinc, Zn") == 0
+        || myNutrient.name.localeCompare("Selenium, Se") == 0
+        || myNutrient.name.localeCompare("Copper, Cu") == 0
+        || myNutrient.name.localeCompare("Manganese, Mn") == 0
+        || myNutrient.name.toLowerCase().includes("chromium")
+        || myNutrient.name.localeCompare("Molybdenum, Mo") == 0
+        || myNutrient.name.toLowerCase().includes("chlori")
+        ) {
+          extraArray.push({
+            id: myNutrient.id,
+            amount: nut.amount,
+            name: myNutrient.name,
+            unitName: myNutrient.unitName,
+            isExist: true,
+            group: "additional"
+          })
+        }
           
           // change each id corresponding to id from daily value
           newArray.forEach(nut => {
@@ -296,10 +294,6 @@ const ItemDetailsPage = (props) => {
     })
   }, [])
   
-  const goBack = () => {
-    router.back()
-  }
-  
   const reportWrongImg = () => {
     alert("reported.")
   }
@@ -309,10 +303,89 @@ const ItemDetailsPage = (props) => {
       return !prevState
     })
   }
+  
+  const goBack = () => {
+    router.back()
+  }
 
+  const addToCart = () => {
+    console.log("Added")
+  }
+  
+  // const handleChangeQuantity = e => {
+  //   e.preventDefault()
+  //   console.log("asdfasdfasdf")
+  //   setQuantity(e.target.value)
+  // }
+
+  const incrementQuantity = () => {
+    if (quantity < 99) {
+      setQuantity(prevState => prevState + 1)
+    }
+  }
+
+  const decrementQuantity = () => {
+    if (quantity > 0) {
+      setQuantity(prevState => prevState - 1)
+    }
+  }
+
+  const resetQuantity = () => {
+    setQuantity(0)
+  }
+
+
+  const checkoutItem = () => {
+    if (props.currentUser) {
+      db.collection('users').doc(props.currentUser.uid).get().then(userInfo => {
+        console.log(userInfo.data())
+        // get user's cart from firestore
+        let currentCart = []
+        currentCart.push(...userInfo.data().cart)
+        // add items into cart
+        for (let i = 0; i < quantity; i++) {
+          let addedItem = {
+            itemAddedAt: new Date(),
+            ...result
+          }
+          currentCart.unshift(addedItem)
+        }
+  
+        // store user info object with updated cart in firestore
+        db.collection('users').doc(props.currentUser.uid).update({
+          cart: currentCart
+        }).catch(err => console.log(err))
+
+      }).catch(err => console.log(err))
+    }
+  }
+
+  const popover = (
+    <Popover id="popover-basic">
+      <Popover.Title as="h3" className={detailStyles.popupTitle}>Quantity</Popover.Title>
+      <Popover.Content>
+        <div className={detailStyles.quantityButtonWrapper}>
+          <Button variant="outline-danger" onClick={decrementQuantity} className={detailStyles.decrement}>-</Button>
+          {/* <Form.Group controlId="quantity">
+            <Form.Control type="number" className={detailStyles.quantity} placeholder={quantity} onChange={handleChangeQuantity}/>
+          </Form.Group> */}
+          <p className={detailStyles.quantity}>{quantity}</p>
+          <Button variant="outline-primary" onClick={incrementQuantity} className={detailStyles.increment}>+</Button>
+        </div>
+        <Button variant="danger" onClick={resetQuantity} className={detailStyles.reset}>Reset</Button>
+        <Link href="/mycart"><a onClick={checkoutItem}>Checkout your items.</a></Link>
+      </Popover.Content>
+    </Popover>
+  );
+  
   return (
     <div className={detailStyles.mainBody}>
-      <Button variant="secondary" onClick={goBack}>Go back</Button>
+      <div className={detailStyles.buttonWrapper}>
+        <Button variant="secondary" onClick={goBack}>Go back</Button>
+        <OverlayTrigger trigger="click" placement="bottom" overlay={popover}>
+          <Button variant="success" onClick={addToCart}>Add to Cart</Button>
+        </OverlayTrigger>
+      </div>
       <p>{router.query.fdcId}</p>
       <p>{router.query.itemname}</p>
       {
@@ -367,7 +440,7 @@ const ItemDetailsPage = (props) => {
             </tr>
             <tr>
               <td>Calories</td>
-              <td>{calories.number}</td>
+              <td>{calories.amount}</td>
             </tr>
             <tr>
               <td></td>
@@ -380,7 +453,7 @@ const ItemDetailsPage = (props) => {
                     ?
                   <tr key={nut.id}>
                     <td>
-                      <strong>{nut.name}</strong> {nut.number}{nut.unitName}
+                      <strong>{nut.name}</strong> {nut.amount}{nut.unitName}
                     </td>
                     <td>
                       {
@@ -390,7 +463,7 @@ const ItemDetailsPage = (props) => {
                           :
                         userDailyValue.map(dv => {
                           if (dv.id.localeCompare(nut.id) === 0) {
-                            return Math.ceil(100 * nut.number / dv.value) + "%"
+                            return Math.ceil(100 * nut.amount / dv.value) + "%"
                           }
                         })
                       }
@@ -410,13 +483,13 @@ const ItemDetailsPage = (props) => {
                     ?
                   <tr key={nut.id}>
                     <td>
-                      <strong>{nut.name}</strong> {nut.number}{nut.unitName}
+                      <strong>{nut.name}</strong> {nut.amount}{nut.unitName}
                     </td>
                     <td>
                       {
                         userDailyValue.map(dv => {
                           if (dv.id.localeCompare(nut.id) === 0) {
-                            return Math.ceil(100 * nut.number / dv.value) + "%"
+                            return Math.ceil(100 * nut.amount / dv.value) + "%"
                           }
                         })
                       }
@@ -453,13 +526,13 @@ const ItemDetailsPage = (props) => {
                             ?
                           <tr key={nut.id}>
                             <td>
-                              <strong>{nut.name}</strong> {nut.number}{nut.unitName}
+                              <strong>{nut.name}</strong> {nut.amount}{nut.unitName}
                             </td>
                             <td>
                               {
                                 userDailyValue.map(dv => {
                                   if (dv.id.localeCompare(nut.id) === 0) {
-                                    return Math.ceil(100 * nut.number / dv.value) + "%"
+                                    return Math.ceil(100 * nut.amount / dv.value) + "%"
                                   }
                                 })
                               }

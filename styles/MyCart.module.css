@@ -1,0 +1,29 @@
+.mainBody {
+  padding: 3% 10%;
+}
+
+.quantityButtonWrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.decrement {
+  margin-right: 1rem;
+  padding: .2rem .6rem;
+}
+
+.increment {
+  margin-left: 1rem;
+  padding: .2rem .6rem;
+}
+
+.quantity {
+  margin-bottom: 0;
+  font-size: 1rem;
+  /* -moz-appearance: textfield; */
+}
+
+.date {
+  text-align: center;
+}

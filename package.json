@@ -10,6 +10,7 @@
   "dependencies": {
     "axios": "^0.19.2",
     "bootstrap": "^4.4.1",
+    "date-fns": "^2.13.0",
     "firebase": "^7.14.2",
     "firebaseui": "^4.5.0",
     "next": "9.3.6",

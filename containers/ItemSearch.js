@@ -1,6 +1,7 @@
 // ItemSearch.js
 
 import searchStyles from '../styles/ItemSearch.module.css'
+import listStyles from '../styles/SearchList.module.css'
 import Link from 'next/link'
 import { Form, Pagination } from 'react-bootstrap'
 import { useState } from 'react'
@@ -425,15 +426,15 @@ const ItemSearch = () => {
           />
         </Form.Group>
       </Form>
-      <ul className={searchStyles.list}>
+      <ul className={listStyles.list}>
         {result.map(item => {
           return (
-            <li key={item.fdcId} className={searchStyles.listItem}>
+            <li key={item.fdcId} className={listStyles.listItem}>
               <Link 
-                href={{pathname: 'search/[fdcId]', query: {itemname: (item.brandOwner ? item.description + " - " + item.brandOwner : item.description)}}} 
+                href={{pathname: '/search/[fdcId]', query: {itemname: (item.brandOwner ? item.description + " - " + item.brandOwner : item.description)}}} 
                 as={`/search/${item.fdcId}?itemname=${item.brandOwner ? item.description + " - " + item.brandOwner : item.description}`}
               >
-                <a className={searchStyles.itemLink}>
+                <a className={listStyles.itemLink}>
                   {item.description}
                   {item.brandOwner ? " - " + item.brandOwner : null}
                 </a>
