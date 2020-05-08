@@ -2,42 +2,48 @@
 
 import searchStyles from '../styles/ItemSearch.module.css'
 import Link from 'next/link'
-import { Form, Pagination } from 'react-bootstrap'
+import { Form, Button, Pagination } from 'react-bootstrap'
 import { useState } from 'react'
 import axios from 'axios'
-import { USDA_API_KEY } from '../apiKey'
-import { EDAMAM_RECIPE_API_KEY} from '../apiKey'
+import { EDAMAM_RECIPE_APP_ID, EDAMAM_RECIPE_APP_KEY } from '../apiKey'
 
 const RecipeSearch = () => {
   const [search, setSearch] = useState("")
   const [result, setResult] = useState([])
   const [pagination, setPagination] = useState([])
   const [totalPages, setTotalPages] = useState()
-  const urlUSDA = `https://api.nal.usda.gov/fdc/v1/foods/search?API_KEY=${USDA_API_KEY}`
-  const url = `https://api.edamam.com/search?app_id=6b733ca0&app_key=${EDAMAM_RECIPE_API_KEY}`
+  const url = `https://api.edamam.com/search?app_id=${EDAMAM_RECIPE_APP_ID}&app_key=${EDAMAM_RECIPE_APP_KEY}`
   
-  const pageSizeLimit = 15
-  const searchLimit = 10000
+  const pageSizeLimit = 10
+  const searchLimit = 100
 
-  const handleSearchChange = e => {
-    e.preventDefault()
+  const handleSearchInput = e => {
     let value = e.target.value
-    console.log(value)
     setSearch(value)
+  }
+
+
+  const handleSearchQuery = e => {
+    e.preventDefault()
+
     let results = []
     axios.get(url, {
       params: {
-        q: value,
-        pageSize: pageSizeLimit
+        q: search,
+        to: pageSizeLimit - 1
       }
     }).then(res => {
-      // console.log(res.data)
-      res.data.foods.forEach(item => results.push(item))
+      // console.log(res.data) // test
+      res.data.hits.forEach(item => results.push(item))
       setResult(results)
-      let maxPage = res.data.totalPages
-      if (res.data.totalPages * pageSizeLimit > searchLimit) {
-        maxPage = Math.ceil(searchLimit / pageSizeLimit)
-      }
+      
+      // original code: maxPage declaration is different
+      // let maxPage = res.data.totalPages
+      // if (res.data.totalPages * pageSizeLimit > searchLimit) {
+      //   maxPage = Math.ceil(searchLimit / pageSizeLimit)
+      // }
+      // ~~ end (original code)
+      let maxPage = searchLimit / pageSizeLimit // brian's code (line 42)
       setTotalPages(maxPage)
       if (maxPage > 5) {
         // console.log("over five")
@@ -46,14 +52,14 @@ const RecipeSearch = () => {
           paginationItems.push(
             <Pagination.Item 
             key={number} 
-            onClick={() => {handlePagination(number, maxPage, value)}}
+            onClick={() => {handlePagination(number, maxPage, search)}}
             active={1 === number}
             >
               {number}
             </Pagination.Item>
           )
         }
-        paginationItems.push(<Pagination.Next key="next" onClick={() => {handleNext(1, maxPage, value)}}/>)
+        paginationItems.push(<Pagination.Next key="next" onClick={() => {handleNext(1, maxPage, search)}}/>)
         setPagination(paginationItems)
       } else {
         // console.log("under five")
@@ -74,31 +80,31 @@ const RecipeSearch = () => {
     })
   }
 
-  const handleFirst = (number, totalPages, value) => {
+  const handleFirst = (number, totalPages, search) => {
     const prevNumber = number - 5
     if (prevNumber > 0) {
       let results = []
       axios.get(url, {
         params: {
-          query: value,
-          pageSize: pageSizeLimit,
-          pageNumber: prevNumber
+          q: search,
+          from: pageSizeLimit * number + 1,
+          to: pageSizeLimit * (prevNumber + 1)
         }
       }).then(res => {
-        res.data.foods.forEach(item => results.push(item))
+        res.data.hits.forEach(item => results.push(item))
         setResult(results)
       })
       let paginationItems = []
       if (prevNumber > 3) {
-        paginationItems.push(<Pagination.First key="first" onClick={() => {handleFirst(prevNumber, totalPages, value)}}/>)
-        paginationItems.push(<Pagination.Prev key="prev" onClick={() => {handlePrev(prevNumber, totalPages, value)}}/>)
-        paginationItems.push(<Pagination.Item key="firstPage" onClick={() => {handleNumberOne(totalPages, value)}}>{1}</Pagination.Item>)
+        paginationItems.push(<Pagination.First key="first" onClick={() => {handleFirst(prevNumber, totalPages, search)}}/>)
+        paginationItems.push(<Pagination.Prev key="prev" onClick={() => {handlePrev(prevNumber, totalPages, search)}}/>)
+        paginationItems.push(<Pagination.Item key="firstPage" onClick={() => {handleNumberOne(totalPages, search)}}>{1}</Pagination.Item>)
         paginationItems.push(<Pagination.Ellipsis key="ell1" disabled/>)
         for (let i = prevNumber - 2; i <= prevNumber + 2; i++) {
           paginationItems.push(
             <Pagination.Item 
               key={i} 
-              onClick={() => {handlePagination(i, totalPages, value)}}
+              onClick={() => {handlePagination(i, totalPages, search)}}
               active={prevNumber === i}
             >
               {i}
@@ -106,35 +112,41 @@ const RecipeSearch = () => {
           )
         }
         paginationItems.push(<Pagination.Ellipsis key="ell2" disabled/>)
-        paginationItems.push(<Pagination.Item key="lastPage" onClick={() => {handleNumberLast(totalPages, value)}}>{totalPages}</Pagination.Item>)
-        paginationItems.push(<Pagination.Next key="next" onClick={() => {handleNext(prevNumber, totalPages, value)}}/>)
-        paginationItems.push(<Pagination.Last key="last" onClick={() => {handleLast(prevNumber, totalPages, value)}}/>)
+        paginationItems.push(<Pagination.Item key="lastPage" onClick={() => {handleNumberLast(totalPages, search)}}>{totalPages}</Pagination.Item>)
+        paginationItems.push(<Pagination.Next key="next" onClick={() => {handleNext(prevNumber, totalPages, search)}}/>)
+        paginationItems.push(<Pagination.Last key="last" onClick={() => {handleLast(prevNumber, totalPages, search)}}/>)
         setPagination(paginationItems)
       }
     }
   }
 
-  const handlePrev = (number, totalPages, value) => {
+  const handlePrev = (number, totalPages, search) => {
     const prevNumber = number - 1
     let results = []
     axios.get(url, {
       params: {
-        query: value,
-        pageSize: pageSizeLimit,
-        pageNumber: prevNumber
+        //option 1: brian's code right now (his: line 125)
+        q: search,
+        from: pageSizeLimit * (prevNumber - 1) + 1,
+        to: pageSizeLimit * number
+
+        //option 2: handleFirst (line 90)
+        // q: search,
+        // from: pageSizeLimit * number + 1,
+        // to: pageSizeLimit * (prevNumber + 1)
       }
     }).then(res => {
-      res.data.foods.forEach(item => results.push(item))
+      res.data.hits.forEach(item => results.push(item))
       setResult(results)
     })
     let paginationItems = []
     if (prevNumber > totalPages - 3) {
-      paginationItems.push(<Pagination.Prev key="less" onClick={() => {handlePrev(prevNumber, totalPages, value)}}/>)
+      paginationItems.push(<Pagination.Prev key="less" onClick={() => {handlePrev(prevNumber, totalPages, search)}}/>)
       for (let i = totalPages - 4; i <= totalPages; i++) {
         paginationItems.push(
           <Pagination.Item 
           key={i} 
-          onClick={() => {handlePagination(prevNumber, totalPages, value)}}
+          onClick={() => {handlePagination(prevNumber, totalPages, search)}}
           active={prevNumber === i}
           >
             {i}
@@ -144,16 +156,16 @@ const RecipeSearch = () => {
       setPagination(paginationItems)
     }
     if (prevNumber > 3 && prevNumber <= totalPages - 3) {
-      // console.log("sdfasdfasdf")
-      paginationItems.push(<Pagination.First key="first" onClick={() => {handleFirst(prevNumber, totalPages, value)}}/>)
-      paginationItems.push(<Pagination.Prev key="prev" onClick={() => {handlePrev(prevNumber, totalPages, value)}}/>)
-      paginationItems.push(<Pagination.Item key="firstPage" onClick={() => {handleNumberOne(totalPages, value)}}>{1}</Pagination.Item>)
+      //console.log("prevNumber > 3 && prevNumber <= " + (totalPages  - 3)) // test
+      paginationItems.push(<Pagination.First key="first" onClick={() => {handleFirst(prevNumber, totalPages, search)}}/>)
+      paginationItems.push(<Pagination.Prev key="prev" onClick={() => {handlePrev(prevNumber, totalPages, search)}}/>)
+      paginationItems.push(<Pagination.Item key="firstPage" onClick={() => {handleNumberOne(totalPages, search)}}>{1}</Pagination.Item>)
       paginationItems.push(<Pagination.Ellipsis key="ell1" disabled/>)
       for (let i = prevNumber - 2; i <= prevNumber + 2; i++) {
         paginationItems.push(
           <Pagination.Item 
             key={i} 
-            onClick={() => {handlePagination(i, totalPages, value)}}
+            onClick={() => {handlePagination(i, totalPages, search)}}
             active={prevNumber === i}
           >
             {i}
@@ -161,9 +173,9 @@ const RecipeSearch = () => {
         )
       }
       paginationItems.push(<Pagination.Ellipsis key="ell2" disabled/>)
-      paginationItems.push(<Pagination.Item key="lastPage" onClick={() => {handleNumberLast(totalPages, value)}}>{totalPages}</Pagination.Item>)
-      paginationItems.push(<Pagination.Next key="next" onClick={() => {handleNext(prevNumber, totalPages, value)}}/>)
-      paginationItems.push(<Pagination.Last key="last" onClick={() => {handleLast(prevNumber, totalPages, value)}}/>)
+      paginationItems.push(<Pagination.Item key="lastPage" onClick={() => {handleNumberLast(totalPages, search)}}>{totalPages}</Pagination.Item>)
+      paginationItems.push(<Pagination.Next key="next" onClick={() => {handleNext(prevNumber, totalPages, search)}}/>)
+      paginationItems.push(<Pagination.Last key="last" onClick={() => {handleLast(prevNumber, totalPages, search)}}/>)
       setPagination(paginationItems)
     }
     if (prevNumber <= 3) {
@@ -171,29 +183,28 @@ const RecipeSearch = () => {
         paginationItems.push(
           <Pagination.Item 
           key={number} 
-          onClick={() => {handlePagination(number, totalPages, value)}}
+          onClick={() => {handlePagination(number, totalPages, search)}}
           active={prevNumber === number}
           >
             {number}
           </Pagination.Item>
         )
       }
-      paginationItems.push(<Pagination.Next key="next" onClick={() => {handleNext(prevNumber, totalPages, value)}}/>)
+      paginationItems.push(<Pagination.Next key="next" onClick={() => {handleNext(prevNumber, totalPages, search)}}/>)
       setPagination(paginationItems)
     }
   }
 
-  const handleNumberOne = (totalPages, value) => {
+  const handleNumberOne = (totalPages, search) => {
     let results = []
     const numberOne = 1
     axios.get(url, {
       params: {
-        query: value,
-        pageSize: pageSizeLimit,
-        pageNumber: numberOne
+        q: search,
+        to: searchLimit
       }
     }).then(res => {
-      res.data.foods.forEach(item => results.push(item))
+      res.data.hits.forEach(item => results.push(item))
       setResult(results)
     })
     let paginationItems = []
@@ -201,37 +212,36 @@ const RecipeSearch = () => {
       paginationItems.push(
         <Pagination.Item 
         key={number} 
-        onClick={() => {handlePagination(number, totalPages, value)}}
+        onClick={() => {handlePagination(number, totalPages, search)}}
         active={1 === number}
         >
           {number}
         </Pagination.Item>
       )
     }
-    paginationItems.push(<Pagination.Next key="more" onClick={() => {handleNext(numberOne, totalPages, value)}}/>)
+    paginationItems.push(<Pagination.Next key="more" onClick={() => {handleNext(numberOne, totalPages, search)}}/>)
     setPagination(paginationItems)
   }
 
-  const handleNumberLast = (totalPages, value) => {
+  const handleNumberLast = (totalPages, search) => {
     let results = []
     const numberLast = totalPages
     axios.get(url, {
       params: {
-        query: value,
-        pageSize: pageSizeLimit,
-        pageNumber: numberLast
+        q: search,
+        to: searchLimit
       }
     }).then(res => {
-      res.data.foods.forEach(item => results.push(item))
+      res.data.hits.forEach(item => results.push(item))
       setResult(results)
     })
     let paginationItems = []
-    paginationItems.push(<Pagination.Prev key="less" onClick={() => {handlePrev(numberLast, totalPages, value)}}/>)
+    paginationItems.push(<Pagination.Prev key="less" onClick={() => {handlePrev(numberLast, totalPages, search)}}/>)
     for (let number = totalPages - 4; number <= totalPages; number++) {
       paginationItems.push(
         <Pagination.Item 
         key={number} 
-        onClick={() => {handlePagination(number, totalPages, value)}}
+        onClick={() => {handlePagination(number, totalPages, search)}}
         active={numberLast === number}
         >
           {number}
@@ -241,17 +251,16 @@ const RecipeSearch = () => {
     setPagination(paginationItems)
   }
 
-  const handleNext = (number, totalPages, value) => {
+  const handleNext = (number, totalPages, search) => {
     let nextNumber = number + 1
     let results = []
     axios.get(url, {
       params: {
-        query: value,
-        pageSize: pageSizeLimit,
-        pageNumber: nextNumber
+        q: search,
+        to: searchLimit
       }
     }).then(res => {
-      res.data.foods.forEach(item => results.push(item))
+      res.data.hits.forEach(item => results.push(item))
       setResult(results)
     })
     let paginationItems = []
@@ -260,26 +269,26 @@ const RecipeSearch = () => {
         paginationItems.push(
           <Pagination.Item 
           key={number} 
-          onClick={() => {handlePagination(nextNumber, totalPages, value)}}
+          onClick={() => {handlePagination(nextNumber, totalPages, search)}}
           active={nextNumber === number}
           >
             {number}
           </Pagination.Item>
         )
       }
-      paginationItems.push(<Pagination.Next key="more" onClick={() => {handleNext(nextNumber, totalPages, value)}}/>)
+      paginationItems.push(<Pagination.Next key="more" onClick={() => {handleNext(nextNumber, totalPages, search)}}/>)
       setPagination(paginationItems)
     }
     if (nextNumber >= 4 && nextNumber < totalPages - 2) {
-      paginationItems.push(<Pagination.First key="first" onClick={() => {handleFirst(nextNumber, totalPages, value)}}/>)
-      paginationItems.push(<Pagination.Prev key="prev" onClick={() => {handlePrev(nextNumber, totalPages, value)}}/>)
-      paginationItems.push(<Pagination.Item key="firstPage" onClick={() => {handleNumberOne(totalPages, value)}}>{1}</Pagination.Item>)
+      paginationItems.push(<Pagination.First key="first" onClick={() => {handleFirst(nextNumber, totalPages, search)}}/>)
+      paginationItems.push(<Pagination.Prev key="prev" onClick={() => {handlePrev(nextNumber, totalPages, search)}}/>)
+      paginationItems.push(<Pagination.Item key="firstPage" onClick={() => {handleNumberOne(totalPages, search)}}>{1}</Pagination.Item>)
       paginationItems.push(<Pagination.Ellipsis key="ell1" disabled/>)
       for (let i = nextNumber - 2; i <= nextNumber + 2; i++) {
         paginationItems.push(
           <Pagination.Item 
             key={i} 
-            onClick={() => {handlePagination(i, totalPages, value)}}
+            onClick={() => {handlePagination(i, totalPages, search)}}
             active={nextNumber === i}
           >
             {i}
@@ -287,18 +296,18 @@ const RecipeSearch = () => {
         )
       }
       paginationItems.push(<Pagination.Ellipsis key="ell2" disabled/>)
-      paginationItems.push(<Pagination.Item key="lastPage" onClick={() => {handleNumberLast(totalPages, value)}}>{totalPages}</Pagination.Item>)
-      paginationItems.push(<Pagination.Next key="next" onClick={() => {handleNext(nextNumber, totalPages, value)}}/>)
-      paginationItems.push(<Pagination.Last key="last" onClick={() => {handleLast(nextNumber, totalPages, value)}}/>)
+      paginationItems.push(<Pagination.Item key="lastPage" onClick={() => {handleNumberLast(totalPages, search)}}>{totalPages}</Pagination.Item>)
+      paginationItems.push(<Pagination.Next key="next" onClick={() => {handleNext(nextNumber, totalPages, search)}}/>)
+      paginationItems.push(<Pagination.Last key="last" onClick={() => {handleLast(nextNumber, totalPages, search)}}/>)
       setPagination(paginationItems)
     }
     if (nextNumber >= totalPages - 2) {
-      paginationItems.push(<Pagination.Prev key="less" onClick={() => {handlePrev(nextNumber, totalPages, value)}}/>)
+      paginationItems.push(<Pagination.Prev key="less" onClick={() => {handlePrev(nextNumber, totalPages, search)}}/>)
       for (let number = totalPages - 4; number <= totalPages; number++) {
         paginationItems.push(
           <Pagination.Item 
           key={number} 
-          onClick={() => {handlePagination(number, totalPages, value)}}
+          onClick={() => {handlePagination(number, totalPages, search)}}
           active={nextNumber === number}
           >
             {number}
@@ -309,31 +318,30 @@ const RecipeSearch = () => {
     }
   }
 
-  const handleLast = (number, totalPages, value) => {
+  const handleLast = (number, totalPages, search) => {
     let nextNumber = number + 5
     if (nextNumber <= totalPages) {
       let results = []
       axios.get(url, {
         params: {
-          query: value,
-          pageSize: pageSizeLimit,
-          pageNumber: nextNumber
+          q: search,
+          to: searchLimit
         }
       }).then(res => {
-        res.data.foods.forEach(item => results.push(item))
+        res.data.hits.forEach(item => results.push(item))
         setResult(results)
       })
       let paginationItems = []
       if (nextNumber < totalPages - 1) {
-        paginationItems.push(<Pagination.First key="first" onClick={() => {handleFirst(nextNumber, totalPages, value)}}/>)
-        paginationItems.push(<Pagination.Prev key="prev" onClick={() => {handlePrev(nextNumber, totalPages, value)}}/>)
-        paginationItems.push(<Pagination.Item key="firstPage" onClick={() => {handleNumberOne(totalPages, value)}}>{1}</Pagination.Item>)
+        paginationItems.push(<Pagination.First key="first" onClick={() => {handleFirst(nextNumber, totalPages, search)}}/>)
+        paginationItems.push(<Pagination.Prev key="prev" onClick={() => {handlePrev(nextNumber, totalPages, search)}}/>)
+        paginationItems.push(<Pagination.Item key="firstPage" onClick={() => {handleNumberOne(totalPages, search)}}>{1}</Pagination.Item>)
         paginationItems.push(<Pagination.Ellipsis key="ell1" disabled/>)
         for (let i = nextNumber - 2; i <= nextNumber + 2; i++) {
           paginationItems.push(
             <Pagination.Item 
               key={i} 
-              onClick={() => {handlePagination(i, totalPages, value)}}
+              onClick={() => {handlePagination(i, totalPages, search)}}
               active={nextNumber === i}
             >
               {i}
@@ -341,24 +349,24 @@ const RecipeSearch = () => {
           )
         }
         paginationItems.push(<Pagination.Ellipsis key="ell2" disabled/>)
-        paginationItems.push(<Pagination.Item key="lastPage" onClick={() => {handleNumberLast(totalPages, value)}}>{totalPages}</Pagination.Item>)
-        paginationItems.push(<Pagination.Next key="next" onClick={() => {handleNext(nextNumber, totalPages, value)}}/>)
-        paginationItems.push(<Pagination.Last key="last" onClick={() => {handleLast(nextNumber, totalPages, value)}}/>)
+        paginationItems.push(<Pagination.Item key="lastPage" onClick={() => {handleNumberLast(totalPages, search)}}>{totalPages}</Pagination.Item>)
+        paginationItems.push(<Pagination.Next key="next" onClick={() => {handleNext(nextNumber, totalPages, search)}}/>)
+        paginationItems.push(<Pagination.Last key="last" onClick={() => {handleLast(nextNumber, totalPages, search)}}/>)
         setPagination(paginationItems)
       }
     }
   }
 
-  const handlePagination = (number, totalPages, value) => {
+  const handlePagination = (number, totalPages, search) => {
     let results = []
     axios.get(url, {
       params: {
-        query: value,
-        pageSize: pageSizeLimit,
-        pageNumber: number
+        q: search,
+        from: pageSizeLimit * (number - 1),
+        to: pageSizeLimit * number - 1
       }
     }).then(res => {
-      res.data.foods.forEach(item => results.push(item))
+      res.data.hits.forEach(item => results.push(item))
       setResult(results)
     })
     let paginationItems = []
@@ -367,26 +375,26 @@ const RecipeSearch = () => {
         paginationItems.push(
           <Pagination.Item 
           key={i} 
-          onClick={() => {handlePagination(i, totalPages, value)}}
+          onClick={() => {handlePagination(i, totalPages, search)}}
           active={number === i}
           >
             {i}
           </Pagination.Item>
         )
       }
-      paginationItems.push(<Pagination.Next key="more" onClick={() => {handleNext(number, totalPages, value)}}/>)
+      paginationItems.push(<Pagination.Next key="more" onClick={() => {handleNext(number, totalPages, search)}}/>)
       setPagination(paginationItems)
     }
     if (number >= 4 && number < totalPages - 2) {
-      paginationItems.push(<Pagination.First key="first" onClick={() => {handleFirst(number, totalPages, value)}}/>)
-      paginationItems.push(<Pagination.Prev key="prev" onClick={() => {handlePrev(number, totalPages, value)}}/>)
-      paginationItems.push(<Pagination.Item key="firstPage" onClick={() => {handleNumberOne(totalPages, value)}}>{1}</Pagination.Item>)
+      paginationItems.push(<Pagination.First key="first" onClick={() => {handleFirst(number, totalPages, search)}}/>)
+      paginationItems.push(<Pagination.Prev key="prev" onClick={() => {handlePrev(number, totalPages, search)}}/>)
+      paginationItems.push(<Pagination.Item key="firstPage" onClick={() => {handleNumberOne(totalPages, search)}}>{1}</Pagination.Item>)
       paginationItems.push(<Pagination.Ellipsis key="ell1" disabled/>)
       for (let i = number - 2; i <= number + 2; i++) {
         paginationItems.push(
           <Pagination.Item 
             key={i} 
-            onClick={() => {handlePagination(i, totalPages, value)}}
+            onClick={() => {handlePagination(i, totalPages, search)}}
             active={number === i}
           >
             {i}
@@ -394,18 +402,18 @@ const RecipeSearch = () => {
         )
       }
       paginationItems.push(<Pagination.Ellipsis key="ell2" disabled/>)
-      paginationItems.push(<Pagination.Item key="lastPage" onClick={() => {handleNumberLast(totalPages, value)}}>{totalPages}</Pagination.Item>)
-      paginationItems.push(<Pagination.Next key="next" onClick={() => {handleNext(number, totalPages, value)}}/>)
-      paginationItems.push(<Pagination.Last key="last" onClick={() => {handleLast(number, totalPages, value)}}/>)
+      paginationItems.push(<Pagination.Item key="lastPage" onClick={() => {handleNumberLast(totalPages, search)}}>{totalPages}</Pagination.Item>)
+      paginationItems.push(<Pagination.Next key="next" onClick={() => {handleNext(number, totalPages, search)}}/>)
+      paginationItems.push(<Pagination.Last key="last" onClick={() => {handleLast(number, totalPages, search)}}/>)
       setPagination(paginationItems)
     }
     if (number >= totalPages - 2) {
-      paginationItems.push(<Pagination.Prev key="less" onClick={() => {handlePrev(number, totalPages, value)}}/>)
+      paginationItems.push(<Pagination.Prev key="less" onClick={() => {handlePrev(number, totalPages, search)}}/>)
       for (let i = totalPages - 4; i <= totalPages; i++) {
         paginationItems.push(
           <Pagination.Item 
           key={i} 
-          onClick={() => {handlePagination(i, totalPages, value)}}
+          onClick={() => {handlePagination(i, totalPages, search)}}
           active={number === i}
           >
             {i}
@@ -419,22 +427,29 @@ const RecipeSearch = () => {
   return (
     <div className={searchStyles.body}>
       <Form>
-        <Form.Group controlId="formBasicPassword">
+        <Form.Group 
+          controlId="formBasicPassword"
+          className={searchStyles.search}>
           <Form.Control 
             type="text" 
-            placeholder="Search items..."
-            onChange={handleSearchChange}
+            placeholder="Search Recipes..."
+            onChange={handleSearchInput}
           />
         </Form.Group>
       </Form>
+      <Button
+        className={searchStyles.button}
+        onClick={handleSearchQuery}>
+          Search
+      </Button>
+
       <ul className={searchStyles.list}>
         {result.map(item => {
           return (
-            <li key={item.fdcId} className={searchStyles.listItem}>
-              <Link href="/search/[fdcId]" as={`/search/${item.fdcId}`}>
+            <li key={item.recipe.uri} className={searchStyles.listItem}>
+              <Link href="/recipe/[recipeId]?search=" as={`/recipe/${getURI(item.recipe.uri)}?search=${search}`}>
                 <a className={searchStyles.itemLink}>
-                  {item.description}
-                  {item.brandOwner ? " - " + item.brandOwner : null}
+                  {item.recipe.label}
                 </a>
               </Link>
             </li>
@@ -446,4 +461,15 @@ const RecipeSearch = () => {
   )
 }
 
-export default RecipeSearch
+function getURI(item) {
+  const searchTerm = "recipe_";
+  const lengthSearch = searchTerm.length;
+
+  let index = item.indexOf(searchTerm) + lengthSearch;
+
+  let uri = item.substr(index);
+  return uri;
+}
+
+
+export default RecipeSearch 

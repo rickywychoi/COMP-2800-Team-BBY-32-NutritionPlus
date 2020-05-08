@@ -5,7 +5,9 @@ const RecipeDetailsPage = () => {
   console.log(router)
   return (
     <div>
-      <p>{router.query.fdcId}</p>
+      {/* <p>{router.query.fdcId}</p> */}
+      <p>{router.query.recipeId}</p>
+      <p>{router.query.search}</p>
     </div>
   )
 }

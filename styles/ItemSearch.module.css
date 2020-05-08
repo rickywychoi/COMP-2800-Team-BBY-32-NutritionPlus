@@ -1,5 +1,27 @@
 .body {
   padding: 3% 10%;
+  box-sizing: border-box;
+}
+
+.search {
+  padding: 10px;
+  font-size: 17px;
+  float: left;
+  margin-left: 0%;
+  margin-bottom: 10px;
+  width: 80%;
+}
+
+.button {
+  float: left;
+  margin-top: 10px;
+  margin-bottom: 10px;
+  background: #2196F3;
+  color: white;
+  font-size: 17px;
+  border: 1px solid grey;
+  border-left: none;
+  cursor: pointer;
 }
 
 .list {
