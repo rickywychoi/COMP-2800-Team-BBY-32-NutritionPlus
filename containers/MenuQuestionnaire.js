@@ -439,7 +439,7 @@ const MenuQuestionnaire = () => {
                     {result.map(item => {
                         return (
                             <li key={item.recipe.uri} className={menuQuestionnaireStyles.recipes}>
-                                <Link href = "#recipeDetail" as = "#recipeDetail">
+                                <Link href = "/recipe/recipedetails" as = {`/recipe/${item.recipe.uri}`}>
                                     <a className = {menuQuestionnaireStyles.listItem}>
                                         {item.recipe.label}
                                     </a>
