@@ -110,7 +110,7 @@
   justify-content: center;
 }
 
-/* screen size between 400px and 1024px: tablet */
+/* screen size between 600px and 1024px: tablet */
 @media screen and (min-width: 600px){
   .card {
     margin: 2.5%;
