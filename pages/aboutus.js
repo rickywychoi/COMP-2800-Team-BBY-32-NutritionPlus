@@ -41,11 +41,11 @@ const About = () => {
 
                 <div className = {aboutStyle.member}>
                     <div className = {aboutStyle.picture}>
-                        <img className = {aboutStyle.img} src = "https://via.placeholder.com/250" alt = "Jason Picture"></img>
+                        <img className = {aboutStyle.img} src = "./images/jason_pic.jpg" alt = "Jason Picture"></img>
                     </div>
                     <p className = {aboutStyle.name}>Jason Cheung</p>
                     <div className = {aboutStyle.bio}>
-                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin vehicula ligula eget tellus scelerisque dictum. Nunc quis imperdiet odio. Aliquam sollicitudin nisi vel ipsum bibendum commodo. Donec vel mauris et elit tempus ornare. Sed at venenatis odio, vel tempus purus. Aliquam erat volutpat. </p>
+                        <p>Jason wants to make sure people are aware of the importance of nutrition and healthy foods. During the COVID-19 pandemic, one of the best ways to protect your physical and mental wellbeing is to take care of your health with a nutritious diet. </p>
                     </div>
                 </div>
 
