@@ -1,0 +1,10 @@
+.body{
+    background-image: url("../public/images/nutrition.jpg") ;
+    background-size: cover;  
+}
+.head{
+    color:white;
+}
+.p{
+    color: white;
+}

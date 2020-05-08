@@ -3,6 +3,7 @@ import { useState, setState } from 'react'
 import Link from 'next/link'
 import { Form, Button, Pagination } from 'react-bootstrap'
 import menuQuestionnaireStyles from '../styles/menuQuestionnaire.module.css'
+import searchStyles from '../styles/ItemSearch.module.css'
 import { EDAMAM_RECIPE_APP_ID, EDAMAM_RECIPE_APP_KEY } from '../apiKey'
 
 const MenuQuestionnaire = () => {
@@ -414,44 +415,112 @@ const MenuQuestionnaire = () => {
         }
       }
 
-    return (
-        <div className={menuQuestionnaireStyles.body}>
-            <h1 className = {menuQuestionnaireStyles.title}>Enter a Recent Meal..</h1>
-            <div className = {menuQuestionnaireStyles.first}>
-                <Form>
-                    <Form.Group controlId="formBasicPassword" className = {menuQuestionnaireStyles.search}>
-                        <Form.Control 
-                            type="text" 
-                            placeholder="Search Menu..."
-                            onChange = {handleSearchInput}
-                        />
-                    </Form.Group>
-                </Form>
-                <Button
-                 className = {menuQuestionnaireStyles.button}
-                 onClick = {handleSearchQuery}>
-                    Search
-                </Button>
-            </div>
+    // return (
+    //     <div className={menuQuestionnaireStyles.body}>
+    //         <h1 className = {menuQuestionnaireStyles.title}>Enter a Recent Meal..</h1>
+    //         <div className = {menuQuestionnaireStyles.first}>
+    //             <Form>
+    //                 <Form.Group controlId="formBasicPassword" className = {menuQuestionnaireStyles.search}>
+    //                     <Form.Control 
+    //                         type="text" 
+    //                         placeholder="Search Menu..."
+    //                         onChange = {handleSearchInput}
+    //                     />
+    //                 </Form.Group>
+    //             </Form>
+    //             <Button
+    //              className = {menuQuestionnaireStyles.button}
+    //              onClick = {handleSearchQuery}>
+    //                 Search
+    //             </Button>
+    //         </div>
 
-            <div className = {menuQuestionnaireStyles.second}>
-                <ul className = {menuQuestionnaireStyles.list}>
-                    {result.map(item => {
-                        return (
-                            <li key={item.recipe.uri} className={menuQuestionnaireStyles.listItem}>
-                                <Link href = "/recipe/recipedetails" as = {`/recipe/${item.recipe.uri}`}>
-                                    <a className = {menuQuestionnaireStyles.itemLink}>
-                                        {item.recipe.label}
-                                    </a>
-                                </Link>
-                            </li>
-                        )
-                    })}
-                </ul>
-            </div>
-            <Pagination className={menuQuestionnaireStyles.pagination}>{pagination}</Pagination>
-        </div>
-    )
+    //         <div className = {menuQuestionnaireStyles.second}>
+    //             <ul className = {menuQuestionnaireStyles.list}>
+    //                 {result.map(item => {
+    //                     return (
+    //                         <li key={item.recipe.uri} className={menuQuestionnaireStyles.listItem}>
+    //                             <Link href = "/recipe/recipedetails" as = {`/recipe/${item.recipe.uri}`}>
+    //                                 <a className = {menuQuestionnaireStyles.itemLink}>
+    //                                     {item.recipe.label}
+    //                                 </a>
+    //                             </Link>
+    //                         </li>
+    //                     )
+    //                 })}
+    //             </ul>
+    //         </div>
+    //         <Pagination className={menuQuestionnaireStyles.pagination}>{pagination}</Pagination>
+    //     </div>
+    // )
+    
+    // HTML elements
+  return (
+    <div className={searchStyles.body}>
+      <h1 className={searchStyles.title}>Find a Recent Meal...</h1>
+      <div className={searchStyles.searchContainer}>
+        <Form>
+         <Form.Group 
+            controlId="formBasicPassword"
+            className={searchStyles.search}>
+            <Form.Control 
+              type="text" 
+              placeholder="Search Menu..."
+              onChange={handleSearchInput}
+            />
+          </Form.Group>
+        </Form>
+        <Button
+          className={searchStyles.button}
+          onClick={handleSearchQuery}>
+            Search
+        </Button>        
+      </div>
+
+      <div className={searchStyles.listContainer}>
+      <ul className={searchStyles.list, searchStyles.listCards}>
+        {result.map(item => {
+          return (
+            <li key={item.recipe.uri} className={searchStyles.listItem, searchStyles.itemCard}>
+              <Link 
+              href={{ 
+                pathname: "/recipe/[recipeId]", 
+                query: { 
+                  search: `${search}`,
+                  prevPage: "/menuQuestionnaire"
+               } 
+                }}
+              as={`/recipe/${getURI(item.recipe.uri)}`}
+              >
+                <a className={searchStyles.itemLink}>
+                  <img className={searchStyles.itemImage} src={item.recipe.image} alt={item.recipe.label} />
+                  <b>{item.recipe.label}</b>
+                  <p className={searchStyles.itemRecipeData}>{Math.floor(item.recipe.calories)}
+                  <span className={searchStyles.itemRecipeLabel}> Calories | </span>
+                  {item.recipe.ingredients.length}
+                  <span className={searchStyles.itemRecipeLabel}> Ingredients</span>
+                  </p>
+                  <p className={searchStyles.itemRecipeSource}>{item.recipe.source}</p>
+                </a>
+              </Link>
+            </li>
+          )
+        })}
+      </ul>
+      </div>
+      <Pagination className={searchStyles.pagination}>{pagination}</Pagination>
+    </div>
+  )
+}
+
+function getURI(item) {
+  const searchTerm = "recipe_";
+  const lengthSearch = searchTerm.length;
+
+  let index = item.indexOf(searchTerm) + lengthSearch;
+
+  let uri = item.substr(index);
+  return uri;
 }
 
 export default MenuQuestionnaire;

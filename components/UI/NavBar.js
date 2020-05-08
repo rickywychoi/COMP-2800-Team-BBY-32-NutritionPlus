@@ -49,6 +49,7 @@ const NavBar = (props) => {
                 <Nav>
                     <Nav.Link href="/questionnaire" >Your Intake</Nav.Link>
                     <Nav.Link href="/search">Search an Item</Nav.Link>
+                    <Nav.Link href="/recipe">Search Recipes</Nav.Link>
                     <Nav.Link href="/aboutus">About Us</Nav.Link>
                 </Nav>
                 <Navbar.Collapse className="justify-content-end">
