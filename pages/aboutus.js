@@ -5,7 +5,17 @@ const About = () => {
         < >
             <div className = {aboutStyle.about}>
                 <h1 className = {aboutStyle.title}>About Us</h1>
-                <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.</p>
+                <p>Our team is devoted to guaranteeing the health of individuals
+                     during COVID-19. These circumstances call for an even greater
+                     need to take care of our health, but it's important to do so 
+                     on an everyday basis. Our application helps everyone to easily
+                     find their individual requirements, but also to be able to
+                     evaluate their meals and common snacks. Overcoming the need to 
+                     find resources on different sites will also help users' willingness
+                     to take care of their health. By taking care of our individual 
+                     health and being aware of current circumstances, the
+                     world will be able to overcome this pandemic sooner than later. 
+                </p>
             </div>
             <h1 className = {aboutStyle.title}>Meet the Team</h1>
             <div className = {aboutStyle.team}>  
