@@ -354,7 +354,9 @@ const ItemDetailsPage = (props) => {
         // store user info object with updated cart in firestore
         db.collection('users').doc(props.currentUser.uid).update({
           cart: currentCart
-        }).catch(err => console.log(err))
+        }).then(
+          router.push("/mycart")
+        ).catch(err => console.log(err))
 
       }).catch(err => console.log(err))
     }
@@ -372,8 +374,9 @@ const ItemDetailsPage = (props) => {
           <p className={detailStyles.quantity}>{quantity}</p>
           <Button variant="outline-primary" onClick={incrementQuantity} className={detailStyles.increment}>+</Button>
         </div>
-        <Button variant="danger" onClick={resetQuantity} className={detailStyles.reset}>Reset</Button>
-        <Link href="/mycart"><a onClick={checkoutItem}>Checkout your items.</a></Link>
+        <Button variant="outline-danger" onClick={resetQuantity} className={detailStyles.reset}>Reset</Button>
+        <button variant="outline-success" onClick={checkoutItem} className={detailStyles.checkoutButton}>Checkout your items.</button> 
+        {/* <Link href="/mycart"><a onClick={checkoutItem}>Checkout your items.</a></Link> */}
       </Popover.Content>
     </Popover>
   );
@@ -382,9 +385,17 @@ const ItemDetailsPage = (props) => {
     <div className={detailStyles.mainBody}>
       <div className={detailStyles.buttonWrapper}>
         <Button variant="secondary" onClick={goBack}>Go back</Button>
-        <OverlayTrigger trigger="click" placement="bottom" overlay={popover}>
-          <Button variant="success" onClick={addToCart}>Add to Cart</Button>
-        </OverlayTrigger>
+        {
+          props.currentUser
+            ?
+          (
+            <OverlayTrigger trigger="click" placement="bottom" overlay={popover}>
+              <Button variant="success" onClick={addToCart}>Add to Cart</Button>
+            </OverlayTrigger>
+          )
+            :
+          null
+        }
       </div>
       <p>{router.query.fdcId}</p>
       <p>{router.query.itemname}</p>

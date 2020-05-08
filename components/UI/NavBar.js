@@ -27,12 +27,12 @@ const NavBar = (props) => {
     return (
     <>
         <Navbar bg="dark" variant="dark" className = { n.nav }>
-            <Navbar.Brand href="/">Nutrition+</Navbar.Brand>
+            {/* <Navbar.Brand href="/">Nutrition+</Navbar.Brand> */}
+            <Link href="/"><a>Nutrition+</a></Link>
                 <Nav>
-                    <Nav.Link href="#table">Nutrition Table</Nav.Link>
-                    <Nav.Link href="#intake" >Your Intake</Nav.Link>
+                    <Link href="/dailyvalue"><a>Your Intake</a></Link>
                     <Nav.Link href="#Stores">Stores</Nav.Link>
-                    <Nav.Link href="/aboutus">About Us</Nav.Link>
+                    <Link href="/aboutus"><a>About Us</a></Link>
                 </Nav>
                 <Navbar.Collapse className="justify-content-end">
                     <Navbar.Text>

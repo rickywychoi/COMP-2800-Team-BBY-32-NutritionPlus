@@ -1,4 +1,4 @@
-// EntryResult.js
+// QuestionnaireResult.js
 
 import resultStyles from '../../styles/QuestionnaireResult.module.css'
 import Link from 'next/link'
@@ -30,58 +30,82 @@ const QuestionnaireResult = (props) => {
       setAdults(true)
     
     // firestore
-    let dailyValue = []
     if (props.currentUser) {
+      let dv = []
       if (user.age < 1) {
         data.infants.macronutrientsSodium.forEach(nut => {
-          dailyValue.push({
+          dv.push({
             name: nut.name,
             value: parseFloat(nut.value),
-            id: nut.id
+            id: nut.id,
+            url: nut.url,
+            group: "macronutrientsSodium"
           })
         })
         data.infants.vitaminMineral.forEach(nut => {
-          dailyValue.push({
+          dv.push({
             name: nut.name,
             value: parseFloat(nut.value),
-            id: nut.id
+            id: nut.id,
+            url: nut.url,
+            group: "vitaminMineral"
           })
         })
       } else if (user.age >= 1 && user.age < 4) {
         data.children.macronutrientsSodium.forEach(nut => {
-          dailyValue.push({
+          dv.push({
             name: nut.name,
             value: parseFloat(nut.value),
-            id: nut.id
+            id: nut.id,
+            url: nut.url,
+            group: "macronutrientsSodium"
           })
         })
         data.children.vitaminMineral.forEach(nut => {
-          dailyValue.push({
+          dv.push({
             name: nut.name,
             value: parseFloat(nut.value),
-            id: nut.id
+            id: nut.id,
+            url: nut.url,
+            group: "vitaminMineral"
           })
         })
       } else if (user.age >= 4) {
         data.adults.macronutrientsSodium.forEach(nut => {
-          dailyValue.push({
+          dv.push({
             name: nut.name,
             value:parseFloat(nut.value),
-            id: nut.id
+            id: nut.id,
+            url: nut.url,
+            group: "macronutrientsSodium"
           })
         })
         data.adults.vitaminMineral.forEach(nut => {
-          dailyValue.push({
+          dv.push({
             name: nut.name,
             value: parseFloat(nut.value),
-            id: nut.id
+            id: nut.id,
+            url: nut.url,
+            group: "vitaminMineral"
           })
         })
       }
+
+      console.log(dv)
+
+      // store to firestore
+
+      // let userInfoObj = {}
+      // db.collection('users').doc(props.currentUser.uid).get().then(userInfo => {
+      //   Object.assign(userInfoObj, userInfo.data())
+      //   userInfoObj.dailyValue = dailyValue
+      //   userInfoObj.eer = user.eer
+      //   db.collection('users').doc(props.currentUser.uid).set(userInfoObj)
+      // })
+
       db.collection('users').doc(props.currentUser.uid).update({
-        healthInfo: {
-          dailyValue: dailyValue
-        }
+        dailyValue: [...dv],
+        eer: user.eer
       })
     }
   })
