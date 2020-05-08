@@ -3,10 +3,9 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "next",
+    "dev": "node _app.js",
     "build": "next build",
-    "start": "next start",
-    "export": "next export"
+    "start": "node _app.js"
   },
   "dependencies": {
     "axios": "^0.19.2",
