@@ -1,7 +1,13 @@
 .body{
     background-image: url("../public/images/nutrition.jpg") ;
     background-size: cover;  
+    margin-bottom: 0;
+    padding: 2rem 1rem;
+    background-color: #e9ecef;
+    height: 300px;
+    border-radius: .3rem;
 }
+
 .head{
     color:white;
 }
