@@ -29,14 +29,9 @@ const NavBar = (props) => {
         <Navbar bg="dark" variant="dark" className = { n.nav }>
             <Navbar.Brand href="/">Nutrition+</Navbar.Brand>
                 <Nav>
-<<<<<<< HEAD
                     <Nav.Link href="#table">Nutrition Table</Nav.Link>
                     <Nav.Link href="#intake" >Your Intake</Nav.Link>
                     <Nav.Link href="#Stores">Stores</Nav.Link>
-=======
-                    <Nav.Link href="../questionnaire" >Your Intake</Nav.Link>
-                    <Nav.Link href="../search">Nutrition Facts</Nav.Link>
->>>>>>> Brian_Seo_MealComposition
                     <Nav.Link href="../about">About Us</Nav.Link>
                 </Nav>
                 <Navbar.Collapse className="justify-content-end">

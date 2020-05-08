@@ -12,11 +12,7 @@ const WelcomeBanner = () => {
     router.push("/search")
   }
 
-<<<<<<< HEAD
   const tomenuQuestionnaire = () => {
-=======
-  const toRecipeSearch = () => {
->>>>>>> Brian_Seo_MealComposition
     router.push("/menuQuestionnaire")
   }
 
@@ -36,28 +32,17 @@ const WelcomeBanner = () => {
         </Button>
         <Button 
           variant="primary"
-<<<<<<< HEAD
           className="mr-2"
-=======
-          className = "mr-2"
->>>>>>> Brian_Seo_MealComposition
           onClick={toItemSearch}
         >
           Search Grocery Items
         </Button>
         <Button 
           variant="primary"
-<<<<<<< HEAD
           className="mr-2" 
           onClick={tomenuQuestionnaire}
         >
           Menu Questionnaire
-=======
-          className = "mr-2"
-          onClick={toRecipeSearch}
-        >
-          Search a Meal
->>>>>>> Brian_Seo_MealComposition
         </Button>
       </p>
     </Jumbotron>
