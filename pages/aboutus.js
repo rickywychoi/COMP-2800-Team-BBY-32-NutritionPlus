@@ -1,4 +1,4 @@
-// aboutus.js
+// aboutus.js 
 
 import aboutStyle from '../styles/About.module.css'
 
