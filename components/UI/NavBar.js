@@ -1,5 +1,5 @@
 import { useRef, useEffect } from 'react'
-import { Navbar, Nav } from 'react-bootstrap'
+import { Navbar, Nav,} from 'react-bootstrap'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
 import { connect } from 'react-redux'
@@ -43,15 +43,17 @@ const NavBar = (props) => {
 
     return (
     <>
-        <Navbar bg="dark" variant="dark" className = { n.nav }>
+        <Navbar collapseOnSelect expand="lg" bg="dark" variant="dark">
             <Navbar.Brand href="/">Nutrition+</Navbar.Brand>
-                <Nav>
+                <Navbar.Toggle aria-controls="responsive-navbar-nav" />
+                <Navbar.Collapse id="responsive-navbar-nav">
+                <Nav className="mr-auto">
                     <Nav.Link href="/questionnaire" >Your Intake</Nav.Link>
                     <Nav.Link href="/search">Search an Item</Nav.Link>
                     <Nav.Link href="/recipe">Search Recipes</Nav.Link>
                     <Nav.Link href="/aboutus">About Us</Nav.Link>
                 </Nav>
-                <Navbar.Collapse className="justify-content-end">
+                <Nav className="justify-content-end">
                     <Navbar.Text>
                         {!props.isSignedIn 
                             ? 
@@ -75,6 +77,7 @@ const NavBar = (props) => {
                             )
                         }
                     </Navbar.Text>
+                </Nav>
                 </Navbar.Collapse>
         </Navbar>
     </>
