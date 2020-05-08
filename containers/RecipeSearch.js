@@ -413,6 +413,9 @@ const handleFirst = (number, totalPages, search) => {
   return (
     <div className={searchStyles.body}>
       <h1 className={searchStyles.title}>Find a Recipe...</h1>
+
+      <div className={searchStyles.container}>
+
       <div className={searchStyles.searchContainer}>
         <Form>
          <Form.Group 
@@ -429,41 +432,47 @@ const handleFirst = (number, totalPages, search) => {
           className={searchStyles.button}
           onClick={handleSearchQuery}>
             Search
-        </Button>        
+        </Button>      
       </div>
 
-      <div className={searchStyles.listContainer}>
-      <ul className={searchStyles.list, searchStyles.listCards}>
-        {result.map(item => {
-          return (
-            <li key={item.recipe.uri} className={searchStyles.listItem, searchStyles.itemCard}>
-              <Link 
-              href={{ 
-                pathname: "/recipe/[recipeId]", 
-                query: { 
-                  search: `${search}`,
-                  prevPage: "/recipe"
-               } 
-                }}
-              as={`/recipe/${getURI(item.recipe.uri)}`}
-              >
-                <a className={searchStyles.itemLink}>
-                  <img className={searchStyles.itemImage} src={item.recipe.image} alt={item.recipe.label} />
-                  <b>{item.recipe.label}</b>
-                  <p className={searchStyles.itemRecipeData}>{Math.floor(item.recipe.calories)}
-                  <span className={searchStyles.itemRecipeLabel}> Calories | </span>
-                  {item.recipe.ingredients.length}
-                  <span className={searchStyles.itemRecipeLabel}> Ingredients</span>
-                  </p>
-                  <p className={searchStyles.itemRecipeSource}>{item.recipe.source}</p>
-                </a>
-              </Link>
-            </li>
-          )
-        })}
-      </ul>
+        <ul className={searchStyles.listCards}>
+
+          {result.map(item => {
+            return(
+              <li 
+                key={getURI(item.recipe.uri)} 
+                className={searchStyles.card}>
+                  <Link 
+                    href={{ 
+                      pathname: "/recipe/[recipeId]", 
+                      query: { 
+                       search: `${search}`,
+                        prevPage: "/recipe"
+                      } 
+                    }}
+                    as={`/recipe/${getURI(item.recipe.uri)}`}
+                  >
+                    <a className={searchStyles.itemLink}>
+                      <img className={searchStyles.itemImage} src={item.recipe.image} alt={item.recipe.label} />
+                      <b>{item.recipe.label}</b>
+                      <p className={searchStyles.itemRecipeData}>{Math.floor(item.recipe.calories)}
+                      <span className={searchStyles.itemRecipeLabel}> Calories | </span>
+                      {item.recipe.ingredients.length}
+                      <span className={searchStyles.itemRecipeLabel}> Ingredients</span>
+                      </p>
+                      <p className={searchStyles.itemRecipeSource}>{item.recipe.source}</p>
+                    </a>
+                  </Link>
+              </li>
+            )
+          })}
+
+        </ul>
+
       </div>
+
       <Pagination className={searchStyles.pagination}>{pagination}</Pagination>
+
     </div>
   )
 }
