@@ -26,12 +26,12 @@
   padding: 10px;
   font-size: 17px;
   float: left;
-  width: 80%;
+  width: 70%;
 }
 
 .button {
   float: right;
-  width: 20%;
+  width: 30%;
   margin-top: 10px;
   background: #2196F3;
   color: white;
@@ -112,6 +112,14 @@
 
 /* screen size between 400px and 1024px: tablet */
 @media screen and (min-width: 600px){
+  .search {
+    width: 80%;
+  }
+
+  .button {
+    width: 20%;
+  }
+
   .card {
     margin: 2.5%;
     width: 45%;
@@ -120,6 +128,14 @@
 
 /* screen size greater than 1025px: desktop */
 @media screen and (min-width: 1025px){
+  .search {
+    width: 80%;
+  }
+
+  .button {
+    width: 20%;
+  }
+
   .card {
     margin: 2.5%;
     width: 20%;
