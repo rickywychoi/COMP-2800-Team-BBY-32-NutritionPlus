@@ -1,3 +1,5 @@
+// aboutus.js
+
 import aboutStyle from '../styles/About.module.css'
 
 const About = () => {
