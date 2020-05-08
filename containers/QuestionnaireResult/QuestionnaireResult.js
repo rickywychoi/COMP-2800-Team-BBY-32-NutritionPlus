@@ -2,17 +2,17 @@
 
 import resultStyles from '../../styles/QuestionnaireResult.module.css'
 import { useState, useEffect } from 'react'
-import { useRouter} from 'next/router'
+import { useRouter } from 'next/router'
 import { Accordion, Card, Button, Table } from 'react-bootstrap'
 import data from './dailyValue.json'
 
 const QuestionnaireResult = (props) => {
+  const router = useRouter()
+
   const [isInfants, setInfants] = useState(false)
   const [isChildren, setChildren] = useState(false)
   const [isAdults, setAdults] = useState(false)
   const user = props.userInfo
-
-  const router = useRouter()
 
   useEffect(() => {
     // get data from JSON file
