@@ -97,8 +97,6 @@ const RecipeDetails = () => {
         <br />
         <Link href={router.query.prevPage}><a>Back to Search</a></Link>
         
-             
-
     </div>
   )
 }
