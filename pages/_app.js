@@ -13,14 +13,14 @@ import reducer from '../store/reducer'
 
 const makeStore = () => createStore(reducer, devToolsEnhancer())
 
-export async function getStaticProps({ Component, ctx }) {
-  return {
-    pageProps: {
-      // Call page-level getInitialProps
-      ...(Component.getInitialProps ? await Component.getInitialProps(ctx) : {})
-    }
-  };
-}
+// export async function getInitialProps({ Component, ctx }) {
+//   return {
+//     pageProps: {
+//       // Call page-level getInitialProps
+//       ...(Component.getInitialProps ? await Component.getInitialProps(ctx) : {})
+//     }
+//   };
+// }
 
 const App = ({ Component, pageProps, store }) => {
   const router = useRouter()
