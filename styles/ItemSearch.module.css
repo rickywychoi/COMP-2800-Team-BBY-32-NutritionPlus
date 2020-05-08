@@ -1,9 +1,6 @@
 
 .body {
   padding: 3% 10%;
-<<<<<<< HEAD
-  
-=======
   box-sizing: border-box;
 }
 
@@ -63,7 +60,6 @@
 .listItem {
   padding: 2px 0;
   border-bottom: 1px solid #CFD4DA;
->>>>>>> Jason_Cheung_Recipe_Search
 }
 
 .itemCard {
