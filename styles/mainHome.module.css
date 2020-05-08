@@ -1,5 +1,7 @@
 .mainBody {
-  padding: 3% 10%
+  padding: 3% 10%;
+  background-color:#f7fafc;
+  margin-top: 0;
 }
 
 .footer {

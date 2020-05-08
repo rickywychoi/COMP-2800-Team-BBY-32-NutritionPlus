@@ -22,7 +22,7 @@ const WelcomeBanner = () => {
   }
 
   return (
-    <Jumbotron className={Banner.body}>
+    <div className={Banner.body}>
       <h1 className={Banner.head}>Nutrition+</h1>
       <p  className={Banner.p}>
         To fight against COVID-19, we need to <i>eat healthy</i> and stay strong.
@@ -58,7 +58,7 @@ const WelcomeBanner = () => {
           Search Recipes
         </Button>
       </p>
-    </Jumbotron>
+    </div>
   )
 }
 

@@ -10,23 +10,26 @@ const MainHome = (props) => {
 
   return (
     <div>
+      
       <Head>
         <title>Nutrition+ | Stay strong, stay healthy</title>
         <link rel="icon" href="/favicon2.ico" />
       </Head>
-      <WelcomeBanner />
+      <WelcomeBanner className={mainHomeStyles.banner}/>
+      
       <main className={mainHomeStyles.mainBody}>
         <NewsFeed />
       </main>
 
       <footer className={mainHomeStyles.footer}>
-        <a
+      Copyright © 2020 BCIT CST Group 32. All rights reserved.
+        {/* <a
           href="https://zeit.co?utm_source=create-next-app&utm_medium=default-template&utm_campaign=create-next-app"
           target="_blank"
           rel="noopener noreferrer"
         >
-          This is footer.
-        </a>
+          Copyright © 2020 BCIT CST Group 32. All rights reserved.
+        </a> */}
       </footer>
     </div>
   )
