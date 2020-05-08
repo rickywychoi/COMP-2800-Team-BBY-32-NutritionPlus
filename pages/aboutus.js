@@ -25,7 +25,7 @@ const About = () => {
                     </div>
                     <p className = {aboutStyle.name}>Ricky Choi</p>
                     <div className = {aboutStyle.bio}>
-                        <p>In this unexpected crisis of COVID-19, Ricky values well-organized eating habits and balanced nutrition intake. During this season, it is important to eat healthy and stay balanced to maximize your body immune systemgit .</p>
+                        <p>In this unexpected crisis of COVID-19, Ricky values well-organized eating habits and balanced nutrition intake. During this season, it is important to eat healthy and stay balanced to maximize your body immune system.</p>
                     </div>
                 </div>  
 
