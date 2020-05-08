@@ -2,6 +2,7 @@
 
 import resultStyles from '../../styles/QuestionnaireResult.module.css'
 import { useState, useEffect } from 'react'
+import { connect } from 'react-redux'
 import { useRouter } from 'next/router'
 import { Accordion, Card, Button, Table } from 'react-bootstrap'
 import data from './dailyValue.json'
