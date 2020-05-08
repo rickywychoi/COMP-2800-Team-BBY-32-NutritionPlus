@@ -35,16 +35,82 @@
 
 .table {
   font-family: "Montserrat SemiBold", HelveticaNeueBold, HelveticaNeue-Bold, "Helvetica Neue Bold", HelveticaBold, Helvetica-Bold, "Helvetica Bold", HelveticaNeue, "Helvetica Neue", Helvetica, Arial, sans-serif;
-  border: 1px solid black;
+  border: 1px solid grey;
+  margin: auto;
+  margin-bottom: 20px;
   padding: 15px 2px;
+  width: 75%; 
+}
+
+.table2 {
+  font-family: "Montserrat SemiBold", HelveticaNeueBold, HelveticaNeue-Bold, "Helvetica Neue Bold", HelveticaBold, Helvetica-Bold, "Helvetica Bold", HelveticaNeue, "Helvetica Neue", Helvetica, Arial, sans-serif;
+  border: 1px solid grey;
+  margin: auto;
+  margin-bottom: 20px;
+  padding: 15px 2px;
+  width: 78.5%; 
 }
 
 .thead {
-  border-bottom: 1px solid black;
+  border-bottom: 4px solid #DADADA;
+  color: #212121;
+}
+
+.trow {
+  font-size: 40px;
+  padding-left: 10px;
+}
+
+.subHead {
+  padding-left: 10px;
 }
 
 .tbody {
   border-bottom: 1px solid black;
+}
+
+.nutrient {
+  border-bottom: 2px solid #DADADA;
+}
+
+.caloriesTitle {
+  padding-left: 10px;
+  font-size: 34px;
+}
+
+.calories {
+  text-align-last: right;
+  padding-right: 10px;
+  font-size: 34px;
+}
+
+.header {
+  text-align-last: right;
+  padding-right: 10px;
+}
+
+.name {
+  float: left;
+  padding-left: 10px;
+}
+
+.amount {
+  font-family: "helvetica";
+  font-size: 14px;
+  font-weight: normal;
+  margin-left: 8px;
+}
+
+.daily {
+  float: right;
+  padding-right: 10px;
+}
+
+.dv {
+  padding: 10px;
+  font-family: "helvetica";
+  font-size: 14px;
+  font-weight: normal;
 }
 
 .popupTitle {
