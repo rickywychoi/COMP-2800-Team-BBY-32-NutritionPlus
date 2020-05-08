@@ -454,4 +454,14 @@ const MenuQuestionnaire = () => {
     )
 }
 
+function getURI(item) {
+  const searchTerm = "recipe_";
+  const lengthSearch = searchTerm.length;
+
+  let index = item.indexOf(searchTerm) + lengthSearch;
+
+  let uri = item.substr(index);
+  return uri;
+}
+
 export default MenuQuestionnaire;
