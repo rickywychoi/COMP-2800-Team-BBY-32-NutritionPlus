@@ -35,3 +35,17 @@
   margin-bottom: 0.7em;
   margin-top: 2em;
 }
+
+.nav {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+}
+
+.btnHome {
+  width: 40%;
+}
+
+.btnMenu {
+  width: 50%;
+  justify-self: end;
+}

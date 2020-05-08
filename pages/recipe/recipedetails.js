@@ -7,11 +7,11 @@ import {  EDAMAM_RECIPE_APP_KEY } from '../../apiKey'
 import RecipeStyles from '../../styles/RecipeDetails.module.css'
 
 const RecipeDetails = () => { 
-  // const router = useRouter()
-  // // console.log(router)
-  // // console.log(router.query.facid)
-
-    const url = `https://api.edamam.com/search?r=http%3A%2F%2Fwww.edamam.com%2Fontologies%2Fedamam.owl%23recipe_b79327d05b8e5b838ad6cfd9576b30b6&app_id=6b733ca0&app_key=${EDAMAM_RECIPE_APP_KEY}`
+  const router = useRouter()
+  const str = router.asPath
+  const id = str.substring(56)
+  
+    const url = `https://api.edamam.com/search?r=http%3A%2F%2Fwww.edamam.com%2Fontologies%2Fedamam.owl%23recipe_${id}&app_id=6b733ca0&app_key=${EDAMAM_RECIPE_APP_KEY}`
     
     const [result, setResult] = useState({})
     const [ing, setIng] = useState([])
@@ -26,12 +26,6 @@ const RecipeDetails = () => {
              })  
      }, [])
      
-
-     console.log(result)
-     console.log(ing)
-     console.log(nutrients)
-    
-
   return (
 
     <div  className={RecipeStyles.body}>
@@ -50,7 +44,9 @@ const RecipeDetails = () => {
             })}
         </ul>
         <br />
-        <Link href={''+ result.url}><a>See Directions</a></Link> 
+        
+        {/* <Link href={''+ result.url} target="_blank" ><a>See Directions</a></Link>  */}
+
         <Accordion defaultActiveKey="0" className="mt-4">
           
             <Accordion.Toggle as={Button} variant="outline-primary" eventKey="1" className={RecipeStyles.accordionButton}>
@@ -86,7 +82,7 @@ const RecipeDetails = () => {
             </Accordion.Collapse>                             
         </Accordion>
         <br />
-        <Link href='/'><a>Back to Search</a></Link>
+        <Link href='/menuQuestionnaire'><a>Back to Search</a></Link>
         
              
 

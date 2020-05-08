@@ -41,11 +41,11 @@ const About = () => {
 
                 <div className = {aboutStyle.member}>
                     <div className = {aboutStyle.picture}>
-                        <img className = {aboutStyle.img} src = "https://via.placeholder.com/250" alt = "Jimmy Picture"></img>
+                        <img className = {aboutStyle.img} src = "./images/jimmy_pic.jpg" alt = "Jimmy Picture"></img>
                     </div>
                     <p className = {aboutStyle.name}>Jimmy Lu</p>
                     <div className = {aboutStyle.bio}>
-                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin vehicula ligula eget tellus scelerisque dictum. Nunc quis imperdiet odio. Aliquam sollicitudin nisi vel ipsum bibendum commodo. Donec vel mauris et elit tempus ornare. Sed at venenatis odio, vel tempus purus. Aliquam erat volutpat. </p>
+                        <p>Safe food and good nutrition are important to every person. Eating a nutritious and balanced diet is one of the best ways to protect and promote good health. </p>
                     </div>
                 </div>
             </div>

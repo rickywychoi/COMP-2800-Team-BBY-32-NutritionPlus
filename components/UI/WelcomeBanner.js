@@ -12,6 +12,10 @@ const WelcomeBanner = () => {
     router.push("/search")
   }
 
+  const tomenuQuestionnaire = () => {
+    router.push("/menuQuestionnaire")
+  }
+
   return (
     <Jumbotron>
       <h1>Nutrition+</h1>
@@ -28,9 +32,17 @@ const WelcomeBanner = () => {
         </Button>
         <Button 
           variant="primary"
+          className="mr-2"
           onClick={toItemSearch}
         >
           Search Grocery Items
+        </Button>
+        <Button 
+          variant="primary"
+          className="mr-2" 
+          onClick={tomenuQuestionnaire}
+        >
+          Menu Questionnaire
         </Button>
       </p>
     </Jumbotron>
