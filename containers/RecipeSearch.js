@@ -440,7 +440,10 @@ const handleFirst = (number, totalPages, search) => {
               <Link 
               href={{ 
                 pathname: "/recipe/[recipeId]", 
-                query: { search: `${search}` } 
+                query: { 
+                  search: `${search}`,
+                  prevPage: "/recipe"
+               } 
                 }}
               as={`/recipe/${getURI(item.recipe.uri)}`}
               >
