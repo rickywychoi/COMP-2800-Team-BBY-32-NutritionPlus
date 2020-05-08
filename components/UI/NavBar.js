@@ -44,7 +44,8 @@ const NavBar = (props) => {
     return (
     <>
         <Navbar bg="dark" variant="dark" className = { n.nav }>
-            <Navbar.Brand href="/">Nutrition+</Navbar.Brand>
+            {/* <Navbar.Brand href="/">Nutrition+</Navbar.Brand> */}
+            <Link href="/"><a>Nutrition+</a></Link>
                 <Nav>
                     <Nav.Link href="/questionnaire" >Your Intake</Nav.Link>
                     <Nav.Link href="/search">Search an Item</Nav.Link>

@@ -63,7 +63,8 @@ class SignInScreen extends React.Component {
               email: user.email,
               uid: user.uid,
               name: user.displayName,
-              healthInfo: {},
+              // dailyValue: [],
+              // eer: 0,
               cart: [],
               recipes: []
             })
@@ -234,7 +235,7 @@ class SignInScreen extends React.Component {
         </div>
       )
     }
-    this.props.router.back()
+    this.props.router.push("/")
     return null
   }
 }
