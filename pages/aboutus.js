@@ -21,11 +21,11 @@ const About = () => {
             <div className = {aboutStyle.team}>  
                 <div className = {aboutStyle.member}>
                     <div className = {aboutStyle.picture}>
-                        <img className = {aboutStyle.img} src = "https://via.placeholder.com/250" alt = "Ricky Picture"></img>
+                        <img className = {aboutStyle.img} src = "./images/ricky_pic.jpg" alt = "Ricky Picture"></img>
                     </div>
                     <p className = {aboutStyle.name}>Ricky Choi</p>
                     <div className = {aboutStyle.bio}>
-                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin vehicula ligula eget tellus scelerisque dictum. Nunc quis imperdiet odio. Aliquam sollicitudin nisi vel ipsum bibendum commodo. Donec vel mauris et elit tempus ornare. Sed at venenatis odio, vel tempus purus. Aliquam erat volutpat.</p>
+                        <p>In this unexpected crisis of COVID-19, Ricky values well-organized eating habits and balanced nutrition intake. During this season, it is important to eat healthy and stay balanced to maximize your body immune system.</p>
                     </div>
                 </div>  
 

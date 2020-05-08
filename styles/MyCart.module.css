@@ -2,6 +2,10 @@
   padding: 3% 10%;
 }
 
+.table {
+  margin-top: 1.7rem;
+}
+
 .quantityButtonWrapper {
   display: flex;
   justify-content: center;

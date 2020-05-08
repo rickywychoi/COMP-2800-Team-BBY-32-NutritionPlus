@@ -1,4 +1,4 @@
-// EntryResult.js
+// QuestionnaireResult.js
 
 import resultStyles from '../../styles/QuestionnaireResult.module.css'
 import Link from 'next/link'
@@ -33,18 +33,19 @@ const QuestionnaireResult = (props) => {
       setAdults(true)
     
     // firestore
-    let dailyValue = []
     if (props.currentUser) {
-      if (user.age < 1) {   // if infant
+      let dv = []
+      console.log(user.age)
+      if (user.age < 1) {
         data.infants.macronutrientsSodium.forEach(nut => {
-          dailyValue.push({
+          dv.push({
             name: nut.name,
             value: parseFloat(nut.value),
-            id: nut.id
+            id: nut.id,
           })
         })
         data.infants.vitaminMineral.forEach(nut => {
-          dailyValue.push({
+          dv.push({
             name: nut.name,
             value: parseFloat(nut.value),
             id: nut.id
@@ -52,14 +53,14 @@ const QuestionnaireResult = (props) => {
         })
       } else if (user.age >= 1 && user.age < 4) {   // if child
         data.children.macronutrientsSodium.forEach(nut => {
-          dailyValue.push({
+          dv.push({
             name: nut.name,
             value: parseFloat(nut.value),
             id: nut.id
           })
         })
         data.children.vitaminMineral.forEach(nut => {
-          dailyValue.push({
+          dv.push({
             name: nut.name,
             value: parseFloat(nut.value),
             id: nut.id
@@ -67,23 +68,35 @@ const QuestionnaireResult = (props) => {
         })
       } else if (user.age >= 4) {   // if adult
         data.adults.macronutrientsSodium.forEach(nut => {
-          dailyValue.push({
+          dv.push({
             name: nut.name,
             value:parseFloat(nut.value),
             id: nut.id
           })
         })
         data.adults.vitaminMineral.forEach(nut => {
-          dailyValue.push({
+          dv.push({
             name: nut.name,
             value: parseFloat(nut.value),
             id: nut.id
           })
         })
       }
+
+      console.log(dv)
+
+      // let userInfoObj = {}
+      // db.collection('users').doc(props.currentUser.uid).get().then(userInfo => {
+      //   Object.assign(userInfoObj, userInfo.data())
+      //   userInfoObj.dailyValue = dailyValue
+      //   userInfoObj.eer = user.eer
+      //   db.collection('users').doc(props.currentUser.uid).set(userInfoObj)
+      // })
+
       db.collection('users').doc(props.currentUser.uid).update({
         healthInfo: {
-          dailyValue: dailyValue
+          dailyValue: dv,
+          eer: user.eer
         }
       })
     }
