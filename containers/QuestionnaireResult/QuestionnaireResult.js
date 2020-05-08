@@ -35,7 +35,7 @@ const QuestionnaireResult = (props) => {
     // firestore
     let dailyValue = []
     if (props.currentUser) {
-      if (user.age < 1) {
+      if (user.age < 1) {   // if infant
         data.infants.macronutrientsSodium.forEach(nut => {
           dailyValue.push({
             name: nut.name,
@@ -50,7 +50,7 @@ const QuestionnaireResult = (props) => {
             id: nut.id
           })
         })
-      } else if (user.age >= 1 && user.age < 4) {
+      } else if (user.age >= 1 && user.age < 4) {   // if child
         data.children.macronutrientsSodium.forEach(nut => {
           dailyValue.push({
             name: nut.name,
@@ -65,7 +65,7 @@ const QuestionnaireResult = (props) => {
             id: nut.id
           })
         })
-      } else if (user.age >= 4) {
+      } else if (user.age >= 4) {   // if adult
         data.adults.macronutrientsSodium.forEach(nut => {
           dailyValue.push({
             name: nut.name,
