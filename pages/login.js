@@ -63,8 +63,10 @@ class SignInScreen extends React.Component {
               email: user.email,
               uid: user.uid,
               name: user.displayName,
-              // dailyValue: [],
-              // eer: 0,
+              healthInfo: {
+                dailyValue: [],
+                eer: 0
+              },
               cart: [],
               recipes: []
             })

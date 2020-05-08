@@ -35,23 +35,20 @@ const QuestionnaireResult = (props) => {
     // firestore
     if (props.currentUser) {
       let dv = []
+      console.log(user.age)
       if (user.age < 1) {
         data.infants.macronutrientsSodium.forEach(nut => {
           dv.push({
             name: nut.name,
             value: parseFloat(nut.value),
             id: nut.id,
-            url: nut.url,
-            group: "macronutrientsSodium"
           })
         })
         data.infants.vitaminMineral.forEach(nut => {
           dv.push({
             name: nut.name,
             value: parseFloat(nut.value),
-            id: nut.id,
-            url: nut.url,
-            group: "vitaminMineral"
+            id: nut.id
           })
         })
       } else if (user.age >= 1 && user.age < 4) {   // if child
@@ -59,18 +56,14 @@ const QuestionnaireResult = (props) => {
           dv.push({
             name: nut.name,
             value: parseFloat(nut.value),
-            id: nut.id,
-            url: nut.url,
-            group: "macronutrientsSodium"
+            id: nut.id
           })
         })
         data.children.vitaminMineral.forEach(nut => {
           dv.push({
             name: nut.name,
             value: parseFloat(nut.value),
-            id: nut.id,
-            url: nut.url,
-            group: "vitaminMineral"
+            id: nut.id
           })
         })
       } else if (user.age >= 4) {   // if adult
@@ -78,25 +71,19 @@ const QuestionnaireResult = (props) => {
           dv.push({
             name: nut.name,
             value:parseFloat(nut.value),
-            id: nut.id,
-            url: nut.url,
-            group: "macronutrientsSodium"
+            id: nut.id
           })
         })
         data.adults.vitaminMineral.forEach(nut => {
           dv.push({
             name: nut.name,
             value: parseFloat(nut.value),
-            id: nut.id,
-            url: nut.url,
-            group: "vitaminMineral"
+            id: nut.id
           })
         })
       }
 
       console.log(dv)
-
-      // store to firestore
 
       // let userInfoObj = {}
       // db.collection('users').doc(props.currentUser.uid).get().then(userInfo => {
@@ -107,8 +94,10 @@ const QuestionnaireResult = (props) => {
       // })
 
       db.collection('users').doc(props.currentUser.uid).update({
-        dailyValue: [...dv],
-        eer: user.eer
+        healthInfo: {
+          dailyValue: dv,
+          eer: user.eer
+        }
       })
     }
   })
