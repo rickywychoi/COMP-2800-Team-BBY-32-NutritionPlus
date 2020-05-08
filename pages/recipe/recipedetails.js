@@ -45,7 +45,7 @@ const RecipeDetails = () => {
         </ul>
         <br />
         
-        {/* <Link href={''+ result.url} target="_blank" ><a>See Directions</a></Link>  */}
+        <a href = {''+result.url} target="_blank">See Directions</a>
 
         <Accordion defaultActiveKey="0" className="mt-4">
           
