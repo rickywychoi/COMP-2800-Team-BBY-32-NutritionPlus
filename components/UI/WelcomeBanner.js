@@ -1,5 +1,6 @@
 import { useRouter } from 'next/router'
 import { Jumbotron, Button } from 'react-bootstrap'
+import Banner from '../../styles/banner.module.css'
 
 const WelcomeBanner = () => {
   const router = useRouter()
@@ -17,9 +18,9 @@ const WelcomeBanner = () => {
   }
 
   return (
-    <Jumbotron>
-      <h1>Nutrition+</h1>
-      <p>
+    <Jumbotron className={Banner.body}>
+      <h1 className={Banner.head}>Nutrition+</h1>
+      <p  className={Banner.p}>
         To fight against COVID-19, we need to <i>eat healthy</i> and stay strong.
       </p>
       <p>
