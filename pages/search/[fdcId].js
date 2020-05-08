@@ -336,24 +336,28 @@ const ItemDetailsPage = (props) => {
 
 
   const checkoutItem = () => {
-    db.collection('users').doc(props.currentUser.uid).get().then(userInfo => {
-      // get user info object from firestore
-      let currentUserInfo = {}
-      Object.assign(currentUserInfo, userInfo.data())
-      
-      // get cart from firestore
-      let currentCart = []
-      currentCart.push(...currentUserInfo.cart)
-      // add items into cart
-      for (let i = 0; i < quantity; i++) {
-        currentCart.push(result)
-      }
-      // update cart
-      currentUserInfo.cart = currentCart
+    if (props.currentUser) {
+      db.collection('users').doc(props.currentUser.uid).get().then(userInfo => {
+        console.log(userInfo.data())
+        // get user's cart from firestore
+        let currentCart = []
+        currentCart.push(...userInfo.data().cart)
+        // add items into cart
+        for (let i = 0; i < quantity; i++) {
+          let addedItem = {
+            itemAddedAt: new Date(),
+            ...result
+          }
+          currentCart.unshift(addedItem)
+        }
+  
+        // store user info object with updated cart in firestore
+        db.collection('users').doc(props.currentUser.uid).update({
+          cart: currentCart
+        }).catch(err => console.log(err))
 
-      // store user info object with updated cart in firestore
-      db.collection('users').doc(props.currentUser.uid).set(currentUserInfo)    
-    }).catch(err => console.log(err))
+      }).catch(err => console.log(err))
+    }
   }
 
   const popover = (

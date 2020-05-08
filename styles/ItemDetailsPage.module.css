@@ -64,22 +64,23 @@
   padding: .2rem .6rem;
 }
 
-.quantity {
-  margin-bottom: 0;
-  font-size: 1rem;
-  -moz-appearance: textfield;
-}
-
-.quantity::-webkit-outer-spin-button,
-.quantity::-webkit-inner-spin-button  {
-  -webkit-appearance: none;
-  margin: 0;
-}
-
 .increment {
   margin-left: 1.5rem;
   padding: .2rem .6rem;
 }
+
+.quantity {
+  margin-bottom: 0;
+  font-size: 1rem;
+  /* -moz-appearance: textfield; */
+}
+
+/* .quantity::-webkit-outer-spin-button,
+.quantity::-webkit-inner-spin-button  {
+  -webkit-appearance: none;
+  margin: 0;
+} */
+
 
 .reset {
   display: block;

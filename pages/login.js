@@ -54,38 +54,36 @@ class SignInScreen extends React.Component {
   }
   
   componentDidMount() {
-    this.unregisterAuthObserver = firebase.auth().onAuthStateChanged(
-      user => {
-
-        // firestore
-        if (user) {
-          db.collection('users').doc(user.uid).get().then(doc => {
-            if (!doc.exists) {
-              db.collection('users').doc(user.uid).set({
-                email: user.email,
-                uid: user.uid,
-                name: user.displayName,
-                healthInfo: {},
-                cart: [],
-                recipes: []
-              })
-            }
-          })
-        }
-        
-        // redux
-        this.props.onSignIn(user)
-        this.setState({ isLoaded: true })
+    this.unregisterAuthObserver = firebase.auth().onAuthStateChanged(user => {
+      // firestore
+      if (user) {
+        db.collection('users').doc(user.uid).get().then(doc => {
+          if (!doc.exists) {
+            db.collection('users').doc(user.uid).set({
+              email: user.email,
+              uid: user.uid,
+              name: user.displayName,
+              healthInfo: {},
+              cart: [],
+              recipes: []
+            })
+          }
+        })
       }
-      )
-      if (this.props.router.query.signout) {
-        firebase.auth().signOut()
-        this.props.router.replace("/")
-        this.setState({ isLoaded: false })
+      
+      // redux
+      this.props.onSignIn(user)
+      this.setState({ isLoaded: true })
+    })
+    if (this.props.router.query.signout) {
+      firebase.auth().signOut()
+      this.props.router.replace("/")
+      this.setState({ isLoaded: false })
     }
   }
 
   render() {
+    console.log(this.props)
     if (!this.state.isLoaded) {
       return <Spinner />
     }
