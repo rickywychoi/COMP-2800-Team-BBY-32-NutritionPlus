@@ -49,3 +49,14 @@
   width: 50%;
   justify-self: end;
 }
+
+@media screen and (max-width: 414px){
+  .btnHome {
+    width: 100px;
+  }
+  
+  .btnMenu {
+    width: 100px;
+  }
+  
+}

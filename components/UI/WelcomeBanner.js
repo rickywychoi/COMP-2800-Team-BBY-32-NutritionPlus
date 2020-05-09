@@ -35,13 +35,13 @@ const WelcomeBanner = () => {
         >
           Calculate Your Required Energy Intake
         </Button>        
-        <Button 
+        {/* <Button 
           variant="primary"
           className="mr-2 mb-2" 
           onClick={tomenuQuestionnaire}
         >
           Menu Questionnaire
-        </Button>
+        </Button> */}
         <Button 
           variant="primary"
           className="mr-2 mb-2"
