@@ -400,7 +400,7 @@ const ItemDetailsPage = (props) => {
         }
       </div>
       <div className={detailStyles.contents}>
-        <h3>{router.query.itemname}</h3>
+        <h3 className={detailStyles.itemTitle}>{router.query.itemname}</h3>
         {
           !itemImg
             ?
@@ -438,7 +438,7 @@ const ItemDetailsPage = (props) => {
           <table className={detailStyles.table} ref={tableRef}>
             <thead className={detailStyles.thead}>
               <tr className = {detailStyles.trow}>
-                <th className = {detailStyles.subHead}>Nutrition Facts</th>
+                <th className = {detailStyles.nutritionFacts}>Nutrition Facts</th>
                 <th></th>
               </tr>
               <tr> 
