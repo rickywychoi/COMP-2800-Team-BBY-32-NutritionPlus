@@ -446,7 +446,7 @@ const handleFirst = (number, totalPages, search) => {
                     href={{ 
                       pathname: "/recipe/[recipeId]", 
                       query: { 
-                       search: `${search}`,
+                        search: `${search}`,
                         prevPage: "/recipe"
                       } 
                     }}
