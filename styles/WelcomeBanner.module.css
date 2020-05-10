@@ -1,0 +1,77 @@
+.body {
+    display: flex;
+    align-items: center;
+    background: linear-gradient(rgba(255,255,255,.9), rgba(255,255,255,.8)), url("../public/images/nutrition.jpg");
+    background-size: cover;  
+    margin-bottom: 0;
+    background-color: #e9ecef;
+    height: 350px;
+    border-radius: .3rem;
+}
+
+.contents {
+    margin-left: 2rem;
+    padding: 0 1rem;
+}
+
+.head {
+    color: #353A40;
+}
+
+.mainPara {
+    display: flex;
+    align-items: center;
+    color: black;
+    animation: fade ease 2s;
+    -webkit-animation: fade ease 2s;
+    -moz-animation: fade ease 2s;
+    -o-animation: fade ease 2s;
+    -ms-animation: fade ease 2s;
+}
+
+.mainPara p {
+    vertical-align: middle;
+}
+
+  @keyframes fade {
+    0% { opacity: 0 }
+    100% { opacity: 1 }
+  }
+  
+  @-moz-keyframes fade {
+    0% { opacity: 0 }
+    100% { opacity: 1 }
+  }
+  
+  @-webkit-keyframes fade {
+    0% { opacity: 0 }
+    100% { opacity: 1 }
+  }
+  
+  @-o-keyframes fade {
+    0% { opacity: 0 }
+    100% { opacity: 1 }
+  }
+  
+  @-ms-keyframes fade {
+    0% { opacity: 0 }
+    100% { opacity: 1 }
+  }
+
+.coronaIcon {
+    width: 2rem;
+    display: inline-block;
+    margin: 0 0.2rem;
+    /* vertical-align: sub; */
+}
+
+@media only screen 
+  and (max-device-width: 500px) {
+    .body{
+        text-align: center;
+    }
+    .contents {
+        margin-left: 0;
+    }
+    
+}

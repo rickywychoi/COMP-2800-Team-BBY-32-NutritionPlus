@@ -2,6 +2,10 @@
   padding: 3% 10%;
 }
 
+.contents {
+  margin-top: 1.5rem;
+}
+
 .buttonWrapper {
   display: flex;
   justify-content: space-between;
@@ -33,22 +37,26 @@
   cursor: pointer;
 }
 
+.tableWrapper {
+  margin: 1.3rem auto 0 auto;
+  width: 78.5%;
+}
+
 .table {
   font-family: "Montserrat SemiBold", HelveticaNeueBold, HelveticaNeue-Bold, "Helvetica Neue Bold", HelveticaBold, Helvetica-Bold, "Helvetica Bold", HelveticaNeue, "Helvetica Neue", Helvetica, Arial, sans-serif;
   border: 1px solid grey;
-  margin: auto;
-  margin-bottom: 20px;
+  margin: 0 auto;
+  margin-bottom: 0;
   padding: 15px 2px;
-  width: 75%; 
+  width: 100%; 
 }
 
 .table2 {
   font-family: "Montserrat SemiBold", HelveticaNeueBold, HelveticaNeue-Bold, "Helvetica Neue Bold", HelveticaBold, Helvetica-Bold, "Helvetica Bold", HelveticaNeue, "Helvetica Neue", Helvetica, Arial, sans-serif;
   border: 1px solid grey;
-  margin: auto;
+  margin: 0 auto;
   margin-bottom: 20px;
-  padding: 15px 2px;
-  width: 78.5%; 
+  padding: 15px 2px; 
 }
 
 .thead {
@@ -169,4 +177,11 @@
 
 .checkoutButton:hover {
   color: #35548A;
+}
+
+@media only screen and (max-device-width: 991px) {
+  .tableWrapper {
+    width: 100%;
+    margin-bottom: 2rem;
+  }
 }

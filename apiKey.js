@@ -10,4 +10,3 @@ export const NEWS_API_KEY = "19baa1eff8b449fdbe4d138a7a03455e"
 // daily search limited to 10,000 queries
 export const GOOGLE_IMAGE_SEARCH_API_KEY = "AIzaSyB-vNVMZ2ysNlaM91SEJcTkRPwAp-V54y4"
 export const GOOGLE_IMAGE_SEARCH_CX = "009721443193749211095:nwshlxnnapc"
-

@@ -237,7 +237,7 @@ class SignInScreen extends React.Component {
         </div>
       )
     }
-    this.props.router.push("/")
+    this.props.router.back()
     return null
   }
 }
