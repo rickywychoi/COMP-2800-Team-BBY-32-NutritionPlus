@@ -421,7 +421,7 @@ const ItemSearch = () => {
           <Form.Control 
             type="text" 
             className={searchStyles.searchTerm}
-            placeholder="Search items..."
+            placeholder="Search your grocery item..."
             onChange={handleSearchChange}
           />
         </Form.Group>

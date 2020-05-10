@@ -1,6 +1,6 @@
 import { useRouter } from 'next/router'
-import { Jumbotron, Button } from 'react-bootstrap'
-import Banner from '../../styles/banner.module.css'
+import { Button } from 'react-bootstrap'
+import bannerStyles from '../../styles/WelcomeBanner.module.css'
 
 const WelcomeBanner = () => {
   const router = useRouter()
@@ -13,51 +13,57 @@ const WelcomeBanner = () => {
     router.push("/search")
   }
 
-  const tomenuQuestionnaire = () => {
-    router.push("/menuQuestionnaire")
-  }
+  // const tomenuQuestionnaire = () => {
+  //   router.push("/menuQuestionnaire")
+  // }
     
   const toRecipeSearch = () => {
     router.push("/recipe")
   }
 
   return (
-    <div className={Banner.body}>
-      <h1 className={Banner.head}>Nutrition+</h1>
-      <p  className={Banner.p}>
-        To fight against COVID-19, we need to <i>eat healthy</i> and stay strong.
-      </p>
-      <p>
-        <Button 
-          variant="primary" 
-          className="mr-2 mb-2" 
-          onClick={toQuestionnaire}
-        >
-          Calculate Your Required Energy Intake
-        </Button>        
-        {/* <Button 
-          variant="primary"
-          className="mr-2 mb-2" 
-          onClick={tomenuQuestionnaire}
-        >
-          Menu Questionnaire
-        </Button> */}
-        <Button 
-          variant="primary"
-          className="mr-2 mb-2"
-          onClick={toItemSearch}
-        >
-          Search Grocery Items
-        </Button>
+    <div className={bannerStyles.body}>
+      <div className={bannerStyles.contents}>
+        <h1 className={bannerStyles.head}>Nutrition+</h1>
+        <span className={bannerStyles.mainPara}>
+          <p className={bannerStyles.p}>
+            To fight against <span style={{color: "red", fontSize: "1.3rem"}}>COVID-19</span>
+            <img className={bannerStyles.coronaIcon} src="https://img.icons8.com/doodle/48/000000/coronavirus.png"/>
+            , we need to <i>eat healthy</i> and stay strong.
+          </p>
+        </span>
+        <div>
+          <Button 
+            variant="primary" 
+            className="mr-2 mb-2" 
+            onClick={toQuestionnaire}
+          >
+            Calculate Your Required Energy Intake
+          </Button>        
+          {/* <Button 
+            variant="primary"
+            className="mr-2 mb-2" 
+            onClick={tomenuQuestionnaire}
+          >
+            Menu Questionnaire
+          </Button> */}
+          <Button 
+            variant="primary"
+            className="mr-2 mb-2"
+            onClick={toItemSearch}
+          >
+            Search Grocery Items
+          </Button>
 
-        <Button
-          variant="primary"
-          className="mr-2 mb-2"
-          onClick={toRecipeSearch}
-        >
-          Search Recipes
-        </Button>
-      </p>
+          <Button
+            variant="primary"
+            className="mr-2 mb-2"
+            onClick={toRecipeSearch}
+          >
+            Search Recipes
+          </Button>
+        </div>
+      </div>
     </div>
   )
 }

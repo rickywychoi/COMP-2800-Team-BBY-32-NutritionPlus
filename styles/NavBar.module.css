@@ -1,10 +1,41 @@
 /* NavBar.module.css */
-.nav {
-    font-size: 14px;
+
+.appTitleLink {
+  margin-bottom: 0;
+  margin-right: 0.3em;
+  padding-right: 0.9em;
+  color: #E5E5E5;
+}
+
+.appTitleLink:hover {
+  color: #A6A6A6;
+  text-decoration: none;
 }
 
 .appTitle {
-    font-size: 38px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 1.3rem;
+}
+
+.appIcon {
+  width: 2rem;
+  height: 2rem;
+  margin-right: 0.2rem;
+}
+
+.link {
+  margin-bottom: 0;
+  margin-right: 0.3em;
+  padding-right: 0.9em;
+  color: #A6A6A6;
+  font-size: 0.95rem;
+}
+
+.link:hover {
+  color: #E5E5E5;
+  text-decoration: none;
 }
 
 .userName {
@@ -13,6 +44,8 @@
 }
 
 .greeting {
+  display: flex;
+  align-items: center;
   margin-bottom: 0;
   margin-right: 0.9em;
   padding-right: 0.9em;
@@ -20,6 +53,7 @@
 }
 
 .myCart {
+  color: #DCDCDC;
   margin-bottom: 0;
   margin-right: 0.9em;
   padding-right: 0.9em;
@@ -32,7 +66,12 @@
 
 .checkMark {
   width: 25px;
+  height: 25px;
   margin-right: 5px;
+}
+
+.signOutText {
+  margin: 0;
 }
 
 .signOutMsg {
@@ -97,4 +136,58 @@ a.signIn:hover {
   padding: 0!important;
   color: #fff;
   cursor: pointer;
+}
+
+@media only screen and (max-device-width: 991px) {
+  .link:first-of-type {
+    margin-top: 0.5rem;
+  }
+  .link {
+    margin-bottom: 0.5rem;
+  }
+  .link:last-of-type {
+    margin-bottom: 0.3rem;
+  }
+}
+
+@media only screen and (max-device-width: 500px) { 
+  .link {
+    margin-bottom: 0.5rem;
+  }
+
+  .userName {
+    display: block;
+    text-align: center;
+    border-top: 1px solid grey;
+    padding-top: 0.9em;
+    padding-bottom: 0.7em;
+  }
+
+  .greeting {
+    margin: 0 auto;
+    border-right: none;
+    padding-right: 0;
+    margin-bottom: 0.8em;
+  }
+
+  .myCart {
+    margin-bottom: 0;
+    margin-right: 0.9em;
+    padding-right: 0.9em;
+    border-right: 1px solid grey;
+  }
+
+  .signOutMsg {
+    display: flex;
+    align-items: center;
+    animation: fade ease 10s;
+    -webkit-animation: fade ease 10s;
+    -moz-animation: fade ease 10s;
+    -o-animation: fade ease 10s;
+    -ms-animation: fade ease 10s;
+  }
+
+  .signOutText {
+    margin: 0 auto;
+  }
 }

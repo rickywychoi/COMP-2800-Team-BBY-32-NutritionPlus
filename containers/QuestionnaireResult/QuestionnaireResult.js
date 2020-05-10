@@ -35,7 +35,6 @@ const QuestionnaireResult = (props) => {
     // firestore
     if (props.currentUser) {
       let dv = []
-      console.log(user.age)
       if (user.age < 1) {
         data.infants.macronutrientsSodium.forEach(nut => {
           dv.push({
@@ -85,19 +84,15 @@ const QuestionnaireResult = (props) => {
 
       console.log(dv)
 
-      // let userInfoObj = {}
-      // db.collection('users').doc(props.currentUser.uid).get().then(userInfo => {
-      //   Object.assign(userInfoObj, userInfo.data())
-      //   userInfoObj.dailyValue = dailyValue
-      //   userInfoObj.eer = user.eer
-      //   db.collection('users').doc(props.currentUser.uid).set(userInfoObj)
-      // })
-
       db.collection('users').doc(props.currentUser.uid).update({
         healthInfo: {
           dailyValue: dv,
           eer: user.eer
         }
+      }).then(() => {
+        console.log("User Daily Value Save Success")
+      }).catch(err => {
+        console.log(err)
       })
     }
   })

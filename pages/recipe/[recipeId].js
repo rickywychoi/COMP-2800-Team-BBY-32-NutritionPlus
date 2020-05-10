@@ -7,40 +7,27 @@ import {  EDAMAM_RECIPE_APP_ID  } from '../../apiKey'
 import {  EDAMAM_RECIPE_APP_KEY } from '../../apiKey'
 import RecipeStyles from '../../styles/RecipeDetails.module.css'
 
-// const RecipeDetailsPage = () => {
-//   // const router = useRouter()
-//   // console.log(router)
-//   return (
-//     <div>
-//       <p>{router.query.recipeId}</p>
-//       <p>{router.query.search}</p>
-//     </div>
-//   )
-// }
-
 const RecipeDetails = () => { 
   const router = useRouter()
   const str = router.asPath
   const idJimmy = str.substring(56)
   const id = router.query.recipeId
   
-    const url = `https://api.edamam.com/search?r=http%3A%2F%2Fwww.edamam.com%2Fontologies%2Fedamam.owl%23recipe_${id}&app_id=${EDAMAM_RECIPE_APP_ID}&app_key=${EDAMAM_RECIPE_APP_KEY}`
+  const url = `https://api.edamam.com/search?r=http%3A%2F%2Fwww.edamam.com%2Fontologies%2Fedamam.owl%23recipe_${id}&app_id=${EDAMAM_RECIPE_APP_ID}&app_key=${EDAMAM_RECIPE_APP_KEY}`
+  
+  const [result, setResult] = useState({})
+  const [ing, setIng] = useState([])
+  const [nutrients,setNutrients] = useState({})
+  
+  useEffect(()=>{
+    axios.get(url).then(res => {
+      setResult(res.data[0])
+      setIng(res.data[0].ingredientLines)
+      setNutrients(res.data[0].totalNutrients)
+    })
+  }, [])
     
-    const [result, setResult] = useState({})
-    const [ing, setIng] = useState([])
-    const [nutrients,setNutrients] = useState({})
-    
-    useEffect(()=>{
-      axios.get(url).then(
-          res => {
-          setResult(res.data[0])
-          setIng(res.data[0].ingredientLines)
-          setNutrients(res.data[0].totalNutrients)
-             })  
-     }, [])
-     
   return (
-
     <div  className={RecipeStyles.body}>
         <img src={result.image} className={RecipeStyles.img} />
         <br />
