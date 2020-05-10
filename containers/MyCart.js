@@ -7,6 +7,7 @@ import firebase from 'firebase'
 import firebaseConfig from '../firebaseConfig'
 import { connect } from 'react-redux'
 import { Button, Table } from 'react-bootstrap'
+import MediaQuery from 'react-responsive'
 import Chart from '../components/Chart/Chart'
 import DateFormatter from '../components/DateFormatter/DateFormatter'
 import cartStyles from '../styles/MyCart.module.css'
@@ -220,68 +221,122 @@ const MyCart = (props) => {
       ?
     <div className={cartStyles.mainBody}>
       <Button variant="secondary" onClick={goBack}>Back to Search</Button>
-      <div className={cartStyles.table}>
-        <Table striped bordered hover>
-          <thead>
-            <tr>
-              <th>Item</th>
-              <th>Category</th>
-              <th>Quantity</th>
-              <th>Added at</th>
-            </tr>
-          </thead>
-          <tbody>
-            {
-              myCart.map(item => {
-                return (
-                  <tr key={item.fdcId}>
-                    <td>
-                      <Link 
-                        href={{pathname: '/search/[fdcId]', query: {itemname: (item.brandOwner ? item.description + " - " + item.brandOwner : item.description)}}} 
-                        as={`/search/${item.fdcId}?itemname=${item.brandOwner ? item.description + " - " + item.brandOwner : item.description}`}
-                      >
-                        <a className={listStyles.itemLink}>
-                              {item.description}
-                              {item.brandOwner ? " - " + item.brandOwner : null}
-                        </a>
-                      </Link>
-                    </td>
-                    <td>
-                      {Object.getOwnPropertyNames(item).map(property => {
-                        if (property.toLowerCase().includes("category")) {
-                          if (typeof item[property] == 'string' || item[property] instanceof String) {
-                            return item[property]
-                          } else if (typeof item[property] == 'object' || item[property] instanceof Object) {
-                            let categoryString
-                            Object.values(item[property]).forEach(val => {
-                              if (isNaN(parseFloat(val))) {
-                                categoryString = val
-                              }
-                            })
-                            return categoryString
+      
+      {/* Media Query for min-device-width: 500px */}
+      <MediaQuery minDeviceWidth={500}>
+        <div className={cartStyles.table}>
+          <Table striped bordered hover>
+            <thead>
+              <tr>
+                <th>Item</th>
+                <th>Category</th>
+                <th>Quantity</th>
+                <th>Added at</th>
+              </tr>
+            </thead>
+            <tbody>
+              {
+                myCart.map(item => {
+                  return (
+                    <tr key={item.fdcId}>
+                      <td>
+                        <Link 
+                          href={{pathname: '/search/[fdcId]', query: {itemname: (item.brandOwner ? item.description + " - " + item.brandOwner : item.description)}}} 
+                          as={`/search/${item.fdcId}?itemname=${item.brandOwner ? item.description + " - " + item.brandOwner : item.description}`}
+                        >
+                          <a className={listStyles.itemLink}>
+                                {item.description}
+                                {item.brandOwner ? " - " + item.brandOwner : null}
+                          </a>
+                        </Link>
+                      </td>
+                      <td>
+                        {Object.getOwnPropertyNames(item).map(property => {
+                          if (property.toLowerCase().includes("category")) {
+                            if (typeof item[property] == 'string' || item[property] instanceof String) {
+                              return item[property]
+                            } else if (typeof item[property] == 'object' || item[property] instanceof Object) {
+                              let categoryString
+                              Object.values(item[property]).forEach(val => {
+                                if (isNaN(parseFloat(val))) {
+                                  categoryString = val
+                                }
+                              })
+                              return categoryString
+                            }
                           }
-                        }
-                      })}
-                    </td>
-                    <td>
-                      <span className={cartStyles.quantityButtonWrapper}>
-                        <Button variant="outline-danger" onClick={() => {decrementQuantity(item.fdcId)}} className={cartStyles.decrement}>-</Button>
-                        <p className={cartStyles.quantity}>{item.quantity}</p>
-                        <Button variant="outline-primary" onClick={() => {incrementQuantity(item.fdcId)}} className={cartStyles.increment}>+</Button>
-                      </span>
-                    </td>
-                    <td className={cartStyles.date}><DateFormatter date={item.itemAddedAt.toDate()}/></td>
-                  </tr>
-                )
-              })
-            }
-          </tbody>
-        </Table>
-        <Chart rawCart={rawCart} />
-      </div>
+                        })}
+                      </td>
+                      <td>
+                        <span className={cartStyles.quantityButtonWrapper}>
+                          <Button variant="outline-danger" onClick={() => {decrementQuantity(item.fdcId)}} className={cartStyles.decrement}>-</Button>
+                          <p className={cartStyles.quantity}>{item.quantity}</p>
+                          <Button variant="outline-primary" onClick={() => {incrementQuantity(item.fdcId)}} className={cartStyles.increment}>+</Button>
+                        </span>
+                      </td>
+                      <td className={cartStyles.date}><DateFormatter date={item.itemAddedAt.toDate()}/></td>
+                    </tr>
+                  )
+                })
+              }
+            </tbody>
+          </Table>
+          <Chart rawCart={rawCart} />
+        </div>
+      </MediaQuery>
+
+      {/* Media Query for max-device-width: 499px */}
+      <MediaQuery maxDeviceWidth={499}>
+        <div className={cartStyles.table}>
+          <Table striped bordered hover>
+            <thead>
+              <tr>
+                <th>Item</th>
+                <th>Quantity</th>
+                <th>Added at</th>
+              </tr>
+            </thead>
+            <tbody>
+              {
+                myCart.map(item => {
+                  return (
+                    <tr key={item.fdcId}>
+                      <td>
+                        <Link 
+                          href={{pathname: '/search/[fdcId]', query: {itemname: (item.brandOwner ? item.description + " - " + item.brandOwner : item.description)}}} 
+                          as={`/search/${item.fdcId}?itemname=${item.brandOwner ? item.description + " - " + item.brandOwner : item.description}`}
+                        >
+                          <a className={listStyles.itemLink}>
+                                {item.description}
+                                {item.brandOwner ? " - " + item.brandOwner : null}
+                          </a>
+                        </Link>
+                      </td>
+                      <td>
+                        <span className={cartStyles.quantityButtonWrapper}>
+                          <Button variant="outline-danger" onClick={() => {decrementQuantity(item.fdcId)}} className={cartStyles.decrement}>-</Button>
+                          <p className={cartStyles.quantity}>{item.quantity}</p>
+                          <Button variant="outline-primary" onClick={() => {incrementQuantity(item.fdcId)}} className={cartStyles.increment}>+</Button>
+                        </span>
+                      </td>
+                      <td className={cartStyles.date}><DateFormatter date={item.itemAddedAt.toDate()}/></td>
+                    </tr>
+                  )
+                })
+              }
+            </tbody>
+          </Table>
+          <Chart rawCart={rawCart} />
+        </div>
+      </MediaQuery>
       <style jsx>{`
         td {
-          vertical-align: middle
+          vertical-align: middle;
+        }
+        @media only screen and (max-device-width: 499px) {
+          td {
+            padding: 0.2rem 0.5rem;
+          }
         }
       `}</style>
     </div>

@@ -21,3 +21,9 @@
 .listItem:last-child {
   border-bottom: none;
 }
+
+@media only screen and (max-device-width: 499px) {
+  .listItem {
+    font-size: 0.93rem;
+  }
+}

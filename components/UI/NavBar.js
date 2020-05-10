@@ -52,7 +52,7 @@ const NavBar = (props) => {
                     <Link href="/aboutus"><a className={navbarStyles.link}>About Us</a></Link>
                 </Nav>
                 <Nav className="justify-content-end">
-                    <Navbar.Text>
+                    <Navbar.Text className={navbarStyles.userNameWrapper}>
                         {!props.isSignedIn 
                             ? 
                             (   

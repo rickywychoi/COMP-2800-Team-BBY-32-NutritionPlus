@@ -35,29 +35,29 @@ const WelcomeBanner = () => {
         <div>
           <Button 
             variant="primary" 
-            className="mr-2 mb-2" 
+            className={bannerStyles.button} 
             onClick={toQuestionnaire}
-          >
+            >
             Calculate Your Required Energy Intake
           </Button>        
           {/* <Button 
             variant="primary"
             className="mr-2 mb-2" 
             onClick={tomenuQuestionnaire}
-          >
+            >
             Menu Questionnaire
           </Button> */}
           <Button 
             variant="primary"
-            className="mr-2 mb-2"
+            className={bannerStyles.button} 
             onClick={toItemSearch}
-          >
+            >
             Search Grocery Items
           </Button>
 
           <Button
             variant="primary"
-            className="mr-2 mb-2"
+            className={bannerStyles.button} 
             onClick={toRecipeSearch}
           >
             Search Recipes
