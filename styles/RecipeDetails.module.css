@@ -37,4 +37,11 @@
   width: 75%; 
 }
 
-
+@media only screen and (max-width: 499px) {
+  .list {
+    list-style: none;
+    margin: 0;
+    padding-left: 0;
+    padding-right: 0;
+  }
+}

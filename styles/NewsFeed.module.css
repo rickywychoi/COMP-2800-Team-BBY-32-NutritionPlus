@@ -19,13 +19,28 @@
   object-fit: contain;
 }
 
-@media (max-width: 1024px) {
+@media only screen and (max-width: 1400px) {
   .mainBody {
-    grid-template-columns: repeat(1, auto);
+    grid-template-columns: repeat(2, 50%);
+    grid-column-gap: 2rem;
   }
 
   .newsImg {
     max-height: 300px;
     object-fit: contain;
+  }
+  
+  .newsItem {
+    justify-self: center;
+    width: 95%; 
+  }
+}
+
+@media only screen and (max-device-width: 777px) {
+  .mainBody {
+    grid-template-columns: repeat(1, 100%);
+  }
+  .newsItem {
+    width: 100%; 
   }
 }

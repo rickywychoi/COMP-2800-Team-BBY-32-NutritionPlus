@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react'
+import MediaQuery from 'react-responsive'
 import { HorizontalBar } from 'react-chartjs-2'
 import 'chartjs-plugin-annotation'
 import firebase from 'firebase'
@@ -21,7 +22,6 @@ const Chart = (props) => {
 
   // called only when props.rawCart is changed
   useEffect(() => {
-    console.log("useEffect!!!!!!")
     let chartData = {
       labels: null,
       datasets: null
@@ -30,11 +30,7 @@ const Chart = (props) => {
       // change each id corresponding to id from daily value
       if (props.rawCart) {
         db.collection('users').doc(props.currentUser.uid).get().then(userInfo => {
-          let dvLabel = []
-          userInfo.data().healthInfo.dailyValue.forEach(item => {
-            dvLabel.push(item.name)
-          })
-          chartData.labels = dvLabel
+          chartData.labels = ['Fat', 'Fatty acids', 'Fibre', 'Sugars', 'Cholesterol', 'Sodium', 'Potassium', 'Calcium', 'Iron', 'Vitamin A', 'Vitamin C', 'Vitamin D', 'Vitamin E', 'Vitamin K', 'Thiamin', 'Riboflavin', 'Niacin', 'Vitamin B6', 'Folate', 'Vitamin B12', 'Choline', 'Biotin', 'Pantothenate', 'Phosphorous', 'Iodide', 'Magnesium', 'Zinc', 'Selenium', 'Copper', 'Manganese', 'Chromium', 'Molybdenum', 'Chloride']
           setDailyValue(userInfo.data().healthInfo.dailyValue)
           props.rawCart.forEach(item => {
             item.foodNutrients.forEach(nutri => {
@@ -176,25 +172,49 @@ const Chart = (props) => {
           </div>
         </Form>
       </div>
-      <HorizontalBar 
-        data={data}
-        options={{
-          annotation: {
-            annotations: [{
-              type: "line",
-              mode: "vertical",
-              scaleID: "x-axis-0",
-              value: 100,
-              borderColor: "red",
-              label: {
-                content: "Standard",
-                enabled: true,
-                position: "top"
-              }
-            }]
-          }
-        }}
-      />
+      <MediaQuery minDeviceWidth={500}>
+        <HorizontalBar 
+          data={data}
+          options={{
+            annotation: {
+              annotations: [{
+                type: "line",
+                mode: "vertical",
+                scaleID: "x-axis-0",
+                value: 100,
+                borderColor: "red",
+                label: {
+                  content: "Standard",
+                  enabled: true,
+                  position: "top"
+                }
+              }]
+            }
+          }}
+        />
+      </MediaQuery>
+      <MediaQuery maxDeviceWidth={499}>
+        <HorizontalBar 
+          data={data}
+          height={430}
+          options={{
+            annotation: {
+              annotations: [{
+                type: "line",
+                mode: "vertical",
+                scaleID: "x-axis-0",
+                value: 100,
+                borderColor: "red",
+                label: {
+                  content: "Standard",
+                  enabled: true,
+                  position: "top"
+                }
+              }]
+            }
+          }}
+        />
+      </MediaQuery>
     </div>
   )
 }

@@ -31,3 +31,24 @@
 .date {
   text-align: center;
 }
+
+@media only screen and (max-device-width: 499px) {
+  .mainBody {
+    padding: 3% 4.5%;
+    font-size: 0.8rem;
+  }
+
+  .table {
+    margin-top: 1rem;
+  }
+
+  .decrement {
+    margin-right: 0.7rem;
+    padding: 0 0.4rem;
+  }
+  
+  .increment {
+    margin-left: 0.7rem;
+    padding: 0 0.4rem;
+  }
+}

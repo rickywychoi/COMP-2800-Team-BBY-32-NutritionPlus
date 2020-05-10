@@ -155,6 +155,10 @@ a.signIn:hover {
     margin-bottom: 0.5rem;
   }
 
+  .userNameWrapper {
+    padding-bottom: 0;
+  }
+  
   .userName {
     display: block;
     text-align: center;
