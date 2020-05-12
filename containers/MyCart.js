@@ -1,10 +1,10 @@
 // MyCart.js
 
-import { useRouter } from 'next/router'
-import Link from 'next/link'
-import React, { useState, useEffect } from 'react'
 import firebase from 'firebase'
 import firebaseConfig from '../firebaseConfig'
+import { useRouter } from 'next/router'
+import Link from 'next/link'
+import React, { useState, useEffect, useRef } from 'react'
 import { connect } from 'react-redux'
 import { Button, Table } from 'react-bootstrap'
 import MediaQuery from 'react-responsive'
@@ -40,7 +40,7 @@ const MyCart = (props) => {
   const goBack = () => {
     router.push("/search")
   }
-
+  
   // get quantity of each item
   const getQuantity = (arr) => {
     let result = []
@@ -90,7 +90,7 @@ const MyCart = (props) => {
     }
     return result
   }
-
+  
   // sort array by date - descending
   const sortArrayDesc = (arr) => {
     return arr.sort((a, b) => b.itemAddedAt.toDate() - a.itemAddedAt.toDate())
@@ -100,7 +100,7 @@ const MyCart = (props) => {
   const sortArrayAsc = (arr) => {
     return arr.sort((a, b) => a.itemAddedAt.toDate() - b.itemAddedAt.toDate())
   }
-
+  
   
   const incrementQuantity = (id) => {
     console.log("added 1")
@@ -145,7 +145,7 @@ const MyCart = (props) => {
           setRawCart(cart)
           console.log("setRawCart", cart)
         }).catch(err => console.log(err))
-  
+        
         setRawCart(cart)
         let arrayWithQuantity = getQuantity(cart)
         setMyCart(isDesc ? sortArrayDesc(arrayWithQuantity) : sortArrayAsc(arrayWithQuantity))
@@ -157,7 +157,7 @@ const MyCart = (props) => {
   
   const decrementQuantity = (id) => {
     console.log("removed 1")
-
+    
     if (props.currentUser) {
       // get previous quantity from item
       let qty = 0
@@ -209,18 +209,21 @@ const MyCart = (props) => {
       setRawCart(cart)
       console.log("setRawCart", cart)
     }).catch(err => console.log(err))
-
+    
     let arrayWithQuantity = getQuantity(cart)
     setMyCart(isDesc ? sortArrayDesc(arrayWithQuantity) : sortArrayAsc(arrayWithQuantity))
   }
-
+  
   console.log("myCart", myCart)
-
+  
   return (
     props.currentUser
-      ?
+    ?
     <div className={cartStyles.mainBody}>
-      <Button variant="secondary" onClick={goBack}>Back to Search</Button>
+      <div className={cartStyles.buttonsWrapper}>
+        <Button variant="secondary" onClick={goBack}>Back to Search</Button>
+        <Button variant="primary">Checkout</Button>
+      </div>
       
       {/* Media Query for min-device-width: 500px */}
       <MediaQuery minDeviceWidth={500}>
@@ -281,7 +284,6 @@ const MyCart = (props) => {
               }
             </tbody>
           </Table>
-          <Chart rawCart={rawCart} />
         </div>
       </MediaQuery>
 
@@ -326,23 +328,18 @@ const MyCart = (props) => {
               }
             </tbody>
           </Table>
-          <Chart rawCart={rawCart} />
         </div>
       </MediaQuery>
+      <Chart rawCart={rawCart} />
       <style jsx>{`
         td {
           vertical-align: middle;
-        }
-        @media only screen and (max-device-width: 499px) {
-          td {
-            padding: 0.2rem 0.5rem;
-          }
-        }
-      `}</style>
+          padding: 0.2rem 0.5rem;
+          `}</style>
     </div>
       :
-    <ErrorPage />
-  )
+      <ErrorPage />
+      )
 }
 
 const mapStateToProps = state => {

@@ -14,7 +14,7 @@ export default function DateFormatter({ date }) {
   } else if (givenDate >= yesterday && givenDate < today) {
     formattedDate = 'yesterday, ' + format(date, 'h:mm aaaa')  
   } else if (givenDate >= thisWeek && givenDate < yesterday) {
-    formattedDate = format(date, 'E..EEE h:mm aaaa')
+    formattedDate = format(date, 'EEE. h:mm aaaa')
   } else {
     formattedDate = format(date, 'MMM. d')
   }
