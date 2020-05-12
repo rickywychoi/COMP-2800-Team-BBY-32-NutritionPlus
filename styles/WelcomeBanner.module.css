@@ -14,6 +14,33 @@
   padding: 0 1rem;
 }
 
+.easterImg {
+  position: absolute;
+  opacity: 0;
+  width: 6%;
+  animation: zoomin 1.3s;
+  animation-fill-mode:forwards;
+}
+
+.easterImgCoffin {
+  position: absolute;
+  opacity: 0;
+  width: 15%;
+  animation: zoomin 1.3s;
+  animation-fill-mode:forwards;
+}
+
+@keyframes zoomin {
+  0% {
+      transform: scale(0,0);
+      opacity: 0;
+  }
+  100% {
+      transform: scale(1,1);
+      opacity: 1;
+  }
+}
+
 .head {
   color: #353A40;
 }
@@ -74,13 +101,22 @@
   and (max-device-width: 500px) {
     .body{
         text-align: center;
-    }
-    .contents {
+      }
+      .contents {
         margin-left: 0;
+        touch-action: manipulation;
     }
 
     .button {
         font-size: 0.87rem;
         margin-bottom: 0.7rem; 
+    }
+
+    .easterImg {
+      width: 12%;
+    }
+    
+    .easterImgCoffin {
+      width: 30%;
     }
 }
