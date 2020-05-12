@@ -1,4 +1,6 @@
 import Link from 'next/link'
+import firebase from 'firebase'
+import firebaseConfig from '../../firebaseConfig'
 import { Table, Accordion,Button, Card} from 'react-bootstrap'
 import axios from 'axios'
 import { useState, useEffect} from 'react'
@@ -7,7 +9,12 @@ import {  EDAMAM_RECIPE_APP_ID  } from '../../apiKey'
 import {  EDAMAM_RECIPE_APP_KEY } from '../../apiKey'
 import RecipeStyles from '../../styles/RecipeDetails.module.css'
 
-const RecipeDetails = () => { 
+const RecipeDetails = () => {
+  if (!firebase.apps.length) {    // if firebase not initialized
+    firebase.initializeApp(firebaseConfig)
+  }
+  let db = firebase.firestore()
+
   const router = useRouter()
   const str = router.asPath
   const idJimmy = str.substring(56)
