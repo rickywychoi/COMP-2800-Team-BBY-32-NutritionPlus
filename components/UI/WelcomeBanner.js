@@ -72,6 +72,10 @@ const WelcomeBanner = () => {
     router.push("/recipe")
   }
 
+  const toGroceryStores = () => {
+    router.push("/stores")
+  }
+
   return (
     <div className={bannerStyles.body}>
       <div className={bannerStyles.contents}>
@@ -113,6 +117,13 @@ const WelcomeBanner = () => {
             onClick={toRecipeSearch}
           >
             Search Recipes
+          </Button>
+          <Button
+            variant="primary"
+            className={bannerStyles.button}
+            onClick={toGroceryStores}
+          >
+            See Stores
           </Button>
         </div>
       </div>
