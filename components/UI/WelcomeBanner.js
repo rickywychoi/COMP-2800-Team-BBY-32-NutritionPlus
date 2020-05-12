@@ -9,7 +9,7 @@ const WelcomeBanner = () => {
   const [easterVisible, setEasterVisible] = useState(false)
   
   
-  /*************************************************/
+  /********************Easter Egg********************/
   const easterEggIconList = [
     "https://img.icons8.com/doodle/48/000000/coronavirus.png",
     "https://img.icons8.com/bubbles/50/000000/coronavirus.png",
