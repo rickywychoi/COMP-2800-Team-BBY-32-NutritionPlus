@@ -40,6 +40,7 @@ const WelcomeBanner = () => {
       let imageSource = easterEggIconList[Math.floor(Math.random() * easterEggIconList.length)]
       arr.push(
         <img 
+          key={i}
           src={imageSource} 
           alt="easterEgg"
           className={imageSource.includes("coffin") ? bannerStyles.easterImgCoffin : bannerStyles.easterImg} 
