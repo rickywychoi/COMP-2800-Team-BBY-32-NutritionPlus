@@ -6,7 +6,7 @@ import feedStyles from '../../styles/NewsFeed.module.css'
 
 const url = `http://newsapi.org/v2/top-headlines?country=ca&category=health&apiKey=${NEWS_API_KEY}`
 
-const NewsFeed = () => {
+const NewsFeed = (props) => {
   const [newsList, setNewsList] = useState([])
   useEffect(() => {
     axios.get(url).then(res => {
