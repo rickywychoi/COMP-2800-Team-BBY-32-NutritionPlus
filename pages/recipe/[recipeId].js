@@ -1,20 +1,21 @@
 import Link from 'next/link'
+import { connect } from 'react-redux'
 import firebase from 'firebase'
 import firebaseConfig from '../../firebaseConfig'
-import { Table, Accordion,Button, Card} from 'react-bootstrap'
+import { Table, Accordion, Button } from 'react-bootstrap'
 import axios from 'axios'
 import { useState, useEffect} from 'react'
 import { useRouter } from 'next/router'
-import {  EDAMAM_RECIPE_APP_ID  } from '../../apiKey'
-import {  EDAMAM_RECIPE_APP_KEY } from '../../apiKey'
+import {  EDAMAM_RECIPE_APP_ID, EDAMAM_RECIPE_APP_KEY } from '../../apiKey'
+import Chart from '../../components/Chart/Chart'
 import RecipeStyles from '../../styles/RecipeDetails.module.css'
 
-const RecipeDetails = () => {
-  if (!firebase.apps.length) {    // if firebase not initialized
-    firebase.initializeApp(firebaseConfig)
-  }
-  let db = firebase.firestore()
+if (!firebase.apps.length) {    // if firebase not initialized
+  firebase.initializeApp(firebaseConfig)
+}
+let db = firebase.firestore()
 
+const RecipeDetails = (props) => {
   const router = useRouter()
   const str = router.asPath
   const idJimmy = str.substring(56)
@@ -24,18 +25,72 @@ const RecipeDetails = () => {
   
   const [result, setResult] = useState({})
   const [ing, setIng] = useState([])
-  const [nutrients,setNutrients] = useState({})
+  const [nutrients, setNutrients] = useState({})
+  const [details, setDetails] = useState({})
   
+  // useEffect(()=>{
+  //   axios.get(url).then(res => {
+  //     setResult(res.data[0])
+  //     setIng(res.data[0].ingredientLines)
+  //     setNutrients(res.data[0].totalNutrients)
+  //   })
+  // }, [])
+
   useEffect(()=>{
     axios.get(url).then(res => {
-      setResult(res.data[0])
-      setIng(res.data[0].ingredientLines)
-      setNutrients(res.data[0].totalNutrients)
-    })
-  }, [])
+        // console.log(res.data)
+        console.log(res.data[0])
+        // console.log(res.data[0].totalNutrients)
+        setDetails(res.data)    // api data for firestore
+        setResult(res.data[0])  // recipe data
+        setIng(res.data[0].ingredientLines)
+        setNutrients(res.data[0].totalNutrients)
+        let sortedNutrients = []
+        let dailyValues = []
+        Object.values(nutrients).slice(1).forEach(nut => {
+          let myNutrient = nut.label
+          if (myNutrient.localeCompare("Calcium") == 0){
+            console.log("lame")
+          }
+        })
+        // console.log(nutrients)
+        })  
+   }, [])
+
+  // const tester = e => {
+  //   console.log("this button works")
+  // }
+
+  const sendUserHistory = () => {
+    if (props.currentUser){   // if user signed in
+      db.collection('users').doc(props.currentUser.uid).get().then(userInfo => {
+        console.log(userInfo.data())
+        console.log(Object.values(details).slice(0))
+
+        let todayMeals = {}
+        let date = {itemAddedAt: new Date()}
+        Object.assign(todayMeals, date)
+        Object.assign(todayMeals, userInfo.data())   // firestore data
+        todayMeals.recipes = [...Object.values(details).slice(0)]
+        console.log(todayMeals)
+
+        db.collection('users').doc(props.currentUser.uid).set(todayMeals)
+        // .then(
+        //   router.push("/myhistory")
+        // ).catch(err => console.log(err))
+      }).catch(err => console.log(err))
+    }
+  }
     
   return (
-    <div  className={RecipeStyles.body}>
+    <div className={RecipeStyles.body}>
+        {
+          props.currentUser
+            ?
+          (<Button variant="success" onClick={sendUserHistory}>Add to myMeals</Button>)
+            :
+          null
+        }
         <img src={result.image} className={RecipeStyles.img} />
         <br />
         <h3><i>{result.label}</i></h3>
@@ -90,9 +145,14 @@ const RecipeDetails = () => {
         </Accordion>
         <br />
         <Link href={router.query.prevPage}><a>Back to Search</a></Link>
-        
     </div>
   )
 }
 
-export default RecipeDetails
+const mapStateToProps = state => {
+  return {
+    currentUser: state.currentUser
+  }
+}
+
+export default connect(mapStateToProps)(RecipeDetails)
