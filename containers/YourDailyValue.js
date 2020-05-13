@@ -21,7 +21,7 @@ const YourDailyValue = (props) => {
   useEffect(() => {
     if (props.currentUser) {
       db.collection('users').doc(props.currentUser.uid).get().then(userInfo => {
-        if (userInfo.data().healthInfo.dailyValue.length === 0 || userInfo.data().healthInfo.dailyValue === undefined) {
+        if (userInfo.data().healthInfo.dailyValue.length === 0 || userInfo.data().healthInfo === undefined) {
           router.push("/questionnaire")
         } else {
           setDailyValue(userInfo.data().healthInfo.dailyValue)
@@ -44,9 +44,7 @@ const YourDailyValue = (props) => {
         <br />
         <div className={resultStyles.dvResult}>
           <div className={resultStyles.informationMsg}>
-            <p>
-              Click each of nutrient to see a brief information - provided by <a href="https://www.webmd.com/" target="_blank">WebMD</a>.
-            </p>
+            <p>&nbsp;</p>
           </div>
           <h2 className={resultStyles.dailyValueTitle}>Part 1 – Daily values for macronutrients and sodium</h2>
           <div>
