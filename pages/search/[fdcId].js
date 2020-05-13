@@ -340,7 +340,7 @@ const ItemDetailsPage = (props) => {
   }
 
 
-  const checkoutItem = () => {
+  const toMyCart = () => {
     if (props.currentUser) {
       db.collection('users').doc(props.currentUser.uid).get().then(userInfo => {
         console.log(userInfo.data())
@@ -379,7 +379,7 @@ const ItemDetailsPage = (props) => {
           <Button variant="outline-primary" onClick={incrementQuantity} className={detailStyles.increment}>+</Button>
         </div>
         <Button variant="outline-danger" onClick={resetQuantity} className={detailStyles.reset}>Reset</Button>
-        <button variant="outline-success" onClick={checkoutItem} className={detailStyles.checkoutButton}>Here's all your items.</button> 
+        <button variant="outline-success" onClick={toMyCart} className={detailStyles.checkoutButton}>Save item(s) to My Cart</button> 
       </Popover.Content>
     </Popover>
   );

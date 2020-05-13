@@ -67,7 +67,7 @@ const GroceryStores = () => {
   return (
     <div className={groceryStoresStyles.main}>
       
-      <h2>Grocery Stores</h2>
+      <h4>Grocery Stores</h4>
       <Table striped border hover>
         <thead>
           <th>Store Name</th>
@@ -85,10 +85,15 @@ const GroceryStores = () => {
         </tbody>
       </Table>
 
-      <h2>See Nearby Stores</h2>
+      <h4>See Nearby Stores</h4>
       <div className={groceryStoresStyles.mapContainer}>
         <img src="https://via.placeholder.com/400"></img>
       </div>
+      <style jsx>{`
+        td {
+          vertical-align: middle;
+          padding: 0.4rem 0.5rem;
+      `}</style>
     </div>
   )
 

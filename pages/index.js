@@ -1,19 +1,26 @@
 // index.js
 
 import Head from 'next/head'
+import { useRouter } from 'next/router'
+import { useEffect } from 'react'
 import { connect } from 'react-redux'
 import WelcomeBanner from '../components/UI/WelcomeBanner'
 import NewsFeed from '../components/NewsFeed/NewsFeed'
 import mainHomeStyles from '../styles/mainHome.module.css'
 
 const MainHome = (props) => {
+  const router = useRouter()
+  
+  useEffect(() => {
+    if (router.query.ordercomplete) {
+      alert("Your order is successfully made.")
+    }
+  })
 
   return (
     <div>
-      
       <Head>
         <title>Nutrition+ | Stay strong, stay healthy</title>
-        <link rel="icon" href="/favicon2.ico" />
       </Head>
       <WelcomeBanner className={mainHomeStyles.banner}/>
       

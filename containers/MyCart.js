@@ -6,6 +6,7 @@ import { useRouter } from 'next/router'
 import Link from 'next/link'
 import React, { useState, useEffect, useRef } from 'react'
 import { connect } from 'react-redux'
+import * as actions from '../store/actions'
 import { Button, Table } from 'react-bootstrap'
 import MediaQuery from 'react-responsive'
 import Chart from '../components/Chart/Chart'
@@ -210,8 +211,11 @@ const MyCart = (props) => {
     let arrayWithQuantity = getQuantity(cart)
     setMyCart(isDesc ? sortArrayDesc(arrayWithQuantity) : sortArrayAsc(arrayWithQuantity))
   }
-  
-  console.log("myCart", myCart)
+
+  const toMyOrder = () => {
+    props.onCheckout(myCart)
+    router.push("/myorder")
+  }
   
   return (
     props.currentUser
@@ -219,7 +223,7 @@ const MyCart = (props) => {
     <div className={cartStyles.mainBody}>
       <div className={cartStyles.buttonsWrapper}>
         <Button variant="secondary" className={buttonStyles.button} onClick={() => router.push("/search")}>Back to Search</Button>
-        <Button variant="primary" className={buttonStyles.button} onClick={() => router.push("/myorder")}>Checkout</Button>
+        <Button variant="primary" className={buttonStyles.button} onClick={toMyOrder}>Checkout</Button>
       </div>
       
       {/* Media Query for min-device-width: 500px */}
@@ -332,7 +336,7 @@ const MyCart = (props) => {
         td {
           vertical-align: middle;
           padding: 0.2rem 0.5rem;
-          `}</style>
+      `}</style>
     </div>
       :
       <ErrorPage />
@@ -345,4 +349,10 @@ const mapStateToProps = state => {
   }
 }
 
-export default connect(mapStateToProps)(MyCart)
+const mapDispatchToProps = dispatch => {
+  return {
+    onCheckout: (cart) => dispatch({type: actions.SENDMYCART, payload: cart})
+  }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(MyCart)
