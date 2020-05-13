@@ -19,6 +19,10 @@
   opacity: 0;
   width: 6%;
   animation: zoomin 1.3s;
+  -webkit-animation: zoomin 1.3s;
+  -moz-animation: zoomin 1.3s;
+  -o-animation: zoomin 1.3s;
+  -ms-animation: zoomin 1.3s;
   animation-fill-mode:forwards;
 }
 
@@ -27,6 +31,10 @@
   opacity: 0;
   width: 15%;
   animation: zoomin 1.3s;
+  -webkit-animation: zoomin 1.3s;
+  -moz-animation: zoomin 1.3s;
+  -o-animation: zoomin 1.3s;
+  -ms-animation: zoomin 1.3s;
   animation-fill-mode:forwards;
 }
 
@@ -71,24 +79,24 @@
 }
 
 @-moz-keyframes fade {
+0% { opacity: 0 }
+100% { opacity: 1 }
+}
+
+@-webkit-keyframes fade {
   0% { opacity: 0 }
   100% { opacity: 1 }
-  }
-  
-  @-webkit-keyframes fade {
-    0% { opacity: 0 }
-    100% { opacity: 1 }
-  }
-  
-  @-o-keyframes fade {
-    0% { opacity: 0 }
-    100% { opacity: 1 }
-  }
-  
-  @-ms-keyframes fade {
-    0% { opacity: 0 }
-    100% { opacity: 1 }
-  }
+}
+
+@-o-keyframes fade {
+  0% { opacity: 0 }
+  100% { opacity: 1 }
+}
+
+@-ms-keyframes fade {
+  0% { opacity: 0 }
+  100% { opacity: 1 }
+}
 
 .coronaIcon {
     width: 2rem;

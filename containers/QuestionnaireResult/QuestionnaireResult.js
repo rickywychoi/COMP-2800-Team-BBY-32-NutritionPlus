@@ -33,6 +33,7 @@ const QuestionnaireResult = (props) => {
       setAdults(true)
     
     // firestore
+    const numRegex = /[0-9.]/g
     if (props.currentUser) {
       let dv = []
       if (user.age < 1) {
@@ -41,13 +42,17 @@ const QuestionnaireResult = (props) => {
             name: nut.name,
             value: parseFloat(nut.value),
             id: nut.id,
+            group: "macronutrientsSodium",
+            unit: nut.value.replace(numRegex, '')
           })
         })
         data.infants.vitaminMineral.forEach(nut => {
           dv.push({
             name: nut.name,
             value: parseFloat(nut.value),
-            id: nut.id
+            id: nut.id,
+            group: "vitaminMineral",
+            unit: nut.value.replace(numRegex, '')
           })
         })
       } else if (user.age >= 1 && user.age < 4) {   // if child
@@ -55,14 +60,18 @@ const QuestionnaireResult = (props) => {
           dv.push({
             name: nut.name,
             value: parseFloat(nut.value),
-            id: nut.id
+            id: nut.id,
+            group: "macronutrientsSodium",
+            unit: nut.value.replace(numRegex, '')
           })
         })
         data.children.vitaminMineral.forEach(nut => {
           dv.push({
             name: nut.name,
             value: parseFloat(nut.value),
-            id: nut.id
+            id: nut.id,
+            group: "vitaminMineral",
+            unit: nut.value.replace(numRegex, '')
           })
         })
       } else if (user.age >= 4) {   // if adult
@@ -70,14 +79,18 @@ const QuestionnaireResult = (props) => {
           dv.push({
             name: nut.name,
             value:parseFloat(nut.value),
-            id: nut.id
+            id: nut.id,
+            group: "macronutrientsSodium",
+            unit: nut.value.replace(numRegex, '')
           })
         })
         data.adults.vitaminMineral.forEach(nut => {
           dv.push({
             name: nut.name,
             value: parseFloat(nut.value),
-            id: nut.id
+            id: nut.id,
+            group: "vitaminMineral",
+            unit: nut.value.replace(numRegex, '')
           })
         })
       }

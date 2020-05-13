@@ -50,6 +50,28 @@
   justify-self: end;
 }
 
+.noValueYet {
+  margin-top: 50px;
+  text-align: center;
+  padding: 3% 10%;
+}
+
+.getYourResultButton {
+  background: none!important;
+  border: none;
+  padding: 0!important;
+  font-size: 1.3rem;
+  color:#3B7EFF;
+  text-decoration: none;
+  cursor: pointer;
+  margin: 0.5rem;
+  margin-top: 4rem;
+}
+
+.getYourResultButton:hover {
+  color: #35548A;
+}
+
 @media screen and (max-width: 414px){
   .btnHome {
     width: 100px;

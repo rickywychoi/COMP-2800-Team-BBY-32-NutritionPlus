@@ -8,6 +8,7 @@ import firebase from 'firebase'
 import firebaseConfig from '../../firebaseConfig'
 import { GOOGLE_IMAGE_SEARCH_API_KEY, GOOGLE_IMAGE_SEARCH_CX, USDA_API_KEY } from '../../apiKey'
 import detailStyles from '../../styles/ItemDetailsPage.module.css'
+import buttonStyles from '../../styles/buttons.module.css'
 
 if (!firebase.apps.length) {
   firebase.initializeApp(firebaseConfig);
@@ -386,13 +387,13 @@ const ItemDetailsPage = (props) => {
   return (
     <div className={detailStyles.mainBody}>
       <div className={detailStyles.buttonWrapper}>
-        <Button variant="secondary" onClick={goBack}>Go back</Button>
+        <Button variant="secondary" className={buttonStyles.button} onClick={goBack}>Go back</Button>
         {
           props.currentUser
             ?
           (
             <OverlayTrigger trigger="click" placement="bottom" overlay={popover}>
-              <Button variant="success" onClick={addToCart}>Add to Cart</Button>
+              <Button variant="success" className={buttonStyles.button} onClick={addToCart}>Add to Cart</Button>
             </OverlayTrigger>
           )
             :

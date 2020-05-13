@@ -12,6 +12,7 @@ import Chart from '../components/Chart/Chart'
 import DateFormatter from '../components/DateFormatter/DateFormatter'
 import cartStyles from '../styles/MyCart.module.css'
 import listStyles from '../styles/SearchList.module.css'
+import buttonStyles from '../styles/buttons.module.css'
 import ErrorPage from '../components/ErrorPage/ErrorPage'
 
 if (!firebase.apps.length) {
@@ -36,10 +37,6 @@ const MyCart = (props) => {
       })
     }
   }, [])
-  
-  const goBack = () => {
-    router.push("/search")
-  }
   
   // get quantity of each item
   const getQuantity = (arr) => {
@@ -221,8 +218,8 @@ const MyCart = (props) => {
     ?
     <div className={cartStyles.mainBody}>
       <div className={cartStyles.buttonsWrapper}>
-        <Button variant="secondary" onClick={goBack}>Back to Search</Button>
-        <Button variant="primary">Checkout</Button>
+        <Button variant="secondary" className={buttonStyles.button} onClick={() => router.push("/search")}>Back to Search</Button>
+        <Button variant="primary" className={buttonStyles.button} onClick={() => router.push("/myorder")}>Checkout</Button>
       </div>
       
       {/* Media Query for min-device-width: 500px */}

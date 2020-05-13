@@ -419,7 +419,7 @@ const MenuQuestionnaire = () => {
     // HTML elements
     return (
       <div className={searchStyles.body}>
-        <h1 className={searchStyles.title}>Find a Recent Meal...</h1>
+        <h1 className={searchStyles.title}>Find Your Recent Meal</h1>
   
         <div className={searchStyles.container}>
   

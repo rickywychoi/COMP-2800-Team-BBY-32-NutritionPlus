@@ -46,3 +46,9 @@
     text-align: center;
   }
 }
+
+@media (max-width: 499px) {
+  .mainTitle {
+    margin-top: 1rem;
+  }
+}

@@ -77,8 +77,8 @@ const GroceryStores = () => {
           {stores.map(item => {
            return (
               <tr key={item.id}>
-                  <td><a href={item.url} className={groceryStoresStyles.stores}>{item.name}</a></td>
-                  <td><a href={item.url} className={groceryStoresStyles.stores}>{item.option}</a></td>
+                  <td><a href={item.url} target="_blank" className={groceryStoresStyles.stores}>{item.name}</a></td>
+                  <td>{item.option}</td>
               </tr>
             )
           })}

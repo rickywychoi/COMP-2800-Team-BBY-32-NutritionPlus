@@ -1,10 +1,12 @@
 import resultStyles from '../styles/QuestionnaireResult.module.css'
 import Link from 'next/link'
+import { useRouter } from 'next/router'
 import firebase from 'firebase'
 import firebaseConfig from '../firebaseConfig'
 import { useState, useEffect } from 'react'
 import { connect } from 'react-redux'
 import { Accordion, Card, Button, Table } from 'react-bootstrap'
+import Spinner from '../components/UI/Spinner'
 
 if (!firebase.apps.length) {
   firebase.initializeApp(firebaseConfig);
@@ -12,17 +14,27 @@ if (!firebase.apps.length) {
 let db = firebase.firestore()
 
 const YourDailyValue = (props) => {
+  const router = useRouter()
+  const [isLoaded, setLoaded] = useState(false)
   const [dailyValue, setDailyValue] = useState([])
   const [eer, setEER] = useState(0)
   useEffect(() => {
     if (props.currentUser) {
       db.collection('users').doc(props.currentUser.uid).get().then(userInfo => {
-        setDailyValue(userInfo.data().dailyValue)
-        setEER(userInfo.data().eer)
+        if (userInfo.data().healthInfo.dailyValue.length === 0 || userInfo.data().healthInfo.dailyValue === undefined) {
+          router.push("/questionnaire")
+        } else {
+          setDailyValue(userInfo.data().healthInfo.dailyValue)
+          setEER(userInfo.data().healthInfo.eer)
+        }
+        setLoaded(true)
       })
     }
   }, [])
 
+  if (!isLoaded) {
+    return <Spinner />
+  }
   return (
     props.currentUser && dailyValue.length > 0
       ?
@@ -47,12 +59,12 @@ const YourDailyValue = (props) => {
               </thead>
               <tbody>
                 {
-                  dailyValue.forEach(nut => {
+                  dailyValue.map(nut => {
                     if (nut.group.localeCompare("macronutrientsSodium") == 0) {
                       return(
                         <tr key={nut.name}>
                           <td><a href={nut.url} target="_blank" className={resultStyles.nut}>{nut.name}</a></td>
-                          <td>{nut.value}</td>
+                          <td>{nut.value} {nut.unit}</td>
                         </tr>
                       )
                     }
@@ -73,12 +85,12 @@ const YourDailyValue = (props) => {
                 </thead>
                 <tbody>
                   {
-                    dailyValue.forEach(nut => {
+                    dailyValue.map(nut => {
                       if (nut.group.localeCompare("vitaminMineral") == 0) {
                         return(
                           <tr key={nut.name}>
                             <td><a href={nut.url} target="_blank" className={resultStyles.nut}>{nut.name}</a></td>
-                            <td>{nut.value}</td>
+                            <td>{nut.value} {nut.unit}</td>
                           </tr>
                         )
                       }
@@ -100,9 +112,10 @@ const YourDailyValue = (props) => {
     )
       :
     (
-      <div>
-        <p>We don't have your daily value results yet.</p>
-        <Link href="/login"><a>Sign in and go get your result!</a></Link>
+      <div className={resultStyles.noValueYet}>
+        <h3>We don't have your daily value results yet.</h3>
+        <p>Or, you might have done questionnaire already, but you are currently not signed in.</p>
+        <button className={resultStyles.getYourResultButton} onClick={() => router.push("/login?questionnaire=true")}>Sign in and go get your result!</button>
       </div>
     )
   )
