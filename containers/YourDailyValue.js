@@ -27,18 +27,15 @@ const YourDailyValue = (props) => {
           setDailyValue(userInfo.data().healthInfo.dailyValue)
           setEER(userInfo.data().healthInfo.eer)
         }
-        setLoaded(true)
       })
     }
+    setTimeout(() => {
+      setLoaded(true)
+    }, 500)
   }, [])
 
-  if (!isLoaded) {
-    return <Spinner />
-  }
-  return (
-    props.currentUser && dailyValue.length > 0
-      ?
-    (
+  if (props.currentUser && dailyValue.length > 0 && isLoaded) {
+    return (
       <div className={resultStyles.body}>
         <h3>Your average dietary energy intake is <i>{eer}</i> kcal/day.</h3>
         <br />
@@ -108,14 +105,17 @@ const YourDailyValue = (props) => {
         </div>
       </div>
     )
+  }
+  return (
+    isLoaded
+      ?
+    <div className={resultStyles.noValueYet}>
+      <h3>We don't have your daily value results yet.</h3>
+      <p>Or, you might have done questionnaire already, but you are currently not signed in.</p>
+      <button className={resultStyles.getYourResultButton} onClick={() => router.push("/login?questionnaire=true")}>Sign in and go get your result!</button>
+    </div>
       :
-    (
-      <div className={resultStyles.noValueYet}>
-        <h3>We don't have your daily value results yet.</h3>
-        <p>Or, you might have done questionnaire already, but you are currently not signed in.</p>
-        <button className={resultStyles.getYourResultButton} onClick={() => router.push("/login?questionnaire=true")}>Sign in and go get your result!</button>
-      </div>
-    )
+    <Spinner />
   )
 }
 
