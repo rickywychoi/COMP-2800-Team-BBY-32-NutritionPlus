@@ -1,0 +1,16 @@
+.main {
+    padding: 3% 10%;
+}
+
+.stores {
+    color: black;
+    cursor: pointer;
+}
+
+.stores:hover {
+    text-decoration: none;
+}
+
+.mapContainer {
+    border: 1px solid red;
+}

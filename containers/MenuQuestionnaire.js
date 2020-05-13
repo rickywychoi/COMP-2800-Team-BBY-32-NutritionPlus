@@ -2,7 +2,7 @@ import axios from 'axios'
 import { useState, setState } from 'react'
 import Link from 'next/link'
 import { Form, Button, Pagination } from 'react-bootstrap'
-import menuQuestionnaireStyles from '../styles/menuQuestionnaire.module.css'
+import menuQuestionnaireStyles from '../styles/menuQuestionnaire.module.css' //old
 import searchStyles from '../styles/ItemSearch.module.css'
 import { EDAMAM_RECIPE_APP_ID, EDAMAM_RECIPE_APP_KEY } from '../apiKey'
 
