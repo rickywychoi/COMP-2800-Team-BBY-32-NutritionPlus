@@ -1,5 +1,4 @@
 import { useRef, useEffect, useState } from 'react'
-import ReactDOM from 'react-dom'
 import { Navbar, Nav, Popover, OverlayTrigger, Button, Overlay } from 'react-bootstrap'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
@@ -34,15 +33,12 @@ const NavBar = (props) => {
         router.push("/login?signout=true")
     }
 
-    const myAccountRef = useRef(null)
-
     const hidePopover = () => {
         console.log("hide!")
         setShow(prevState => !prevState)
     }
 
     const popover = (
-        <Overlay placement="bottom" show={show} >
             <Popover id="popover-basic">
                 <Popover.Title as="h5" align="center">Your Account</Popover.Title>
                 <Popover.Content>
@@ -54,7 +50,6 @@ const NavBar = (props) => {
                     </ul>
                 </Popover.Content>
             </Popover>
-        </Overlay>
     );
 
     return (
@@ -97,7 +92,9 @@ const NavBar = (props) => {
                                     <span className={navbarStyles.greeting}>
                                         <p className={navbarStyles.signOutText}>Hello, {props.currentUser.displayName}</p>
                                     </span>
-                                    <a className={navbarStyles.myAccount} ref={myAccountRef}>My Account</a>
+                                    <OverlayTrigger trigger="click" placement="bottom" overlay={popover}>
+                                        <a className={navbarStyles.myAccount}>My Account</a>
+                                    </OverlayTrigger>
                                     <button onClick={signout} className={navbarStyles.signoutButton}>Sign out</button>
                                 </div>
                             )

@@ -83,7 +83,8 @@ const MyOrder = (props) => {
 const mapStateToProps = state => {
   return {
     currentUser: state.currentUser,
-    myCart: state.myCart
+    myCart: state.myCart,
+    storeToVisit: state.storeToVisit
   }
 }
 

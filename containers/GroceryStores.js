@@ -4,12 +4,12 @@ import axios from 'axios'
 import { useState } from 'react'
 //import Link from 'next/link'
 //import MediaQuery from 'react-responsive'
-import { Table } from 'react-bootstrap'
+import { Table, Form } from 'react-bootstrap'
 import groceryStoresStyles from '../styles/GroceryStores.module.css' //replace with your Grocerystores.css
 import { connect } from 'react-redux'
+import * as actions from '../store/actions'
 
-const GroceryStores = () => {
-  // const [stores, setStores] = useState([])
+const GroceryStores = (props) => {
   const stores = [
     {
       id: 1,
@@ -60,16 +60,37 @@ const GroceryStores = () => {
       option: "pickup/delivery"
     }
   ]
+
+  const handleStoreSelect = e => {
+    e.preventDefault()
+    props.onSetStore(e.target.value)
+  }
   
   // TODO: insert google maps inside div mapContainer
   return (
     <div className={groceryStoresStyles.main}>
-      
-      <h4>Grocery Stores</h4>
+      <div className={groceryStoresStyles.header}>
+        <h4>Grocery Stores</h4>
+        <Form.Group controlId="formBasicGender" className="ml-3">
+          <Form.Control required as="select" defaultValue="" onChange={handleStoreSelect}>
+            <option disabled value="">Which store would you visit for these items?</option>
+            <option value="costco">Costco</option>
+            <option value="saveOnFoods">Save-On-Foods</option>
+            <option value="walmart">Walmart</option>
+            <option value="iga">IGA</option>
+            <option value="hmart">H-Mart</option>
+            <option value="tnt">T&amp;T Supermarket</option>
+            <option value="noFrills">No Frills</option>
+            <option value="superstore">Real Canadian Superstore</option>
+          </Form.Control>
+        </Form.Group>
+      </div>
       <Table striped border hover>
         <thead>
-          <th>Store Name</th>
-          <th>Delivery Option</th>
+          <tr>
+            <th>Store Name</th>
+            <th>Delivery Option</th>
+          </tr>
        </thead>
        <tbody>
           {stores.map(item => {
@@ -94,7 +115,12 @@ const GroceryStores = () => {
       `}</style>
     </div>
   )
-
 }
 
-export default GroceryStores;
+const mapDispatchToProps = dispatch => {
+  return {
+    onSetStore: (store) => dispatch({type: actions.SETSTORE, payload: store})
+  }
+}
+
+export default connect(null, mapDispatchToProps)(GroceryStores);
