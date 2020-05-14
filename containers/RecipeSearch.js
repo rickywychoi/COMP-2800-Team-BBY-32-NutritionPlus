@@ -1,14 +1,22 @@
 // RecipeSearch.js
 
+import firebase from 'firebase'
+import firebaseConfig from '../firebaseConfig'
 import searchStyles from '../styles/ItemSearch.module.css'
 import dropdownStyles from '../styles/ItemDropdown.module.css'
 import Link from 'next/link'
+import { connect } from 'react-redux'
 import { Form, Button, Pagination, InputGroup, FormControl, DropdownButton, Dropdown } from 'react-bootstrap'
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import axios from 'axios'
 import { EDAMAM_RECIPE_APP_ID, EDAMAM_RECIPE_APP_KEY } from '../apiKey'
 
-const RecipeSearch = () => {
+if (!firebase.apps.length) {
+  firebase.initializeApp(firebaseConfig);
+}
+let db = firebase.firestore()
+
+const RecipeSearch = (props) => {
   const [search, setSearch] = useState("")
   const [result, setResult] = useState([])
   const [pagination, setPagination] = useState([])
@@ -17,6 +25,77 @@ const RecipeSearch = () => {
   
   const pageSizeLimit = 10
   const searchLimit = 100
+
+  // my cart with repeating single items
+  const [rawCart, setRawCart] = useState([])
+  // my cart with quantity
+  const [myCart, setMyCart] = useState([])
+
+  useEffect(() => {
+    if (props.currentUser) {
+      db.collection('users').doc(props.currentUser.uid).get().then(userInfo => {
+        setRawCart(userInfo.data().cart)
+        let arrayWithQuantity = getQuantity(userInfo.data().cart)
+        setMyCart(sortArrayDesc(arrayWithQuantity))
+      })
+    }
+  }, [])
+
+  // get quantity of each item
+  const getQuantity = (arr) => {
+    let result = []
+    let visited = []
+    if (arr.length >= 2) {
+      let foodItem
+      for (let i = 0; i < arr.length - 1; i++) {
+        let qty = 1
+        for (let j = i + 1; j < arr.length; j++) {
+          if(arr[i]['fdcId'] === arr[j]['fdcId']) {
+            qty++
+          }
+        }
+        console.log("index", i, "quantity", qty)
+        
+        foodItem = {
+          quantity: qty,
+          ...arr[i]
+        }
+        if (!visited.includes(arr[i]['fdcId'])) {
+          result.push(foodItem)
+          console.log("pushed!")
+        }
+        console.log("result", result)
+        visited.push(arr[i]['fdcId'])
+        console.log("visited", visited)
+      }
+      // last element of the array
+      foodItem = {
+        quantity: 1,
+        ...arr[arr.length - 1]
+      }
+      if (!visited.includes(arr[arr.length - 1]['fdcId'])) {
+        result.push(foodItem)
+        console.log("Last item, here we go! Pushed!")
+      }
+      // if there is only one item left
+    } else if (arr.length === 1) {
+      let foodItem = {
+        quantity: 1,
+        ...arr[0]
+      }
+      if (!visited.includes(arr[0]['fdcId'])) {
+        result.push(foodItem)
+      }
+      visited.push(arr[0]['fdcId'])
+    }
+    return result
+  }
+
+  // sort array by date - descending
+  const sortArrayDesc = (arr) => {
+    return arr.sort((a, b) => b.itemAddedAt.toDate() - a.itemAddedAt.toDate())
+  }
+
 
   const handleSearchInput = e => {
     let value = e.target.value
@@ -410,13 +489,22 @@ const handleFirst = (number, totalPages, search) => {
     }
   }
 
-  const handleMyCartDropdown = () => {
-    console.log("handleQueryDropdown called")
-    document.getElementById("myCartDropdown").classList.toggle(dropdownStyles.show);
+  const getURI = (item) => {
+    const searchTerm = "recipe_";
+    const lengthSearch = searchTerm.length;
+  
+    let index = item.indexOf(searchTerm) + lengthSearch;
+  
+    let uri = item.substr(index);
+    return uri;
   }
 
   const handleMyCartQuery = (query) => {
-    console.log("handleMyCartQuery called: " + query)
+    console.log("handleMyCartQuery called: " + query) //test
+    document.getElementById("searchInput").value = query;
+    setSearch(query)
+    console.log("search: " + search) //test
+    // handleSearchQuery()
   }
 
   // old HTML elements
@@ -445,6 +533,10 @@ const handleFirst = (number, totalPages, search) => {
           </Form.Group>
         </Form> */}
 
+  console.log(props.currentUser)
+  console.log("rawCart", rawCart)
+  console.log("myCart", myCart)
+  
   // HTML elements
   return (
     <div className={searchStyles.body}>
@@ -455,8 +547,8 @@ const handleFirst = (number, totalPages, search) => {
       <div className={searchStyles.searchContainer}>
         <InputGroup className={dropdownStyles.formInline}>
           <FormControl
-            // class="form-control"
             className={searchStyles.search, dropdownStyles.formControl}
+            id="searchInput"
             placeholder="Search Recipes..."
             aria-describedby="myCartAppend"
             onChange={handleSearchInput}
@@ -470,10 +562,15 @@ const handleFirst = (number, totalPages, search) => {
           >
             <Dropdown.Item><i>Choose an Item from My Cart</i></Dropdown.Item>
             <Dropdown.Divider />
-            <Dropdown.Item onClick={handleMyCartQuery.bind("myCart-item3")}>myCart-item3</Dropdown.Item>
+            {
+              myCart.map(food => {
+                return(
+                  <Dropdown.Item onClick={handleMyCartQuery.bind(this, food.description)}>{food.description}</Dropdown.Item>
+                )
+              })
+            }
           </DropdownButton>
           <Button
-            // class="search-button ml-2"
             className={searchStyles.button, dropdownStyles.searchButton}
             onClick={handleSearchQuery}>
               Search
@@ -523,15 +620,10 @@ const handleFirst = (number, totalPages, search) => {
   )
 }
 
-function getURI(item) {
-  const searchTerm = "recipe_";
-  const lengthSearch = searchTerm.length;
-
-  let index = item.indexOf(searchTerm) + lengthSearch;
-
-  let uri = item.substr(index);
-  return uri;
+const mapStateToProps = state => {
+  return {
+    currentUser: state.currentUser
+  }
 }
 
-
-export default RecipeSearch 
+export default connect(mapStateToProps)(RecipeSearch) 
