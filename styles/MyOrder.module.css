@@ -1,3 +1,31 @@
 .mainBody {
   padding: 3% 10%;
 }
+
+.contents {
+  margin-top: 1.5rem;
+}
+
+.table {
+  margin-top: 1.7rem;
+}
+
+.itemName {
+  margin: 0.2rem 0;
+}
+
+.quantity {
+  margin-bottom: 0;
+  font-size: 1rem;
+  text-align: center;
+  /* -moz-appearance: textfield; */
+}
+
+.date {
+  text-align: center;
+}
+
+.confirmButtonWrapper {
+  display: flex;
+  justify-content: center;
+}

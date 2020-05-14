@@ -1,5 +1,5 @@
 .main {
-    padding: 3% 10%;
+    padding: 3% 0;
 }
 
 .stores {
@@ -13,4 +13,8 @@
 
 .mapContainer {
     border: 1px solid red;
+}
+
+.header {
+    display: flex;
 }
