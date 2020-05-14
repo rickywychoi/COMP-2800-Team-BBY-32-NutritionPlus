@@ -419,15 +419,8 @@ const handleFirst = (number, totalPages, search) => {
     console.log("handleMyCartQuery called: " + query)
   }
 
-  // HTML elements
-  return (
-    <div className={searchStyles.body}>
-      <h1 className={searchStyles.title}>Find a Recipe</h1>
-
-      <div className={searchStyles.container}>
-
-      <div className={searchStyles.searchContainer}>
-        {/* <Form>
+  // old HTML elements
+          {/* <Form>
          <Form.Group 
             controlId="formBasicPassword"
             className={searchStyles.search}>
@@ -451,16 +444,25 @@ const handleFirst = (number, totalPages, search) => {
             </InputGroup.Append>
           </Form.Group>
         </Form> */}
-        <InputGroup class="form-inline">
+
+  // HTML elements
+  return (
+    <div className={searchStyles.body}>
+      <h1 className={searchStyles.title}>Find a Recipe</h1>
+
+      <div className={searchStyles.container}>
+
+      <div className={searchStyles.searchContainer}>
+        <InputGroup className={dropdownStyles.formInline}>
           <FormControl
-            class="form-control"
-            className={searchStyles.search}
+            // class="form-control"
+            className={searchStyles.search, dropdownStyles.formControl}
             placeholder="Search Recipes..."
             aria-describedby="myCartAppend"
             onChange={handleSearchInput}
           />
           <DropdownButton
-            class="dropdown-button"
+            className={dropdownStyles.dropdownButton}
             as={InputGroup.Append}
             variant="outline-secondary"
             title="'My Cart' Items"
@@ -468,14 +470,11 @@ const handleFirst = (number, totalPages, search) => {
           >
             <Dropdown.Item><i>Choose an Item from My Cart</i></Dropdown.Item>
             <Dropdown.Divider />
-            <Dropdown.Item onClick={handleMyCartQuery('myCart-item')}>myCart-item</Dropdown.Item>
-            <Dropdown.Item href={handleMyCartQuery("myCart-item2")}>myCart-item2</Dropdown.Item>
-            <Dropdown.Item href={handleMyCartQuery("myCart-item3")}>myCart-item3</Dropdown.Item>
-            <Dropdown.Item href={handleMyCartQuery("myCart-item4")}>myCart-item4</Dropdown.Item>  
+            <Dropdown.Item onClick={handleMyCartQuery.bind("myCart-item3")}>myCart-item3</Dropdown.Item>
           </DropdownButton>
           <Button
-            class="search-button ml-2"
-            className={searchStyles.button}
+            // class="search-button ml-2"
+            className={searchStyles.button, dropdownStyles.searchButton}
             onClick={handleSearchQuery}>
               Search
           </Button>
