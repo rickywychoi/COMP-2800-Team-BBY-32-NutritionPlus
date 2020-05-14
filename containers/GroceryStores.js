@@ -1,13 +1,16 @@
 // GroceryStores.js
 
 import axios from 'axios'
-import { useState } from 'react'
+
 //import Link from 'next/link'
 //import MediaQuery from 'react-responsive'
 import { Table } from 'react-bootstrap'
 import groceryStoresStyles from '../styles/GroceryStores.module.css' //replace with your Grocerystores.css
 import { connect } from 'react-redux'
+import Map from '../components/Map/Map'
+import { useState, useEffect} from 'react'
 
+let center;
 const GroceryStores = () => {
   // const [stores, setStores] = useState([])
   const stores = [
@@ -62,9 +65,24 @@ const GroceryStores = () => {
   ]
 
 
+  // const [lat, setLat] = useState()
+  // const [lng, setLng] = useState()
   
+
+  // useEffect(()=>{
+  //       navigator.geolocation.watchPosition((position) => {
+  //         setLat(position.coords.latitude)
+  //         setLng(position.coords.longitude)
+        
+  //       });
+  //     })
+
+  // center = {lat:lat,lng:lng}
+  // console.log(center)
+
   // TODO: insert google maps inside div mapContainer
   return (
+    
     <div className={groceryStoresStyles.main}>
       
       <h2>Grocery Stores</h2>
@@ -84,10 +102,13 @@ const GroceryStores = () => {
           })}
         </tbody>
       </Table>
-
+      <hr />
       <h2>See Nearby Stores</h2>
+      <br />
       <div className={groceryStoresStyles.mapContainer}>
-        <img src="https://via.placeholder.com/400"></img>
+        
+      <Map />
+      
       </div>
     </div>
   )
