@@ -7,7 +7,7 @@ import axios from 'axios'
 import { useState, useEffect, useRef } from 'react'
 import { useRouter } from 'next/router'
 import {  EDAMAM_RECIPE_APP_ID, EDAMAM_RECIPE_APP_KEY } from '../../apiKey'
-import Chart from '../../components/Chart/Chart'
+import RecipeChart from '../../components/Chart/RecipeChart'
 import RecipeStyles from '../../styles/RecipeDetails.module.css'
 
 if (!firebase.apps.length) {    // if firebase not initialized
@@ -37,7 +37,8 @@ const RecipeDetails = (props) => {
   const [details, setDetails] = useState({})
   const [calories, setCalories] = useState({})
   const [userDailyValue, setUserDailyValue] = useState([])
-  
+  const [rawCart, setRawCart] = useState([])
+
   // useEffect(()=>{
   //   axios.get(url).then(res => {
   //     setResult(res.data[0])
@@ -46,6 +47,7 @@ const RecipeDetails = (props) => {
   //   })
   // }, [])
 
+  // returns information to create nutrition facts label
   useEffect(()=>{
     // retrieve daily value of the user
     if (props.currentUser) {
@@ -62,6 +64,7 @@ const RecipeDetails = (props) => {
       })
     }
 
+    // return nutrient data
     axios.get(url).then(res => {
         console.log("43", res.data)
         console.log(res.data[0])
@@ -290,10 +293,19 @@ const RecipeDetails = (props) => {
         })  
    }, [])
 
-  // const tester = e => {
-  //   console.log("this button works")
-  // }
 
+  useEffect(() => {
+    if (props.currentUser) {
+      db.collection('users').doc(props.currentUser.uid).get().then(userInfo => {
+        // console.log(userInfo.data().recipes)
+        setRawCart(userInfo.data().recipes)
+      })
+    }
+  }, [])
+  
+  console.log(rawCart)
+
+  // sends recipe to user's info in firebase
   const sendUserHistory = () => {
     if (props.currentUser){   // if user signed in
       db.collection('users').doc(props.currentUser.uid).get().then(userInfo => {
@@ -323,7 +335,9 @@ const RecipeDetails = (props) => {
         {
           props.currentUser
             ?
-          (<Button variant="success" onClick={sendUserHistory}>Add to myMeals</Button>)
+          (<Button variant="success"
+           onClick={sendUserHistory}
+           className = {RecipeStyles.send}>Add to myMeals</Button>)
             :
           null
         }
@@ -371,7 +385,7 @@ const RecipeDetails = (props) => {
                             </tr>
                             <tr className = {RecipeStyles.nutrient}>
                               <td className = {RecipeStyles.caloriesTitle}>Calories</td>
-                              <td className = {RecipeStyles.calories}><strong>{calories.amount}</strong></td>
+                              <td className = {RecipeStyles.calories}><strong>{calories.calPerServing}</strong></td>
                             </tr>
                             <tr className = {RecipeStyles.nutrient}>
                               <td></td>
@@ -391,7 +405,17 @@ const RecipeDetails = (props) => {
                                       </div>
                                     </td>
                                     <td className = {RecipeStyles.daily}>
-
+                                      {
+                                        nut.name.localeCompare("Protein") === 0 || nut.name.localeCompare("Sugars, total including NLEA") === 0
+                                          ?
+                                        ""
+                                          :
+                                        userDailyValue.map(dv => {
+                                          if (dv.id.localeCompare(nut.id) === 0) {
+                                            return Math.ceil(nut.amount / dv.value) + "%"
+                                          }
+                                        })
+                                      }
                                     </td>
                                   </tr>
                                   : null
@@ -417,7 +441,7 @@ const RecipeDetails = (props) => {
                                         {
                                           userDailyValue.map(dv => {
                                             if (dv.id.localeCompare(nut.id) === 0) {
-                                              return Math.ceil(100 * nut.amount / dv.value) + "%"
+                                              return Math.ceil(nut.amount / dv.value) + "%"
                                             }
                                           })
                                         }
@@ -463,7 +487,7 @@ const RecipeDetails = (props) => {
                                               {
                                                 userDailyValue.map(dv => {
                                                   if (dv.id.localeCompare(nut.id) === 0) {
-                                                    return Math.ceil(100 * nut.amount / dv.value) + "%"
+                                                    return Math.ceil(nut.amount / dv.value) + "%"
                                                   }
                                                 })
                                               }
@@ -493,6 +517,7 @@ const RecipeDetails = (props) => {
             </Accordion.Collapse>                             
         </Accordion>
         <br />
+        <RecipeChart rawCart = {rawCart} />
         <Link href={router.query.prevPage}><a>Back to Search</a></Link>
     </div>
   )

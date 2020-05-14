@@ -3,6 +3,10 @@
     text-align: center;
     padding: 3% 10%;
 }
+
+.send {
+  margin-bottom: 20px;
+}
   
 .img {
   border-radius: 50%;
@@ -39,7 +43,7 @@
   margin: 0 auto;
   margin-bottom: 0;
   padding: 15px 2px;
-  width: 100%; 
+  width: 80%; 
 }
 
 .table2 {
@@ -48,6 +52,7 @@
   margin: 0 auto;
   margin-bottom: 20px;
   padding: 15px 2px; 
+  width: 80%;
 }
 
 .thead {
@@ -62,6 +67,7 @@
 
 .subHead {
   padding-left: 10px;
+  float: left;
 }
 
 .tbody {
@@ -75,6 +81,7 @@
 .caloriesTitle {
   padding-left: 10px;
   font-size: 34px;
+  float: left;
 }
 
 .calories {
