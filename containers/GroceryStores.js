@@ -60,8 +60,6 @@ const GroceryStores = () => {
       option: "pickup/delivery"
     }
   ]
-
-
   
   // TODO: insert google maps inside div mapContainer
   return (

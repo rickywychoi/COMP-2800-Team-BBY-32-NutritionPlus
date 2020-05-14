@@ -216,6 +216,13 @@ const MyCart = (props) => {
     props.onCheckout(myCart)
     router.push("/myorder")
   }
+
+  const hello = () => {
+    console.log("hello")
+  }
+  const yeah = () => {
+    hello()
+  }
   
   return (
     props.currentUser
@@ -223,7 +230,7 @@ const MyCart = (props) => {
     <div className={cartStyles.mainBody}>
       <div className={cartStyles.buttonsWrapper}>
         <Button variant="secondary" className={buttonStyles.button} onClick={() => router.push("/search")}>Back to Search</Button>
-        <Button variant="primary" className={buttonStyles.button} onClick={toMyOrder}>Checkout</Button>
+        <Button variant="primary" className={buttonStyles.button} onClick={yeah}>Checkout</Button>
       </div>
       
       {/* Media Query for min-device-width: 500px */}

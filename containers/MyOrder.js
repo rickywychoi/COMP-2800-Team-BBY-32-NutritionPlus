@@ -12,8 +12,6 @@ const MyOrder = (props) => {
   const router = useRouter()
   const myCart = props.myCart
 
-  console.log(myCart)
-
   const goBack = () => {
     router.push("/mycart") 
   }

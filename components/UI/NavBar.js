@@ -1,5 +1,6 @@
-import { useRef, useEffect } from 'react'
-import { Navbar, Nav,} from 'react-bootstrap'
+import { useRef, useEffect, useState } from 'react'
+import ReactDOM from 'react-dom'
+import { Navbar, Nav, Popover, OverlayTrigger, Button, Overlay } from 'react-bootstrap'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
 import { connect } from 'react-redux'
@@ -14,6 +15,7 @@ let db = firebase.firestore()
 
 const NavBar = (props) => {
     const router = useRouter()
+    const [show, setShow] = useState(true)
     
     // Apply css on signout message
     const signoutRef = useRef(null)
@@ -32,6 +34,29 @@ const NavBar = (props) => {
         router.push("/login?signout=true")
     }
 
+    const myAccountRef = useRef(null)
+
+    const hidePopover = () => {
+        console.log("hide!")
+        setShow(prevState => !prevState)
+    }
+
+    const popover = (
+        <Overlay placement="bottom" show={show} >
+            <Popover id="popover-basic">
+                <Popover.Title as="h5" align="center">Your Account</Popover.Title>
+                <Popover.Content>
+                    <ul className={navbarStyles.myAccountList}>
+                        <li className={navbarStyles.myAccountListItem}><Link href = "#"><a className={navbarStyles.myAccountListLink}>My List</a></Link></li>
+                        <li className={navbarStyles.myAccountListItem}><Link href="/mycart"><a className={navbarStyles.myAccountListLink}>My Cart</a></Link></li>
+                        <li className={navbarStyles.myAccountListItem}><Link href="/myorder"><a className={navbarStyles.myAccountListLink}>My Order</a></Link></li>
+                        <li className={navbarStyles.myAccountListItem}><Link href="/history"><a className={navbarStyles.myAccountListLink}>Order History</a></Link></li>
+                    </ul>
+                </Popover.Content>
+            </Popover>
+        </Overlay>
+    );
+
     return (
     <>
         <Navbar collapseOnSelect expand="lg" bg="dark" variant="dark">
@@ -43,8 +68,8 @@ const NavBar = (props) => {
                     </span>
                 </a>
             </Link>
-                <Navbar.Toggle aria-controls="responsive-navbar-nav" />
-                <Navbar.Collapse id="responsive-navbar-nav">
+            <Navbar.Toggle aria-controls="responsive-navbar-nav" onClick={hidePopover} />
+            <Navbar.Collapse id="responsive-navbar-nav" >
                 <Nav className="mr-auto">
                     <Link href="/yourdailyvalue" ><a className={navbarStyles.link}>Your Intake</a></Link>
                     <Link href="/search"><a className={navbarStyles.link}>Search an Item</a></Link>
@@ -72,15 +97,14 @@ const NavBar = (props) => {
                                     <span className={navbarStyles.greeting}>
                                         <p className={navbarStyles.signOutText}>Hello, {props.currentUser.displayName}</p>
                                     </span>
-                                    <Link href = "#"><a className={navbarStyles.myCart}>My List</a></Link>
-                                    <Link href="/mycart"><a className={navbarStyles.myCart}>My Cart</a></Link>
+                                    <a className={navbarStyles.myAccount} ref={myAccountRef}>My Account</a>
                                     <button onClick={signout} className={navbarStyles.signoutButton}>Sign out</button>
                                 </div>
                             )
                         }
                     </Navbar.Text>
                 </Nav>
-                </Navbar.Collapse>
+            </Navbar.Collapse>
         </Navbar>
     </>
     );
