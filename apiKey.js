@@ -6,6 +6,7 @@ export const EDAMAM_NUTRITION_APP_KEY = "0049b7d301be55a9a735cede1f3b835f"
 export const EDAMAM_RECIPE_APP_ID = "6b733ca0"
 export const EDAMAM_RECIPE_APP_KEY = "5c7c48da7acde7bf75c7c016a8736b99"
 export const NEWS_API_KEY = "19baa1eff8b449fdbe4d138a7a03455e"
+export const GOOGLE_MAP_API_KEY = "AIzaSyB6wvBxdIC2xmLJLwmjU3yZO2gslghd3V8"
 
 // daily search limited to 10,000 queries
 export const GOOGLE_IMAGE_SEARCH_API_KEY = "AIzaSyB-vNVMZ2ysNlaM91SEJcTkRPwAp-V54y4"
