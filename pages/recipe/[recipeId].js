@@ -26,7 +26,7 @@ const RecipeDetails = (props) => {
   const [result, setResult] = useState({})
   const [ing, setIng] = useState([])
   const [nutrients, setNutrients] = useState([])
-  const [additionalNutrients, setAdditionalNutrients] = useState([])
+  const [additionalNutrients, setAdditionalNutrients] = useState(null)
   const [details, setDetails] = useState({})
   const [calories, setCalories] = useState({})
   
@@ -259,11 +259,10 @@ const RecipeDetails = (props) => {
               nut.id = "32"
             else if (nut.name.toLowerCase().includes("chlori"))
               nut.id = "33"
-          })
-          setNutrients(sortedNutrients)
-          setAdditionalNutrients(extraNutrients)               
+          })             
         })
-
+        setNutrients(sortedNutrients)
+        setAdditionalNutrients(extraNutrients)  
         })  
    }, [])
 
@@ -292,12 +291,12 @@ const RecipeDetails = (props) => {
     }
   }
   
-  console.log(nutrients)
-  console.log(additionalNutrients)
+  // console.log(nutrients)
+  // console.log(additionalNutrients)
 
-  additionalNutrients.forEach(nut => {
-    console.log(nut.id)
-  })
+  // additionalNutrients.forEach(nut => {
+  //   console.log(nut.id)
+  // })
 
   return (
     <div className={RecipeStyles.body}>
