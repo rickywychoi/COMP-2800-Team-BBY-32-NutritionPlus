@@ -1,8 +1,9 @@
 // RecipeSearch.js
 
 import searchStyles from '../styles/ItemSearch.module.css'
+import dropdownStyles from '../styles/ItemDropdown.module.css'
 import Link from 'next/link'
-import { Form, Button, Pagination } from 'react-bootstrap'
+import { Form, Button, Pagination, InputGroup, FormControl, DropdownButton, Dropdown } from 'react-bootstrap'
 import { useState } from 'react'
 import axios from 'axios'
 import { EDAMAM_RECIPE_APP_ID, EDAMAM_RECIPE_APP_KEY } from '../apiKey'
@@ -409,6 +410,15 @@ const handleFirst = (number, totalPages, search) => {
     }
   }
 
+  const handleMyCartDropdown = () => {
+    console.log("handleQueryDropdown called")
+    document.getElementById("myCartDropdown").classList.toggle(dropdownStyles.show);
+  }
+
+  const handleMyCartQuery = (query) => {
+    console.log("handleMyCartQuery called: " + query)
+  }
+
   // HTML elements
   return (
     <div className={searchStyles.body}>
@@ -417,22 +427,59 @@ const handleFirst = (number, totalPages, search) => {
       <div className={searchStyles.container}>
 
       <div className={searchStyles.searchContainer}>
-        <Form>
+        {/* <Form>
          <Form.Group 
             controlId="formBasicPassword"
             className={searchStyles.search}>
             <Form.Control 
               type="text" 
               placeholder="Search Recipes..."
+              aria-describedby="myCartAppend"
               onChange={handleSearchInput}
             />
+            <InputGroup.Append>
+              <div className={dropdownStyles.dropdown}>
+                <InputGroup.Text id="myCartAppend" className={dropdownStyles.dropbtn} onClick={handleMyCartDropdown}><b>V</b></InputGroup.Text>
+                <div id="myCartDropdown" className={dropdownStyles.dropdownContent}>
+                  <p>Choose an Item from My Cart</p>
+                  <a href={handleMyCartQuery("myCart-item")}>myCart-item</a>
+                  <a href={handleMyCartQuery("myCart-item2")}>myCart-item2</a>
+                  <a href={handleMyCartQuery("myCart-item3")}>myCart-item3</a>
+                  <a href={handleMyCartQuery("myCart-item4")}>myCart-item4</a>
+                </div>
+              </div>
+            </InputGroup.Append>
           </Form.Group>
-        </Form>
-        <Button
-          className={searchStyles.button}
-          onClick={handleSearchQuery}>
-            Search
-        </Button>      
+        </Form> */}
+        <InputGroup class="form-inline">
+          <FormControl
+            class="form-control"
+            className={searchStyles.search}
+            placeholder="Search Recipes..."
+            aria-describedby="myCartAppend"
+            onChange={handleSearchInput}
+          />
+          <DropdownButton
+            class="dropdown-button"
+            as={InputGroup.Append}
+            variant="outline-secondary"
+            title="'My Cart' Items"
+            id="myCartAppend"
+          >
+            <Dropdown.Item><i>Choose an Item from My Cart</i></Dropdown.Item>
+            <Dropdown.Divider />
+            <Dropdown.Item onClick={handleMyCartQuery('myCart-item')}>myCart-item</Dropdown.Item>
+            <Dropdown.Item href={handleMyCartQuery("myCart-item2")}>myCart-item2</Dropdown.Item>
+            <Dropdown.Item href={handleMyCartQuery("myCart-item3")}>myCart-item3</Dropdown.Item>
+            <Dropdown.Item href={handleMyCartQuery("myCart-item4")}>myCart-item4</Dropdown.Item>  
+          </DropdownButton>
+          <Button
+            class="search-button ml-2"
+            className={searchStyles.button}
+            onClick={handleSearchQuery}>
+              Search
+          </Button>
+        </InputGroup>    
       </div>
 
         <ul className={searchStyles.listCards}>
