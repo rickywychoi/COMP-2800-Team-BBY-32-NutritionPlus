@@ -6,7 +6,7 @@ import searchStyles from '../styles/ItemSearch.module.css'
 import dropdownStyles from '../styles/ItemDropdown.module.css'
 import Link from 'next/link'
 import { connect } from 'react-redux'
-import { Form, Button, Pagination, InputGroup, FormControl, DropdownButton, Dropdown } from 'react-bootstrap'
+import { Button, Pagination, InputGroup, FormControl, DropdownButton, Dropdown } from 'react-bootstrap'
 import { useState, useEffect } from 'react'
 import axios from 'axios'
 import { EDAMAM_RECIPE_APP_ID, EDAMAM_RECIPE_APP_KEY } from '../apiKey'
@@ -36,65 +36,11 @@ const RecipeSearch = (props) => {
       db.collection('users').doc(props.currentUser.uid).get().then(userInfo => {
         setRawCart(userInfo.data().cart)
         let arrayWithQuantity = getQuantity(userInfo.data().cart)
-        setMyCart(sortArrayDesc(arrayWithQuantity))
+        setMyCart(sortArrayAlphabetically(arrayWithQuantity))
       })
     }
   }, [])
 
-  // get quantity of each item
-  const getQuantity = (arr) => {
-    let result = []
-    let visited = []
-    if (arr.length >= 2) {
-      let foodItem
-      for (let i = 0; i < arr.length - 1; i++) {
-        let qty = 1
-        for (let j = i + 1; j < arr.length; j++) {
-          if(arr[i]['fdcId'] === arr[j]['fdcId']) {
-            qty++
-          }
-        }
-        console.log("index", i, "quantity", qty)
-        
-        foodItem = {
-          quantity: qty,
-          ...arr[i]
-        }
-        if (!visited.includes(arr[i]['fdcId'])) {
-          result.push(foodItem)
-          console.log("pushed!")
-        }
-        console.log("result", result)
-        visited.push(arr[i]['fdcId'])
-        console.log("visited", visited)
-      }
-      // last element of the array
-      foodItem = {
-        quantity: 1,
-        ...arr[arr.length - 1]
-      }
-      if (!visited.includes(arr[arr.length - 1]['fdcId'])) {
-        result.push(foodItem)
-        console.log("Last item, here we go! Pushed!")
-      }
-      // if there is only one item left
-    } else if (arr.length === 1) {
-      let foodItem = {
-        quantity: 1,
-        ...arr[0]
-      }
-      if (!visited.includes(arr[0]['fdcId'])) {
-        result.push(foodItem)
-      }
-      visited.push(arr[0]['fdcId'])
-    }
-    return result
-  }
-
-  // sort array by date - descending
-  const sortArrayDesc = (arr) => {
-    return arr.sort((a, b) => b.itemAddedAt.toDate() - a.itemAddedAt.toDate())
-  }
 
 
   const handleSearchInput = e => {
@@ -489,6 +435,56 @@ const handleFirst = (number, totalPages, search) => {
     }
   }
 
+  // get quantity of each food item in array
+  const getQuantity = (arr) => {
+    let result = []
+    let visited = []
+    if (arr.length >= 2) {
+      let foodItem
+      for (let i = 0; i < arr.length - 1; i++) {
+        let qty = 1
+        for (let j = i + 1; j < arr.length; j++) {
+          if(arr[i]['fdcId'] === arr[j]['fdcId']) {
+            qty++
+          }
+        }
+        
+        foodItem = {
+          quantity: qty,
+          ...arr[i]
+        }
+        if (!visited.includes(arr[i]['fdcId'])) {
+          result.push(foodItem)
+        }
+        visited.push(arr[i]['fdcId'])
+      }
+      // last element of the array
+      foodItem = {
+        quantity: 1,
+        ...arr[arr.length - 1]
+      }
+      if (!visited.includes(arr[arr.length - 1]['fdcId'])) {
+        result.push(foodItem)
+      }
+      // if there is only one item left
+    } else if (arr.length === 1) {
+      let foodItem = {
+        quantity: 1,
+        ...arr[0]
+      }
+      if (!visited.includes(arr[0]['fdcId'])) {
+        result.push(foodItem)
+      }
+      visited.push(arr[0]['fdcId'])
+    }
+    return result
+  }
+
+  // sort array by alphabetical order
+  const sortArrayAlphabetically = (arr) => {
+    return arr.sort((a, b) => a.description > b.description ? 1 : -1)
+  }
+
   const getURI = (item) => {
     const searchTerm = "recipe_";
     const lengthSearch = searchTerm.length;
@@ -534,7 +530,6 @@ const handleFirst = (number, totalPages, search) => {
         </Form> */}
 
   console.log(props.currentUser)
-  console.log("rawCart", rawCart)
   console.log("myCart", myCart)
   
   // HTML elements
@@ -545,33 +540,40 @@ const handleFirst = (number, totalPages, search) => {
       <div className={searchStyles.container}>
 
       <div className={searchStyles.searchContainer}>
-        <InputGroup className={dropdownStyles.formInline}>
+        <InputGroup>
           <FormControl
-            className={searchStyles.search, dropdownStyles.formControl}
+            className={searchStyles.search}
             id="searchInput"
             placeholder="Search Recipes..."
             aria-describedby="myCartAppend"
             onChange={handleSearchInput}
           />
           <DropdownButton
-            className={dropdownStyles.dropdownButton}
             as={InputGroup.Append}
             variant="outline-secondary"
             title="'My Cart' Items"
             id="myCartAppend"
           >
-            <Dropdown.Item><i>Choose an Item from My Cart</i></Dropdown.Item>
-            <Dropdown.Divider />
             {
-              myCart.map(food => {
-                return(
-                  <Dropdown.Item onClick={handleMyCartQuery.bind(this, food.description)}>{food.description}</Dropdown.Item>
-                )
-              })
+              props.currentUser 
+              ?
+              <span>
+                <Dropdown.Item><i>Choose an Item from My Cart</i></Dropdown.Item>
+                <Dropdown.Divider />
+                {
+                  myCart.map(food => {
+                    return(
+                      <Dropdown.Item onClick={handleMyCartQuery.bind(this, food.description)}>{food.description}</Dropdown.Item>
+                    )
+                  })
+                }
+              </span>
+              :
+              <Dropdown.Item><i>Please Sign In First.</i></Dropdown.Item>
             }
           </DropdownButton>
           <Button
-            className={searchStyles.button, dropdownStyles.searchButton}
+            className={searchStyles.button}
             onClick={handleSearchQuery}>
               Search
           </Button>
