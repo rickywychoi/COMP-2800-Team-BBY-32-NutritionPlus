@@ -1,3 +1,4 @@
+/* screen size less than 500px: mobile */
 
 .body {
   padding: 3% 10%;
@@ -110,8 +111,8 @@
   justify-content: center;
 }
 
-/* screen size between 600px and 1024px: tablet */
-@media screen and (min-width: 600px){
+/* screen size between 500px and 1024px: tablet */
+@media screen and (min-width: 500px) and (max-width: 1024px) {
   .search {
     width: 80%;
   }
@@ -127,7 +128,7 @@
 }
 
 /* screen size greater than 1025px: desktop */
-@media screen and (max-width: 500px) and (min-width: 1025px) {
+@media screen and (min-width: 1025px) {
   .search {
     width: 80%;
   }
@@ -139,30 +140,5 @@
   .card {
     margin: 2.5%;
     width: 20%;
-  }
-}
-
-@media screen and (max-width: 499px){
-  .body {
-    padding: 3%;
-    box-sizing: border-box;
-  }
-  .search {
-    width: 75%;
-  }
-
-  .button {
-    width: 25%;
-  }
-
-  .card {
-    margin: 2.5%;
-    width: 20%;
-  }
-
-  .title {
-    text-align: center;
-    margin: 5% 0;
-    font-size: 1.9rem;
   }
 }
