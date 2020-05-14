@@ -40,7 +40,7 @@ const RecipeDetails = (props) => {
 
   useEffect(()=>{
     axios.get(url).then(res => {
-        // console.log(res.data)
+        console.log("43", res.data)
         console.log(res.data[0])
         // console.log(res.data[0].totalNutrients)
         setDetails(res.data)    // api data for firestore
@@ -66,9 +66,10 @@ const RecipeDetails = (props) => {
         })
         // navigates through nutrients in recipe
         let index = res.data[0].totalNutrients
+        console.log("69", index)
         // console.log(index.CA.label)
         let dailyValues = []
-        Object.values(index).slice(1).forEach(nut => {
+        Object.values(index).forEach(nut => {
           // console.log(nut)
           // temp.push(nut)
           if (nut.label.localeCompare("Fat") == 0
@@ -81,7 +82,7 @@ const RecipeDetails = (props) => {
             || nut.label.localeCompare("Sugars") == 0
             || nut.label.localeCompare("Protein") == 0){
               sortedNutrients.push({
-                id: `${++nutId}`, 
+                id: nut.label, 
                 amount: nut.quantity,
                 name: nut.label,
                 unitName: nut.unit,
@@ -93,7 +94,7 @@ const RecipeDetails = (props) => {
                   || nut.label.localeCompare("Iron") == 0
                   || nut.label.localeCompare("Potassium") == 0){
                     sortedNutrients.push({
-                      id: `${nutId}`,
+                      id: nut.label,
                       amount: nut.quantity,
                       name: nut.label,
                       unitName: nut.unit,
@@ -112,7 +113,7 @@ const RecipeDetails = (props) => {
                   || nut.label.localeCompare("Zinc") == 0
                   || nut.label.localeCompare("Phosphorus") == 0){
                     extraNutrients.push({
-                      id: ++nutId,
+                      id: nut.label,
                       amount: nut.quantity,
                       name: nut.label,
                       unitName: nut.unit,
@@ -125,7 +126,7 @@ const RecipeDetails = (props) => {
           sortedNutrients.forEach(nut => {
             if (nut.name.localeCompare("Fat") == 0)
               nut.id = "1"
-            else if (nut.name.localeCompare("Fatty acids, total saturated") == 0)
+            else if (nut.name.localeCompare("Saturated") == 0)
               nut.id = "2"
             else if (nut.name.localeCompare("Fiber") == 0)
               nut.id = "3"
@@ -195,7 +196,7 @@ const RecipeDetails = (props) => {
           extraNutrients.forEach(nut => {
             if (nut.name.localeCompare("Fat") == 0)
               nut.id = "1"
-            else if (nut.name.localeCompare("Fatty acids, total saturated" == 0) == 0)
+            else if (nut.name.localeCompare("Saturated" == 0) == 0)
               nut.id = "2"
             else if (nut.name.localeCompare("Fiber") == 0)
               nut.id = "3"
@@ -260,10 +261,9 @@ const RecipeDetails = (props) => {
             else if (nut.name.toLowerCase().includes("chlori"))
               nut.id = "33"
           })
-          setNutrients(sortedNutrients)
-          setAdditionalNutrients(extraNutrients)               
         })
-
+        setNutrients(sortedNutrients)
+        setAdditionalNutrients(extraNutrients)               
         })  
    }, [])
 
@@ -294,10 +294,6 @@ const RecipeDetails = (props) => {
   
   console.log(nutrients)
   console.log(additionalNutrients)
-
-  additionalNutrients.forEach(nut => {
-    console.log(nut.id)
-  })
 
   return (
     <div className={RecipeStyles.body}>
@@ -355,24 +351,29 @@ const RecipeDetails = (props) => {
                               <td><strong>{calories.amount}</strong></td>
                             </tr>                     
                             {
-                                additionalNutrients.map(nut => {
-                                  return (
-                                    nut.group.localeCompare("additional") == 0
-                                    ?
-                                    <tr key = {nut.id}>
-                                      <td>{nut.name}</td>
-                                      <td>{Math.ceil(nut.amount)} {nut.unitName}</td>
-                                    </tr>
-                                    : null
-                                  )
-                                })
-                              }
+                              nutrients.map(nut => {
+                                return (
+                                  nut.group.localeCompare("getLessOf") == 0
+                                  ?
+                                  <tr key = {nut.id}>
+                                    <td>
+                                      <div>
+                                        <strong>{nut.name}</strong>  
+                                        <strong>{Math.ceil(nut.amount)} {nut.unitName}</strong>
+                                      </div>
+                                    </td>
+                                    <td></td>
+                                  </tr>
+                                  : null
+                                )
+                              })  
+                            }
                           </tbody>  
                           <tfoot>
                             {
                                 nutrients.map(nut => {
                                   return (
-                                    nut.group.localeCompare("getLessOf") == 0
+                                    nut.group.localeCompare("getMoreOf") == 0
                                     ?
                                     <tr key = {nut.id}>
                                       <td>
