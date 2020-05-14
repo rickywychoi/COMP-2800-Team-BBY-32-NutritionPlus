@@ -1,24 +1,25 @@
-.form-inline {
-    width: 70%;
+/* .form-inline {
+    width: 90%;
+} */
+
+.formControl {
+    /* width: 50% !important; */
+    /* float: left; */
 }
 
-.form-control {
-    width: 80% !important;
-    float: left;
+.dropdownButton {
+    /* width: 20% !important; */
+    /* float: left; */
 }
 
-.dropdown-button {
-    width: 20% !important;
-    float: left;
-}
-
-.search-button {
-    width: 30% !important;
-    float: right;
+.searchButton {
+    /* width: 20% !important; */
+    /* float: right; */
+    /* margin-left: 2px; */
 }
 
 .dropBtn {
-    width: 20% !important;
+    /* width: 20% !important; */
 }
 
 /* Dropdown Button */
