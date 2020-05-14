@@ -46,7 +46,7 @@ const NavBar = (props) => {
                         <li className={navbarStyles.myAccountListItem}><Link href = "#"><a className={navbarStyles.myAccountListLink}>My List</a></Link></li>
                         <li className={navbarStyles.myAccountListItem}><Link href="/mycart"><a className={navbarStyles.myAccountListLink}>My Cart</a></Link></li>
                         <li className={navbarStyles.myAccountListItem}><Link href="/myorder"><a className={navbarStyles.myAccountListLink}>My Order</a></Link></li>
-                        <li className={navbarStyles.myAccountListItem}><Link href="/history"><a className={navbarStyles.myAccountListLink}>Order History</a></Link></li>
+                        <li className={navbarStyles.myAccountListItem}><Link href="/myorder/history"><a className={navbarStyles.myAccountListLink}>Order History</a></Link></li>
                     </ul>
                 </Popover.Content>
             </Popover>

@@ -1,0 +1,8 @@
+.mainBody {
+  padding: 3% 10%;
+}
+
+.buttonsWrapper {
+  display: flex;
+  justify-content: space-between;
+}

@@ -15,23 +15,21 @@ if (!firebase.apps.length) {
 }
 let db = firebase.firestore()
 
-// daily search limited to 10,000 queries
-const GOOGLE_API_URL = `https://www.googleapis.com/customsearch/v1?key=${GOOGLE_IMAGE_SEARCH_API_KEY}&cx=${GOOGLE_IMAGE_SEARCH_CX}`
+// // daily search limited to 10,000 queries
+// const GOOGLE_API_URL = `https://www.googleapis.com/customsearch/v1?key=${GOOGLE_IMAGE_SEARCH_API_KEY}&cx=${GOOGLE_IMAGE_SEARCH_CX}`
 
 const ItemDetailsPage = (props) => {
   const router = useRouter()
-  const [itemImg, setItemImg] = useState({})
+  // const [itemImg, setItemImg] = useState({})
+  // const [errorMsg, setErrorMsg] = useState("")
+  // const [showErrorMsg, setShowErrorMsg] = useState(false)
   const [itemName, setItemName] = useState("")
-  const [errorMsg, setErrorMsg] = useState("")
-  const [showErrorMsg, setShowErrorMsg] = useState(false)
   const [result, setResult] = useState({})
   const [nutrients, setNutrients] = useState([])
   const [additionalNutrients, setAdditionalNutrients] = useState(null)
   const [calories, setCalories] = useState({})
-  const [foodPortions, setFoodPortions] = useState([])
   const [userDailyValue, setUserDailyValue] = useState([])
   const [quantity, setQuantity] = useState(0)
-  // const [gramWeight, setGramWeight] = useState(0)
   
   let FOOD_API_URL = `https://api.nal.usda.gov/fdc/v1/food/${router.query.fdcId}?API_KEY=${USDA_API_KEY}`
 
@@ -63,7 +61,6 @@ const ItemDetailsPage = (props) => {
     // GET request for Food api
     axios.get(FOOD_API_URL).then(res => {
       setResult(res.data)
-      setFoodPortions(res.data.foodPortions)
       let newArray = []
       let extraArray = []
       res.data.foodNutrients.forEach(nut => {
@@ -287,33 +284,33 @@ const ItemDetailsPage = (props) => {
       setAdditionalNutrients(extraArray)
     })
 
-    // GET request for Google image api
-    axios.get(GOOGLE_API_URL, {
-      params: {
-        q: router.query.itemname
-      }
-    }).then(res => {
-      const items = res.data.items
-      for (let i = 0; i < items.length; i++) {
-        if (items[i].pagemap.cse_thumbnail) {
-          setItemImg(items[i].pagemap.cse_thumbnail[0])
-          break
-        }
-      }
-    }).catch(err => {
-      setErrorMsg(err.message)
-    })
+    // // GET request for Google image api
+    // axios.get(GOOGLE_API_URL, {
+    //   params: {
+    //     q: router.query.itemname
+    //   }
+    // }).then(res => {
+    //   const items = res.data.items
+    //   for (let i = 0; i < items.length; i++) {
+    //     if (items[i].pagemap.cse_thumbnail) {
+    //       setItemImg(items[i].pagemap.cse_thumbnail[0])
+    //       break
+    //     }
+    //   }
+    // }).catch(err => {
+    //   setErrorMsg(err.message)
+    // })
   }, [])
   
-  const reportWrongImg = () => {
-    alert("reported.")
-  }
+  // const reportWrongImg = () => {
+  //   alert("reported.")
+  // }
   
-  const showErrorMessage = () => {
-    setShowErrorMsg(prevState => {
-      return !prevState
-    })
-  }
+  // const showErrorMessage = () => {
+  //   setShowErrorMsg(prevState => {
+  //     return !prevState
+  //   })
+  // }
   
   const goBack = () => {
     router.back()
@@ -383,6 +380,10 @@ const ItemDetailsPage = (props) => {
       </Popover.Content>
     </Popover>
   );
+
+  if (result.foodPortions) {
+    console.log(result.foodPortions[0])
+  }
   
   return (
     <div className={detailStyles.mainBody}>
@@ -402,7 +403,24 @@ const ItemDetailsPage = (props) => {
       </div>
       <div className={detailStyles.contents}>
         <h3>{router.query.itemname}</h3>
-        {
+        <p><i>
+          {Object.getOwnPropertyNames(result).map(property => {
+            if (property.toLowerCase().includes("category")) {
+              if (typeof result[property] == 'string' || result[property] instanceof String) {
+                return result[property]
+              } else if (typeof result[property] == 'object' || result[property] instanceof Object) {
+                let categoryString
+                Object.values(result[property]).forEach(val => {
+                  if (isNaN(parseFloat(val))) {
+                    categoryString = val
+                  }
+                })
+                return categoryString
+              }
+            }
+          })}
+        </i></p>
+        {/* {
           !itemImg
             ?
           (
@@ -434,7 +452,7 @@ const ItemDetailsPage = (props) => {
               }
             </div>
           )
-        }
+        } */}
         <div className={detailStyles.tableWrapper}>
           <table className={detailStyles.table} ref={tableRef}>
             <thead className={detailStyles.thead}>
@@ -443,14 +461,34 @@ const ItemDetailsPage = (props) => {
                 <th></th>
               </tr>
               <tr> 
-                <th className = {detailStyles.subHead}><strong>Servings: </strong>N/A</th>
+                <th className = {detailStyles.subHead}><strong>Servings:&nbsp;</strong>
+                {Object.getOwnPropertyNames(result).map(property => {
+                  if (property.localeCompare("servingSize") == 0) {
+                    return result.householdServingFullText
+                  } else if (property.localeCompare("foodPortions") == 0 && result[property] && result[property].length > 0) {
+                    let portion = result[property][0]
+                    return portion.amount ? portion.amount : portion.portionDescription
+                  }
+                })}
+                </th>
                 <th></th>
               </tr>
             </thead>
             <tbody className={detailStyles.tbody}>
               <tr>
-                <td className = {detailStyles.subHead}>Amount per serving</td>
-                <td></td>
+                <td className = {detailStyles.subHead}>Amount per serving:&nbsp;
+                {Object.getOwnPropertyNames(result).map(property => {
+                  if (property.localeCompare("servingSize") == 0) {
+                    return result.servingSize + result.servingSizeUnit
+                  } else if (property.localeCompare("foodPortions") == 0 && result[property] && result[property].length > 0) {
+                    let portion = result[property][0]
+                    return portion.modifier ? portion.modifier + ", " + portion.gramWeight + "g" : portion.gramWeight + "g"  
+                  }
+                })}
+                </td>
+                <td>
+                
+                </td>
               </tr>
               <tr className = {detailStyles.nutrient}>
                 <td className = {detailStyles.caloriesTitle}>Calories</td>

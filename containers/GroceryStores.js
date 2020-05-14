@@ -73,7 +73,7 @@ const GroceryStores = (props) => {
         <h4>Grocery Stores</h4>
         <Form.Group controlId="formBasicGender" className="ml-3">
           <Form.Control required as="select" defaultValue="" onChange={handleStoreSelect}>
-            <option disabled value="">Which store would you visit for these items?</option>
+            <option disabled value="">Which store would you visit/make an order?</option>
             <option value="costco">Costco</option>
             <option value="saveOnFoods">Save-On-Foods</option>
             <option value="walmart">Walmart</option>
