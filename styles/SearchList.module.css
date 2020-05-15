@@ -22,6 +22,7 @@
   border-bottom: none;
 }
 
+/* screen size less than 500px: mobile */
 @media only screen and (max-device-width: 499px) {
   .listItem {
     font-size: 0.93rem;

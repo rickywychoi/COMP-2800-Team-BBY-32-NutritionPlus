@@ -1,13 +1,23 @@
 // RecipeSearch.js
 
+import firebase from 'firebase'
+import firebaseConfig from '../firebaseConfig'
 import searchStyles from '../styles/ItemSearch.module.css'
 import Link from 'next/link'
-import { Form, Button, Pagination } from 'react-bootstrap'
-import { useState } from 'react'
+import { useRouter } from 'next/router'
+import { connect } from 'react-redux'
+import { Button, Pagination, InputGroup, FormControl, DropdownButton, Dropdown } from 'react-bootstrap'
+import { FaSearch, FaShoppingCart } from 'react-icons/fa'
+import { useState, useEffect } from 'react'
 import axios from 'axios'
 import { EDAMAM_RECIPE_APP_ID, EDAMAM_RECIPE_APP_KEY } from '../apiKey'
 
-const RecipeSearch = () => {
+if (!firebase.apps.length) {
+  firebase.initializeApp(firebaseConfig);
+}
+let db = firebase.firestore()
+
+const RecipeSearch = (props) => {
   const [search, setSearch] = useState("")
   const [result, setResult] = useState([])
   const [pagination, setPagination] = useState([])
@@ -16,6 +26,28 @@ const RecipeSearch = () => {
   
   const pageSizeLimit = 10
   const searchLimit = 100
+
+  const router = useRouter()
+  const item = router.query.item
+
+  // my cart with quantity
+  const [myCart, setCart] = useState([])
+
+  useEffect(() => {
+    //handle myCart
+    if (props.currentUser) {
+      db.collection('users').doc(props.currentUser.uid).get().then(userInfo => {
+        let arrayWithQuantity = getQuantity(userInfo.data().cart)
+        setCart(sortArrayAlphabetically(arrayWithQuantity))
+      })
+    }
+
+    //handle href
+    if (item != null) {
+      handleMyCartQuery(item)
+    }
+  }, [])
+
 
   const handleSearchInput = e => {
     let value = e.target.value
@@ -409,6 +441,80 @@ const handleFirst = (number, totalPages, search) => {
     }
   }
 
+  // get quantity of each food item in array
+  const getQuantity = (arr) => {
+    let result = []
+    let visited = []
+    if (arr.length >= 2) {
+      let foodItem
+      for (let i = 0; i < arr.length - 1; i++) {
+        let qty = 1
+        for (let j = i + 1; j < arr.length; j++) {
+          if(arr[i]['fdcId'] === arr[j]['fdcId']) {
+            qty++
+          }
+        }
+        
+        foodItem = {
+          quantity: qty,
+          ...arr[i]
+        }
+        if (!visited.includes(arr[i]['fdcId'])) {
+          result.push(foodItem)
+        }
+        visited.push(arr[i]['fdcId'])
+      }
+      // last element of the array
+      foodItem = {
+        quantity: 1,
+        ...arr[arr.length - 1]
+      }
+      if (!visited.includes(arr[arr.length - 1]['fdcId'])) {
+        result.push(foodItem)
+      }
+      // if there is only one item left
+    } else if (arr.length === 1) {
+      let foodItem = {
+        quantity: 1,
+        ...arr[0]
+      }
+      if (!visited.includes(arr[0]['fdcId'])) {
+        result.push(foodItem)
+      }
+      visited.push(arr[0]['fdcId'])
+    }
+    return result
+  }
+
+  // sort array by alphabetical order
+  const sortArrayAlphabetically = (arr) => {
+    return arr.sort((a, b) => a.description > b.description ? 1 : -1)
+  }
+
+  const getURI = (item) => {
+    const searchTerm = "recipe_";
+    const lengthSearch = searchTerm.length;
+  
+    let index = item.indexOf(searchTerm) + lengthSearch;
+  
+    let uri = item.substr(index);
+    return uri;
+  }
+
+  const handleMyCartQuery = (query) => {
+
+    const promiseSearch = new Promise((resolve, reject) => {
+      document.getElementById("searchInput").value = query
+      setSearch(query)
+      resolve()
+    })
+
+    promiseSearch.then( (success, error) => {
+      document.getElementById("searchButton").click()
+    })
+    
+  }
+  
   // HTML elements
   return (
     <div className={searchStyles.body}>
@@ -417,22 +523,44 @@ const handleFirst = (number, totalPages, search) => {
       <div className={searchStyles.container}>
 
       <div className={searchStyles.searchContainer}>
-        <Form>
-         <Form.Group 
-            controlId="formBasicPassword"
-            className={searchStyles.search}>
-            <Form.Control 
-              type="text" 
-              placeholder="Search Recipes..."
-              onChange={handleSearchInput}
-            />
-          </Form.Group>
-        </Form>
-        <Button
-          className={searchStyles.button}
-          onClick={handleSearchQuery}>
-            Search
-        </Button>      
+        <InputGroup>
+          <DropdownButton
+            id="myCartAppend"
+            as={InputGroup.Prepend}
+            variant="secondary"
+            title={<FaShoppingCart />}
+          >
+            {
+              props.currentUser 
+              ?
+              <span>
+                <Dropdown.Header><i>Choose an Item from My Cart</i></Dropdown.Header>
+                {
+                  myCart.map(food => {
+                    return(
+                      <Dropdown.Item onClick={handleMyCartQuery.bind(this, food.description)}>{food.description}</Dropdown.Item>
+                    )
+                  })
+                }
+              </span>
+              :
+              <Dropdown.Header><i>Please Sign In First.</i></Dropdown.Header>
+            }
+          </DropdownButton>
+          <FormControl
+            id="searchInput"
+            placeholder="Search Recipes..."
+            onChange={handleSearchInput}
+          />
+          <Button
+            className={searchStyles.button}
+            id="searchButton"
+            as={InputGroup.Append}
+            variant="primary"
+            onClick={handleSearchQuery}>
+              <FaSearch />
+          </Button>
+        </InputGroup>    
       </div>
 
         <ul className={searchStyles.listCards}>
@@ -474,18 +602,14 @@ const handleFirst = (number, totalPages, search) => {
       <Pagination className={searchStyles.pagination}>{pagination}</Pagination>
 
     </div>
-  )
+  ) 
+
 }
 
-function getURI(item) {
-  const searchTerm = "recipe_";
-  const lengthSearch = searchTerm.length;
-
-  let index = item.indexOf(searchTerm) + lengthSearch;
-
-  let uri = item.substr(index);
-  return uri;
+const mapStateToProps = state => {
+  return {
+    currentUser: state.currentUser
+  }
 }
 
-
-export default RecipeSearch 
+export default connect(mapStateToProps)(RecipeSearch) 

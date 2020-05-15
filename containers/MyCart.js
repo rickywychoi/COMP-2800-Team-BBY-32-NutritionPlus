@@ -7,7 +7,8 @@ import Link from 'next/link'
 import React, { useState, useEffect, useRef } from 'react'
 import { connect } from 'react-redux'
 import * as actions from '../store/actions'
-import { Button, Table } from 'react-bootstrap'
+import { Button, Table, DropdownButton, Dropdown } from 'react-bootstrap'
+import { FaSearch } from 'react-icons/fa'
 import MediaQuery from 'react-responsive'
 import GroceryChart from './Chart/GroceryChart'
 import DateFormatter from '../components/DateFormatter/DateFormatter'
@@ -230,6 +231,26 @@ const MyCart = (props) => {
             :
           null
         }
+        <div>
+          <DropdownButton alignRight variant="outline-secondary" className={`mr-2 ${buttonStyles.button}`} title={<span><FaSearch />Recipes</span>}>
+            {
+              myCart.map(item => {
+                return(
+                  <Dropdown.Item>
+                    <Link
+                      href={{ pathname:"/recipe?item=[item]" }}
+                      as={`/recipe?item=${item.description}`}
+                    >
+                      {item.description}
+                    </Link>
+                  </Dropdown.Item>
+                )
+              })
+            }
+          </DropdownButton>
+          <Button variant="primary" className={buttonStyles.button} onClick={() => router.push("/myorder")}>Checkout</Button>
+        </div>
+
       </div>
       
       {/* Media Query for min-device-width: 500px */}
