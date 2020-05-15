@@ -248,26 +248,6 @@ const MyCart = (props) => {
             :
           null
         }
-        {/* <div>
-          <DropdownButton alignRight variant="outline-secondary" className={`mr-2 ${buttonStyles.button}`} title={<span><FaSearch />Recipes</span>}>
-            {
-              myCart.map(item => {
-                return(
-                  <Dropdown.Item>
-                    <Link
-                      href={{ pathname:"/recipe?item=[item]" }}
-                      as={`/recipe?item=${item.description}`}
-                    >
-                      {item.description}
-                    </Link>
-                  </Dropdown.Item>
-                )
-              })
-            }
-          </DropdownButton>
-          <Button variant="primary" className={buttonStyles.button} onClick={toMyOrder}>Checkout</Button>
-        </div> */}
-
       </div>
       
       {/* Media Query for min-device-width: 500px */}
