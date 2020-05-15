@@ -11,7 +11,7 @@
   },
   "dependencies": {
     "axios": "^0.19.2",
-    "bootstrap": "^4.4.1",
+    "bootstrap": "^4.5.0",
     "chart.js": "^2.9.3",
     "chartjs-plugin-annotation": "^0.5.7",
     "date-fns": "^2.13.0",
@@ -26,6 +26,7 @@
     "react-charts": "^2.0.0-beta.6",
     "react-dom": "16.13.1",
     "react-firebaseui": "^4.1.0",
+    "react-icons": "^3.10.0",
     "react-redux": "^7.2.0",
     "react-responsive": "^8.0.3",
     "redux": "^4.0.5",
