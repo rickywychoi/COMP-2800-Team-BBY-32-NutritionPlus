@@ -224,13 +224,6 @@ const MyCart = (props) => {
     <div className={cartStyles.mainBody}>
       <div className={cartStyles.buttonsWrapper}>
         <Button variant="secondary" className={buttonStyles.button} onClick={() => router.push("/search")}>Back to Search</Button>
-        {
-          myCart.length > 0
-            ?
-          <Button variant="primary" className={buttonStyles.button} onClick={toMyOrder}>Checkout</Button>
-            :
-          null
-        }
         <div>
           <DropdownButton alignRight variant="outline-secondary" className={`mr-2 ${buttonStyles.button}`} title={<span><FaSearch />Recipes</span>}>
             {
@@ -240,7 +233,7 @@ const MyCart = (props) => {
                     <Link
                       href={{ pathname:"/recipe?item=[item]" }}
                       as={`/recipe?item=${item.description}`}
-                    >
+                      >
                       {item.description}
                     </Link>
                   </Dropdown.Item>
@@ -248,8 +241,14 @@ const MyCart = (props) => {
               })
             }
           </DropdownButton>
-          <Button variant="primary" className={buttonStyles.button} onClick={() => router.push("/myorder")}>Checkout</Button>
         </div>
+        {
+          myCart.length > 0
+            ?
+          <Button variant="primary" className={buttonStyles.button} onClick={toMyOrder}>Checkout</Button>
+            :
+          null
+        }
 
       </div>
       
