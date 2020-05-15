@@ -224,32 +224,30 @@ const MyCart = (props) => {
     <div className={cartStyles.mainBody}>
       <div className={cartStyles.buttonsWrapper}>
         <Button variant="secondary" className={buttonStyles.button} onClick={() => router.push("/search")}>Back to Search</Button>
-        <div>
-          <DropdownButton alignRight variant="outline-secondary" className={`mr-2 ${buttonStyles.button}`} title={<span><FaSearch />Recipes</span>}>
-            {
-              myCart.map(item => {
-                return(
-                  <Dropdown.Item>
-                    <Link
-                      href={{ pathname:"/recipe?item=[item]" }}
-                      as={`/recipe?item=${item.description}`}
-                      >
-                      {item.description}
-                    </Link>
-                  </Dropdown.Item>
-                )
-              })
-            }
-          </DropdownButton>
-        </div>
         {
           myCart.length > 0
             ?
-          <Button variant="primary" className={buttonStyles.button} onClick={toMyOrder}>Checkout</Button>
+            <div>
+            <DropdownButton alignRight variant="outline-success" className={buttonStyles.button} title={<span><FaSearch /> Recipes</span>}>
+              {
+                myCart.map(item => {
+                  return(
+                    <Dropdown.Item>
+                      <Link
+                        href={{ pathname:"/recipe?item=[item]" }}
+                        as={`/recipe?item=${item.description}`}
+                      >
+                        {item.description}
+                      </Link>
+                    </Dropdown.Item>
+                  )
+                })
+              }
+            </DropdownButton>
+          </div>
             :
           null
         }
-
       </div>
       
       {/* Media Query for min-device-width: 500px */}
@@ -372,7 +370,13 @@ const MyCart = (props) => {
       {
         myCart.length > 0
           ?
-        <GroceryChart rawCart={rawCart} />
+        <div>
+          <div className={cartStyles.checkoutWrapper}>
+            <Button variant="primary" className={buttonStyles.button} onClick={toMyOrder}>Checkout</Button>
+          </div>
+          <br></br>
+          <GroceryChart rawCart={rawCart} />
+        </div>
           :
         null
       }

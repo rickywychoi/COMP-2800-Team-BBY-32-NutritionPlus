@@ -527,7 +527,7 @@ const handleFirst = (number, totalPages, search) => {
           <DropdownButton
             id="myCartAppend"
             as={InputGroup.Prepend}
-            variant="secondary"
+            variant="success"
             title={<FaShoppingCart />}
           >
             {

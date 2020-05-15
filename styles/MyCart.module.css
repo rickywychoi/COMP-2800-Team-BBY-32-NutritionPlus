@@ -17,6 +17,17 @@
   align-items: center;
 }
 
+.checkoutWrapper {
+  display: flex;
+
+  /* center aligned */
+  justify-content: flex-end;
+
+  /* right aligned */
+  /* flex-direction: row-reverse; */
+  /* justify-content: space-between; */
+}
+
 .decrement {
   margin-right: 1rem;
   padding: .2rem .6rem;
