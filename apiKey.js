@@ -6,6 +6,10 @@ export const EDAMAM_NUTRITION_APP_KEY = "0049b7d301be55a9a735cede1f3b835f"
 export const EDAMAM_RECIPE_APP_ID = "6b733ca0"
 export const EDAMAM_RECIPE_APP_KEY = "5c7c48da7acde7bf75c7c016a8736b99"
 export const NEWS_API_KEY = "19baa1eff8b449fdbe4d138a7a03455e"
+export const TWITTER_API_KEY = "7vDz7ZCDn6QWoLQE4t0tLpvyB"
+export const TWITTER_SECRET_API_KEY = "1T6pk3DGvfXSpgv2WeiKQDjZjXK7Lov9Un0sA9biLBw41bl2CL"
+export const TWITTER_ACCESS_TOKEN = "451280995-wHYbmNmcTtCbQo3ODEVL0gEhH3mXgkpymSBNBIyt"
+export const TWITTER_ACCESS_TOKEN_SECRET = "39XVkvovbFYJfn9nseO9ZLM1x7wooSoS0eImiXfsg08JB"
 export const GOOGLE_MAP_API_KEY = "AIzaSyB6wvBxdIC2xmLJLwmjU3yZO2gslghd3V8"
 
 // daily search limited to 10,000 queries
