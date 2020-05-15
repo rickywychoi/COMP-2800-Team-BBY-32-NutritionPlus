@@ -8,7 +8,9 @@ import React, { useState, useEffect, useRef } from 'react'
 import { connect } from 'react-redux'
 import * as actions from '../store/actions'
 import { Button, Table, DropdownButton, Dropdown, Form } from 'react-bootstrap'
-import { FaSearch } from 'react-icons/fa'
+import { FaSearch, FaMinus, FaPlus } from 'react-icons/fa'
+import { AiFillDelete } from 'react-icons/ai'
+import { MdArrowBack } from 'react-icons/md'
 import MediaQuery from 'react-responsive'
 import GroceryChart from './Chart/GroceryChart'
 import DateFormatter from '../components/DateFormatter/DateFormatter'
@@ -339,7 +341,7 @@ const MyCart = (props) => {
     ?
     <div className={cartStyles.mainBody}>
       <div className={cartStyles.buttonsWrapper}>
-        <Button variant="secondary" className={buttonStyles.button} onClick={() => router.push("/search")}>Back to Search</Button>
+        <Button variant="secondary" className={buttonStyles.button} onClick={() => router.push("/search")}><span><MdArrowBack /> Search Item</span></Button>
         {
           myCart.length > 0
             ?
@@ -416,13 +418,13 @@ const MyCart = (props) => {
                       </td>
                       <td>
                         <span className={cartStyles.quantityButtonWrapper}>
-                          <Button variant="outline-danger" onClick={() => {decrementQuantity(item.fdcId)}} className={cartStyles.decrement}>-</Button>
+                          <Button variant="outline-danger" onClick={() => {decrementQuantity(item.fdcId)}} className={cartStyles.decrement}><FaMinus /></Button>
                           <Form.Control className={cartStyles.quantityInput} size="sm" type="number" value={item.quantity} onChange={(e) => handleQtyChange(item.fdcId, e)} />
-                          <Button variant="outline-primary" onClick={() => {incrementQuantity(item.fdcId)}} className={cartStyles.increment}>+</Button>
+                          <Button variant="outline-primary" onClick={() => {incrementQuantity(item.fdcId)}} className={cartStyles.increment}><FaPlus /></Button>
                         </span>
                       </td>
                       <td className={cartStyles.date}><DateFormatter date={item.itemAddedAt.toDate()}/></td>
-                      <td align="center"><Button variant="outline-danger" className={cartStyles.deleteItem} onClick={() => {deleteItem(item.fdcId)}}>Delete</Button></td>
+                      <td align="center"><Button variant="outline-danger" className={cartStyles.deleteItem} onClick={() => {deleteItem(item.fdcId)}}><AiFillDelete /></Button></td>
                     </tr>
                   )
                 })
@@ -468,13 +470,13 @@ const MyCart = (props) => {
                       </td>
                       <td>
                         <span className={cartStyles.quantityButtonWrapper}>
-                          <Button variant="outline-danger" onClick={() => {decrementQuantity(item.fdcId)}} className={cartStyles.decrement}>-</Button>
+                          <Button variant="outline-danger" onClick={() => {decrementQuantity(item.fdcId)}} className={cartStyles.decrement}><FaMinus /></Button>
                           <Form.Control className={cartStyles.quantityInput} size="sm" type="number" value={item.quantity} onChange={(e) => handleQtyChange(item.fdcId, e)} />
-                          <Button variant="outline-primary" onClick={() => {incrementQuantity(item.fdcId)}} className={cartStyles.increment}>+</Button>
+                          <Button variant="outline-primary" onClick={() => {incrementQuantity(item.fdcId)}} className={cartStyles.increment}><FaPlus /></Button>
                         </span>
                       </td>
                       <td className={cartStyles.date}><DateFormatter date={item.itemAddedAt.toDate()}/></td>
-                      <td align="center"><Button variant="outline-danger" className={cartStyles.deleteItem} onClick={() => {deleteItem(item.fdcId)}}>d</Button></td>
+                      <td align="center"><Button variant="outline-danger" className={cartStyles.deleteItem} onClick={() => {deleteItem(item.fdcId)}}><AiFillDelete /></Button></td>
                     </tr>
                   )
                 })

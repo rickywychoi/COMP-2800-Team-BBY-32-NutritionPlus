@@ -4,13 +4,17 @@ import mainHomeStyles from '../../styles/mainHome.module.css'
 
 const Layout = ({ children }) => {
   return (
-    <>
+    
+    <div className={mainHomeStyles.container}>
       <Head>
         <meta name="viewport" content="initial-scale=1.0, width=device-width" />
         <link rel="icon" href="/favicon2.ico" />
       </Head>
+      <div className={mainHomeStyles.wrap}> 
       <NavBar />
       {children}
+      </div>
+      
       <footer className={mainHomeStyles.footer}>
         Copyright © 2020 BCIT CST Group 32. All rights reserved.
         {/* <a
@@ -21,7 +25,8 @@ const Layout = ({ children }) => {
           Copyright © 2020 BCIT CST Group 32. All rights reserved.
         </a> */}
       </footer>
-    </>
+    </div>
+  
   )
 }
 
