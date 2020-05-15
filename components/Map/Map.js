@@ -4,6 +4,7 @@ import GoogleMapReact from 'google-map-react';
 import { useState, useEffect} from 'react'
 
 
+
 const MyPositionMarker = ({ text }) => <div>{text}</div>;
 const GroceryMarker = ({ icon, text }) => (
   <div>
@@ -15,12 +16,14 @@ const GroceryMarker = ({ icon, text }) => (
 //   return <input type="button" value={text} name={type} />
 // }
 
+
 const SimpleMap = (props) => {
 
+  
   // User Location
   const [myPosition, setMyPosition] = useState({
-    lat: 49.2309355,
-    lng: -123.0028252
+    lat: props.lat,
+    lng: props.lng
   })
 
   const [mapApiLoaded, setMapApiLoaded] = useState(false)
