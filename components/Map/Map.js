@@ -5,12 +5,28 @@ import { useState, useEffect} from 'react'
 
 
 
-const MyPositionMarker = ({ text }) => <div>{text}</div>;
-const GroceryMarker = ({ icon, text }) => (
-  <div>
-    <img style={{ height: '30px', width: '30px' }} src={icon} />
-    <div>{text}</div>
-  </div>
+// const MyPositionMarker = ({ text }) => <div>{text}</div>;
+const MyPositionMarker = ({ icon }) => <img style={{ height: '60px', width: '30px' }} src={icon} />
+
+const Marker = props => (
+  <React.Fragment>
+    <div>
+      <img style={{ height: '40px', width: '40px' }} src={props.icon} />
+      <div>{props.text}</div>
+   </div>
+    {/* Below is info window component
+    {props.show && (
+      <div
+        style={{
+          width: 100,
+          height: 100
+        }}
+      >
+      {props.phone}
+      
+      </div>
+    )} */}
+  </React.Fragment>
 )
 // const SearchType = ({ text, type }) => {
 //   return <input type="button" value={text} name={type} />
@@ -31,6 +47,7 @@ const SimpleMap = (props) => {
   const [mapApi, setMapApi] = useState(null)
   const [places, setPlaces] = useState([])
   const [searchType, setSearchType] = useState('grocery_or_supermarket')
+  // const [show,setShow] = useState(false)
 
   
 
@@ -77,6 +94,11 @@ const SimpleMap = (props) => {
     findLocation()
   },[mapApiLoaded,searchType, myPosition])
 
+
+  // const onChildClick = (key, childProps) => {
+  //   setShow(!show)
+  // }
+
   return (
     <div style={{ height: '100vh', width: '100%' }}>
       <GoogleMapReact
@@ -91,22 +113,24 @@ const SimpleMap = (props) => {
         // defaultZoom={18}
         yesIWantToUseGoogleMapApiInternals
         onGoogleApiLoaded={({ map, maps }) => apiHasLoaded(map, maps)}
+        // onChildClick={onChildClick}
       >
         <MyPositionMarker
           lat={myPosition.lat}
           lng={myPosition.lng}
-          text="My Position"
+          icon="./images/person.jpg"
         />
 
         
         {places.map(item=>(
-          <GroceryMarker
+          <Marker
             icon={item.icon}
             key={item.id}
             lat={item.geometry.location.lat()}
             lng={item.geometry.location.lng()}
             text={item.name}
             placeId={item.place_id}
+            // show={show}
           />
         ))}
       </GoogleMapReact>

@@ -10,7 +10,7 @@ import * as actions from '../store/actions'
 import { Button, Table, DropdownButton, Dropdown } from 'react-bootstrap'
 import { FaSearch } from 'react-icons/fa'
 import MediaQuery from 'react-responsive'
-import Chart from '../components/Chart/Chart'
+import GroceryChart from './Chart/GroceryChart'
 import DateFormatter from '../components/DateFormatter/DateFormatter'
 import cartStyles from '../styles/MyCart.module.css'
 import listStyles from '../styles/SearchList.module.css'
@@ -228,7 +228,7 @@ const MyCart = (props) => {
           myCart.length > 0
             ?
             <div>
-            <DropdownButton alignRight variant="outline-secondary" className={buttonStyles.button} title={<span><FaSearch /> Recipes</span>}>
+            <DropdownButton alignRight variant="outline-success" className={buttonStyles.button} title={<span><FaSearch /> Recipes</span>}>
               {
                 myCart.map(item => {
                   return(
@@ -375,7 +375,7 @@ const MyCart = (props) => {
             <Button variant="primary" className={buttonStyles.button} onClick={toMyOrder}>Checkout</Button>
           </div>
           <br></br>
-          <Chart rawCart={rawCart} />
+          <GroceryChart rawCart={rawCart} />
         </div>
           :
         null

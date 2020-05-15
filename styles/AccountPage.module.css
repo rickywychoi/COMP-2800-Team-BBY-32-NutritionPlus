@@ -1,0 +1,30 @@
+.mainBody {
+  padding: 3% 10%;
+}
+
+.contents {
+  text-align: center;
+}
+
+.userImg {
+  width: 130px;
+  height: auto;
+  border-radius: 50%;
+  margin: 0 auto 1.5rem auto;
+}
+
+.userEmail {
+  margin-top: 1rem;
+}
+
+@media (max-width: 499px) {
+  .mainBody {
+    padding: 13% 10%;
+  }
+
+  .userImg {
+    width: 25%;
+    height: auto;
+  }
+}
+

@@ -21,7 +21,7 @@
   display: flex;
 
   /* center aligned */
-  justify-content: center;
+  justify-content: flex-end;
 
   /* right aligned */
   /* flex-direction: row-reverse; */
