@@ -19,8 +19,13 @@
 
 .checkoutWrapper {
   display: flex;
-  flex-direction: row-reverse;
-  justify-content: space-between;
+
+  /* center aligned */
+  justify-content: center;
+
+  /* right aligned */
+  /* flex-direction: row-reverse; */
+  /* justify-content: space-between; */
 }
 
 .decrement {

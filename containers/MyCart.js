@@ -394,6 +394,7 @@ const MyCart = (props) => {
           <div className={cartStyles.checkoutWrapper}>
             <Button variant="primary" className={buttonStyles.button} onClick={toMyOrder}>Checkout</Button>
           </div>
+          <br></br>
           <Chart rawCart={rawCart} />
         </div>
           :
