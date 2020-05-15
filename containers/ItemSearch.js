@@ -3,8 +3,7 @@
 import searchStyles from '../styles/ItemSearch.module.css'
 import listStyles from '../styles/SearchList.module.css'
 import Link from 'next/link'
-import { Form, Pagination, Button, InputGroup, FormControl } from 'react-bootstrap'
-import { FaSearch } from 'react-icons/fa'
+import { Form, Pagination } from 'react-bootstrap'
 import { useState } from 'react'
 import axios from 'axios'
 import { USDA_API_KEY } from '../apiKey'
@@ -417,27 +416,8 @@ const ItemSearch = () => {
 
   return (
     <div className={searchStyles.body}>
-
       <h1 className={searchStyles.title}>Find a Grocery Item</h1>
-
-      <InputGroup>
-        <FormControl 
-          type="text"
-          className={searchStyles.searchItem}
-          placeholder="Search Grocery Item..."
-          // onChange={handleSearchChange}
-        />
-        <Button
-          className={searchStyles.button}
-          id="searchButton"
-          as={InputGroup.Append}
-          variant="primary"
-          onClick={handleSearchChange}>
-            <FaSearch />
-        </Button>
-      </InputGroup>
-
-      {/* <Form>
+      <Form>
         <Form.Group controlId="formBasicPassword">
           <Form.Control 
             type="text" 
@@ -446,7 +426,7 @@ const ItemSearch = () => {
             onChange={handleSearchChange}
           />
         </Form.Group>
-      </Form> */}
+      </Form>
       <ul className={listStyles.list}>
         {result.map(item => {
           return (

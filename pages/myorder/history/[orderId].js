@@ -6,6 +6,7 @@ import React, { useState, useEffect } from 'react'
 import { connect } from 'react-redux'
 // import * as actions from '../store/actions'
 import { Button, Table } from 'react-bootstrap'
+import { MdArrowBack } from 'react-icons/md'
 import MediaQuery from 'react-responsive'
 import Chart from '../../../containers/Chart/GroceryChart'
 import DateFormatter from '../../../components/DateFormatter/DateFormatter'
@@ -131,7 +132,7 @@ const ArchivedOrderDetail = (props) => {
     ?
     <div className={cartStyles.mainBody}>
       <div className={cartStyles.buttonsWrapper}>
-        <Button variant="secondary" className={buttonStyles.button} onClick={() => router.push("/myorder/history")}>Back to Order History</Button>
+        <Button variant="secondary" className={buttonStyles.button} onClick={() => router.push("/myorder/history")}><span><MdArrowBack /> Order History</span></Button>
       </div>
       <div style={{marginTop: "1rem"}}>
         <h3 className="header">Order made to <a href={storeUrl} target="_blank" className="storeLink">{store}</a></h3>

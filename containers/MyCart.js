@@ -418,9 +418,9 @@ const MyCart = (props) => {
                       </td>
                       <td>
                         <span className={cartStyles.quantityButtonWrapper}>
-                          <Button variant="outline-danger" onClick={() => {decrementQuantity(item.fdcId)}} className={cartStyles.decrement}><FaMinus /></Button>
+                          <Button variant="outline-danger" onClick={() => {decrementQuantity(item.fdcId)}} className={cartStyles.decrement}>-</Button>
                           <Form.Control className={cartStyles.quantityInput} size="sm" type="number" value={item.quantity} onChange={(e) => handleQtyChange(item.fdcId, e)} />
-                          <Button variant="outline-primary" onClick={() => {incrementQuantity(item.fdcId)}} className={cartStyles.increment}><FaPlus /></Button>
+                          <Button variant="outline-primary" onClick={() => {incrementQuantity(item.fdcId)}} className={cartStyles.increment}>+</Button>
                         </span>
                       </td>
                       <td className={cartStyles.date}><DateFormatter date={item.itemAddedAt.toDate()}/></td>
@@ -470,9 +470,9 @@ const MyCart = (props) => {
                       </td>
                       <td>
                         <span className={cartStyles.quantityButtonWrapper}>
-                          <Button variant="outline-danger" onClick={() => {decrementQuantity(item.fdcId)}} className={cartStyles.decrement}><FaMinus /></Button>
+                          <Button variant="outline-danger" onClick={() => {decrementQuantity(item.fdcId)}} className={cartStyles.decrement}>-</Button>
                           <Form.Control className={cartStyles.quantityInput} size="sm" type="number" value={item.quantity} onChange={(e) => handleQtyChange(item.fdcId, e)} />
-                          <Button variant="outline-primary" onClick={() => {incrementQuantity(item.fdcId)}} className={cartStyles.increment}><FaPlus /></Button>
+                          <Button variant="outline-primary" onClick={() => {incrementQuantity(item.fdcId)}} className={cartStyles.increment}>+</Button>
                         </span>
                       </td>
                       <td className={cartStyles.date}><DateFormatter date={item.itemAddedAt.toDate()}/></td>

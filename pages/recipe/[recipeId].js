@@ -356,7 +356,7 @@ const RecipeDetails = (props) => {
             ?
           (<Button variant="success"
            onClick={sendUserHistory}
-           className = {buttonStyles.button}>Add to myMeals</Button>)
+           className = {buttonStyles.button}>Add to My Meals</Button>)
             :
           null
         }

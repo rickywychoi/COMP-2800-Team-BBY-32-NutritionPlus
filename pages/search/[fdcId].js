@@ -2,6 +2,7 @@ import { useRouter } from 'next/router'
 import Link from 'next/link'
 import { useState, useEffect, useRef } from 'react'
 import { Button, Accordion, Card, OverlayTrigger, Popover, Form } from 'react-bootstrap'
+import { MdArrowBack } from 'react-icons/md'
 import { connect } from 'react-redux'
 import axios from 'axios'
 import firebase from 'firebase'
@@ -410,7 +411,7 @@ const ItemDetailsPage = (props) => {
   return (
     <div className={detailStyles.mainBody}>
       <div className={detailStyles.buttonWrapper}>
-        <Button variant="secondary" className={buttonStyles.button} onClick={goBack}>Go back</Button>
+        <Button variant="secondary" className={buttonStyles.button} onClick={goBack}><span><MdArrowBack /> Back</span></Button>
         {
           props.currentUser
             ?

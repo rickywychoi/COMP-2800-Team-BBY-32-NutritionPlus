@@ -6,6 +6,7 @@ import * as actions from '../store/actions'
 import GroceryStores from '../containers/GroceryStores'
 import ErrorPage from '../components/ErrorPage/ErrorPage'
 import { Button, Table } from 'react-bootstrap'
+import { MdArrowBack } from 'react-icons/md'
 import buttonStyles from '../styles/buttons.module.css'
 import orderStyles from '../styles/MyOrder.module.css'
 
@@ -52,7 +53,7 @@ const MyOrder = (props) => {
     props.currentUser
       ?
     <div className={orderStyles.mainBody}>
-       <Button variant="secondary" className={buttonStyles.button} onClick={goBack}>Back to My Cart</Button>
+       <Button variant="secondary" className={buttonStyles.button} onClick={goBack}><span><MdArrowBack /> My Cart</span></Button>
        <div className={orderStyles.contents}>
         <h2>Review &amp; Pay</h2>
         <div className={orderStyles.table}>

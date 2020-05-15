@@ -85,7 +85,11 @@
   }
 
   .quantityInput {
-    width: 2.2rem;
-    font-size: 0.9rem;
+    width: 2rem;
+    font-size: 0.8rem;
+  }
+
+  .deleteItem {
+    padding: .2rem .3rem;
   }
 }

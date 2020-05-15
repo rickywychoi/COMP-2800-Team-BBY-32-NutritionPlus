@@ -3,6 +3,7 @@
 import { useState } from 'react'
 
 import { Form, Button } from 'react-bootstrap'
+import { MdArrowBack } from 'react-icons/md'
 import PopOver from '../components/UI/PopOver'
 import questionStyles from '../styles/Questionnaire.module.css'
 import buttonStyles from '../styles/buttons.module.css'
@@ -166,7 +167,7 @@ const Questionnaire = (props) => {
   return (
     <div className={questionStyles.body}>
       <div className={questionStyles.header}>
-        <Button variant="secondary" className={buttonStyles.button} onClick={goBack}>Go back</Button>
+        <Button variant="secondary" className={buttonStyles.button} onClick={goBack}><span><MdArrowBack /> Back</span></Button>
         <h1 className={questionStyles.mainTitle}>We are retrieving some <br/>basic information from you.</h1>
       </div>
       <Form validated={validated} onSubmit={handleSubmit}>

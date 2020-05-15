@@ -9,7 +9,7 @@ import ErrorPage from '../components/ErrorPage/ErrorPage'
 import { Button, Table } from 'react-bootstrap'
 import buttonStyles from '../styles/buttons.module.css'
 import DateFormatter from '../components/DateFormatter/DateFormatter'
-import RecipeChart from '../components/Chart/RecipeChart'
+import RecipeChart from '../containers/Chart/RecipeChart'
 import orderStyles from '../styles/MyOrder.module.css'
 
 if (!firebase.apps.length) {
