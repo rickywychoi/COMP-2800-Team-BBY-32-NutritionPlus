@@ -3,7 +3,6 @@
 import firebase from 'firebase'
 import firebaseConfig from '../firebaseConfig'
 import searchStyles from '../styles/ItemSearch.module.css'
-import dropdownStyles from '../styles/ItemDropdown.module.css'
 import Link from 'next/link'
 import { connect } from 'react-redux'
 import { Button, Pagination, InputGroup, FormControl, DropdownButton, Dropdown } from 'react-bootstrap'
@@ -26,17 +25,14 @@ const RecipeSearch = (props) => {
   const pageSizeLimit = 10
   const searchLimit = 100
 
-  // my cart with repeating single items
-  const [rawCart, setRawCart] = useState([])
   // my cart with quantity
-  const [myCart, setMyCart] = useState([])
+  const [myCart, setCart] = useState([])
 
   useEffect(() => {
     if (props.currentUser) {
       db.collection('users').doc(props.currentUser.uid).get().then(userInfo => {
-        setRawCart(userInfo.data().cart)
         let arrayWithQuantity = getQuantity(userInfo.data().cart)
-        setMyCart(sortArrayAlphabetically(arrayWithQuantity))
+        setCart(sortArrayAlphabetically(arrayWithQuantity))
       })
     }
   }, [])
@@ -503,34 +499,7 @@ const handleFirst = (number, totalPages, search) => {
     // handleSearchQuery()
   }
 
-  // old HTML elements
-          {/* <Form>
-         <Form.Group 
-            controlId="formBasicPassword"
-            className={searchStyles.search}>
-            <Form.Control 
-              type="text" 
-              placeholder="Search Recipes..."
-              aria-describedby="myCartAppend"
-              onChange={handleSearchInput}
-            />
-            <InputGroup.Append>
-              <div className={dropdownStyles.dropdown}>
-                <InputGroup.Text id="myCartAppend" className={dropdownStyles.dropbtn} onClick={handleMyCartDropdown}><b>V</b></InputGroup.Text>
-                <div id="myCartDropdown" className={dropdownStyles.dropdownContent}>
-                  <p>Choose an Item from My Cart</p>
-                  <a href={handleMyCartQuery("myCart-item")}>myCart-item</a>
-                  <a href={handleMyCartQuery("myCart-item2")}>myCart-item2</a>
-                  <a href={handleMyCartQuery("myCart-item3")}>myCart-item3</a>
-                  <a href={handleMyCartQuery("myCart-item4")}>myCart-item4</a>
-                </div>
-              </div>
-            </InputGroup.Append>
-          </Form.Group>
-        </Form> */}
-
-  console.log(props.currentUser)
-  console.log("myCart", myCart)
+  console.log("myCart", myCart) //test
   
   // HTML elements
   return (
