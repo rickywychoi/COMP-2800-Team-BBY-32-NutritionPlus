@@ -6,6 +6,8 @@ import firebase from 'firebase'
 import firebaseConfig from '../../firebaseConfig'
 import { Form } from 'react-bootstrap'
 import { connect } from 'react-redux'
+import { useRouter } from 'next/router'
+import resultStyles from '../../styles/QuestionnaireResult.module.css'
 
 if (!firebase.apps.length) {
   firebase.initializeApp(firebaseConfig);
@@ -13,6 +15,8 @@ if (!firebase.apps.length) {
 let db = firebase.firestore()
 
 const RecipeChart = (props) => {
+  const router = useRouter()
+  
   const [data, setData] = useState({})
   const [amountsPercentage, setAmountsPercentage] = useState([])
   const [dailyValue, setDailyValue] = useState([])
@@ -163,63 +167,75 @@ const RecipeChart = (props) => {
 
   return (
     <div>
-      <div style={{display: "flex", justifyContent: "center"}}>
-        <Form>
-          <div style={{display: "flex"}}>
-            <p style={{marginRight: "10px"}}>Daily</p>
-            <Form.Check 
-              type="switch"
-              id="custom-switch"
-              label=""
-              onChange={handleToggleChange}
-            />
-            <p>Weekly</p>
+      {
+        dailyValue.length > 0
+          ?
+        <div>
+          <div style={{display: "flex", justifyContent: "center"}}>
+            <Form>
+              <div style={{display: "flex"}}>
+                <p style={{marginRight: "10px"}}>Daily</p>
+                <Form.Check 
+                  type="switch"
+                  id="custom-switch"
+                  label=""
+                  onChange={handleToggleChange}
+                />
+                <p>Weekly</p>
+              </div>
+            </Form>
           </div>
-        </Form>
-      </div>
-      <MediaQuery minDeviceWidth={500}>
-        <HorizontalBar 
-          data={data}
-          options={{
-            annotation: {
-              annotations: [{
-                type: "line",
-                mode: "vertical",
-                scaleID: "x-axis-0",
-                value: 100,
-                borderColor: "red",
-                label: {
-                  content: "Standard",
-                  enabled: true,
-                  position: "top"
+          <MediaQuery minDeviceWidth={500}>
+            <HorizontalBar 
+              data={data}
+              options={{
+                annotation: {
+                  annotations: [{
+                    type: "line",
+                    mode: "vertical",
+                    scaleID: "x-axis-0",
+                    value: 100,
+                    borderColor: "red",
+                    label: {
+                      content: "Standard",
+                      enabled: true,
+                      position: "top"
+                    }
+                  }]
                 }
-              }]
-            }
-          }}
-        />
-      </MediaQuery>
-      <MediaQuery maxDeviceWidth={499}>
-        <HorizontalBar 
-          data={data}
-          height={430}
-          options={{
-            annotation: {
-              annotations: [{
-                type: "line",
-                mode: "vertical",
-                scaleID: "x-axis-0",
-                value: 100,
-                borderColor: "red",
-                label: {
-                  content: "Standard",
-                  enabled: true,
-                  position: "top"
+              }}
+            />
+          </MediaQuery>
+          <MediaQuery maxDeviceWidth={499}>
+            <HorizontalBar 
+              data={data}
+              height={430}
+              options={{
+                annotation: {
+                  annotations: [{
+                    type: "line",
+                    mode: "vertical",
+                    scaleID: "x-axis-0",
+                    value: 100,
+                    borderColor: "red",
+                    label: {
+                      content: "Standard",
+                      enabled: true,
+                      position: "top"
+                    }
+                  }]
                 }
-              }]
-            }
-          }}
-        />
-      </MediaQuery>
+              }}
+            />
+          </MediaQuery>
+        </div>
+          :
+        <div className={resultStyles.noValueYet}>
+          <h3>Can't see your nutrition percentage chart?</h3>
+          <p>You need to evaluate your daily value first to make the chart visible.</p>
+          <button className={resultStyles.getYourResultButton} onClick={() => router.push("/questionnaire")}>Evaulate your daily value here.</button>
+        </div>
+      }
     </div>
   )
 }

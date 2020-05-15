@@ -29,3 +29,9 @@
   display: flex;
   justify-content: center;
 }
+
+@media (max-width: 499px) {
+  .mainBody {
+    padding: 5% 7%;
+  }
+}

@@ -143,18 +143,23 @@
   padding: .2rem .6rem;
 }
 
-.quantity {
-  margin-bottom: 0;
-  font-size: 1rem;
-  /* -moz-appearance: textfield; */
+.quantityInput {
+  width: 3rem;
+  font-size: 1.2rem;
+  text-align: center;
 }
 
-/* .quantity::-webkit-outer-spin-button,
-.quantity::-webkit-inner-spin-button  {
+/* Chrome, Safari, Edge, Opera */
+.quantityInput::-webkit-outer-spin-button,
+.quantityInput::-webkit-inner-spin-button {
   -webkit-appearance: none;
   margin: 0;
-} */
+}
 
+/* Firefox */
+.quantityInput {
+  -moz-appearance: textfield;
+}
 
 .reset {
   display: block;
@@ -180,6 +185,10 @@
 }
 
 @media only screen and (max-device-width: 991px) {
+  .mainBody {
+    padding: 5% 7%;
+  }
+  
   .tableWrapper {
     width: 100%;
     margin-bottom: 2rem;

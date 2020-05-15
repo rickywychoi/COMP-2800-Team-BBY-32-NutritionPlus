@@ -13,10 +13,16 @@
 
 .mapContainer {
     /* border: 1px solid red; */
-    height: 800px;
+    height: inherit;
     width: 100%;
-    }
+}
     
 .header {
     display: flex;
+}
+
+@media (max-width: 499px) {
+    .mapContainer {
+        margin-bottom: 2rem;
+    }
 }

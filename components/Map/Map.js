@@ -100,7 +100,7 @@ const SimpleMap = (props) => {
   // }
 
   return (
-    <div style={{ height: '100vh', width: '100%' }}>
+    <div className="mainBody">
       <GoogleMapReact
         bootstrapURLKeys={{
           key: GOOGLE_MAP_API_KEY,
@@ -134,6 +134,18 @@ const SimpleMap = (props) => {
           />
         ))}
       </GoogleMapReact>
+      <style>{`
+        .mainBody {
+          height: 85vh;
+          width: 100%;
+        }
+
+        @media (max-width: 499px) {
+          .mainBody {
+            height: 40vh;
+          }
+        } 
+      `}</style>
     </div>
   );
 }
