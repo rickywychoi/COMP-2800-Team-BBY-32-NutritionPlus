@@ -29,14 +29,19 @@ const RecipeSearch = (props) => {
   const [myCart, setCart] = useState([])
 
   useEffect(() => {
+    //handle myCart
     if (props.currentUser) {
       db.collection('users').doc(props.currentUser.uid).get().then(userInfo => {
         let arrayWithQuantity = getQuantity(userInfo.data().cart)
         setCart(sortArrayAlphabetically(arrayWithQuantity))
       })
     }
-  }, [])
 
+    //handle href
+    if (item != null) {
+      handleMyCartQuery(item)
+    }
+  }, [])
 
 
   const handleSearchInput = e => {
@@ -492,8 +497,17 @@ const handleFirst = (number, totalPages, search) => {
   }
 
   const handleMyCartQuery = (query) => {
-    document.getElementById("searchInput").value = query;
-    setSearch(query)
+
+    const promiseSearch = new Promise((resolve, reject) => {
+      document.getElementById("searchInput").value = query
+      setSearch(query)
+      resolve()
+    })
+
+    promiseSearch.then( (success, error) => {
+      document.getElementById("searchButton").click()
+    })
+    
   }
   
   // HTML elements
