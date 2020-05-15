@@ -4,19 +4,25 @@
   margin-top: 0;
 }
 
-/* .main{
-  height: 100%;
+.container {
+  position: relative;
+  min-height: 100vh;
+}
 
-} */
+.wrap {
+  padding-bottom: 70px;    
+}
 
 .footer {
   width: 100%;
-  height: 100px;
+  height: 70px;
   border-top: 1px solid #eaeaea;
   display: flex;
   justify-content: center;
   align-items: center;
   text-align: center;
+  position: absolute;
+  bottom: 0;
 }
 
 .footer img {
