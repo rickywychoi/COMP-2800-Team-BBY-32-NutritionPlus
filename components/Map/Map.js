@@ -107,7 +107,7 @@ const SimpleMap = (props) => {
           libraries:['places'] 
         }}
         center={myPosition}
-        zoom={18}
+        zoom={16}
         onBoundsChange={handleCenterChange}
         // defaultCenter={myPosition}
         // defaultZoom={18}

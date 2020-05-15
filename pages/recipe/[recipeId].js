@@ -9,6 +9,7 @@ import { useRouter } from 'next/router'
 import {  EDAMAM_RECIPE_APP_ID, EDAMAM_RECIPE_APP_KEY } from '../../apiKey'
 import RecipeChart from '../../containers/Chart/RecipeChart'
 import RecipeStyles from '../../styles/RecipeDetails.module.css'
+import buttonStyles from '../../styles/buttons.module.css'
 
 if (!firebase.apps.length) {    // if firebase not initialized
   firebase.initializeApp(firebaseConfig)
@@ -16,13 +17,6 @@ if (!firebase.apps.length) {    // if firebase not initialized
 let db = firebase.firestore()
 
 const RecipeDetails = (props) => {
-  // to get width of table
-  const tableRef = useRef(null)
-  let tableWidth
-  if (tableRef.current) {
-    tableWidth = tableRef.current.clientWidth
-  }
-
   const router = useRouter()
   const str = router.asPath
   const idJimmy = str.substring(56)
@@ -39,6 +33,12 @@ const RecipeDetails = (props) => {
   const [myRecipes, setMyRecipes] = useState([])
   const [userDailyValue, setUserDailyValue] = useState([])
   const [rawCart, setRawCart] = useState([])
+
+   // to get width of table
+   const tableRef = useRef(null)
+   let tableWidth
+   
+   console.log(tableRef)
 
   // useEffect(()=>{
   //   axios.get(url).then(res => {
@@ -298,6 +298,9 @@ const RecipeDetails = (props) => {
 
 
   useEffect(() => {
+    if (tableRef.current) {
+      tableWidth = tableRef.current.clientWidth
+    }
     if (props.currentUser) {
       db.collection('users').doc(props.currentUser.uid).get().then(userInfo => {
         // console.log(userInfo.data().recipes)
@@ -346,15 +349,18 @@ const RecipeDetails = (props) => {
   console.log(myRecipes)
   return (
     <div className={RecipeStyles.body}>
+      <div className={RecipeStyles.buttonsWrapper}>
+        <Button variant="secondary" className={buttonStyles.button} onClick={() => router.push("/recipe")}>Back to Search</Button>
         {
           props.currentUser
             ?
           (<Button variant="success"
            onClick={sendUserHistory}
-           className = {RecipeStyles.send}>Add to myMeals</Button>)
+           className = {buttonStyles.button}>Add to myMeals</Button>)
             :
           null
         }
+      </div>
         <img src={result.image} className={RecipeStyles.img} />
         <br />
         <h3><i>{result.label}</i></h3>
@@ -381,7 +387,7 @@ const RecipeDetails = (props) => {
             <Accordion.Collapse eventKey="1">
                 <div>
                     <div className = {RecipeStyles.tableWrapper}>
-                        <table className = {RecipeStyles.table}>
+                        <table className = {RecipeStyles.table} ref={tableRef}>
                           <thead className = {RecipeStyles.thead}>
                             <tr className = {RecipeStyles.trow}>
                               <th className = {RecipeStyles.subHead}>Nutrition Facts</th>
@@ -494,7 +500,7 @@ const RecipeDetails = (props) => {
                                             <td>
                                               <div>
                                                 <strong className = {RecipeStyles.name}>{nut.name}</strong>
-                                                <strong className = {RecipeStyles.amount}>{nut.amount}{nut.unitName}</strong>
+                                                <strong className = {RecipeStyles.amount}>{Math.ceil(nut.amount)}{nut.unitName}</strong>
                                               </div>
                                             </td>
                                             <td className = {RecipeStyles.daily}>
@@ -532,9 +538,6 @@ const RecipeDetails = (props) => {
         </Accordion>
         <br />
         <RecipeChart rawCart = {rawCart} />
-        <div style={{marginTop: "2rem"}}>
-          <Link href={router.query.prevPage}><a>Back to Search</a></Link>
-        </div>
     </div>
   )
 }

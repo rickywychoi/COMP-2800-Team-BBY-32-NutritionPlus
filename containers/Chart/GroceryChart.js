@@ -7,6 +7,7 @@ import firebaseConfig from '../../firebaseConfig'
 import { Form } from 'react-bootstrap'
 import { connect } from 'react-redux'
 import { useRouter } from 'next/router'
+import Link from 'next/link'
 import resultStyles from '../../styles/QuestionnaireResult.module.css'
 
 if (!firebase.apps.length) {
@@ -228,6 +229,7 @@ const Chart = (props) => {
         <div className={resultStyles.noValueYet}>
           <h3>Can't see your nutrition percentage chart?</h3>
           <p>You need to evaluate your daily value first to make the chart visible.</p>
+          <p>Or, you need to <Link href="/login"><a>sign in.</a></Link></p>
           <button className={resultStyles.getYourResultButton} onClick={() => router.push("/questionnaire")}>Evaulate your daily value here.</button>
         </div>
       }

@@ -65,7 +65,7 @@ const GroceryStores = (props) => {
       id: 6,
       name: "T&T Supermarket",
       url: "https://www.tntsupermarket.com/",
-      option: "pickup only"
+      option: "out of stock"
     },
     {
       id: 7,

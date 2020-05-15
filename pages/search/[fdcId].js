@@ -529,8 +529,8 @@ const ItemDetailsPage = (props) => {
                       className = {detailStyles.nutrient}>
                         <td>
                           <div>
-                            <strong className = {detailStyles.name}>{nut.name}</strong>
-                            <strong className = {detailStyles.amount}>{nut.amount}{nut.unitName}</strong>
+                            <strong className={detailStyles.name}>{nut.name}</strong>
+                            <strong className={detailStyles.amount}>{nut.amount}{nut.unitName}</strong>
                           </div>
                         </td>
                       <td className = {detailStyles.daily}>
@@ -563,8 +563,8 @@ const ItemDetailsPage = (props) => {
                       className = {detailStyles.nutrient}>
                       <td>
                         <div>
-                          <strong className = {detailStyles.name}>{nut.name}</strong>
-                          <strong className = {detailStyles.amount}>{nut.amount}{nut.unitName}</strong>
+                          <strong className={detailStyles.name}>{nut.name}</strong>
+                          <strong className={detailStyles.amount}>{nut.amount}{nut.unitName}</strong>
                         </div>
                       </td>
                       <td className = {detailStyles.daily}>

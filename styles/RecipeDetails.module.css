@@ -4,8 +4,10 @@
     padding: 3% 10%;
 }
 
-.send {
-  margin-bottom: 2.5rem;
+.buttonsWrapper {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 1.5rem;
 }
   
 .img {

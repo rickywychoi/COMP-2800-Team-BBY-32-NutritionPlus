@@ -14,7 +14,7 @@ let db = firebase.firestore()
 
 const NavBar = (props) => {
     const router = useRouter()
-    const [show, setShow] = useState(true)
+    const [show, setShow] = useState(false)
     
     // Apply css on signout message
     const signoutRef = useRef(null)
