@@ -17,6 +17,12 @@
   align-items: center;
 }
 
+.checkoutWrapper {
+  display: flex;
+  flex-direction: row-reverse;
+  justify-content: space-between;
+}
+
 .decrement {
   margin-right: 1rem;
   padding: .2rem .6rem;
