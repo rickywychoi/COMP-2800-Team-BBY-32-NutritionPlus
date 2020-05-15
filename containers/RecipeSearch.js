@@ -492,14 +492,9 @@ const handleFirst = (number, totalPages, search) => {
   }
 
   const handleMyCartQuery = (query) => {
-    console.log("handleMyCartQuery called: " + query) //test
     document.getElementById("searchInput").value = query;
     setSearch(query)
-    console.log("search: " + search) //test
-    // handleSearchQuery()
   }
-
-  console.log("myCart", myCart) //test
   
   // HTML elements
   return (
