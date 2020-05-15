@@ -518,7 +518,7 @@ const handleFirst = (number, totalPages, search) => {
   // HTML elements
   return (
     <div className={searchStyles.body}>
-      <h1 className={searchStyles.title}>Find a Recipe</h1>
+      {/* <h1 className={searchStyles.title}>Find a Recipe</h1> */}
 
       <div className={searchStyles.container}>
 

@@ -6,7 +6,7 @@ import { useState, useEffect} from 'react'
 
 
 // const MyPositionMarker = ({ text }) => <div>{text}</div>;
-const MyPositionMarker = ({ icon }) => <img style={{ height: '60px', width: '30px' }} src={icon} />
+const MyPositionMarker = ({ icon }) => <img style={{ height: '40px', width: '40px' }} src={icon} />
 
 const Marker = props => (
   <React.Fragment>
@@ -124,7 +124,7 @@ const SimpleMap = (props) => {
         
         {places.map(item=>(
           <Marker
-            icon={item.icon}
+            icon="./images/shopping.png"
             key={item.id}
             lat={item.geometry.location.lat()}
             lng={item.geometry.location.lng()}
