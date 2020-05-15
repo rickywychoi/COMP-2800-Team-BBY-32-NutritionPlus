@@ -1,7 +1,7 @@
 // GroceryStores.js
 
 import axios from 'axios'
-import { useState } from 'react'
+
 //import Link from 'next/link'
 //import MediaQuery from 'react-responsive'
 import { Table, Form } from 'react-bootstrap'
@@ -9,7 +9,26 @@ import groceryStoresStyles from '../styles/GroceryStores.module.css' //replace w
 import { connect } from 'react-redux'
 import * as actions from '../store/actions'
 
+import Map from '../components/Map/Map'
+import { useState, useEffect} from 'react'
+
+let center;
 const GroceryStores = (props) => {
+  // const [lat, setLat] = useState()
+  // const [lng, setLng] = useState()
+  
+  
+  // useEffect(()=>{
+  //       navigator.geolocation.watchPosition((position) => {
+  //         setLat(position.coords.latitude)
+  //         setLng(position.coords.longitude)
+        
+  //       });
+  //     })
+  
+  // center = {lat:lat,lng:lng}
+  // console.log(center)
+
   const stores = [
     {
       id: 1,
@@ -65,9 +84,10 @@ const GroceryStores = (props) => {
     e.preventDefault()
     props.onSetStore(e.target.value)
   }
-  
+
   // TODO: insert google maps inside div mapContainer
   return (
+    
     <div className={groceryStoresStyles.main}>
       <div className={groceryStoresStyles.header}>
         <h4>Grocery Stores</h4>
@@ -103,10 +123,11 @@ const GroceryStores = (props) => {
           })}
         </tbody>
       </Table>
-
-      <h4>See Nearby Stores</h4>
+      <h4 style={{margin: "1.5rem 0 1rem 0"}}>See Nearby Stores</h4>
       <div className={groceryStoresStyles.mapContainer}>
-        <img src="https://via.placeholder.com/400"></img>
+        
+      <Map />
+      
       </div>
       <style jsx>{`
         td {

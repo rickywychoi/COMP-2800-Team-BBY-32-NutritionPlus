@@ -2,12 +2,12 @@ import Link from 'next/link'
 import { connect } from 'react-redux'
 import firebase from 'firebase'
 import firebaseConfig from '../../firebaseConfig'
-import { Table, Accordion, Button } from 'react-bootstrap'
+import { Table, Accordion, Button, Card } from 'react-bootstrap'
 import axios from 'axios'
-import { useState, useEffect} from 'react'
+import { useState, useEffect, useRef } from 'react'
 import { useRouter } from 'next/router'
 import {  EDAMAM_RECIPE_APP_ID, EDAMAM_RECIPE_APP_KEY } from '../../apiKey'
-import Chart from '../../components/Chart/Chart'
+import RecipeChart from '../../components/Chart/RecipeChart'
 import RecipeStyles from '../../styles/RecipeDetails.module.css'
 
 if (!firebase.apps.length) {    // if firebase not initialized
@@ -16,6 +16,13 @@ if (!firebase.apps.length) {    // if firebase not initialized
 let db = firebase.firestore()
 
 const RecipeDetails = (props) => {
+  // to get width of table
+  const tableRef = useRef(null)
+  let tableWidth
+  if (tableRef.current) {
+    tableWidth = tableRef.current.clientWidth
+  }
+
   const router = useRouter()
   const str = router.asPath
   const idJimmy = str.substring(56)
@@ -29,7 +36,9 @@ const RecipeDetails = (props) => {
   const [additionalNutrients, setAdditionalNutrients] = useState([])
   const [details, setDetails] = useState({})
   const [calories, setCalories] = useState({})
-  
+  const [userDailyValue, setUserDailyValue] = useState([])
+  const [rawCart, setRawCart] = useState([])
+
   // useEffect(()=>{
   //   axios.get(url).then(res => {
   //     setResult(res.data[0])
@@ -38,7 +47,24 @@ const RecipeDetails = (props) => {
   //   })
   // }, [])
 
+  // returns information to create nutrition facts label
   useEffect(()=>{
+    // retrieve daily value of the user
+    if (props.currentUser) {
+      let userDV = []
+      db.collection('users').doc(props.currentUser.uid).get().then(userInfo => {
+        console.log(userInfo.data().healthInfo.dailyValue)
+        userInfo.data().healthInfo.dailyValue.forEach(nut => {
+          userDV.push(nut)
+        })
+        setUserDailyValue(userDV)
+        console.log("Getting User Daily Value Success")
+      }).catch(error => {
+        console.log(error)
+      })
+    }
+
+    // return nutrient data
     axios.get(url).then(res => {
         console.log("43", res.data)
         console.log(res.data[0])
@@ -267,10 +293,19 @@ const RecipeDetails = (props) => {
         })  
    }, [])
 
-  // const tester = e => {
-  //   console.log("this button works")
-  // }
 
+  useEffect(() => {
+    if (props.currentUser) {
+      db.collection('users').doc(props.currentUser.uid).get().then(userInfo => {
+        // console.log(userInfo.data().recipes)
+        setRawCart(userInfo.data().recipes)
+      })
+    }
+  }, [])
+  
+  console.log(rawCart)
+
+  // sends recipe to user's info in firebase
   const sendUserHistory = () => {
     if (props.currentUser){   // if user signed in
       db.collection('users').doc(props.currentUser.uid).get().then(userInfo => {
@@ -300,7 +335,9 @@ const RecipeDetails = (props) => {
         {
           props.currentUser
             ?
-          (<Button variant="success" onClick={sendUserHistory}>Add to myMeals</Button>)
+          (<Button variant="success"
+           onClick={sendUserHistory}
+           className = {RecipeStyles.send}>Add to myMeals</Button>)
             :
           null
         }
@@ -328,41 +365,58 @@ const RecipeDetails = (props) => {
                 Click to see nutrients composition
             </Accordion.Toggle>
             <Accordion.Collapse eventKey="1">
-                <div className={RecipeStyles.dvResult}>
-                    <div>
-                        <table>
-                          <thead>
-                            <tr>
-                              <th>Nutrition Facts</th>
+                <div>
+                    <div className = {RecipeStyles.tableWrapper}>
+                        <table className = {RecipeStyles.table}>
+                          <thead className = {RecipeStyles.thead}>
+                            <tr className = {RecipeStyles.trow}>
+                              <th className = {RecipeStyles.subHead}>Nutrition Facts</th>
                               <th></th>
                             </tr>
                             <tr>
-                              <th><strong>Servings: </strong>N/A</th>
+                              <th className = {RecipeStyles.subHead}><strong>Servings: </strong>N/A</th>
                               <th></th>
                             </tr>
                           </thead>
-                           <tbody>      
+                           <tbody className = {RecipeStyles.tbody}>      
                             <tr>
-                              <td>Amount per serving</td>
+                              <td className = {RecipeStyles.subHead}>Amount per serving</td>
                               <td></td>
                             </tr>
-                            <tr>
-                              <td>Calories</td>
-                              <td><strong>{calories.amount}</strong></td>
+                            <tr className = {RecipeStyles.nutrient}>
+                              <td className = {RecipeStyles.caloriesTitle}>Calories</td>
+                              <td className = {RecipeStyles.calories}><strong>{calories.calPerServing}</strong></td>
+                            </tr>
+                            <tr className = {RecipeStyles.nutrient}>
+                              <td></td>
+                              <td className = {RecipeStyles.header}>% Daily Value*</td>
                             </tr>                     
                             {
                               nutrients.map(nut => {
                                 return (
                                   nut.group.localeCompare("getLessOf") == 0
                                   ?
-                                  <tr key = {nut.id}>
+                                  <tr key = {nut.id}
+                                  className = {RecipeStyles.nutrient}>
                                     <td>
                                       <div>
-                                        <strong>{nut.name}</strong>  
-                                        <strong>{Math.ceil(nut.amount)} {nut.unitName}</strong>
+                                        <strong className = {RecipeStyles.name}>{nut.name}</strong>  
+                                        <strong className = {RecipeStyles.amount}>{Math.ceil(nut.amount)} {nut.unitName}</strong>
                                       </div>
                                     </td>
-                                    <td></td>
+                                    <td className = {RecipeStyles.daily}>
+                                      {
+                                        nut.name.localeCompare("Protein") === 0 || nut.name.localeCompare("Sugars, total including NLEA") === 0
+                                          ?
+                                        ""
+                                          :
+                                        userDailyValue.map(dv => {
+                                          if (dv.id.localeCompare(nut.id) === 0) {
+                                            return Math.ceil(nut.amount / dv.value) + "%"
+                                          }
+                                        })
+                                      }
+                                    </td>
                                   </tr>
                                   : null
                                 )
@@ -375,14 +429,23 @@ const RecipeDetails = (props) => {
                                   return (
                                     nut.group.localeCompare("getMoreOf") == 0
                                     ?
-                                    <tr key = {nut.id}>
+                                    <tr key = {nut.id}
+                                    className = {RecipeStyles.nutrient}>
                                       <td>
                                         <div>
-                                          <strong>{nut.name}</strong>  
-                                          <strong>{Math.ceil(nut.amount)} {nut.unitName}</strong>
+                                          <strong className = {RecipeStyles.name}>{nut.name}</strong>  
+                                          <strong className = {RecipeStyles.amount}>{Math.ceil(nut.amount)} {nut.unitName}</strong>
                                         </div>
                                       </td>
-                                      <td></td>
+                                      <td className = {RecipeStyles.daily}>
+                                        {
+                                          userDailyValue.map(dv => {
+                                            if (dv.id.localeCompare(nut.id) === 0) {
+                                              return Math.ceil(nut.amount / dv.value) + "%"
+                                            }
+                                          })
+                                        }
+                                      </td>
                                     </tr>
                                     : null
                                   )
@@ -390,12 +453,71 @@ const RecipeDetails = (props) => {
                               }
                           </tfoot>
                         </table>
+                        {
+                        additionalNutrients === null || additionalNutrients.length == 0 
+                          ?
+                        null  
+                          :
+                        (
+                          <Accordion style={{width: `${tableWidth}px`, margin: "0 auto"}} defaultActiveKey="0">
+                          <Card>
+                            <Card.Header>
+                              <Accordion.Toggle as={Button} variant="link" eventKey="0">
+                                Additional nutrients
+                              </Accordion.Toggle>
+                            </Card.Header>
+                            <Accordion.Collapse eventKey="0">
+                              <Card.Body style={{padding: "0"}}>
+                              <table className={RecipeStyles.table2} >
+                                <tbody className={RecipeStyles.tbody}>
+                                  {
+                                    additionalNutrients.map(nut => {
+                                      return (
+                                        nut.group.localeCompare("additional") == 0
+                                          ?
+                                          <tr key={nut.id}
+                                          className = {RecipeStyles.nutrient}>
+                                            <td>
+                                              <div>
+                                                <strong className = {RecipeStyles.name}>{nut.name}</strong>
+                                                <strong className = {RecipeStyles.amount}>{nut.amount}{nut.unitName}</strong>
+                                              </div>
+                                            </td>
+                                            <td className = {RecipeStyles.daily}>
+                                              {
+                                                userDailyValue.map(dv => {
+                                                  if (dv.id.localeCompare(nut.id) === 0) {
+                                                    return Math.ceil(nut.amount / dv.value) + "%"
+                                                  }
+                                                })
+                                              }
+                                            </td>
+                                        </tr>
+                                          :
+                                        null
+                                      )
+                                    })
+                                  }
+                                  <tr>
+                                    <td className = {RecipeStyles.dv}>*The % Daily Value (DV) tells you how much a nutrient in a food serving contributes to a daily diet. It is calculated using your required energy intake.</td>
+                                    <td></td>
+                                  </tr>
+                                </tbody>
+                              </table>
+                              </Card.Body>
+                            </Accordion.Collapse>
+                          </Card>
+                          </Accordion>
+                        )
+                      }
+
                       <p>g = Grams; mg = Milligrams; µg = Micrograms</p>
                     </div>              
                 </div>
             </Accordion.Collapse>                             
         </Accordion>
         <br />
+        <RecipeChart rawCart = {rawCart} />
         <Link href={router.query.prevPage}><a>Back to Search</a></Link>
     </div>
   )

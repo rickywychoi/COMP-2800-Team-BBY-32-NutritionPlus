@@ -11,10 +11,12 @@
     text-decoration: none;
 }
 
-.mapContainer {
+/* .mapContainer {
     border: 1px solid red;
-}
-
+    height: 800px;
+    width: 100%;
+    } */
+    
 .header {
     display: flex;
 }
