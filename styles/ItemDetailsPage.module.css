@@ -65,6 +65,11 @@
 }
 
 .trow {
+  /* font-size: 40px; */
+  padding-left: 10px;
+}
+
+.nutritionFacts {
   font-size: 40px;
   padding-left: 10px;
 }
@@ -184,13 +189,45 @@
   color: #35548A;
 }
 
-@media only screen and (max-device-width: 991px) {
-  .mainBody {
-    padding: 5% 7%;
-  }
-  
+@media only screen and (min-device-width: 500px) and (max-device-width: 991px) {
   .tableWrapper {
     width: 100%;
     margin-bottom: 2rem;
+  }
+  
+  .mainBody {
+    padding: 5% 7%;
+  }
+}
+
+@media (max-device-width: 499px) {
+  .contents {
+    margin-top: 1rem;
+  }
+  
+  .mainBody {
+    padding: 5% 7%;
+  }
+
+  .tableWrapper {
+    width: 100%;
+    margin-bottom: 2rem;
+  }
+
+  .itemTitle {
+    font-size: 1.5rem;
+  }
+
+  .nutritionFacts {
+    font-size: 30px;
+    padding-left: 10px;
+  }
+
+  .caloriesTitle {
+    font-size: 29px;
+  }
+  
+  .calories {
+    font-size: 29px;
   }
 }

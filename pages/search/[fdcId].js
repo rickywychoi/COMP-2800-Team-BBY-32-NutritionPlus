@@ -480,7 +480,7 @@ const ItemDetailsPage = (props) => {
           <table className={detailStyles.table} ref={tableRef}>
             <thead className={detailStyles.thead}>
               <tr className = {detailStyles.trow}>
-                <th className = {detailStyles.subHead}>Nutrition Facts</th>
+                <th className = {detailStyles.nutritionFacts}>Nutrition Facts</th>
                 <th></th>
               </tr>
               <tr> 
