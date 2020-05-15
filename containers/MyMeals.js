@@ -23,26 +23,26 @@ const MyMeals = (props) => {
   console.log(props)
   const myCart = props.myCart
 
+  const sortArrayDesc = (arr) => {
+    return arr.sort((a, b) => b.addedAt.toDate() - a.addedAt.toDate())
+  }
+
   useEffect(() => {
     if (props.currentUser) {
       db.collection('users').doc(props.currentUser.uid).get().then(userInfo => {
-        console.log(userInfo.data().recipes)
-        setMyRecipes(userInfo.data().recipes)
+        let recipes = sortArrayDesc(userInfo.data().recipes)
+        console.log(recipes)
+        setMyRecipes(recipes)
       })
     }
   }, [])
 
-  const goBack = () => {
-    router.push("/mycart") 
-  }
-
-console.log(myRecipes)
+  // console.log(myRecipes)
 
   return (
     props.currentUser
       ?
     <div className={orderStyles.mainBody}>
-       <Button variant="secondary" className={buttonStyles.button} onClick = {goBack}>Back to My Cart</Button>
        <div className={orderStyles.contents}>
         <h2>My Meals</h2>
          <div className={orderStyles.table}>

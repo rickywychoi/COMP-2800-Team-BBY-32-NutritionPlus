@@ -313,13 +313,14 @@ const RecipeDetails = (props) => {
     if (props.currentUser){   // if user signed in
       db.collection('users').doc(props.currentUser.uid).get().then(userInfo => {
         console.log(userInfo.data().recipes)
+
         let recipes = []
         let recipesWithoutDate = {}
         recipes.push(...userInfo.data().recipes)
 
         Object.assign(recipesWithoutDate, result)
         recipesWithoutDate.addedAt = new Date()
-        
+
         recipes.push(recipesWithoutDate)
         db.collection('users').doc(props.currentUser.uid).update({
           recipes : recipes
