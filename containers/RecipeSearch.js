@@ -4,8 +4,10 @@ import firebase from 'firebase'
 import firebaseConfig from '../firebaseConfig'
 import searchStyles from '../styles/ItemSearch.module.css'
 import Link from 'next/link'
+import { useRouter } from 'next/router'
 import { connect } from 'react-redux'
 import { Button, Pagination, InputGroup, FormControl, DropdownButton, Dropdown } from 'react-bootstrap'
+import { FaSearch, FaShoppingCart } from 'react-icons/fa'
 import { useState, useEffect } from 'react'
 import axios from 'axios'
 import { EDAMAM_RECIPE_APP_ID, EDAMAM_RECIPE_APP_KEY } from '../apiKey'
@@ -24,6 +26,9 @@ const RecipeSearch = (props) => {
   
   const pageSizeLimit = 10
   const searchLimit = 100
+
+  const router = useRouter()
+  const item = router.query.item
 
   // my cart with quantity
   const [myCart, setCart] = useState([])
@@ -519,25 +524,17 @@ const handleFirst = (number, totalPages, search) => {
 
       <div className={searchStyles.searchContainer}>
         <InputGroup>
-          <FormControl
-            className={searchStyles.search}
-            id="searchInput"
-            placeholder="Search Recipes..."
-            aria-describedby="myCartAppend"
-            onChange={handleSearchInput}
-          />
           <DropdownButton
-            as={InputGroup.Append}
-            variant="outline-secondary"
-            title="'My Cart' Items"
             id="myCartAppend"
+            as={InputGroup.Prepend}
+            variant="secondary"
+            title={<FaShoppingCart />}
           >
             {
               props.currentUser 
               ?
               <span>
-                <Dropdown.Item><i>Choose an Item from My Cart</i></Dropdown.Item>
-                <Dropdown.Divider />
+                <Dropdown.Header><i>Choose an Item from My Cart</i></Dropdown.Header>
                 {
                   myCart.map(food => {
                     return(
@@ -547,13 +544,21 @@ const handleFirst = (number, totalPages, search) => {
                 }
               </span>
               :
-              <Dropdown.Item><i>Please Sign In First.</i></Dropdown.Item>
+              <Dropdown.Header><i>Please Sign In First.</i></Dropdown.Header>
             }
           </DropdownButton>
+          <FormControl
+            id="searchInput"
+            placeholder="Search Recipes..."
+            onChange={handleSearchInput}
+          />
           <Button
             className={searchStyles.button}
+            id="searchButton"
+            as={InputGroup.Append}
+            variant="primary"
             onClick={handleSearchQuery}>
-              Search
+              <FaSearch />
           </Button>
         </InputGroup>    
       </div>
@@ -597,7 +602,8 @@ const handleFirst = (number, totalPages, search) => {
       <Pagination className={searchStyles.pagination}>{pagination}</Pagination>
 
     </div>
-  )
+  ) 
+
 }
 
 const mapStateToProps = state => {

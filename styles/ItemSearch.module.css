@@ -14,31 +14,15 @@
   width: 100%;
   display: grid;
   grid-template-columns: 1fr;
-  /* grid-template-rows: 50px, repeat(auto-fill, 120px); */
-  /* grid-row-gap: 1rem; */
-  /* grid-column-gap: 1rem; */
 }
 
 .searchContainer {
-  margin: 0 10px;
-}
-
-.search {
-  padding: 10px;
-  font-size: 17px;
-  float: left;
-  /* width: 50% !important; */
+  display: flex;
+  justify-content: space-around;
 }
 
 .button {
-  float: right;
-  width: 30%;
-  background: #2196F3;
-  color: white;
-  font-size: 17px;
-  border: 1px solid grey;
-  border-left: none;
-  cursor: pointer;
+  padding-top: .6rem;
 }
 
 .list {
@@ -112,13 +96,6 @@
 
 /* screen size between 500px and 1024px: tablet */
 @media screen and (min-width: 500px) and (max-width: 1024px) {
-  .search {
-    width: 80%;
-  }
-
-  .button {
-    width: 20%;
-  }
 
   .card {
     margin: 2.5%;
@@ -128,13 +105,6 @@
 
 /* screen size greater than 1025px: desktop */
 @media screen and (min-width: 1025px) {
-  .search {
-    width: 80%;
-  }
-
-  .button {
-    width: 20%;
-  }
 
   .card {
     margin: 2.5%;
