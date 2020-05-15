@@ -9,7 +9,7 @@ import { connect } from 'react-redux'
 import * as actions from '../store/actions'
 import { Button, Table } from 'react-bootstrap'
 import MediaQuery from 'react-responsive'
-import Chart from '../components/Chart/Chart'
+import GroceryChart from './Chart/GroceryChart'
 import DateFormatter from '../components/DateFormatter/DateFormatter'
 import cartStyles from '../styles/MyCart.module.css'
 import listStyles from '../styles/SearchList.module.css'
@@ -352,7 +352,7 @@ const MyCart = (props) => {
       {
         myCart.length > 0
           ?
-        <Chart rawCart={rawCart} />
+        <GroceryChart rawCart={rawCart} />
           :
         null
       }

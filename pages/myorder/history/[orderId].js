@@ -7,7 +7,7 @@ import { connect } from 'react-redux'
 // import * as actions from '../store/actions'
 import { Button, Table } from 'react-bootstrap'
 import MediaQuery from 'react-responsive'
-import Chart from '../../../components/Chart/Chart'
+import Chart from '../../../containers/Chart/GroceryChart'
 import DateFormatter from '../../../components/DateFormatter/DateFormatter'
 import cartStyles from '../../../styles/MyCart.module.css'
 import listStyles from '../../../styles/SearchList.module.css'
@@ -134,7 +134,7 @@ const ArchivedOrderDetail = (props) => {
         <Button variant="secondary" className={buttonStyles.button} onClick={() => router.push("/myorder/history")}>Back to Order History</Button>
       </div>
       <div style={{marginTop: "1rem"}}>
-        <h3 className="header">Order made in <a href={storeUrl} target="_blank" className="storeLink">{store}</a></h3>
+        <h3 className="header">Order made to <a href={storeUrl} target="_blank" className="storeLink">{store}</a></h3>
         {orderedAt ? <p><DateFormatter date={orderedAt.toDate()}/></p> : null}
         {/* Media Query for min-device-width: 500px */}
         <MediaQuery minDeviceWidth={500}>
