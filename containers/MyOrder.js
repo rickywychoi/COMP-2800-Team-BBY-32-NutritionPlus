@@ -84,7 +84,7 @@ const MyOrder = (props) => {
                 })
                   :
                 <tr>
-                  <td colSpan="2" align="center" style={{padding: "1rem 0"}}>You have no items to order.<br/>Please check your cart.</td>
+                  <td colSpan="2" align="center" style={{padding: "1rem 0"}}>You need to checkout from your cart.<br/>Please check your cart.</td>
                 </tr>
               }
             </tbody>

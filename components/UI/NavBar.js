@@ -40,7 +40,7 @@ const NavBar = (props) => {
 
     const popover = (
             <Popover id="popover-basic">
-                <Popover.Title as="h5" align="center">Your Account</Popover.Title>
+                <Popover.Title as="h5" align="center"><Link href="/myaccount"><a className={navbarStyles.yourAccount}>Your Account</a></Link></Popover.Title>
                 <Popover.Content>
                     <ul className={navbarStyles.myAccountList}>
                         <li className={navbarStyles.myAccountListItem}><Link href = "#"><a className={navbarStyles.myAccountListLink}>My List</a></Link></li>
