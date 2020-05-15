@@ -36,6 +36,7 @@ const RecipeDetails = (props) => {
   const [additionalNutrients, setAdditionalNutrients] = useState([])
   const [details, setDetails] = useState({})
   const [calories, setCalories] = useState({})
+  const [myRecipes, setMyRecipes] = useState([])
   const [userDailyValue, setUserDailyValue] = useState([])
   const [rawCart, setRawCart] = useState([])
 
@@ -289,7 +290,9 @@ const RecipeDetails = (props) => {
           })
         })
         setNutrients(sortedNutrients)
-        setAdditionalNutrients(extraNutrients)               
+        setAdditionalNutrients(extraNutrients)  
+        setMyRecipes(nutrients)
+        setMyRecipes(...additionalNutrients)             
         })  
    }, [])
 
@@ -310,31 +313,37 @@ const RecipeDetails = (props) => {
     if (props.currentUser){   // if user signed in
       db.collection('users').doc(props.currentUser.uid).get().then(userInfo => {
         console.log(userInfo.data().recipes)
-        let recipes = []
-        let recipeWithoutDate = {}
-        recipes.push(...userInfo.data().recipes)
-        
-        Object.assign(recipeWithoutDate, result)
-        recipeWithoutDate.addedAt = new Date()
 
-        recipes.push(recipeWithoutDate)
-        console.log(recipes)
+        let recipes = []
+        let recipesWithoutDate = {}
+        recipes.push(...userInfo.data().recipes)
+
+        Object.assign(recipesWithoutDate, result)
+        recipesWithoutDate.addedAt = new Date()
+
+        recipes.push(recipesWithoutDate)
         db.collection('users').doc(props.currentUser.uid).update({
-          recipes: recipes
+          recipes : recipes
         })
+        // console.log(Object.values(details).slice(0))
+
+        // let todayMeals = {}
+        // let date = {itemAddedAt: new Date()}
+        // Object.assign(todayMeals, date)
+        // Object.assign(todayMeals, userInfo.data())   // firestore data
+        // todayMeals.recipes = [...Object.values(details).slice(0)]
+        // console.log(todayMeals)
+
+        // // .then(
+        // //   router.push("/myhistory")
+        // // ).catch(err => console.log(err))
       }).catch(err => console.log(err))
     }
   }
   
-  const filterFoodKeyword = (str) => {
-    if (isNaN(str.trim().charAt(0))) {
-      return str.split(' ').slice(2).join(' ')
-    } else {
-      return str.split(' ').slice(1).join(' ')
-    }
-  }
-
-
+  console.log(nutrients)
+  console.log(additionalNutrients)
+  console.log(myRecipes)
   return (
     <div className={RecipeStyles.body}>
         {
@@ -532,7 +541,8 @@ const RecipeDetails = (props) => {
 
 const mapStateToProps = state => {
   return {
-    currentUser: state.currentUser
+    currentUser: state.currentUser,
+    recipes: state.recipes
   }
 }
 
