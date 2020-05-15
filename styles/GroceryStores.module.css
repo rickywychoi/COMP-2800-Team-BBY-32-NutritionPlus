@@ -11,11 +11,11 @@
     text-decoration: none;
 }
 
-/* .mapContainer {
-    border: 1px solid red;
+.mapContainer {
+    /* border: 1px solid red; */
     height: 800px;
     width: 100%;
-    } */
+    }
     
 .header {
     display: flex;
