@@ -38,19 +38,35 @@
   padding: .2rem .6rem;
 }
 
-.quantity {
-  margin-bottom: 0;
-  font-size: 1rem;
-  /* -moz-appearance: textfield; */
+.quantityInput {
+  width: 3rem;
+  font-size: 1.2rem;
+  text-align: center;
+}
+
+/* Chrome, Safari, Edge, Opera */
+.quantityInput::-webkit-outer-spin-button,
+.quantityInput::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+/* Firefox */
+.quantityInput {
+  -moz-appearance: textfield;
 }
 
 .date {
   text-align: center;
 }
 
+.deleteItem {
+  padding: .2rem .6rem;
+}
+
 @media only screen and (max-device-width: 499px) {
   .mainBody {
-    padding: 3% 4.5%;
+    padding: 5% 4.5%;
     font-size: 0.8rem;
   }
 
@@ -66,5 +82,10 @@
   .increment {
     margin-left: 0.7rem;
     padding: 0 0.4rem;
+  }
+
+  .quantityInput {
+    width: 2.2rem;
+    font-size: 0.9rem;
   }
 }

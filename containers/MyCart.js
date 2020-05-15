@@ -7,8 +7,10 @@ import Link from 'next/link'
 import React, { useState, useEffect, useRef } from 'react'
 import { connect } from 'react-redux'
 import * as actions from '../store/actions'
-import { Button, Table, DropdownButton, Dropdown } from 'react-bootstrap'
-import { FaSearch } from 'react-icons/fa'
+import { Button, Table, DropdownButton, Dropdown, Form } from 'react-bootstrap'
+import { FaSearch, FaMinus, FaPlus } from 'react-icons/fa'
+import { AiFillDelete } from 'react-icons/ai'
+import { MdArrowBack } from 'react-icons/md'
 import MediaQuery from 'react-responsive'
 import GroceryChart from './Chart/GroceryChart'
 import DateFormatter from '../components/DateFormatter/DateFormatter'
@@ -213,6 +215,122 @@ const MyCart = (props) => {
     setMyCart(isDesc ? sortArrayDesc(arrayWithQuantity) : sortArrayAsc(arrayWithQuantity))
   }
 
+  const handleQtyChange = (id, e) => {
+    console.log(id)
+    console.log(e.target.value)
+    if (props.currentUser) {
+      // get previous quantity from item
+      let qty = 0
+      let itemToAdd = {}
+      let newArray = []
+      let extractIndex = 0
+      newArray.push(...myCart)
+      for (let i = 0; i < newArray.length; i++) {
+        if (newArray[i].fdcId === id) {
+          extractIndex = i
+          Object.assign(itemToAdd, newArray[i])
+        }
+      }
+      // extract that item from array
+      newArray.splice(extractIndex, 1)
+      console.log(itemToAdd.quantity)
+      // increment
+      if (e.target.value == "" && isNaN(parseInt(e.target.value))) {
+        itemToAdd.quantity = ""
+        newArray.push(itemToAdd)
+        let cart = []
+        newArray.forEach(item => {
+          for (let i = 0; i < item.quantity; i++) {
+            let itemWithoutQty = {}
+            Object.assign(itemWithoutQty, item)
+            delete itemWithoutQty.quantity
+            cart.push(itemWithoutQty)
+          }
+        })
+        setRawCart(cart)
+        // let arrayWithQuantity = getQuantity(cart)
+        setMyCart(isDesc ? sortArrayDesc(newArray) : sortArrayAsc(newArray))
+        console.log(myCart)
+        return
+      } else if (itemToAdd.quantity < 100 && parseInt(e.target.value) < 100) {
+        itemToAdd.quantity = parseInt(e.target.value)
+        console.log(itemToAdd.quantity)
+        newArray.push(itemToAdd)
+        
+        let cart = []
+        newArray.forEach(item => {
+          for (let i = 0; i < item.quantity; i++) {
+            let itemWithoutQty = {}
+            Object.assign(itemWithoutQty, item)
+            delete itemWithoutQty.quantity
+            cart.push(itemWithoutQty)
+          }
+        })
+        
+        db.collection('users').doc(props.currentUser.uid).update({
+          cart: cart
+        }).then(res => {
+          setRawCart(cart)
+          console.log("setRawCart", cart)
+        }).catch(err => console.log(err))
+        
+        setRawCart(cart)
+        let arrayWithQuantity = getQuantity(cart)
+        setMyCart(isDesc ? sortArrayDesc(arrayWithQuantity) : sortArrayAsc(arrayWithQuantity))
+      } else {
+        alert("Cannot add more than 99 items.")
+      }
+    }
+  }
+
+  const deleteItem = (id) => {
+    console.log("delete", id)
+    if (props.currentUser) {
+      if (confirm("Are you sure to remove this item?")) {
+        // get previous quantity from item
+        let itemToAdd = {}
+        let newArray = []
+        let extractIndex = 0
+        newArray.push(...myCart)
+        for (let i = 0; i < newArray.length; i++) {
+          if (newArray[i].fdcId === id) {
+            extractIndex = i
+            Object.assign(itemToAdd, newArray[i])
+          }
+        }
+        // extract that item from array
+        newArray.splice(extractIndex, 1)
+        console.log(itemToAdd.quantity)
+        // change this item's quantity to zero
+        itemToAdd.quantity = 0
+        console.log(itemToAdd.quantity)
+        // add to array
+        newArray.push(itemToAdd)
+        
+        let cart = []
+        newArray.forEach(item => {
+          for (let i = 0; i < item.quantity; i++) {
+            let itemWithoutQty = {}
+            Object.assign(itemWithoutQty, item)
+            delete itemWithoutQty.quantity
+            cart.push(itemWithoutQty)
+          }
+        })
+        
+        db.collection('users').doc(props.currentUser.uid).update({
+          cart: cart
+        }).then(res => {
+          setRawCart(cart)
+          console.log("setRawCart", cart)
+        }).catch(err => console.log(err))
+        
+        setRawCart(cart)
+        let arrayWithQuantity = getQuantity(cart)
+        setMyCart(isDesc ? sortArrayDesc(arrayWithQuantity) : sortArrayAsc(arrayWithQuantity))
+      }
+    }
+  }
+
   const toMyOrder = () => {
     props.onCheckout(myCart)
     router.push("/myorder")
@@ -223,7 +341,7 @@ const MyCart = (props) => {
     ?
     <div className={cartStyles.mainBody}>
       <div className={cartStyles.buttonsWrapper}>
-        <Button variant="secondary" className={buttonStyles.button} onClick={() => router.push("/search")}>Back to Search</Button>
+        <Button variant="secondary" className={buttonStyles.button} onClick={() => router.push("/search")}><span><MdArrowBack /> Search Item</span></Button>
         {
           myCart.length > 0
             ?
@@ -260,6 +378,7 @@ const MyCart = (props) => {
                 <th>Category</th>
                 <th>Quantity</th>
                 <th>Added at</th>
+                <th></th>
               </tr>
             </thead>
             <tbody>
@@ -299,18 +418,19 @@ const MyCart = (props) => {
                       </td>
                       <td>
                         <span className={cartStyles.quantityButtonWrapper}>
-                          <Button variant="outline-danger" onClick={() => {decrementQuantity(item.fdcId)}} className={cartStyles.decrement}>-</Button>
-                          <p className={cartStyles.quantity}>{item.quantity}</p>
-                          <Button variant="outline-primary" onClick={() => {incrementQuantity(item.fdcId)}} className={cartStyles.increment}>+</Button>
+                          <Button variant="outline-danger" onClick={() => {decrementQuantity(item.fdcId)}} className={cartStyles.decrement}><FaMinus /></Button>
+                          <Form.Control className={cartStyles.quantityInput} size="sm" type="number" value={item.quantity} onChange={(e) => handleQtyChange(item.fdcId, e)} />
+                          <Button variant="outline-primary" onClick={() => {incrementQuantity(item.fdcId)}} className={cartStyles.increment}><FaPlus /></Button>
                         </span>
                       </td>
                       <td className={cartStyles.date}><DateFormatter date={item.itemAddedAt.toDate()}/></td>
+                      <td align="center"><Button variant="outline-danger" className={cartStyles.deleteItem} onClick={() => {deleteItem(item.fdcId)}}><AiFillDelete /></Button></td>
                     </tr>
                   )
                 })
                   :
-                <tr>
-                  <td colSpan="4" align="center" style={{padding: "1rem 0"}}>Your cart is empty.</td>
+                  <tr>
+                  <td colSpan="5" align="center" style={{padding: "1rem 0"}}>Your cart is empty.</td>
                 </tr>
               }
             </tbody>
@@ -327,12 +447,13 @@ const MyCart = (props) => {
                 <th>Item</th>
                 <th>Quantity</th>
                 <th>Added at</th>
+                <th></th>
               </tr>
             </thead>
             <tbody>
               {
                 myCart.length > 0
-                  ?
+                ?
                 myCart.map(item => {
                   return (
                     <tr key={item.fdcId}>
@@ -349,12 +470,13 @@ const MyCart = (props) => {
                       </td>
                       <td>
                         <span className={cartStyles.quantityButtonWrapper}>
-                          <Button variant="outline-danger" onClick={() => {decrementQuantity(item.fdcId)}} className={cartStyles.decrement}>-</Button>
-                          <p className={cartStyles.quantity}>{item.quantity}</p>
-                          <Button variant="outline-primary" onClick={() => {incrementQuantity(item.fdcId)}} className={cartStyles.increment}>+</Button>
+                          <Button variant="outline-danger" onClick={() => {decrementQuantity(item.fdcId)}} className={cartStyles.decrement}><FaMinus /></Button>
+                          <Form.Control className={cartStyles.quantityInput} size="sm" type="number" value={item.quantity} onChange={(e) => handleQtyChange(item.fdcId, e)} />
+                          <Button variant="outline-primary" onClick={() => {incrementQuantity(item.fdcId)}} className={cartStyles.increment}><FaPlus /></Button>
                         </span>
                       </td>
                       <td className={cartStyles.date}><DateFormatter date={item.itemAddedAt.toDate()}/></td>
+                      <td align="center"><Button variant="outline-danger" className={cartStyles.deleteItem} onClick={() => {deleteItem(item.fdcId)}}><AiFillDelete /></Button></td>
                     </tr>
                   )
                 })

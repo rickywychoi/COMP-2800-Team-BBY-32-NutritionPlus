@@ -6,7 +6,7 @@ import { useState, useEffect} from 'react'
 
 
 // const MyPositionMarker = ({ text }) => <div>{text}</div>;
-const MyPositionMarker = ({ icon }) => <img style={{ height: '60px', width: '30px' }} src={icon} />
+const MyPositionMarker = ({ icon }) => <img style={{ height: '40px', width: '40px' }} src={icon} />
 
 const Marker = props => (
   <React.Fragment>
@@ -100,7 +100,7 @@ const SimpleMap = (props) => {
   // }
 
   return (
-    <div style={{ height: '100vh', width: '100%' }}>
+    <div className="mainBody">
       <GoogleMapReact
         bootstrapURLKeys={{
           key: GOOGLE_MAP_API_KEY,
@@ -118,13 +118,13 @@ const SimpleMap = (props) => {
         <MyPositionMarker
           lat={myPosition.lat}
           lng={myPosition.lng}
-          icon="./images/person.jpg"
+          icon="./images/person.png"
         />
 
         
         {places.map(item=>(
           <Marker
-            icon={item.icon}
+            icon="./images/shopping.png"
             key={item.id}
             lat={item.geometry.location.lat()}
             lng={item.geometry.location.lng()}
@@ -134,6 +134,18 @@ const SimpleMap = (props) => {
           />
         ))}
       </GoogleMapReact>
+      <style>{`
+        .mainBody {
+          height: 85vh;
+          width: 100%;
+        }
+
+        @media (max-width: 499px) {
+          .mainBody {
+            height: 40vh;
+          }
+        } 
+      `}</style>
     </div>
   );
 }

@@ -532,7 +532,9 @@ const RecipeDetails = (props) => {
         </Accordion>
         <br />
         <RecipeChart rawCart = {rawCart} />
-        <Link href={router.query.prevPage}><a>Back to Search</a></Link>
+        <div style={{marginTop: "2rem"}}>
+          <Link href={router.query.prevPage}><a>Back to Search</a></Link>
+        </div>
     </div>
   )
 }

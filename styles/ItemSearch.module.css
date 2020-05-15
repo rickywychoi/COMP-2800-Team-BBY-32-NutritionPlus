@@ -7,7 +7,8 @@
 
 .title {
   text-align: center;
-  margin: 2% 0;
+  margin: 1.5rem 0;
+  font-size: 2rem;
 }
 
 .container {
@@ -96,18 +97,25 @@
 
 /* screen size between 500px and 1024px: tablet */
 @media screen and (min-width: 500px) and (max-width: 1024px) {
-
   .card {
     margin: 2.5%;
     width: 45%;
+  }
+
+  .title {
+    font-size: 2.5rem;
   }
 }
 
 /* screen size greater than 1025px: desktop */
 @media screen and (min-width: 1025px) {
-
+  
   .card {
     margin: 2.5%;
     width: 20%;
+  }
+  
+  .title {
+    font-size: 2.5rem;
   }
 }
