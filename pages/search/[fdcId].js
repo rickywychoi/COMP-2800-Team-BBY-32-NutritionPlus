@@ -30,6 +30,7 @@ const ItemDetailsPage = (props) => {
   const [calories, setCalories] = useState({})
   const [userDailyValue, setUserDailyValue] = useState([])
   const [quantity, setQuantity] = useState(0)
+  const [qtyValidated, setQtyValidated] = useState(false)
   
   let FOOD_API_URL = `https://api.nal.usda.gov/fdc/v1/food/${router.query.fdcId}?API_KEY=${USDA_API_KEY}`
 
@@ -322,19 +323,35 @@ const ItemDetailsPage = (props) => {
 
   const incrementQuantity = () => {
     if (quantity < 99) {
-      setQuantity(prevState => prevState + 1)
+      setQuantity(prevState => parseInt(prevState) + 1)
     }
   }
 
   const decrementQuantity = () => {
     if (quantity > 0) {
-      setQuantity(prevState => prevState - 1)
+      setQuantity(prevState => parseInt(prevState) - 1)
     }
+  }
+
+  const handleQtyChange = e => {
+    e.preventDefault()
+    // console.log("337", typeof e.target.value)
+    setQuantity(e.target.value)
   }
 
   const resetQuantity = () => {
     setQuantity(0)
   }
+
+  const handleSubmit = (event) => {
+    event.preventDefault()
+    const form = event.currentTarget
+    if (form.checkValidity() === false) {
+      event.stopPropagation()
+    }
+
+    setQtyValidated(true);
+  };
 
 
   const toMyCart = () => {
@@ -370,13 +387,18 @@ const ItemDetailsPage = (props) => {
     <Popover id="popover-basic">
       <Popover.Title as="h3" className={detailStyles.popupTitle}>Quantity</Popover.Title>
       <Popover.Content>
-        <div className={detailStyles.quantityButtonWrapper}>
-          <Button variant="outline-danger" onClick={decrementQuantity} className={detailStyles.decrement}>-</Button>
-          <p className={detailStyles.quantity}>{quantity}</p>
-          <Button variant="outline-primary" onClick={incrementQuantity} className={detailStyles.increment}>+</Button>
-        </div>
-        <Button variant="outline-danger" onClick={resetQuantity} className={detailStyles.reset}>Reset</Button>
-        <button variant="outline-success" onClick={toMyCart} className={detailStyles.checkoutButton}>Save item(s) to My Cart</button> 
+        <Form validated={qtyValidated} onSubmit={handleSubmit}>
+          <div className={detailStyles.quantityButtonWrapper}>
+            <Button variant="outline-danger" onClick={decrementQuantity} className={detailStyles.decrement}>-</Button>
+            <Form.Control className={detailStyles.quantityInput} size="sm" type="number" value={quantity} onChange={handleQtyChange} />
+            <Form.Control.Feedback type="invalid">
+              Please confirm the quantity.
+            </Form.Control.Feedback>
+            <Button variant="outline-primary" onClick={incrementQuantity} className={detailStyles.increment}>+</Button>
+          </div>
+          <Button variant="outline-danger" onClick={resetQuantity} className={detailStyles.reset}>Reset</Button>
+          <button type="submit" onClick={toMyCart} className={detailStyles.checkoutButton}>Save item(s) to My Cart</button> 
+        </Form>
       </Popover.Content>
     </Popover>
   );

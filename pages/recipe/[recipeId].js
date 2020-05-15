@@ -326,8 +326,14 @@ const RecipeDetails = (props) => {
     }
   }
   
-  console.log(nutrients)
-  console.log(additionalNutrients)
+  const filterFoodKeyword = (str) => {
+    if (isNaN(str.trim().charAt(0))) {
+      return str.split(' ').slice(2).join(' ')
+    } else {
+      return str.split(' ').slice(1).join(' ')
+    }
+  }
+
 
   return (
     <div className={RecipeStyles.body}>
@@ -517,7 +523,9 @@ const RecipeDetails = (props) => {
         </Accordion>
         <br />
         <RecipeChart rawCart = {rawCart} />
-        <Link href={router.query.prevPage}><a>Back to Search</a></Link>
+        <div style={{marginTop: "2rem"}}>
+          <Link href={router.query.prevPage}><a>Back to Search</a></Link>
+        </div>
     </div>
   )
 }
