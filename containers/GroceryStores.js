@@ -8,26 +8,27 @@ import { Table, Form } from 'react-bootstrap'
 import groceryStoresStyles from '../styles/GroceryStores.module.css' //replace with your Grocerystores.css
 import { connect } from 'react-redux'
 import * as actions from '../store/actions'
-
 import Map from '../components/Map/Map'
 import { useState, useEffect} from 'react'
 
-let center;
+import { set } from 'date-fns'
+
+
 const GroceryStores = (props) => {
-  // const [lat, setLat] = useState()
-  // const [lng, setLng] = useState()
+  
+  const [lat, setLat] = useState()
+  const [lng, setLng] = useState()
   
   
-  // useEffect(()=>{
-  //       navigator.geolocation.watchPosition((position) => {
-  //         setLat(position.coords.latitude)
-  //         setLng(position.coords.longitude)
-        
-  //       });
-  //     })
-  
-  // center = {lat:lat,lng:lng}
-  // console.log(center)
+  useEffect(()=>{
+    if(navigator.geolocation)
+        navigator.geolocation.getCurrentPosition(showPosition);
+      },[])
+
+  const showPosition = (position) =>{
+    setLat(position.coords.latitude)
+    setLng(position.coords.longitude)
+  }
 
   const stores = [
     {
@@ -125,9 +126,11 @@ const GroceryStores = (props) => {
       </Table>
       <h4 style={{margin: "1.5rem 0 1rem 0"}}>See Nearby Stores</h4>
       <div className={groceryStoresStyles.mapContainer}>
+        { lat&&lng ?
         
-      <Map />
-      
+        <Map lat={lat} lng={lng}/>
+        :null
+        }
       </div>
       <style jsx>{`
         td {
