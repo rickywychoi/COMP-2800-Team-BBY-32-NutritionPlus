@@ -223,13 +223,19 @@ const MyCart = (props) => {
     <div className={cartStyles.mainBody}>
       <div className={cartStyles.buttonsWrapper}>
         <Button variant="secondary" className={buttonStyles.button} onClick={() => router.push("/search")}>Back to Search</Button>
-        <Button variant="primary" className={buttonStyles.button} onClick={toMyOrder}>Checkout</Button>
+        {
+          myCart.length > 0
+            ?
+          <Button variant="primary" className={buttonStyles.button} onClick={toMyOrder}>Checkout</Button>
+            :
+          null
+        }
       </div>
       
       {/* Media Query for min-device-width: 500px */}
       <MediaQuery minDeviceWidth={500}>
         <div className={cartStyles.table}>
-          <Table striped bordered hover>
+          <Table striped bordered>
             <thead>
               <tr>
                 <th>Item</th>
@@ -240,6 +246,8 @@ const MyCart = (props) => {
             </thead>
             <tbody>
               {
+                myCart.length > 0
+                  ?
                 myCart.map(item => {
                   return (
                     <tr key={item.fdcId}>
@@ -282,6 +290,10 @@ const MyCart = (props) => {
                     </tr>
                   )
                 })
+                  :
+                <tr>
+                  <td colSpan="4" align="center" style={{padding: "1rem 0"}}>Your cart is empty.</td>
+                </tr>
               }
             </tbody>
           </Table>
@@ -301,6 +313,8 @@ const MyCart = (props) => {
             </thead>
             <tbody>
               {
+                myCart.length > 0
+                  ?
                 myCart.map(item => {
                   return (
                     <tr key={item.fdcId}>
@@ -326,12 +340,22 @@ const MyCart = (props) => {
                     </tr>
                   )
                 })
+                  :
+                <tr>
+                  <td colSpan="4" align="center" style={{padding: "1rem 0"}}>Your cart is empty.</td>
+                </tr>
               }
             </tbody>
           </Table>
         </div>
       </MediaQuery>
-      <Chart rawCart={rawCart} />
+      {
+        myCart.length > 0
+          ?
+        <Chart rawCart={rawCart} />
+          :
+        null
+      }
       <style jsx>{`
         td {
           vertical-align: middle;

@@ -11,11 +11,19 @@ const ErrorPage = () => {
               <h1><span>4</span><span>0</span><span>1</span></h1>
             </div>
             <h2>Make sure you are <strong>signed in</strong> before use this feature.</h2>
-            <Link href="/login"><a>Sign in</a></Link>
+            <div className="linkWrapper">
+              <Link href="/login"><a className="link">Sign in</a></Link>
+              <Link href="/"><a className="link">Or Back to Home</a></Link>
+            </div>
           </div>
         </div>
       </div>
       <style jsx>{`
+        .link {
+          display: block;
+          margin-bottom: 2rem;
+        }
+
         * {
           -webkit-box-sizing: border-box;
                   box-sizing: border-box;

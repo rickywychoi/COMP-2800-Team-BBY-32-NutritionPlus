@@ -73,19 +73,19 @@ const GroceryStores = (props) => {
         <h4>Grocery Stores</h4>
         <Form.Group controlId="formBasicGender" className="ml-3">
           <Form.Control required as="select" defaultValue="" onChange={handleStoreSelect}>
-            <option disabled value="">Which store would you visit/make an order?</option>
-            <option value="costco">Costco</option>
-            <option value="saveOnFoods">Save-On-Foods</option>
-            <option value="walmart">Walmart</option>
-            <option value="iga">IGA</option>
-            <option value="hmart">H-Mart</option>
-            <option value="tnt">T&amp;T Supermarket</option>
-            <option value="noFrills">No Frills</option>
-            <option value="superstore">Real Canadian Superstore</option>
+            <option disabled value="">Which store would you make an order to?</option>
+            <option value="Costco">Costco</option>
+            <option value="Save-On-Foods">Save-On-Foods</option>
+            <option value="Walmart">Walmart</option>
+            <option value="IGA">IGA</option>
+            <option value="H-Mart">H-Mart</option>
+            <option value="T&amp;T Supermarket">T&amp;T Supermarket</option>
+            <option value="No Frills">No Frills</option>
+            <option value="Real Canadian Superstore">Real Canadian Superstore</option>
           </Form.Control>
         </Form.Group>
       </div>
-      <Table striped border hover>
+      <Table striped bordered hover>
         <thead>
           <tr>
             <th>Store Name</th>

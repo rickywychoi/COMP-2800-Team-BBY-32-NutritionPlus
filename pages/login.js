@@ -68,7 +68,8 @@ class SignInScreen extends React.Component {
                 eer: 0
               },
               cart: [],
-              recipes: []
+              recipes: [],
+              orderHistory: []
             })
           }
         })

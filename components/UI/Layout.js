@@ -1,5 +1,6 @@
 import Head from 'next/head'
 import NavBar from './NavBar'
+import mainHomeStyles from '../../styles/mainHome.module.css'
 
 const Layout = ({ children }) => {
   return (
@@ -10,6 +11,16 @@ const Layout = ({ children }) => {
       </Head>
       <NavBar />
       {children}
+      <footer className={mainHomeStyles.footer}>
+        Copyright © 2020 BCIT CST Group 32. All rights reserved.
+        {/* <a
+          href="https://zeit.co?utm_source=create-next-app&utm_medium=default-template&utm_campaign=create-next-app"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          Copyright © 2020 BCIT CST Group 32. All rights reserved.
+        </a> */}
+      </footer>
     </>
   )
 }
