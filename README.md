@@ -50,7 +50,7 @@ To learn more about Next.js, take a look at the following resources:
 
 Our team is using [Firebase](https://firebase.google.com/) to store and manage data populated in the app.
 
-To access the database, visit [here](https://console.firebase.google.com/u/0/project/nutrition-plus-45c57/overview) or contact [cchaff0105@gmail.com](mailto:cchaff0105@gmail.com) to request permission.
+To access the database, visit [here](https://console.firebase.google.com/u/0/project/nutrition-plus-45c57/overview) or contact [cchaff0105@gmail.com](mailto:cchaff0105@gmail.com) to request permissions.
 
 ## Third-Party APIs
 
