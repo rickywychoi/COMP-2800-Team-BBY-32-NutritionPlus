@@ -60,10 +60,10 @@ Third-party APIs we are using are as following:
 - [EDAMAM Recipe Search API](https://developer.edamam.com/edamam-docs-recipe-api) - for searching recipes
 - [News API](https://newsapi.org/) - for displaying news feed related to COVID-19/health issues
 
-API Keys for corresponding APIs have already provided in [apiKey.js](https://github.com/rickywychoi/COMP-2800-Team-BBY-32-NutritionPlus/blob/master/apiKey.js).
+API Keys for corresponding API have already been provided in [apiKey.js](https://github.com/rickywychoi/COMP-2800-Team-BBY-32-NutritionPlus/blob/master/apiKey.js).
 
 ## IDE
 
-You can choose any IDE on your taste.
+You can choose any kind of development environment on your taste.
 
 However, to maximize your work performance, we encourage you to use [Visual Studio Code](https://code.visualstudio.com/).
