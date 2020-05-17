@@ -20,22 +20,22 @@ const NewsFeed = (props) => {
   })
 
   return (
-      <div className={feedStyles.mainBody}>
-        {newsList.map(item => {
-          return(
-            <a href={item.url} target="_blank" key={item.publishedAt} className={feedStyles.newsItem}>
-              <Card className={feedStyles.card}>
-                <Card.Img variant="top" src={item.urlToImage} className={feedStyles.newsImg}/>
-                <Card.Body>
-                  <Card.Title>{item.title}</Card.Title>
-                  <Card.Text>{item.description}</Card.Text>
-                  <Card.Text>Source: {item.source.name}</Card.Text>
-                </Card.Body>
-              </Card>
-            </a>
-          )
-        })}
-        </div>
+    <div className={feedStyles.mainBody}>
+      {newsList.map(item => {
+        return(
+          <a href={item.url} target="_blank" key={item.publishedAt} className={feedStyles.newsItem}>
+            <Card className={feedStyles.card}>
+              <Card.Img variant="top" src={item.urlToImage} className={feedStyles.newsImg}/>
+              <Card.Body>
+                <Card.Title>{item.title}</Card.Title>
+                <Card.Text>{item.description}</Card.Text>
+                <Card.Text>Source: {item.source.name}</Card.Text>
+              </Card.Body>
+            </Card>
+          </a>
+        )
+      })}
+      </div>
   )
 }
 

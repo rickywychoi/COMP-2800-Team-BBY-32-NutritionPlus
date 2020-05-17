@@ -3,7 +3,7 @@ import { Button } from 'react-bootstrap'
 import { useState, useEffect } from 'react'
 import bannerStyles from '../../styles/WelcomeBanner.module.css'
 
-const WelcomeBanner = () => {
+const WelcomeBanner = React.forwardRef((props, ref) => {
   const router = useRouter()
   const [easterClickCount, setEasterClickCount] = useState(0)
   const [easterVisible, setEasterVisible] = useState(false)
@@ -47,7 +47,7 @@ const WelcomeBanner = () => {
           style={{
             animationDelay: `${0.5 + i / 20}s`, 
             left: `${randomGeneratorPos(90)}%`,
-            top: `${randomGeneratorPos(50)}%`
+            top: `${randomGeneratorPos(370)}px`
           }}
         /> 
       )
@@ -55,7 +55,7 @@ const WelcomeBanner = () => {
     return arr
   }
 
-  // random generator of mutliples of 5
+  // random generator of multiples of 5
   const randomGeneratorPos = (max) => {
     return Math.round((Math.random() * max) / 5) * 5;
   }
@@ -74,7 +74,7 @@ const WelcomeBanner = () => {
   }
 
   return (
-    <div className={bannerStyles.body}>
+    <div className={bannerStyles.body} ref={ref}>
       <div className={bannerStyles.contents}>
         {easterVisible ? <div>{generateEasterImages(easterEggImages)}</div> : null}
         <h1 className={bannerStyles.head} onClick={easterEggHide}>Nutrition+</h1>
@@ -119,6 +119,6 @@ const WelcomeBanner = () => {
       </div>
     </div>
   )
-}
+})
 
 export default WelcomeBanner
