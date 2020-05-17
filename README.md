@@ -56,9 +56,9 @@ To access the database, visit [here](https://console.firebase.google.com/u/0/pro
 
 Third-party APIs we are using are as following:
 
-- [U.S. Department of Agriculture (USDA) FoodData Central (FDC) API](https://fdc.nal.usda.gov/api-guide.html)
-- [EDAMAM Recipe Search API](https://developer.edamam.com/edamam-docs-recipe-api)
-- [News API](https://newsapi.org/)
+- [U.S. Department of Agriculture (USDA) FoodData Central (FDC) API](https://fdc.nal.usda.gov/api-guide.html) - for searching grocery items
+- [EDAMAM Recipe Search API](https://developer.edamam.com/edamam-docs-recipe-api) - for searching recipes
+- [News API](https://newsapi.org/) - for displaying news feed related to COVID-19/health issues
 
 API Keys for corresponding APIs have already provided in [apiKey.js](https://github.com/rickywychoi/COMP-2800-Team-BBY-32-NutritionPlus/blob/master/apiKey.js).
 
