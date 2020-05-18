@@ -1,6 +1,6 @@
 // store/reducer.js
 
-import * as actions from '../store/actions'
+import * as actions from './actions'
 import { startOfMinute } from 'date-fns'
 
 export const initialState = {
