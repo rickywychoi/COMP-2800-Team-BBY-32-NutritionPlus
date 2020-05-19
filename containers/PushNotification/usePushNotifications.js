@@ -130,11 +130,12 @@ export default function usePushNotifications() {
   const onClickSendNotification = async () => {
     setLoading(true);
     setError(false);
-    await http.get(`/subscription/${pushServerSubscriptionId}`).catch(err => {
+    await http.get(`/subscription/${pushServerSubscriptionId}`)
+      .catch(err => {
+        setLoading(false);
+        setError(err);
+      });
       setLoading(false);
-      setError(err);
-    });
-    setLoading(false);
   };
 
   /**

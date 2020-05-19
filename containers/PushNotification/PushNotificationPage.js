@@ -11,7 +11,7 @@ const Error = ({ error }) =>
     </section>
   ) : null;
 
-export default function PushNotificationDemo() {
+export default function PushNotificationPage() {
   const {
     userConsent,
     pushNotificationSupported,
@@ -53,7 +53,7 @@ export default function PushNotificationDemo() {
 
       {pushServerSubscriptionId && (
         <div>
-          <p>The server accepted the push subscrption!</p>
+          <p>The server accepted the push subscription!</p>
           <button onClick={onClickSendNotification}>Send a notification</button>
         </div>
       )}
