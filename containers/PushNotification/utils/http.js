@@ -24,7 +24,7 @@ const get = (path) => {
     mode: "cors"
   })
     .then(res => {
-      return res.json();
+      return res.text();
     })
     .then(data => {
       return data;

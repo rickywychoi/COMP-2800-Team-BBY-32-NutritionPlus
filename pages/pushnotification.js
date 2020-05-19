@@ -1,4 +1,4 @@
-import PushNotificationPage from '../src/PushNotificationPage'
+import PushNotificationPage from '../containers/PushNotification/PushNotificationPage'
 
 const PushNotification = () => {
   return <PushNotificationPage/>
