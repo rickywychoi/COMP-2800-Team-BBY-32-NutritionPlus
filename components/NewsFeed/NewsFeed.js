@@ -8,6 +8,7 @@ const url = `http://newsapi.org/v2/top-headlines?country=ca&category=health&apiK
 
 const NewsFeed = (props) => {
   const [newsList, setNewsList] = useState([])
+  const [tweets, setTweets] = useState(false)
 
   useEffect(() => {
     axios.get(url).then(res => {
@@ -17,9 +18,28 @@ const NewsFeed = (props) => {
       })
       setNewsList(results)
     })
-  })
+  }, [])
+
+  const handleToggleChange = e => {
+    setTweets(prevState => !prevState)
+  }
 
   return (
+    <div>
+      <div style={{display: "flex", justifyContent: "center"}}>
+      <Form>
+        <div style={{display: "flex"}}>
+          <p style={{marginRight: "10px"}}>News Feed</p>
+          <Form.Check 
+            type="switch"
+            id="custom-switch"
+            label=""
+            onChange = {handleToggleChange}
+          />
+          <p>Tweets</p>
+        </div>
+      </Form>
+    </div>
     <div className={feedStyles.mainBody}>
       {newsList.map(item => {
         return(
@@ -36,6 +56,7 @@ const NewsFeed = (props) => {
         )
       })}
       </div>
+    </div>
   )
 }
 
