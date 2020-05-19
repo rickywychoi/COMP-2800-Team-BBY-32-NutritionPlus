@@ -39,8 +39,8 @@ const sendPushNotification = (req, res) => {
     .sendNotification(
       pushSubscription,
       JSON.stringify({
-        title: "Time to eat meal",
-        text: "It's time to eat meal!",
+        title: "Nutrition+ Meal Notifier",
+        text: "It's time to eat your lunch!",
         image: "/images/favicon2.png",
         actions: null,
         url: "/mymeals"
