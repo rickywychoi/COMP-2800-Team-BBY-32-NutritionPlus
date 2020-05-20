@@ -1,20 +1,13 @@
-/* My Meals page to display any recipes that have been added to Firebase.
-
-Uses bootstrap buttons for Button design and Table for table design.
-*/
-
 import firebase from 'firebase'
 import firebaseConfig from '../firebaseConfig'
 import { useRouter } from 'next/router'
 import { connect } from 'react-redux'
-import { useState, useEffect } from 'react'
 import * as actions from '../store/actions'
 import GroceryStores from '../containers/GroceryStores'
 import ErrorPage from '../components/ErrorPage/ErrorPage'
 import { Button, Table } from 'react-bootstrap'
+import { MdArrowBack } from 'react-icons/md'
 import buttonStyles from '../styles/buttons.module.css'
-import DateFormatter from '../components/DateFormatter/DateFormatter'
-import RecipeChart from '../containers/Chart/RecipeChart'
 import orderStyles from '../styles/MyOrder.module.css'
 
 if (!firebase.apps.length) {
@@ -22,69 +15,81 @@ if (!firebase.apps.length) {
 }
 let db = firebase.firestore()
 
-const MyMeals = (props) => {
+const MyOrder = (props) => {
   const router = useRouter()
-  const [myRecipes, setMyRecipes] = useState([])
-  console.log(props)
   const myCart = props.myCart
 
-  const sortArrayDesc = (arr) => {
-    return arr.sort((a, b) => b.addedAt.toDate() - a.addedAt.toDate())
+  const goBack = () => {
+    router.push("/mycart") 
   }
 
-  useEffect(() => {
-    if (props.currentUser) {
-      db.collection('users').doc(props.currentUser.uid).get().then(userInfo => {
-        let recipes = sortArrayDesc(userInfo.data().recipes)
-        console.log(recipes)
-        setMyRecipes(recipes)
-      })
+  const confirmOrder = () => {
+    if (myCart.length > 0) {
+      confirm("Confirm to proceed?")
+      props.onConfirm()
+
+      // send to firebase
+      let order, orderHistory
+      if (props.currentUser) {
+        db.collection('users').doc(props.currentUser.uid).get().then(userInfo => {
+          orderHistory = userInfo.data().orderHistory
+          order = {
+            cart: myCart,
+            storeToVisit: props.storeToVisit,
+            orderedAt: new Date()
+          }
+          orderHistory.unshift(order)
+          db.collection('users').doc(props.currentUser.uid).update({
+            cart: [],
+            orderHistory: orderHistory
+          })
+        }).catch(err => console.log(err))
+      }
+      router.push("/?ordercomplete=true")
     }
-  }, [])
+  }
 
   return (
     props.currentUser
       ?
     <div className={orderStyles.mainBody}>
-      <div className={orderStyles.contents}>
-        <h2>My Meals</h2>
+       <Button variant="secondary" className={buttonStyles.button} onClick={goBack}><span><MdArrowBack /> My Cart</span></Button>
+       <div className={orderStyles.contents}>
+        <h2>Review &amp; Pay</h2>
         <div className={orderStyles.table}>
           <Table striped bordered>
             <thead>
               <tr>
-                <th>Meals</th>
-                <th>Date Added</th>
+                <th>Item</th>
+                <th>Quantity</th>
               </tr>
             </thead>
             <tbody>
               {
-                myRecipes.length > 0
+                myCart.length > 0
                   ?
-                myRecipes.map(item => {
+                myCart.map(item => {
                   return (
-                    <tr>
+                    <tr key={item.fdcId}>
                       <td>
                         <p className={orderStyles.itemName}>
-                          {item.label}
+                          {item.description}
                           {item.brandOwner ? " - " + item.brandOwner : null}
                         </p>
                       </td>
                       <td>
-                        <p className={orderStyles.quantity}>
-                            <DateFormatter date={item.addedAt.toDate()}/>
-                        </p>
+                        <p className={orderStyles.quantity}>{item.quantity}</p>
                       </td>
                     </tr>
                   )
                 })
                   :
                 <tr>
-                  <td colSpan="2" align="center" style={{padding: "1rem 0"}}>You have no meals yet.</td>
+                  <td colSpan="2" align="center" style={{padding: "1rem 0"}}>You need to checkout from your cart.<br/>Please check your cart.</td>
                 </tr>
               }
             </tbody>
           </Table>
-
         </div>
         {
           myCart.length > 0
@@ -98,9 +103,8 @@ const MyMeals = (props) => {
             :
           null
         }
-        <RecipeChart rawCart = {myRecipes}/>
-      </div>
-      <style jsx>{`
+       </div>
+       <style jsx>{`
         td {
           vertical-align: middle;
           padding: 0.2rem 0.5rem;
@@ -125,4 +129,4 @@ const mapDispatchToProps = dispatch => {
   }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(MyMeals)
+export default connect(mapStateToProps, mapDispatchToProps)(MyOrder)

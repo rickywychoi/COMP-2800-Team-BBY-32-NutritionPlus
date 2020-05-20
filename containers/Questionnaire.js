@@ -180,6 +180,8 @@ const Questionnaire = (props) => {
     router.back()
   }
 
+  console.log(router)
+
   return (
     <div className={questionStyles.body}>
       <div className={questionStyles.header}>

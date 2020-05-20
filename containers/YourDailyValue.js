@@ -27,7 +27,7 @@ const YourDailyValue = (props) => {
     if (props.currentUser) {
       db.collection('users').doc(props.currentUser.uid).get().then(userInfo => {
         if (userInfo.data().healthInfo.dailyValue.length === 0 || userInfo.data().healthInfo === undefined) {
-          router.push("/questionnaire")
+          router.push("/questionnaire?firsttime=true")
         } else {
           setDailyValue(userInfo.data().healthInfo.dailyValue)
           setEER(userInfo.data().healthInfo.eer)

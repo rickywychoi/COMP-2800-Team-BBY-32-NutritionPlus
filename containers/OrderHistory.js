@@ -100,7 +100,9 @@ const OrderHistory = (props) => {
             )
           })
             :
-          null
+          <div style={{textAlign: "center", marginTop: "1.5rem"}}>
+            You haven't made any orders yet.
+          </div>
         }
       </div>
       <style jsx>{`
