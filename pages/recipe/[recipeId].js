@@ -1,8 +1,14 @@
+/* Obtains a recipe from the edamam API based on the user's search query
+and creates a page with the recipe details. 
+
+Uses bootstrap's Accordion to create a collapsable menu, Button for 'back',
+and 'Add to My Meals', and Card for expandable header.
+*/
 import Link from 'next/link'
 import { connect } from 'react-redux'
 import firebase from 'firebase'
 import firebaseConfig from '../../firebaseConfig'
-import { Table, Accordion, Button, Card } from 'react-bootstrap'
+import { Accordion, Button, Card } from 'react-bootstrap'
 import axios from 'axios'
 import { useState, useEffect, useRef } from 'react'
 import { useRouter } from 'next/router'
@@ -40,18 +46,9 @@ const RecipeDetails = (props) => {
    
    console.log(tableRef)
 
-  // useEffect(()=>{
-  //   axios.get(url).then(res => {
-  //     setResult(res.data[0])
-  //     setIng(res.data[0].ingredientLines)
-  //     setNutrients(res.data[0].totalNutrients)
-  //   })
-  // }, [])
-
   // returns information to create nutrition facts label
   useEffect(()=>{
-    // retrieve daily value of the user
-    if (props.currentUser) {
+    if (props.currentUser) {  // retrieves daily value of the user
       let userDV = []
       db.collection('users').doc(props.currentUser.uid).get().then(userInfo => {
         console.log(userInfo.data().healthInfo.dailyValue)
@@ -59,24 +56,16 @@ const RecipeDetails = (props) => {
           userDV.push(nut)
         })
         setUserDailyValue(userDV)
-        console.log("Getting User Daily Value Success")
-      }).catch(error => {
-        console.log(error)
       })
     }
 
     // return nutrient data
     axios.get(url).then(res => {
-        console.log("43", res.data)
-        console.log(res.data[0])
-        // console.log(res.data[0].totalNutrients)
         setDetails(res.data)    // api data for firestore
         setResult(res.data[0])  // recipe data
         setIng(res.data[0].ingredientLines)
-        // setNutrients(res.data[0].totalNutrients)
 
         // number of calories (rounded)
-        // let temp = []
         let sortedNutrients = []
         let extraNutrients = []
         let cal = Math.ceil(res.data[0].calories)
@@ -92,14 +81,11 @@ const RecipeDetails = (props) => {
           group: 'calories',
           calPerServing: calServing
         })
+
         // navigates through nutrients in recipe
         let index = res.data[0].totalNutrients
-        console.log("69", index)
-        // console.log(index.CA.label)
         let dailyValues = []
         Object.values(index).forEach(nut => {
-          // console.log(nut)
-          // temp.push(nut)
           if (nut.label.localeCompare("Fat") == 0
             || nut.label.localeCompare("Saturated") == 0
             || nut.label.localeCompare("Trans") == 0
@@ -304,7 +290,6 @@ const RecipeDetails = (props) => {
     }
     if (props.currentUser) {
       db.collection('users').doc(props.currentUser.uid).get().then(userInfo => {
-        // console.log(userInfo.data().recipes)
         setRawCart(userInfo.data().recipes)
       })
     }
@@ -316,8 +301,6 @@ const RecipeDetails = (props) => {
   const sendUserHistory = () => {
     if (props.currentUser){   // if user signed in
       db.collection('users').doc(props.currentUser.uid).get().then(userInfo => {
-        console.log(userInfo.data().recipes)
-
         let recipes = []
         let recipesWithoutDate = {}
         recipes.push(...userInfo.data().recipes)
@@ -329,25 +312,11 @@ const RecipeDetails = (props) => {
         db.collection('users').doc(props.currentUser.uid).update({
           recipes : recipes
         })
-        // console.log(Object.values(details).slice(0))
-
-        // let todayMeals = {}
-        // let date = {itemAddedAt: new Date()}
-        // Object.assign(todayMeals, date)
-        // Object.assign(todayMeals, userInfo.data())   // firestore data
-        // todayMeals.recipes = [...Object.values(details).slice(0)]
-        // console.log(todayMeals)
-
-        // // .then(
-        // //   router.push("/myhistory")
-        // // ).catch(err => console.log(err))
+      alert("Recipe successfully added to My Meals")
       }).catch(err => console.log(err))
     }
   }
-  
-  console.log(nutrients)
-  console.log(additionalNutrients)
-  console.log(myRecipes)
+
   return (
     <div className={RecipeStyles.body}>
       <div className={RecipeStyles.buttonsWrapper}>
@@ -531,7 +500,7 @@ const RecipeDetails = (props) => {
                           </Accordion>
                         )
                       }
-
+                      <br />
                       <p>g = Grams; mg = Milligrams; µg = Micrograms</p>
                     </div>              
                 </div>

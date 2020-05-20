@@ -1,4 +1,8 @@
-// EntryUserInput.js
+/* Your daily intake. Submits data from user-filled questionnaire and calculates
+the user's required daily values. 
+
+Uses bootstrap Form for each input form, and Button to submit/proceed.
+*/
 
 import { useState } from 'react'
 
@@ -27,6 +31,7 @@ const Questionnaire = (props) => {
     eer: 0
   })
 
+  // checks if the form has valid information and submits
   const handleSubmit = (event) => {
     event.preventDefault()
     const form = event.currentTarget
@@ -37,40 +42,50 @@ const Questionnaire = (props) => {
     setValidated(true);
   };
 
+  // sets the age of the user
   const handleAgeChange = e => {
     setUserInfo({ ...userInfo, age: e.target.value })
   }
+  // sets the gender of the user
   const handleGenderChange = e => {
     setUserInfo({ ...userInfo, gender: e.target.value })
   }
+  // sets if the user is pregnant (if gender is female)
   const handlePregnancyChange = e => {
     setUserInfo({ ...userInfo, pregnancy: e.target.value })
   }
+  // sets the user's lactation (if gender is female)
   const handleLactationChange = e => {
     setUserInfo({ ...userInfo, lactation: e.target.value })
   }
+  // sets the user's weight (kgs)
   const handleWeightChange = e => {
     setUserInfo({ ...userInfo, weight: e.target.value })
   }
+  // sets the user's weight (lbs)
   const handlePoundsChange = e => {
     setUserInfo(prevState => ({
       ...prevState,
       isPounds: !prevState.isPounds
     }))
   }
+  // sets the user's height (cm)
   const handleHeightChange = e => {
     setUserInfo({ ...userInfo, height: e.target.value })
   }
+  // sets the user's height (inches)
   const handleInchesChange = e => {
     setUserInfo(prevState => ({
       ...prevState,
       isInches: !prevState.isInches
     }))
   }
+  // sets the user's physical activity level
   const handleActivityChange = e => {
     setUserInfo({ ...userInfo, physicalActivity: e.target.value })
   }
   
+  // sets the result to userInfo
   const showResult = () => {
     let eer, pa = 0
     let {
@@ -160,6 +175,7 @@ const Questionnaire = (props) => {
     }
   }
 
+  // goes back to previous screen
   const goBack = () => {
     router.back()
   }

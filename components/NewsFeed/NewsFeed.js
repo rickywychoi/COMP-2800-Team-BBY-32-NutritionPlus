@@ -1,3 +1,7 @@
+/* The news feed on the landing page. Utilizes the Canada Health News API to
+search for COVID-19 related news articles. Displays them in a card gallery.
+*/
+
 import { useState, useEffect } from 'react'
 import { Card, Form } from 'react-bootstrap'
 import axios from 'axios'
@@ -8,7 +12,6 @@ const url = `https://newsapi.org/v2/top-headlines?country=ca&category=health&api
 
 const NewsFeed = (props) => {
   const [newsList, setNewsList] = useState([])
-  const [tweets, setTweets] = useState(false)
 
   useEffect(() => {
     axios.get(url).then(res => {
@@ -20,26 +23,7 @@ const NewsFeed = (props) => {
     })
   }, [])
 
-  const handleToggleChange = e => {
-    setTweets(prevState => !prevState)
-  }
-
   return (
-    <div>
-      <div style={{display: "flex", justifyContent: "center"}}>
-      <Form>
-        <div style={{display: "flex"}}>
-          <p style={{marginRight: "10px"}}>News Feed</p>
-          <Form.Check 
-            type="switch"
-            id="custom-switch"
-            label=""
-            onChange = {handleToggleChange}
-          />
-          <p>Tweets</p>
-        </div>
-      </Form>
-    </div>
     <div className={feedStyles.mainBody}>
       {newsList.map(item => {
         return(
@@ -55,7 +39,6 @@ const NewsFeed = (props) => {
           </a>
         )
       })}
-      </div>
     </div>
   )
 }

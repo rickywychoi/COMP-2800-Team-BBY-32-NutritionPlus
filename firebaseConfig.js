@@ -1,3 +1,5 @@
+// Nutrition+ firebase configuration
+
 let firebaseConfig = {
   apiKey: "AIzaSyB-vNVMZ2ysNlaM91SEJcTkRPwAp-V54y4",
   authDomain: "nutrition-plus-45c57.firebaseapp.com",

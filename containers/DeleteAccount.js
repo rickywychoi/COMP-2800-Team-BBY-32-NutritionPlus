@@ -1,3 +1,7 @@
+// Deletes the user's account.
+// Uses React Bootstrap Form to create the form to delete the account,
+// and Button to delete the account.
+
 import { useState } from 'react'
 import { Form, Button } from 'react-bootstrap'
 import { useRouter } from 'next/router'

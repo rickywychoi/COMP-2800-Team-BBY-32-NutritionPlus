@@ -1,50 +1,26 @@
+// Social Media share buttons in the footer
+
 import {
-  EmailShareButton,
   FacebookShareButton,
-  InstapaperShareButton,
   LineShareButton,
   LinkedinShareButton,
-  LivejournalShareButton,
-  MailruShareButton,
-  OKShareButton,
-  PinterestShareButton,
-  PocketShareButton,
   RedditShareButton,
-  TelegramShareButton,
-  TumblrShareButton,
   TwitterShareButton,
-  ViberShareButton,
-  VKShareButton,
-  WhatsappShareButton,
-  WorkplaceShareButton,
+  WhatsappShareButton
 } from "react-share";
 
 import {
-  EmailIcon,
   FacebookIcon,
-  InstapaperIcon,
   LineIcon,
   LinkedinIcon,
-  LivejournalIcon,
-  MailruIcon,
-  OKIcon,
-  PinterestIcon,
-  PocketIcon,
   RedditIcon,
-  TelegramIcon,
-  TumblrIcon,
   TwitterIcon,
-  ViberIcon,
-  VKIcon,
-  WeiboIcon,
   WhatsappIcon,
-  WorkplaceIcon,
 } from "react-share";
 
 const SocialMedia = () => {
   
   const shareUrl = 'https://nutritionplus.herokuapp.com/';
-  const title = 'asdfasdf';
   
   return (
     <>

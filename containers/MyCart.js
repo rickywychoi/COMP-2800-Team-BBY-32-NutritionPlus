@@ -1,4 +1,9 @@
-// MyCart.js
+/* Displays items from Firebase in the cart.
+
+Uses bootstrap Button for button design, Table for cart table design, 
+Dropdown Button for recipe search, Dropdown for items, and Form for
+Quantity field.
+*/
 
 import firebase from 'firebase'
 import firebaseConfig from '../firebaseConfig'
@@ -32,6 +37,7 @@ const MyCart = (props) => {
   const [myCart, setMyCart] = useState([])
   const [isDesc, setDesc] = useState(true)
   
+  // sets raw cart with repeating single items, and my cart with array in descending qty
   useEffect(() => {
     if (props.currentUser) {
       db.collection('users').doc(props.currentUser.uid).get().then(userInfo => {
@@ -102,10 +108,8 @@ const MyCart = (props) => {
     return arr.sort((a, b) => a.itemAddedAt.toDate() - b.itemAddedAt.toDate())
   }
   
-  
+  // increments an item's quantity by 1
   const incrementQuantity = (id) => {
-    console.log("added 1")
-    
     if (props.currentUser) {
       // get previous quantity from item
       let qty = 0
@@ -156,9 +160,8 @@ const MyCart = (props) => {
     }
   }
   
+  // decrements an item's quantity by 1
   const decrementQuantity = (id) => {
-    console.log("removed 1")
-    
     if (props.currentUser) {
       // get previous quantity from item
       let qty = 0
@@ -188,10 +191,10 @@ const MyCart = (props) => {
     }
   }
 
+  // confirms the decrementation of an item
   const decrementProceed = (qty, itemToAdd, newArray) => {
     qty--
     itemToAdd.quantity = qty
-    console.log(itemToAdd.quantity)
     newArray.push(itemToAdd)
     
     let cart = []
@@ -201,7 +204,6 @@ const MyCart = (props) => {
         Object.assign(itemWithoutQty, item)
         delete itemWithoutQty.quantity
         cart.push(itemWithoutQty)
-        console.log("pushed to cart!")
       }
     })
     db.collection('users').doc(props.currentUser.uid).update({
@@ -215,6 +217,7 @@ const MyCart = (props) => {
     setMyCart(isDesc ? sortArrayDesc(arrayWithQuantity) : sortArrayAsc(arrayWithQuantity))
   }
 
+  // change the quantity of an item directly
   const handleQtyChange = (id, e) => {
     console.log(id)
     console.log(e.target.value)
@@ -233,7 +236,6 @@ const MyCart = (props) => {
       }
       // extract that item from array
       newArray.splice(extractIndex, 1)
-      console.log(itemToAdd.quantity)
       // increment
       if (e.target.value == "" && isNaN(parseInt(e.target.value))) {
         itemToAdd.quantity = ""
@@ -248,13 +250,10 @@ const MyCart = (props) => {
           }
         })
         setRawCart(cart)
-        // let arrayWithQuantity = getQuantity(cart)
         setMyCart(isDesc ? sortArrayDesc(newArray) : sortArrayAsc(newArray))
-        console.log(myCart)
         return
       } else if (itemToAdd.quantity < 100 && parseInt(e.target.value) < 100) {
         itemToAdd.quantity = parseInt(e.target.value)
-        console.log(itemToAdd.quantity)
         newArray.push(itemToAdd)
         
         let cart = []
@@ -271,7 +270,6 @@ const MyCart = (props) => {
           cart: cart
         }).then(res => {
           setRawCart(cart)
-          console.log("setRawCart", cart)
         }).catch(err => console.log(err))
         
         setRawCart(cart)
@@ -283,8 +281,8 @@ const MyCart = (props) => {
     }
   }
 
+  // deletes the item from my cart
   const deleteItem = (id) => {
-    console.log("delete", id)
     if (props.currentUser) {
       if (confirm("Are you sure to remove this item?")) {
         // get previous quantity from item
@@ -300,10 +298,8 @@ const MyCart = (props) => {
         }
         // extract that item from array
         newArray.splice(extractIndex, 1)
-        console.log(itemToAdd.quantity)
         // change this item's quantity to zero
         itemToAdd.quantity = 0
-        console.log(itemToAdd.quantity)
         // add to array
         newArray.push(itemToAdd)
         
@@ -321,7 +317,6 @@ const MyCart = (props) => {
           cart: cart
         }).then(res => {
           setRawCart(cart)
-          console.log("setRawCart", cart)
         }).catch(err => console.log(err))
         
         setRawCart(cart)
@@ -331,6 +326,7 @@ const MyCart = (props) => {
     }
   }
 
+  // proceeds to checkout and pushes cart items
   const toMyOrder = () => {
     props.onCheckout(myCart)
     router.push("/myorder")

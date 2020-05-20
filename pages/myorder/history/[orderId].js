@@ -1,10 +1,13 @@
+// Provides information about an order that's been placed with groceries the
+// users have selected. Uses bootstrap's Button and Table for the respective
+// buttons and table designs.
+
 import firebase from 'firebase'
 import firebaseConfig from '../../../firebaseConfig'
 import { useRouter } from 'next/router'
 import Link from 'next/link'
 import React, { useState, useEffect } from 'react'
 import { connect } from 'react-redux'
-// import * as actions from '../store/actions'
 import { Button, Table } from 'react-bootstrap'
 import { MdArrowBack } from 'react-icons/md'
 import MediaQuery from 'react-responsive'

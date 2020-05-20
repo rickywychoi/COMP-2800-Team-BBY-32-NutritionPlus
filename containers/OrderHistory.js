@@ -1,4 +1,8 @@
-// OrderHistory.js
+/* A history of orders the user has made. Has an external link to the
+store website and shows what items the user made.
+
+Uses bootstrap Table for order table design.
+*/
 
 import firebase from 'firebase'
 import firebaseConfig from '../firebaseConfig'
@@ -6,7 +10,7 @@ import { useState, useEffect } from 'react'
 import { useRouter } from 'next/router'
 import Link from 'next/link'
 import { connect } from 'react-redux'
-import { Button, Table } from 'react-bootstrap'
+import { Table } from 'react-bootstrap'
 import ErrorPage from '../components/ErrorPage/ErrorPage'
 import DateFormatter from '../components/DateFormatter/DateFormatter'
 import orderhistoryStyles from '../styles/OrderHistory.module.css'
@@ -46,7 +50,6 @@ const OrderHistory = (props) => {
     <div className={orderhistoryStyles.mainBody}>
       <div className={orderhistoryStyles.buttonsWrapper}>
         <h3 className={orderhistoryStyles.header}>Your Order History</h3>
-        {/* <Button variant="secondary" className={buttonStyles.button} onClick={() => router.back()}>Back to Home</Button> */}
       </div>
       <div className={orderhistoryStyles.contents}>
         {

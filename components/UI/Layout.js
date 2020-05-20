@@ -1,3 +1,5 @@
+// Basic container for landing page
+
 import Head from 'next/head'
 import NavBar from './NavBar'
 import mainHomeStyles from '../../styles/mainHome.module.css'

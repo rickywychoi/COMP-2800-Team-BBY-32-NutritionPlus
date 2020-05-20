@@ -1,3 +1,8 @@
+/* Your daily values calculated from user input. 
+
+Uses bootstrap Table for simple table design.
+*/
+
 import resultStyles from '../styles/QuestionnaireResult.module.css'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
@@ -5,7 +10,7 @@ import firebase from 'firebase'
 import firebaseConfig from '../firebaseConfig'
 import { useState, useEffect } from 'react'
 import { connect } from 'react-redux'
-import { Accordion, Card, Button, Table } from 'react-bootstrap'
+import { Table } from 'react-bootstrap'
 import Spinner from '../components/UI/Spinner'
 
 if (!firebase.apps.length) {

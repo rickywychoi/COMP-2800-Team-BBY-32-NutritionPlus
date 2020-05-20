@@ -1,3 +1,7 @@
+/* The welcome banner in the main page. React Bootstrap Button for 
+buttons to go between features
+*/
+
 import { useRouter } from 'next/router'
 import { Button } from 'react-bootstrap'
 import { useState, useEffect } from 'react'

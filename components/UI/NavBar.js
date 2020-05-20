@@ -1,6 +1,14 @@
+/* The NavBar used everywhere on the site. Holds redirects for
+'Your recommended intake', 'Search an Item', 'Search recipes', and 'About Us'.
+Additional profile information such as 'My Account', 'My Meals', 'My Cart',
+and 'Order History'.
+
+Uses React Bootstrap Navbar and Nav to split the Navbar (similar to div), Popover
+for personal account management, and overlay to display the additional menu.
+*/
 import { Component, createRef } from 'react'
 import ReactDOM from 'react-dom'
-import { Navbar, Nav, Popover, Overlay, Button } from 'react-bootstrap'
+import { Navbar, Nav, Popover, Overlay } from 'react-bootstrap'
 import Link from 'next/link'
 import MealNotifierModal from '../../containers/MealNotifierModal/MealNotifierModal'
 import { useRouter } from 'next/router'
@@ -77,7 +85,7 @@ class NavBar extends Component {
           <Navbar.Toggle aria-controls="responsive-navbar-nav" onClick={hideMyAccount}/>
           <Navbar.Collapse id="responsive-navbar-nav" >
             <Nav className="mr-auto">
-              <Link href="/yourdailyvalue" ><a className={navbarStyles.link}>Your Intake</a></Link>
+              <Link href="/yourdailyvalue" ><a className={navbarStyles.link}>My Recommended Intake</a></Link>
               <Link href="/search"><a className={navbarStyles.link}>Search an Item</a></Link>
               <Link href="/recipe"><a className={navbarStyles.link}>Search Recipes</a></Link>
               <Link href="/aboutus"><a className={navbarStyles.link}>About Us</a></Link>
@@ -112,7 +120,6 @@ class NavBar extends Component {
                             <ul className={navbarStyles.myAccountList}>
                               <li className={navbarStyles.myAccountListItem}><Link href="/mymeals"><a className={navbarStyles.myAccountListLink}>My Meals</a></Link></li>
                               <li className={navbarStyles.myAccountListItem}><Link href="/mycart"><a className={navbarStyles.myAccountListLink}>My Cart</a></Link></li>
-                              <li className={navbarStyles.myAccountListItem}><Link href="/myorder"><a className={navbarStyles.myAccountListLink}>My Order</a></Link></li>
                               <li className={navbarStyles.myAccountListItem}><Link href="/myorder/history"><a className={navbarStyles.myAccountListLink}>Order History</a></Link></li>
                               <li className={navbarStyles.myAccountListItem}>{mealNotifier}</li>
                             </ul>

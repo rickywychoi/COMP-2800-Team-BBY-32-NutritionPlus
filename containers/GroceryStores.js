@@ -1,18 +1,16 @@
-// GroceryStores.js
+/* A list of grovery stores from which you can order your groceries.
+Grocery store data is static. Each store has its own url to redirect.
 
-import axios from 'axios'
+Uses React Bootstrap Form to create the form and a drop-down menu to 
+select stores. Table is used to hold grocery store data.
+*/
 
-//import Link from 'next/link'
-//import MediaQuery from 'react-responsive'
 import { Table, Form } from 'react-bootstrap'
 import groceryStoresStyles from '../styles/GroceryStores.module.css' //replace with your Grocerystores.css
 import { connect } from 'react-redux'
 import * as actions from '../store/actions'
 import Map from '../components/Map/Map'
 import { useState, useEffect} from 'react'
-
-import { set } from 'date-fns'
-
 
 const GroceryStores = (props) => {
   
