@@ -42,7 +42,9 @@ class SignInScreen extends React.Component {
     },
     // Popup signin flow rather than redirect flow.
     signInFlow: 'popup',
-    // We will display Google and Facebook as auth providers.
+    // Start it here 
+    credentialHelper: 'none',
+    // We will display Google and Email as auth providers.
     signInOptions: [ 
       firebase.auth.EmailAuthProvider.PROVIDER_ID,
       firebase.auth.GoogleAuthProvider.PROVIDER_ID
@@ -156,7 +158,7 @@ class SignInScreen extends React.Component {
     if (this.props.router.query.questionnaire) {
       this.props.router.push('/yourdailyvalue')
     } else {
-      this.props.router.back()
+      this.props.router.push('/')
     }
     return null
   }
