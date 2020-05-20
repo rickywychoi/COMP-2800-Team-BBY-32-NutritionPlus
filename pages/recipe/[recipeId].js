@@ -87,6 +87,7 @@ const RecipeDetails = (props) => {
         setCalories({
           id: nutId,
           amount: cal,
+          servings: noServings, 
           unit: 'kcal',
           group: 'calories',
           calPerServing: calServing
@@ -394,7 +395,7 @@ const RecipeDetails = (props) => {
                               <th></th>
                             </tr>
                             <tr>
-                              <th className = {RecipeStyles.subHead}><strong>Servings: </strong>N/A</th>
+                              <th className = {RecipeStyles.subHead}><strong>Servings: </strong>{calories.servings}</th>
                               <th></th>
                             </tr>
                           </thead>
