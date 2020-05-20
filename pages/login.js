@@ -156,7 +156,7 @@ class SignInScreen extends React.Component {
     if (this.props.router.query.questionnaire) {
       this.props.router.push('/yourdailyvalue')
     } else {
-      this.props.router.back()
+      this.props.router.push('/')
     }
     return null
   }

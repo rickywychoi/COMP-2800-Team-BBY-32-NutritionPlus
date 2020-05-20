@@ -2,7 +2,6 @@ import { Component, createRef } from 'react'
 import ReactDOM from 'react-dom'
 import { Navbar, Nav, Popover, Overlay, Button } from 'react-bootstrap'
 import Link from 'next/link'
-import MealNotifierModal from '../../containers/MealNotifierModal/MealNotifierModal'
 import { useRouter } from 'next/router'
 import { connect } from 'react-redux'
 import firebase from 'firebase'
@@ -24,8 +23,7 @@ class NavBar extends Component {
     super(props, context);
 
     this.state = {
-      showMyAccount: false,
-      showModal: false
+      showMyAccount: false
     }
 
     this.signoutRef = createRef();
@@ -53,15 +51,6 @@ class NavBar extends Component {
     const hideMyAccount = () => {
       this.setState({showMyAccount: false})
     }
-
-    const mealNotifierInitialSetting = () => {
-      this.setState({showModal: true})
-      this.setState({showMyAccount: false})
-    }
-    
-    const mealNotifier = (
-      <button className={navbarStyles.mealNotifierButton} onClick={mealNotifierInitialSetting}>Set Up Meal-Notifier</button>
-    )
 
     return (
       <>
@@ -112,9 +101,7 @@ class NavBar extends Component {
                             <ul className={navbarStyles.myAccountList}>
                               <li className={navbarStyles.myAccountListItem}><Link href="/mymeals"><a className={navbarStyles.myAccountListLink}>My Meals</a></Link></li>
                               <li className={navbarStyles.myAccountListItem}><Link href="/mycart"><a className={navbarStyles.myAccountListLink}>My Cart</a></Link></li>
-                              <li className={navbarStyles.myAccountListItem}><Link href="/myorder"><a className={navbarStyles.myAccountListLink}>My Order</a></Link></li>
                               <li className={navbarStyles.myAccountListItem}><Link href="/myorder/history"><a className={navbarStyles.myAccountListLink}>Order History</a></Link></li>
-                              <li className={navbarStyles.myAccountListItem}>{mealNotifier}</li>
                             </ul>
                           </Popover.Content>
                         </Popover>
@@ -127,11 +114,6 @@ class NavBar extends Component {
             </Nav>
           </Navbar.Collapse>
         </Navbar>
-
-        <MealNotifierModal 
-          show={this.state.showModal}
-          onHide={() => this.setState({showModal: false})}
-        />
       </>
     )
   }

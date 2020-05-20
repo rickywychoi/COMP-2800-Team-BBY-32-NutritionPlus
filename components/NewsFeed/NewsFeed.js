@@ -4,7 +4,7 @@ import axios from 'axios'
 import { NEWS_API_KEY } from '../../apiKey'
 import feedStyles from '../../styles/NewsFeed.module.css'
 
-const url = `http://newsapi.org/v2/top-headlines?country=ca&category=health&apiKey=${NEWS_API_KEY}`
+const url = `https://newsapi.org/v2/top-headlines?country=ca&category=health&apiKey=${NEWS_API_KEY}`
 
 const NewsFeed = (props) => {
   const [newsList, setNewsList] = useState([])

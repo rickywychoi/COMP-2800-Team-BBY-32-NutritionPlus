@@ -328,6 +328,7 @@ const RecipeDetails = (props) => {
         db.collection('users').doc(props.currentUser.uid).update({
           recipes : recipes
         })
+        alert(`${result.label} is successfully added to My Meals.`)
         // console.log(Object.values(details).slice(0))
 
         // let todayMeals = {}

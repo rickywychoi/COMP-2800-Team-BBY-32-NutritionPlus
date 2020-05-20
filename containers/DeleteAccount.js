@@ -14,20 +14,43 @@ let db = firebase.firestore()
 const DeleteAccount = (props) => {
   const router = useRouter()
   const [userName, setUserName] = useState("")
+  const [password, setPassword] = useState("")
 
   const handleNameChange = e => {
     e.preventDefault()
     setUserName(e.target.value)
   }
 
+  const handlePasswordChange = e => {
+    e.preventDefault()
+    setPassword(e.target.value)
+  }
+
   const deleteAccount = e => {
     e.preventDefault()
     if (confirm("This action cannot be undone.\nAre you sure to delete your account?")) {
-      var user = firebase.auth().currentUser;
-
-      user.delete().then(() => {
-        router.replace("/")
-      }).catch(err => console.log(err));
+      if (props.currentUser) {
+        db.collection('users').doc(props.currentUser.uid).delete().then(() => {
+          console.log("Successfully deleted data from database")
+          var user = firebase.auth().currentUser;
+          console.log(user)
+          var credential = firebase.auth.EmailAuthProvider.credential(
+            user.email, 
+            password
+          );
+          
+          // Prompt the user to re-provide their sign-in credentials
+          user.reauthenticateWithCredential(credential).then(() => {
+            
+            // User re-authenticated. Delete user from authentication.
+            user.delete().then(() => {
+              window.location.replace("/")
+            }).catch(err => console.log(err));
+          }).catch(err => {
+            alert("Your given password is incorrect.\nPlease try again.")
+          });
+        }).catch(err => console.log(err))
+      }
     }
   }
 
@@ -36,8 +59,8 @@ const DeleteAccount = (props) => {
       <hr/>
       <h3>If you wish to delete your account,</h3>
       <Form>
-        <Form.Group controlId="deleteAccount">
-          <Form.Label>Enter your name to proceed to <span style={{color: "red"}}>delete</span> your account.</Form.Label>
+        <Form.Group controlId="deleteAccountName">
+          <Form.Label>Enter your name and password to proceed to <span style={{color: "red"}}>delete</span> your account.</Form.Label>
           <Form.Control 
             required
             type="text" 
@@ -48,7 +71,18 @@ const DeleteAccount = (props) => {
             Please enter your name.
           </Form.Control.Feedback>
         </Form.Group>
-        <Button disabled={props.currentUser.displayName.localeCompare(userName) != 0} variant="danger" onClick={deleteAccount}>Delete your account</Button>
+        <Form.Group controlId="deleteAccountPassword">
+          <Form.Control 
+            required
+            type="password" 
+            placeholder="Your password"
+            className="form"
+            onChange={handlePasswordChange} />
+          <Form.Control.Feedback type="invalid">
+            Please enter your password for this account.
+          </Form.Control.Feedback>
+        </Form.Group>
+        <Button disabled={props.currentUser.displayName.localeCompare(userName) != 0 || !password} variant="danger" onClick={deleteAccount}>Delete your account</Button>
       </Form>
       <style>{`
         h3 {
