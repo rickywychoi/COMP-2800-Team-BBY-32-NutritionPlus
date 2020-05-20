@@ -1,4 +1,5 @@
-// QuestionnaireResult.js
+// Returns the recommended amount of nutrients for user after filling out
+// questionnaire.
 
 import resultStyles from '../../styles/QuestionnaireResult.module.css'
 import Link from 'next/link'
@@ -95,8 +96,7 @@ const QuestionnaireResult = (props) => {
         })
       }
 
-      console.log(dv)
-
+      // updates Firebase with the daily values returned by questionnaire
       db.collection('users').doc(props.currentUser.uid).update({
         healthInfo: {
           dailyValue: dv,
@@ -110,12 +110,14 @@ const QuestionnaireResult = (props) => {
     }
   })
 
+  // redirects to home
   const goHome = () => {
     router.push("/")
   }
 
+  // redirects to recipe search page
   const goRecipe = () => {
-    router.push("/menuQuestionnaire")
+    router.push("/search")
   }
 
   return (

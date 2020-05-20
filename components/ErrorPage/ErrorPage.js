@@ -1,3 +1,5 @@
+// An error page for when users are viewing pages that they need to be signed in for.
+
 import Link from 'next/link'
 
 const ErrorPage = () => {

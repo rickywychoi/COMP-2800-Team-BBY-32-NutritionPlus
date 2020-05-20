@@ -1,4 +1,9 @@
-// RecipeSearch.js
+/* Searches a grocery item from the USDA API and displays its nutritional facts.
+
+Uses bootstrap's Form for the search field and Pagination to help with navigating
+through larger queries.
+
+*/
 
 import firebase from 'firebase'
 import firebaseConfig from '../firebaseConfig'

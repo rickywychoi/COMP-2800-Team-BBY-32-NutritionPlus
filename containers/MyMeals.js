@@ -1,3 +1,8 @@
+/* My Meals page to display any recipes that have been added to Firebase.
+
+Uses bootstrap buttons for Button design and Table for table design.
+*/
+
 import firebase from 'firebase'
 import firebaseConfig from '../firebaseConfig'
 import { useRouter } from 'next/router'

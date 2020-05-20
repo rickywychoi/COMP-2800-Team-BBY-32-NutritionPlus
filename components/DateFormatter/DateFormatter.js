@@ -1,3 +1,7 @@
+// Takes the timestamp from Firebase and converts it into a readable date format.
+// Converts into YYYY/MM/DD and provides the day/date and time for myMeals,
+// myCart, myOrder, and Order History
+
 import { format } from 'date-fns'
 
 export default function DateFormatter({ date }) {

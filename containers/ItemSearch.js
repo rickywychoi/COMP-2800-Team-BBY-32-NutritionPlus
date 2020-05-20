@@ -1,4 +1,8 @@
-// ItemSearch.js
+/* Searches a grocery item from the USDA API and displays its nutritional facts.
+
+Uses bootstrap's Form for the search field and Pagination to help with navigating
+through larger queries.
+*/
 
 import searchStyles from '../styles/ItemSearch.module.css'
 import listStyles from '../styles/SearchList.module.css'
@@ -18,6 +22,7 @@ const ItemSearch = () => {
   const pageSizeLimit = 15
   const searchLimit = 10000
 
+  // obtains values from API by using search as query and pageSize to display 15 results per page
   const handleSearchChange = e => {
     e.preventDefault()
     let value = e.target.value
@@ -72,6 +77,7 @@ const ItemSearch = () => {
     })
   }
 
+  // << arrow
   const handleFirst = (number, totalPages, value) => {
     const prevNumber = number - 5
     if (prevNumber > 0) {
@@ -112,6 +118,7 @@ const ItemSearch = () => {
     }
   }
 
+  // < arrow
   const handlePrev = (number, totalPages, value) => {
     const prevNumber = number - 1
     let results = []
@@ -142,7 +149,6 @@ const ItemSearch = () => {
       setPagination(paginationItems)
     }
     if (prevNumber > 3 && prevNumber <= totalPages - 3) {
-      // console.log("sdfasdfasdf")
       paginationItems.push(<Pagination.First key="first" onClick={() => {handleFirst(prevNumber, totalPages, value)}}/>)
       paginationItems.push(<Pagination.Prev key="prev" onClick={() => {handlePrev(prevNumber, totalPages, value)}}/>)
       paginationItems.push(<Pagination.Item key="firstPage" onClick={() => {handleNumberOne(totalPages, value)}}>{1}</Pagination.Item>)
@@ -181,6 +187,7 @@ const ItemSearch = () => {
     }
   }
 
+  // first page
   const handleNumberOne = (totalPages, value) => {
     let results = []
     const numberOne = 1
@@ -210,6 +217,7 @@ const ItemSearch = () => {
     setPagination(paginationItems)
   }
 
+  // last number
   const handleNumberLast = (totalPages, value) => {
     let results = []
     const numberLast = totalPages
@@ -239,6 +247,7 @@ const ItemSearch = () => {
     setPagination(paginationItems)
   }
 
+  // > arrow
   const handleNext = (number, totalPages, value) => {
     let nextNumber = number + 1
     let results = []
@@ -307,6 +316,7 @@ const ItemSearch = () => {
     }
   }
 
+  // >> arrow
   const handleLast = (number, totalPages, value) => {
     let nextNumber = number + 5
     if (nextNumber <= totalPages) {
@@ -347,6 +357,7 @@ const ItemSearch = () => {
     }
   }
 
+  // handles the results of each numbered page
   const handlePagination = (number, totalPages, value) => {
     let results = []
     axios.get(url, {

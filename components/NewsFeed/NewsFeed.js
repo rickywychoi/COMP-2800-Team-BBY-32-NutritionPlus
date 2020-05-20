@@ -1,3 +1,7 @@
+/* The news feed on the landing page. Utilizes the Canada Health News API to
+search for COVID-19 related news articles. Displays them in a card gallery.
+*/
+
 import { useState, useEffect } from 'react'
 import { Card, Form } from 'react-bootstrap'
 import axios from 'axios'
@@ -17,7 +21,7 @@ const NewsFeed = (props) => {
       })
       setNewsList(results)
     })
-  })
+  }, [])
 
   return (
     <div className={feedStyles.mainBody}>
@@ -35,7 +39,7 @@ const NewsFeed = (props) => {
           </a>
         )
       })}
-      </div>
+    </div>
   )
 }
 

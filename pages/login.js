@@ -1,4 +1,6 @@
-// login.js
+/* Utilizes Firebase's default login UI to allow a user to login via
+email and google. Redirects to landing page upon login.
+*/
 
 import Link from 'next/link'
 import { useRouter } from 'next/router'
@@ -42,7 +44,8 @@ class SignInScreen extends React.Component {
     },
     // Popup signin flow rather than redirect flow.
     signInFlow: 'popup',
-    // We will display Google and Facebook as auth providers.
+    credentialHelper: 'none',
+    // We will display Google and Email as auth providers.
     signInOptions: [ 
       firebase.auth.EmailAuthProvider.PROVIDER_ID,
       firebase.auth.GoogleAuthProvider.PROVIDER_ID

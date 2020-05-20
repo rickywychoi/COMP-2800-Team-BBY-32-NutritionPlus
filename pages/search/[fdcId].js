@@ -16,14 +16,8 @@ if (!firebase.apps.length) {
 }
 let db = firebase.firestore()
 
-// // daily search limited to 10,000 queries
-// const GOOGLE_API_URL = `https://www.googleapis.com/customsearch/v1?key=${GOOGLE_IMAGE_SEARCH_API_KEY}&cx=${GOOGLE_IMAGE_SEARCH_CX}`
-
 const ItemDetailsPage = (props) => {
   const router = useRouter()
-  // const [itemImg, setItemImg] = useState({})
-  // const [errorMsg, setErrorMsg] = useState("")
-  // const [showErrorMsg, setShowErrorMsg] = useState(false)
   const [itemName, setItemName] = useState("")
   const [result, setResult] = useState({})
   const [nutrients, setNutrients] = useState([])
@@ -285,65 +279,44 @@ const ItemDetailsPage = (props) => {
       setNutrients(newArray)
       setAdditionalNutrients(extraArray)
     })
-
-    // // GET request for Google image api
-    // axios.get(GOOGLE_API_URL, {
-    //   params: {
-    //     q: router.query.itemname
-    //   }
-    // }).then(res => {
-    //   const items = res.data.items
-    //   for (let i = 0; i < items.length; i++) {
-    //     if (items[i].pagemap.cse_thumbnail) {
-    //       setItemImg(items[i].pagemap.cse_thumbnail[0])
-    //       break
-    //     }
-    //   }
-    // }).catch(err => {
-    //   setErrorMsg(err.message)
-    // })
   }, [])
   
-  // const reportWrongImg = () => {
-  //   alert("reported.")
-  // }
-  
-  // const showErrorMessage = () => {
-  //   setShowErrorMsg(prevState => {
-  //     return !prevState
-  //   })
-  // }
-  
+  // changes to the previous page
   const goBack = () => {
     router.back()
   }
 
+  // Triggers the overlay for cart
   const addToCart = () => {
     console.log("Added")
   }
 
+  // increments the quantity by 1
   const incrementQuantity = () => {
     if (quantity < 99) {
       setQuantity(prevState => parseInt(prevState) + 1)
     }
   }
 
+  // decrements the quantity by 1
   const decrementQuantity = () => {
     if (quantity > 0) {
       setQuantity(prevState => parseInt(prevState) - 1)
     }
   }
 
+  // changes the quantity to user's manual input
   const handleQtyChange = e => {
     e.preventDefault()
-    // console.log("337", typeof e.target.value)
     setQuantity(e.target.value)
   }
 
+  // resets the quantity
   const resetQuantity = () => {
     setQuantity(0)
   }
 
+  // checks if quantity is valid and sets it
   const handleSubmit = (event) => {
     event.preventDefault()
     const form = event.currentTarget
@@ -355,6 +328,7 @@ const ItemDetailsPage = (props) => {
   };
 
 
+  // adds the new item and its quantity to the cart
   const toMyCart = () => {
     if (props.currentUser) {
       db.collection('users').doc(props.currentUser.uid).get().then(userInfo => {
@@ -381,8 +355,6 @@ const ItemDetailsPage = (props) => {
       }).catch(err => console.log(err))
     }
   }
-
-  console.log(userDailyValue)
 
   const popover = (
     <Popover id="popover-basic">

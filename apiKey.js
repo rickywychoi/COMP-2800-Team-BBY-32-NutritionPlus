@@ -1,3 +1,5 @@
+/** Constants holding API keys */
+
 export const USDA_API_KEY = "BkuLWxyanAmNyohS92mZ8SlqY6o886r34P6BVyYD"
 export const EDAMAM_FOOD_APP_ID = "444d5991"
 export const EDAMAM_FOOD_APP_KEY = "47a86364a54a12a3195ac3ce02c60166"

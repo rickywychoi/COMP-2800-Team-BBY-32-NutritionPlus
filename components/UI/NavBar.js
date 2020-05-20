@@ -1,6 +1,14 @@
+/* The NavBar used everywhere on the site. Holds redirects for
+'Your recommended intake', 'Search an Item', 'Search recipes', and 'About Us'.
+Additional profile information such as 'My Account', 'My Meals', 'My Cart',
+and 'Order History'.
+
+Uses React Bootstrap Navbar and Nav to split the Navbar (similar to div), Popover
+for personal account management, and overlay to display the additional menu.
+*/
 import { Component, createRef } from 'react'
 import ReactDOM from 'react-dom'
-import { Navbar, Nav, Popover, Overlay, Button } from 'react-bootstrap'
+import { Navbar, Nav, Popover, Overlay } from 'react-bootstrap'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
 import { connect } from 'react-redux'
@@ -66,7 +74,7 @@ class NavBar extends Component {
           <Navbar.Toggle aria-controls="responsive-navbar-nav" onClick={hideMyAccount}/>
           <Navbar.Collapse id="responsive-navbar-nav" >
             <Nav className="mr-auto">
-              <Link href="/yourdailyvalue" ><a className={navbarStyles.link}>Your Intake</a></Link>
+              <Link href="/yourdailyvalue" ><a className={navbarStyles.link}>My Recommended Intake</a></Link>
               <Link href="/search"><a className={navbarStyles.link}>Search an Item</a></Link>
               <Link href="/recipe"><a className={navbarStyles.link}>Search Recipes</a></Link>
               <Link href="/aboutus"><a className={navbarStyles.link}>About Us</a></Link>

@@ -1,3 +1,7 @@
+/* Creates the chart with necessary nutrients on the chart for groceries.
+Uses react-bootstrap form to alternate between da=ily and weekly views.
+*/
+
 import { useState, useEffect } from 'react'
 import MediaQuery from 'react-responsive'
 import { HorizontalBar } from 'react-chartjs-2'

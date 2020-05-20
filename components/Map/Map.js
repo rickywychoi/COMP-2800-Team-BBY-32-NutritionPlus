@@ -1,11 +1,11 @@
+/* Google Maps API to show nearby grocery stores to order from when user
+checks out an order.
+*/
 import React, { Component } from 'react';
-import { GOOGLE_MAP_API_KEY } from '../../apiKey' // 引入 API key
+import { GOOGLE_MAP_API_KEY } from '../../apiKey' // API key
 import GoogleMapReact from 'google-map-react';
 import { useState, useEffect} from 'react'
 
-
-
-// const MyPositionMarker = ({ text }) => <div>{text}</div>;
 const MyPositionMarker = ({ icon }) => <img style={{ height: '40px', width: '40px' }} src={icon} />
 
 const Marker = props => (
@@ -14,28 +14,10 @@ const Marker = props => (
       <img style={{ height: '40px', width: '40px' }} src={props.icon} />
       <div>{props.text}</div>
    </div>
-    {/* Below is info window component
-    {props.show && (
-      <div
-        style={{
-          width: 100,
-          height: 100
-        }}
-      >
-      {props.phone}
-      
-      </div>
-    )} */}
   </React.Fragment>
 )
-// const SearchType = ({ text, type }) => {
-//   return <input type="button" value={text} name={type} />
-// }
-
 
 const SimpleMap = (props) => {
-
-  
   // User Location
   const [myPosition, setMyPosition] = useState({
     lat: props.lat,
@@ -46,10 +28,7 @@ const SimpleMap = (props) => {
   const [mapInstance, setMapInstance] = useState(null)
   const [mapApi, setMapApi] = useState(null)
   const [places, setPlaces] = useState([])
-  const [searchType, setSearchType] = useState('grocery_or_supermarket')
-  // const [show,setShow] = useState(false)
-
-  
+  const [searchType, setSearchType] = useState('grocery_or_supermarket')  
 
   const apiHasLoaded = (map, maps) => {
     setMapInstance(map)
@@ -85,19 +64,9 @@ const SimpleMap = (props) => {
     }
   }
 
-  // const handleSearchType = e => {
-  //   setSearchType(e.target.name)
-  //   findLocation() 
-  // }
-
   useEffect(() => {
     findLocation()
   },[mapApiLoaded,searchType, myPosition])
-
-
-  // const onChildClick = (key, childProps) => {
-  //   setShow(!show)
-  // }
 
   return (
     <div className="mainBody">
@@ -109,11 +78,8 @@ const SimpleMap = (props) => {
         center={myPosition}
         zoom={16}
         onBoundsChange={handleCenterChange}
-        // defaultCenter={myPosition}
-        // defaultZoom={18}
         yesIWantToUseGoogleMapApiInternals
         onGoogleApiLoaded={({ map, maps }) => apiHasLoaded(map, maps)}
-        // onChildClick={onChildClick}
       >
         <MyPositionMarker
           lat={myPosition.lat}
@@ -130,7 +96,6 @@ const SimpleMap = (props) => {
             lng={item.geometry.location.lng()}
             text={item.name}
             placeId={item.place_id}
-            // show={show}
           />
         ))}
       </GoogleMapReact>
@@ -149,16 +114,6 @@ const SimpleMap = (props) => {
     </div>
   );
 }
-
-
-// SimpleMap.defaultProps = {
-//   center: {
-//     lat: 49,
-//     lng: -123
-//   },
-//   zoom: 14
-// };
-
 
 export default SimpleMap
 
