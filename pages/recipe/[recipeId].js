@@ -401,12 +401,12 @@ const RecipeDetails = (props) => {
                           </thead>
                            <tbody className = {RecipeStyles.tbody}>      
                             <tr>
-                              <td className = {RecipeStyles.subHead}>Amount per serving</td>
+                              <td className = {RecipeStyles.subHead}></td>
                               <td></td>
                             </tr>
                             <tr className = {RecipeStyles.nutrient}>
                               <td className = {RecipeStyles.caloriesTitle}>Calories</td>
-                              <td className = {RecipeStyles.calories}><strong>{calories.calPerServing}</strong></td>
+                              <td className = {RecipeStyles.calories}><strong>{calories.amount}</strong></td>
                             </tr>
                             <tr className = {RecipeStyles.nutrient}>
                               <td></td>
