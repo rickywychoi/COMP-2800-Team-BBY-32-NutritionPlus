@@ -236,7 +236,7 @@ const RecipeChart = (props) => {
         </div>
           :
         <div className={resultStyles.noValueYet}>
-          <h3 className="mb-5">Can't see your nutrition percentage chart?</h3>
+          <h3 className="mb-5">Can't see your nutrition composition chart?</h3>
           <p>You need to evaluate your daily value first to make the chart visible.</p>
           <p>Or, you need to <Link href="/login"><a>sign in.</a></Link></p>
           <button className={resultStyles.getYourResultButton} onClick={() => router.push("/questionnaire")}>Evaulate your daily value here.</button>

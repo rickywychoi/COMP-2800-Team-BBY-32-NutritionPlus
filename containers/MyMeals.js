@@ -48,9 +48,9 @@ const MyMeals = (props) => {
     props.currentUser
       ?
     <div className={orderStyles.mainBody}>
-       <div className={orderStyles.contents}>
+      <div className={orderStyles.contents}>
         <h2>My Meals</h2>
-         <div className={orderStyles.table}>
+        <div className={orderStyles.table}>
            <Table striped bordered>
              <thead>
               <tr>

@@ -340,7 +340,7 @@ const MyCart = (props) => {
         <Button variant="secondary" className={buttonStyles.button} onClick={() => router.push("/search")}><span><MdArrowBack /> Search Item</span></Button>
         {
           myCart.length > 0
-            ?
+          ?
             <div>
             <DropdownButton alignRight variant="outline-success" className={buttonStyles.button} title={<span><FaSearch /> Recipes</span>}>
               {
@@ -350,7 +350,7 @@ const MyCart = (props) => {
                       <Link
                         href={{ pathname:"/recipe?item=[item]" }}
                         as={`/recipe?item=${item.description}`}
-                      >
+                        >
                         {item.description}
                       </Link>
                     </Dropdown.Item>
@@ -360,10 +360,11 @@ const MyCart = (props) => {
             </DropdownButton>
           </div>
             :
-          null
-        }
+            null
+          }
       </div>
       
+      <h2 style={{marginTop: "1.5rem"}}>My Cart</h2>
       {/* Media Query for min-device-width: 500px */}
       <MediaQuery minDeviceWidth={500}>
         <div className={cartStyles.table}>
