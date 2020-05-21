@@ -6,6 +6,7 @@ select stores. Table is used to hold grocery store data.
 */
 
 import { Table, Form, DropdownButton, Dropdown } from 'react-bootstrap'
+import MediaQuery from 'react-responsive'
 import groceryStoresStyles from '../styles/GroceryStores.module.css' //replace with your Grocerystores.css
 import { connect } from 'react-redux'
 import * as actions from '../store/actions'
@@ -127,6 +128,8 @@ const GroceryStores = (props) => {
           </Form.Control>
         </Form.Group>
       </div>
+      {/* Media Query for min-device-width: 500px */}
+      <MediaQuery minDeviceWidth={500}>
       <Table striped bordered hover>
         <thead>
           <tr>
@@ -167,6 +170,54 @@ const GroceryStores = (props) => {
           })}
         </tbody>
       </Table>
+      </MediaQuery>
+
+      {/* Media Query for max-device-width: 499px */}
+      <MediaQuery maxDeviceWidth={499}>
+      <Table striped bordered hover>
+        <thead>
+          <tr>
+            <th>Store Details</th>
+            <th>Find Item on Store Website</th>
+          </tr>
+       </thead>
+       <tbody>
+          {stores.map(store => {
+           return (
+              <tr key={store.id}>
+                  <td>
+                    <a href={store.url} target="_blank" className={groceryStoresStyles.stores} title={`Go to: ${store.url}`}>{store.name}</a>
+                    <br/>
+                    <i>({store.option})</i>
+                  </td>
+                  <td>
+                    <DropdownButton alignRight variant="outline-secondary" title="Select an Item">
+                      <Dropdown.Header><i>Find on {store.name} Website</i></Dropdown.Header>
+                      {
+                        myCart.map(item => {
+                          return(
+                            <Dropdown.Item
+                              key={handleStoreSearch(store.search, store.searchDelimiiter, item.description)}
+                              href={handleStoreSearch(store.search, store.searchDelimiter, item.description)}
+                              target="_blank"
+                              rel="noopener"
+                              className={groceryStoresStyles.stores}
+                              title={`Go to: ${handleStoreSearch(store.search, store.searchDelimiter, item.description)}`}
+                            >
+                              {item.description}
+                            </Dropdown.Item>
+                          )
+                        })
+                      }
+                    </DropdownButton>                   
+                  </td>
+              </tr>
+            )
+          })}
+        </tbody>
+      </Table>
+      </MediaQuery>
+
       <h4 style={{margin: "1.5rem 0 1rem 0"}}>See Nearby Stores</h4>
       <div className={groceryStoresStyles.mapContainer}>
         { lat&&lng ?
