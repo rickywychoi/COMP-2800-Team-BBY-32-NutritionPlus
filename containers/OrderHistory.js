@@ -101,7 +101,8 @@ const OrderHistory = (props) => {
           })
             :
           <div style={{textAlign: "center", marginTop: "1.5rem"}}>
-            You haven't made any orders yet.
+            <p>You haven't made any orders yet.</p>
+            <img className="historyIcon" src="https://img.icons8.com/windows/96/000000/delete-history.png" alt="historyIcon"/>
           </div>
         }
       </div>
@@ -113,6 +114,10 @@ const OrderHistory = (props) => {
           vertical-align: middle;
           padding: 0.2rem 0.5rem;
           font-size: 0.9rem;
+        }
+        .historyIcon {
+          margin: 0 auto;
+        }
       `}</style>
     </div>
       :

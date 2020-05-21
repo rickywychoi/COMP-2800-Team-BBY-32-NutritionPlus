@@ -185,7 +185,13 @@ const Questionnaire = (props) => {
   return (
     <div className={questionStyles.body}>
       <div className={questionStyles.header}>
-        <Button variant="secondary" className={buttonStyles.button} onClick={goBack}><span><MdArrowBack /> Back</span></Button>
+        {
+          !router.query.firsttime
+            ?
+          <Button variant="secondary" className={buttonStyles.button} onClick={goBack}><span><MdArrowBack /> Back</span></Button>
+            :
+          null
+        }
         <h1 className={questionStyles.mainTitle}>We are retrieving some <br/>basic information from you.</h1>
       </div>
       <Form validated={validated} onSubmit={handleSubmit}>

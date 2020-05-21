@@ -64,7 +64,7 @@ const DeleteAccount = (props) => {
       <h3>If you wish to delete your account,</h3>
       <Form>
         <Form.Group controlId="deleteAccountName">
-          <Form.Label>Enter your name and password to proceed to <span style={{color: "red"}}>delete</span> your account.</Form.Label>
+          <Form.Label className="formLabel">Enter your name and password to proceed to <span style={{color: "red"}}>delete</span> your account.</Form.Label>
           <Form.Control 
             required
             type="text" 
@@ -86,7 +86,14 @@ const DeleteAccount = (props) => {
             Please enter your password for this account.
           </Form.Control.Feedback>
         </Form.Group>
-        <Button disabled={props.currentUser.displayName.localeCompare(userName) != 0 || !password} variant="danger" onClick={deleteAccount}>Delete your account</Button>
+        <Button 
+          disabled={props.currentUser.displayName.localeCompare(userName) != 0 || !password} 
+          variant="danger"
+          className="mt-3"
+          onClick={deleteAccount}
+        >
+          Delete your account
+        </Button>
       </Form>
       <style>{`
         h3 {
@@ -96,6 +103,10 @@ const DeleteAccount = (props) => {
         .form {
           width: 30%;
           margin: 0 auto;
+        }
+
+        .formLabel {
+          margin-bottom: 1.5rem;
         }
         
         @media (max-width: 499px) {

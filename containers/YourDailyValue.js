@@ -117,7 +117,7 @@ const YourDailyValue = (props) => {
     <div className={resultStyles.noValueYet}>
       <h3>We don't have your daily value results yet.</h3>
       <p>Or, you might have done questionnaire already, but you are currently not signed in.</p>
-      <button className={resultStyles.getYourResultButton} onClick={() => router.push("/login?questionnaire=true")}>Sign in and go get your result!</button>
+      <button className={resultStyles.getYourResultButton} onClick={() => router.push("/login?questionnaire=true")}>Sign in and go get your result.</button>
     </div>
       :
     <Spinner />

@@ -321,6 +321,7 @@ const ItemDetailsPage = (props) => {
     event.preventDefault()
     const form = event.currentTarget
     if (form.checkValidity() === false) {
+      event.preventDefault()
       event.stopPropagation()
     }
 
@@ -329,7 +330,7 @@ const ItemDetailsPage = (props) => {
 
 
   // adds the new item and its quantity to the cart
-  const toMyCart = () => {
+  const toMyCart = (e) => {
     if (props.currentUser) {
       db.collection('users').doc(props.currentUser.uid).get().then(userInfo => {
         console.log(userInfo.data())
@@ -360,7 +361,7 @@ const ItemDetailsPage = (props) => {
     <Popover id="popover-basic">
       <Popover.Title as="h3" className={detailStyles.popupTitle}>Quantity</Popover.Title>
       <Popover.Content>
-        <Form validated={qtyValidated} onSubmit={handleSubmit}>
+        <Form noValidate validated={qtyValidated} onSubmit={handleSubmit}>
           <div className={detailStyles.quantityButtonWrapper}>
             <Button variant="outline-danger" onClick={decrementQuantity} className={detailStyles.decrement}>-</Button>
             <Form.Control className={detailStyles.quantityInput} size="sm" type="number" value={quantity} onChange={handleQtyChange} />
@@ -603,7 +604,9 @@ const ItemDetailsPage = (props) => {
                         })
                       }
                       <tr>
-                        <td className = {detailStyles.dv}>*The % Daily Value (DV) tells you how much a nutrient in a food serving contributes to a daily diet. It is calculated using your required energy intake.</td>
+                        <td className = {detailStyles.dv}>
+                          *The % Daily Value (DV) tells you how much a nutrient in a food serving contributes to a daily diet. It is calculated using your required energy intake.<br/>If you can't see % Daily Value, visit <Link href="/questionnaire?firsttime=true"><a>here</a></Link> to get your daily value first.
+                        </td>
                         <td></td>
                       </tr>
                     </tbody>

@@ -25,8 +25,6 @@ let db = firebase.firestore()
 const MyMeals = (props) => {
   const router = useRouter()
   const [myRecipes, setMyRecipes] = useState([])
-  console.log(props)
-  const myCart = props.myCart
 
   const sortArrayDesc = (arr) => {
     return arr.sort((a, b) => b.addedAt.toDate() - a.addedAt.toDate())
@@ -36,7 +34,6 @@ const MyMeals = (props) => {
     if (props.currentUser) {
       db.collection('users').doc(props.currentUser.uid).get().then(userInfo => {
         let recipes = sortArrayDesc(userInfo.data().recipes)
-        console.log(recipes)
         setMyRecipes(recipes)
       })
     }
@@ -84,20 +81,7 @@ const MyMeals = (props) => {
               }
             </tbody>
           </Table>
-
         </div>
-        {
-          myCart.length > 0
-            ?
-          <div>
-            <GroceryStores />
-            <div className={orderStyles.confirmButtonWrapper}>
-              <Button variant="success" className={buttonStyles.button} onClick={confirmOrder}>Confirm</Button>
-            </div>
-          </div>
-            :
-          null
-        }
         <RecipeChart rawCart = {myRecipes}/>
       </div>
       <style jsx>{`
