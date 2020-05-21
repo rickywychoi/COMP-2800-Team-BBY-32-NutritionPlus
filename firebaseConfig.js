@@ -1,4 +1,6 @@
-// Nutrition+ firebase configuration
+/**
+ * Nutrition+ firebase configuration.
+ */
 
 let firebaseConfig = {
   apiKey: "AIzaSyB-vNVMZ2ysNlaM91SEJcTkRPwAp-V54y4",

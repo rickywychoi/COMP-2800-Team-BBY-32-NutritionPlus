@@ -1,6 +1,14 @@
-// Deletes the user's account.
-// Uses React Bootstrap Form to create the form to delete the account,
-// and Button to delete the account.
+/**
+ * Deletes the user's account.
+ * Uses React Bootstrap Form to create the form to delete the account,
+ * and Button to delete the account.
+ * 
+ * Form
+ * @see https://react-bootstrap.github.io/components/forms/
+ * 
+ * Button
+ * @see https://react-bootstrap.github.io/components/buttons/
+ */
 
 import { useState } from 'react'
 import { Form, Button } from 'react-bootstrap'
@@ -62,6 +70,8 @@ const DeleteAccount = (props) => {
     <div style={{textAlign: "center", marginTop: "3rem"}}>
       <hr/>
       <h3>If you wish to delete your account,</h3>
+
+      {/* Form component from react-bootstrap */}
       <Form>
         <Form.Group controlId="deleteAccountName">
           <Form.Label className="formLabel">Enter your name and password to proceed to <span style={{color: "red"}}>delete</span> your account.</Form.Label>
@@ -95,6 +105,8 @@ const DeleteAccount = (props) => {
           Delete your account
         </Button>
       </Form>
+
+      {/* Stylesheet for elements in this page */}
       <style>{`
         h3 {
           margin-bottom: 1.5rem;

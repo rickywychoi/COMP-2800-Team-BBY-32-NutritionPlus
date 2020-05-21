@@ -1,8 +1,16 @@
-/* Searches a grocery item from the USDA API and displays its nutritional facts.
+/**
+ * Searches a grocery item from the USDA API and displays its nutritional facts.
+ * 
+ * Uses bootstrap's Form for the search field and Pagination to help with navigating
+ * through larger queries.
+ * 
+ * Form
+ * @see https://react-bootstrap.github.io/components/forms/
+ * 
+ * Pagination
+ * @see https://react-bootstrap.github.io/components/pagination/
+ */
 
-Uses bootstrap's Form for the search field and Pagination to help with navigating
-through larger queries.
-*/
 
 import searchStyles from '../styles/ItemSearch.module.css'
 import listStyles from '../styles/SearchList.module.css'

@@ -1,4 +1,8 @@
-// Our index page.
+/**
+ * Our landing page.
+ * 
+ * Includes the welcome banner and a news feed.
+ */
 
 import Head from 'next/head'
 import { useRouter } from 'next/router'

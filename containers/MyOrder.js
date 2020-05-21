@@ -1,3 +1,15 @@
+/**
+ * My Order page to checkout items from My Cart and select stores for items.
+ * 
+ * Uses React Bootstrap Table for table design and Button for buttons.
+ * 
+ * Table
+ * @see https://react-bootstrap.github.io/components/table/
+ * 
+ * Button
+ * @see https://react-bootstrap.github.io/components/buttons/
+ */
+
 import firebase from 'firebase'
 import firebaseConfig from '../firebaseConfig'
 import { useRouter } from 'next/router'
@@ -57,6 +69,8 @@ const MyOrder = (props) => {
        <div className={orderStyles.contents}>
         <h2>Review &amp; Pay</h2>
         <div className={orderStyles.table}>
+
+          {/* Table component from react-bootstrap */}
           <Table striped bordered>
             <thead>
               <tr>
@@ -66,8 +80,10 @@ const MyOrder = (props) => {
             </thead>
             <tbody>
               {
+                // if there's an item in myCart
                 myCart.length > 0
                   ?
+                // Loops through myCart array and displays each item
                 myCart.map(item => {
                   return (
                     <tr key={item.fdcId}>
@@ -92,9 +108,12 @@ const MyOrder = (props) => {
           </Table>
         </div>
         {
+          // if there's an item in myCart
           myCart.length > 0
             ?
           <div>
+
+            {/* GroceryStores component that shows list of grocery stores, and the map that shows nearby stores */}
             <GroceryStores />
             <div className={orderStyles.confirmButtonWrapper}>
               <Button variant="success" className={buttonStyles.button} onClick={confirmOrder}>Confirm</Button>
@@ -104,6 +123,8 @@ const MyOrder = (props) => {
           null
         }
        </div>
+
+       {/* Stylesheet for each table row */}
        <style jsx>{`
         td {
           vertical-align: middle;

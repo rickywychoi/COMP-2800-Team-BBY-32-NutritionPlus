@@ -1,8 +1,16 @@
-/* Your daily intake. Submits data from user-filled questionnaire and calculates
-the user's required daily values. 
+/**
+ * Your daily intake. Submits data from user-filled questionnaire and calculates
+ * the user's required daily values. 
+ * 
+ * Uses React Bootstrap Form for each input form, and Button to submit/proceed.
+ * 
+ * Form
+ * @see https://react-bootstrap.github.io/components/forms/
+ * 
+ * Button
+ * @see https://react-bootstrap.github.io/components/buttons/
+ */
 
-Uses bootstrap Form for each input form, and Button to submit/proceed.
-*/
 
 import { useState } from 'react'
 
@@ -194,6 +202,8 @@ const Questionnaire = (props) => {
         }
         <h1 className={questionStyles.mainTitle}>We are retrieving some <br/>basic information from you.</h1>
       </div>
+
+      {/* Form component from react-bootstrap */}
       <Form validated={validated} onSubmit={handleSubmit}>
         <Form.Group controlId="formBasicAge">
           <Form.Label>What is your age?</Form.Label>
@@ -220,6 +230,7 @@ const Questionnaire = (props) => {
           </Form.Control.Feedback>
         </Form.Group>
         {
+          // if the user is female - include pregnant/lactation option
           userInfo.gender.localeCompare("female") == 0
             ?
           (

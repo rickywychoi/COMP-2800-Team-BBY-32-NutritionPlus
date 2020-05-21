@@ -1,4 +1,6 @@
-// store/action.js
+/**
+ * Constants holding action types used in each dispatch
+ */
 
 export const SIGNIN = 'SIGNIN'
 export const SUBMITENTRYUSERINPUT = 'SUBMITENTRYUSERINPUT'

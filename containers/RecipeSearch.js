@@ -1,9 +1,24 @@
-/* Searches a grocery item from the USDA API and displays its nutritional facts.
-
-Uses bootstrap's Form for the search field and Pagination to help with navigating
-through larger queries.
-
-*/
+/**
+ * Searches a grocery item from the USDA API and displays its nutritional facts.
+ * 
+ * Uses React Bootstrap Form for the search field and Pagination to help with navigating
+ * through larger queries.
+ * 
+ * Button
+ * @see https://react-bootstrap.github.io/components/buttons/
+ * 
+ * Pagination
+ * @see https://react-bootstrap.github.io/components/pagination/
+ * 
+ * InputGroup
+ * @see https://react-bootstrap.github.io/components/input-group/
+ * 
+ * FormControl
+ * @see https://react-bootstrap.github.io/components/forms/#form-control-props
+ * 
+ * Dropdown
+ * @see https://react-bootstrap.github.io/components/dropdowns/
+ */
 
 import firebase from 'firebase'
 import firebaseConfig from '../firebaseConfig'
@@ -528,7 +543,11 @@ const handleFirst = (number, totalPages, search) => {
       <div className={searchStyles.container}>
 
       <div className={searchStyles.searchContainer}>
+
+        {/* InputGroup component from react-bootstrap */}
         <InputGroup>
+
+          {/* Dropdown component from react-bootstrap */}
           <DropdownButton
             id="myCartAppend"
             as={InputGroup.Prepend}
@@ -552,6 +571,8 @@ const handleFirst = (number, totalPages, search) => {
               <Dropdown.Header><i>Please Sign In First.</i></Dropdown.Header>
             }
           </DropdownButton>
+
+          {/* FormControl component from react-bootstrap */}
           <FormControl
             id="searchInput"
             placeholder="Search Recipes..."
@@ -570,6 +591,7 @@ const handleFirst = (number, totalPages, search) => {
 
         <ul className={searchStyles.listCards}>
 
+          {/* Loops through result array and displays each item */}
           {result.map(item => {
             return(
               <li 
@@ -604,6 +626,7 @@ const handleFirst = (number, totalPages, search) => {
 
       </div>
 
+      {/* Pagination component from react-bootstrap */}
       <Pagination className={searchStyles.pagination}>{pagination}</Pagination>
 
     </div>

@@ -1,6 +1,8 @@
-/* Google Maps API to show nearby grocery stores to order from when user
-checks out an order.
-*/
+/**
+ * Google Maps API to show nearby grocery stores to order from when user
+ * checks out an order.
+ */
+
 import React, { Component } from 'react';
 import { GOOGLE_MAP_API_KEY } from '../../apiKey' // API key
 import GoogleMapReact from 'google-map-react';

@@ -1,5 +1,22 @@
-// Returns the recommended amount of nutrients for user after filling out
-// questionnaire.
+/**
+ * Returns the recommended amount of nutrients for user after filling out 
+ * questionnaire.
+ * 
+ * Uses React Bootstrap Accordion, Card, Button, and Table to display
+ * results of Questionnaire.
+ * 
+ * Accordion
+ * @see https://react-bootstrap.github.io/components/accordion/
+ * 
+ * Card
+ * @see https://react-bootstrap.github.io/components/cards/
+ * 
+ * Button
+ * @see https://react-bootstrap.github.io/components/buttons/
+ * 
+ * Table
+ * @see https://react-bootstrap.github.io/components/table/
+ */
 
 import resultStyles from '../../styles/QuestionnaireResult.module.css'
 import Link from 'next/link'
@@ -124,7 +141,11 @@ const QuestionnaireResult = (props) => {
     <>
       <div className={resultStyles.body}>
         <h3>Your average dietary energy intake is <i>{user.eer}</i> kcal/day.</h3>
+
+        {/* Accordion component from react-bootstrap */}
         <Accordion defaultActiveKey="0" className="mt-4">
+
+          {/* Card component from react-bootstrap */}
           <Card>
             <Card.Header>
               <Accordion.Toggle as={Button} variant="link" eventKey="1" className={resultStyles.accordionButton}>
@@ -141,10 +162,12 @@ const QuestionnaireResult = (props) => {
                   </div>
                   <h2 className={resultStyles.dailyValueTitle}>Part 1 – Daily values for macronutrients and sodium</h2>
                   {
+                    // if the user is an infant - part 1: macronutrientsSodium
                     isInfants
-                      ?
+                    ?
                     <div>
                       {
+                        // Table component from react-bootstrap
                         <Table striped bordered hover>
                           <thead>
                             <tr>
@@ -154,6 +177,7 @@ const QuestionnaireResult = (props) => {
                           </thead>
                           <tbody>
                             {
+                              // Loops through macronutrientsSodium of infants section from json data and displays each nutrition item
                               data.infants.macronutrientsSodium.map(nut => {
                                 return(
                                   <tr key={nut.name}>
@@ -169,13 +193,15 @@ const QuestionnaireResult = (props) => {
                       <p>g = grams; mg = milligrams</p>
                     </div>
                       :
-                    null
-                  }
+                      null
+                    }
                   {
+                    // if the user is a child - part 1: macronutrientsSodium
                     isChildren
-                      ?
+                    ?
                     <div>
                       {
+                        // Table component from react-bootstrap
                         <Table striped bordered hover>
                           <thead>
                             <tr>
@@ -185,6 +211,7 @@ const QuestionnaireResult = (props) => {
                           </thead>
                           <tbody>
                             {
+                              // Loops through macronutrientsSodium of children section from json data and displays each nutrition item
                               data.children.macronutrientsSodium.map(nut => {
                                 return(
                                   <tr key={nut.name}>
@@ -200,13 +227,15 @@ const QuestionnaireResult = (props) => {
                       <p>g = grams; mg = milligrams</p>
                     </div>
                       :
-                    null
-                  }
+                      null
+                    }
                   {
+                    // if the user is an adult - part 1: macronutrientsSodium
                     isAdults
-                      ?
+                    ?
                     <div>
                       {
+                        // Table component from react-bootstrap
                         <Table striped bordered hover>
                           <thead>
                             <tr>
@@ -216,6 +245,7 @@ const QuestionnaireResult = (props) => {
                           </thead>
                           <tbody>
                             {
+                              // Loops through macronutrientsSodium of adults section from json data and displays each nutrition item
                               data.adults.macronutrientsSodium.map(nut => {
                                 return(
                                   <tr key={nut.name}>
@@ -231,14 +261,16 @@ const QuestionnaireResult = (props) => {
                       <p>g = grams; mg = milligrams</p>
                     </div>
                       :
-                    null
-                  }
+                      null
+                    }
                   <h2 className={resultStyles.dailyValueTitle2}>Part 2 – Daily values for vitamin and mineral nutrients</h2>
                   {
+                    // if the user is an infant - part 2: vitaminMineral
                     isInfants
-                      ?
+                    ?
                     <div>
                       {
+                        // Table component from react-bootstrap
                         <Table striped bordered hover>
                           <thead>
                             <tr>
@@ -248,9 +280,10 @@ const QuestionnaireResult = (props) => {
                           </thead>
                           <tbody>
                             {
+                              // Loops through vitaminMineral of infants section from json data and displays each nutrition item
                               data.infants.vitaminMineral.map(nut => {
                                 return(
-                                  <tr key={nut.name}>
+                                <tr key={nut.name}>
                                     <td><a href={nut.url} target="_blank" className={resultStyles.nut}>{nut.name}</a></td>
                                     <td>{nut.value}</td>
                                   </tr>
@@ -265,13 +298,15 @@ const QuestionnaireResult = (props) => {
                       <p>Calculations for vitamins are set out in Section D.01.003 of the Food and Drug Regulations.</p>
                     </div>
                       :
-                    null
-                  }
+                      null
+                    }
                   {
+                    // if the user is a children - part 2: vitaminMineral
                     isChildren
-                      ?
+                    ?
                     <div>
                       {
+                        // Table component from react-bootstrap
                         <Table striped bordered hover>
                           <thead>
                             <tr>
@@ -281,6 +316,7 @@ const QuestionnaireResult = (props) => {
                           </thead>
                           <tbody>
                             {
+                              // Loops through vitaminMineral of children section from json data and displays each nutrition item
                               data.children.vitaminMineral.map(nut => {
                                 return(
                                   <tr key={nut.name}>
@@ -298,13 +334,15 @@ const QuestionnaireResult = (props) => {
                       <p>Calculations for vitamins are set out in Section D.01.003 of the Food and Drug Regulations.</p>
                     </div>
                       :
-                    null
-                  }
+                      null
+                    }
                   {
+                    // if the user is an adult - part 2: vitaminMineral
                     isAdults
-                      ?
+                    ?
                     <div>
                       {
+                        // Table component from react-bootstrap
                         <Table striped bordered hover>
                           <thead>
                             <tr>
@@ -314,6 +352,7 @@ const QuestionnaireResult = (props) => {
                           </thead>
                           <tbody>
                             {
+                              // Loops through vitaminMineral of adults section from json data and displays each nutrition item
                               data.adults.vitaminMineral.map(nut => {
                                 return(
                                   <tr key={nut.name}>

@@ -1,20 +1,23 @@
-/* A history of orders the user has made. Has an external link to the
-store website and shows what items the user made.
+/**
+ * A history of orders the user has made. Has an external link to the
+ * store website and shows what items the user made.
+ * 
+ * Uses bootstrap Table for order table design.
+ * 
+ * Table
+ * @see https://react-bootstrap.github.io/components/table/
+ */
 
-Uses bootstrap Table for order table design.
-*/
 
 import firebase from 'firebase'
 import firebaseConfig from '../firebaseConfig'
 import { useState, useEffect } from 'react'
-import { useRouter } from 'next/router'
 import Link from 'next/link'
 import { connect } from 'react-redux'
 import { Table } from 'react-bootstrap'
 import ErrorPage from '../components/ErrorPage/ErrorPage'
 import DateFormatter from '../components/DateFormatter/DateFormatter'
 import orderhistoryStyles from '../styles/OrderHistory.module.css'
-import buttonStyles from '../styles/buttons.module.css'
 import orderStyles from '../styles/MyOrder.module.css'
 
 if (!firebase.apps.length) {
@@ -23,7 +26,6 @@ if (!firebase.apps.length) {
 let db = firebase.firestore()
 
 const OrderHistory = (props) => {
-  const router = useRouter()
   const [orderHistory, setOrderHistory] = useState([])
   
   useEffect(() => {
@@ -45,6 +47,7 @@ const OrderHistory = (props) => {
   }
 
   return (
+    // if the user is signed in
     props.currentUser
       ?
     <div className={orderhistoryStyles.mainBody}>
@@ -66,6 +69,8 @@ const OrderHistory = (props) => {
                   <a className={orderhistoryStyles.orderLink}>
                     <div>
                       <p className={orderhistoryStyles.orderedTo}>@{order.storeToVisit}</p>
+
+                      {/* Table component from react-bootstrap */}
                       <Table striped bordered>
                         <thead>
                           <tr>
@@ -106,6 +111,8 @@ const OrderHistory = (props) => {
           </div>
         }
       </div>
+
+      {/* Stylesheet for table and an icon */}
       <style jsx>{`
         th {
           font-size: 0.9rem;

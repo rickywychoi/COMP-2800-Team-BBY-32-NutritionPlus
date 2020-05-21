@@ -1,25 +1,29 @@
-/* The NavBar used everywhere on the site. Holds redirects for
-'Your recommended intake', 'Search an Item', 'Search recipes', and 'About Us'.
-Additional profile information such as 'My Account', 'My Meals', 'My Cart',
-and 'Order History'.
+/**
+ * The NavBar used everywhere on the site. Holds redirects for
+ * 'Your recommended intake', 'Search an Item', 'Search recipes', and 'About Us'.
+ * Additional profile information such as 'My Account', 'My Meals', 'My Cart',
+ * and 'Order History'.
+ * 
+ * Uses React Bootstrap Navbar and Nav to split the Navbar (similar to div), Popover
+ * for personal account management, and overlay to display the additional menu.
+ * 
+ * Navbar, Nav
+ * @see https://react-bootstrap.github.io/components/navbar/
+ * 
+ * Popover
+ * @see https://react-bootstrap.github.io/components/overlays/#popovers
+ * 
+ * Overlay
+ * @see https://react-bootstrap.github.io/components/overlays/
+ */
 
-Uses React Bootstrap Navbar and Nav to split the Navbar (similar to div), Popover
-for personal account management, and overlay to display the additional menu.
-*/
 import { Component, createRef } from 'react'
 import ReactDOM from 'react-dom'
 import { Navbar, Nav, Popover, Overlay } from 'react-bootstrap'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
 import { connect } from 'react-redux'
-import firebase from 'firebase'
-import firebaseConfig from '../../firebaseConfig'
 import navbarStyles from '../../styles/NavBar.module.css'
-
-if (!firebase.apps.length) {
-  firebase.initializeApp(firebaseConfig);
-}
-let db = firebase.firestore()
 
 const NavBarWithRouter = (props) => {
   const router = useRouter()
@@ -46,7 +50,7 @@ class NavBar extends Component {
   }
 
   render() {
-    const signout = e => {
+    const signout = () => {
       this.props.router.push("/login?signout=true")
     }
 
@@ -62,6 +66,7 @@ class NavBar extends Component {
 
     return (
       <>
+        {/* Navbar component from react-bootstrap */}
         <Navbar collapseOnSelect expand="lg" bg="dark" variant="dark">
           <Link href="/">
             <a className={navbarStyles.appTitleLink}>
@@ -102,7 +107,11 @@ class NavBar extends Component {
                         <p className={navbarStyles.signOutText}>Hello, {this.props.currentUser.displayName}</p>
                       </span>
                       <a id="myAccountPopover" ref={(a) => { this.target = a; }} onClick={toggleMyAccount} className={navbarStyles.myAccount}>My Account</a>
+                      
+                      {/* Overlay component from react-bootstrap */}
                       <Overlay show={this.state.showMyAccount} placement="bottom" target={ReactDOM.findDOMNode(this.target)}>
+                        
+                        {/* Popover component from react-bootstrap */}
                         <Popover id="popover-basic">
                           <Popover.Title as="h5" align="center"><Link href="/myaccount"><a className={navbarStyles.yourAccount}>Your Account</a></Link></Popover.Title>
                           <Popover.Content>

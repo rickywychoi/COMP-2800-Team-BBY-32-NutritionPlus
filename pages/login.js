@@ -1,6 +1,8 @@
-/* Utilizes Firebase's default login UI to allow a user to login via
-email and google. Redirects to landing page upon login.
-*/
+/**
+ * Utilizes Firebase's default login UI to allow a user to login via
+ * email and google. Redirects to landing page upon login.
+ */
+
 
 import Link from 'next/link'
 import { useRouter } from 'next/router'
@@ -106,6 +108,8 @@ class SignInScreen extends React.Component {
               <Link href="/"><a className="back" align="center" >Back to home</a></Link>
             </div>
           </div>
+
+          {/* Stylesheet for login popup */}
           <style jsx>{`
             .mainWrapper {
               display: flex;

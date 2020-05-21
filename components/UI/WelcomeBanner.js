@@ -1,10 +1,15 @@
-/* The welcome banner in the main page. React Bootstrap Button for 
-buttons to go between features
-*/
+/**
+ * The welcome banner in the main page. 
+ * React Bootstrap Button for buttons to go between features.
+ * 
+ * Uses icons from icons8.com for easter egg.
+ * @see https://icons8.com/icons
+ */
+
 
 import { useRouter } from 'next/router'
 import { Button } from 'react-bootstrap'
-import { useState, useEffect } from 'react'
+import { useState } from 'react'
 import bannerStyles from '../../styles/WelcomeBanner.module.css'
 
 const WelcomeBanner = React.forwardRef((props, ref) => {
@@ -63,7 +68,7 @@ const WelcomeBanner = React.forwardRef((props, ref) => {
   const randomGeneratorPos = (max) => {
     return Math.round((Math.random() * max) / 5) * 5;
   }
-  /*************************************************/
+  /*****************End of Easter Egg*****************/
 
   const toQuestionnaire = () => {
     router.push("/questionnaire")
@@ -96,14 +101,8 @@ const WelcomeBanner = React.forwardRef((props, ref) => {
             onClick={toQuestionnaire}
             >
             Calculate Your Required Energy Intake
-          </Button>        
-          {/* <Button 
-            variant="primary"
-            className="mr-2 mb-2" 
-            onClick={tomenuQuestionnaire}
-            >
-            Menu Questionnaire
-          </Button> */}
+          </Button>     
+
           <Button 
             variant="primary"
             className={bannerStyles.button} 

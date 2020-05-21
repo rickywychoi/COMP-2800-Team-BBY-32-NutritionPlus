@@ -1,3 +1,9 @@
+/**
+ * Displays account info, such as name, email, and joined date.
+ * 
+ * Includes deleting account option.
+ */
+
 import { useState, useEffect } from 'react'
 import DeleteAccount from '../../containers/DeleteAccount'
 import accountStyles from '../../styles/AccountPage.module.css'
@@ -28,6 +34,7 @@ const AccountPage = (props) => {
   }
 
   return (
+    // if the user is signed in
     props.currentUser
       ?
     <div className={accountStyles.mainBody}>
@@ -46,6 +53,8 @@ const AccountPage = (props) => {
         <p>Joined Date: <DateFormatter date={Date.parse(props.currentUser.metadata.creationTime)} /></p>
 
       </div>
+
+      {/* Deleting account */}
       <DeleteAccount />
     </div>
       :

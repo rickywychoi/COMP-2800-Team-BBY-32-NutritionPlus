@@ -1,5 +1,6 @@
-/* Our about us page.
-*/
+/**
+ * Our about us page.
+ */
  
 import aboutStyle from '../styles/About.module.css'
 

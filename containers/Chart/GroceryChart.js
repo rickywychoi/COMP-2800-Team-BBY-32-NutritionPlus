@@ -1,6 +1,17 @@
-/* Creates the chart with necessary nutrients on the chart for groceries.
-Uses react-bootstrap form to alternate between da=ily and weekly views.
-*/
+/**
+ * Creates the chart with necessary nutrients on the chart for groceries.
+ * Uses react-bootstrap form to alternate between da=ily and weekly views.
+ * 
+ * Uses react-chartjs-2.
+ * @see https://www.npmjs.com/package/react-chartjs-2
+ * 
+ * Uses MediaQuery component from react-responsive.
+ * @see https://www.npmjs.com/package/react-responsive
+ * 
+ * Uses Form component from react-bootstrap.
+ * @see https://react-bootstrap.github.io/components/forms/
+ */
+
 
 import { useState, useEffect } from 'react'
 import MediaQuery from 'react-responsive'
@@ -26,8 +37,6 @@ const Chart = (props) => {
   const [amountsPercentage, setAmountsPercentage] = useState([])
   const [dailyValue, setDailyValue] = useState([])
   const [isWeekly, setWeekly] = useState(false)
-
-  console.log(props)
 
   // called only when props.rawCart is changed
   useEffect(() => {
@@ -172,6 +181,8 @@ const Chart = (props) => {
           ?
         <div>
           <div style={{display: "flex", justifyContent: "center"}}>
+
+            {/* Form component from react-bootstrap */}
             <Form>
               <div style={{display: "flex"}}>
                 <p style={{marginRight: "10px"}}>Daily</p>
@@ -185,7 +196,11 @@ const Chart = (props) => {
               </div>
             </Form>
           </div>
+
+          {/* MediaQuery component from react-responsive; for desktop view */}
           <MediaQuery minDeviceWidth={500}>
+
+            {/* HorizontalBar component from react-chartjs-2 */}
             <HorizontalBar 
               data={data}
               options={{
@@ -204,9 +219,14 @@ const Chart = (props) => {
                   }]
                 }
               }}
-            />
+              />
           </MediaQuery>
+
+
+          {/* MediaQuery component from react-responsive; for mobile view */}
           <MediaQuery maxDeviceWidth={499}>
+
+            {/* HorizontalBar component from react-chartjs-2 */}
             <HorizontalBar 
               data={data}
               height={430}

@@ -1,9 +1,20 @@
-/* A list of grovery stores from which you can order your groceries.
-Grocery store data is static. Each store has its own url to redirect.
+/**
+ * A list of grovery stores from which you can order your groceries.
+ * Grocery store data is static. Each store has its own url to redirect.
+ * 
+ * Uses React Bootstrap Form to create the form and a drop-down menu to 
+ * select stores. Table is used to hold grocery store data.
+ * 
+ * Table
+ * @see https://react-bootstrap.github.io/components/table/
+ * 
+ * Form
+ * @see https://react-bootstrap.github.io/components/forms/
+ * 
+ * Dropdown
+ * @see https://react-bootstrap.github.io/components/dropdowns/
+ */
 
-Uses React Bootstrap Form to create the form and a drop-down menu to 
-select stores. Table is used to hold grocery store data.
-*/
 
 import { Table, Form, DropdownButton, Dropdown } from 'react-bootstrap'
 import MediaQuery from 'react-responsive'
@@ -89,8 +100,8 @@ const GroceryStores = (props) => {
 
   useEffect(()=>{
     if(navigator.geolocation)
-        navigator.geolocation.getCurrentPosition(showPosition);
-      },[])
+      navigator.geolocation.getCurrentPosition(showPosition);
+  },[])
 
   const showPosition = (position) =>{
     setLat(position.coords.latitude)
@@ -114,6 +125,8 @@ const GroceryStores = (props) => {
     <div className={groceryStoresStyles.main}>
       <div className={groceryStoresStyles.header}>
         <h4>Grocery Stores</h4>
+
+        {/* Form component from react-bootstrap */}
         <Form.Group controlId="formBasicGender" className="ml-3">
           <Form.Control required as="select" defaultValue="" onChange={handleStoreSelect}>
             <option disabled value="">Which store would you make an order to?</option>
@@ -128,6 +141,7 @@ const GroceryStores = (props) => {
           </Form.Control>
         </Form.Group>
       </div>
+
       {/* Media Query for min-device-width: 500px */}
       <MediaQuery minDeviceWidth={500}>
       <Table striped bordered hover>
@@ -145,19 +159,21 @@ const GroceryStores = (props) => {
                   <td><a href={store.url} target="_blank" className={groceryStoresStyles.stores} title={`Go to: ${store.url}`}>{store.name}</a></td>
                   <td>{store.option}</td>
                   <td>
+
+                    {/* Dropdown component from react-bootstrap */}
                     <DropdownButton alignRight variant="outline-secondary" title="Select an Item">
                       <Dropdown.Header><i>Find on {store.name} Website</i></Dropdown.Header>
                       {
                         myCart.map(item => {
                           return(
                             <Dropdown.Item
-                              key={handleStoreSearch(store.search, store.searchDelimiiter, item.description)}
+                            key={handleStoreSearch(store.search, store.searchDelimiiter, item.description)}
                               href={handleStoreSearch(store.search, store.searchDelimiter, item.description)}
                               target="_blank"
                               rel="noopener"
                               className={groceryStoresStyles.stores}
                               title={`Go to: ${handleStoreSearch(store.search, store.searchDelimiter, item.description)}`}
-                            >
+                              >
                               {item.description}
                             </Dropdown.Item>
                           )
@@ -183,7 +199,7 @@ const GroceryStores = (props) => {
        </thead>
        <tbody>
           {stores.map(store => {
-           return (
+            return (
               <tr key={store.id}>
                   <td>
                     <a href={store.url} target="_blank" className={groceryStoresStyles.stores} title={`Go to: ${store.url}`}>{store.name}</a>
@@ -191,6 +207,8 @@ const GroceryStores = (props) => {
                     <i>({store.option})</i>
                   </td>
                   <td>
+
+                    {/* Dropdown component from react-bootstrap */}
                     <DropdownButton alignRight variant="outline-secondary" title="Select an Item">
                       <Dropdown.Header><i>Find on {store.name} Website</i></Dropdown.Header>
                       {
@@ -226,6 +244,8 @@ const GroceryStores = (props) => {
         :null
         }
       </div>
+
+      {/* Stylesheet for each table row */}
       <style jsx>{`
         td {
           vertical-align: middle;

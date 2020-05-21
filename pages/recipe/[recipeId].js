@@ -1,9 +1,20 @@
-/* Obtains a recipe from the edamam API based on the user's search query
-and creates a page with the recipe details. 
+/**
+ * Obtains a recipe from the edamam API based on the user's search query
+ * and creates a page with the recipe details. 
+ * 
+ * Uses React Bootstrap Accordion to create a collapsable menu, Button for 'back',
+ * and 'Add to My Meals', and Card for expandable header.
+ * 
+ * Accordion
+ * @see https://react-bootstrap.github.io/components/accordion/
+ * 
+ * Button
+ * @see https://react-bootstrap.github.io/components/buttons/
+ * 
+ * Card
+ * @see https://react-bootstrap.github.io/components/cards/
+ */
 
-Uses bootstrap's Accordion to create a collapsable menu, Button for 'back',
-and 'Add to My Meals', and Card for expandable header.
-*/
 import Link from 'next/link'
 import { connect } from 'react-redux'
 import firebase from 'firebase'
@@ -12,7 +23,7 @@ import { Accordion, Button, Card } from 'react-bootstrap'
 import axios from 'axios'
 import { useState, useEffect, useRef } from 'react'
 import { useRouter } from 'next/router'
-import {  EDAMAM_RECIPE_APP_ID, EDAMAM_RECIPE_APP_KEY } from '../../apiKey'
+import { EDAMAM_RECIPE_APP_ID, EDAMAM_RECIPE_APP_KEY } from '../../apiKey'
 import RecipeChart from '../../containers/Chart/RecipeChart'
 import RecipeStyles from '../../styles/RecipeDetails.module.css'
 import buttonStyles from '../../styles/buttons.module.css'
@@ -25,7 +36,6 @@ let db = firebase.firestore()
 const RecipeDetails = (props) => {
   const router = useRouter()
   const str = router.asPath
-  const idJimmy = str.substring(56)
   const id = router.query.recipeId
   
   const url = `https://api.edamam.com/search?r=http%3A%2F%2Fwww.edamam.com%2Fontologies%2Fedamam.owl%23recipe_${id}&app_id=${EDAMAM_RECIPE_APP_ID}&app_key=${EDAMAM_RECIPE_APP_KEY}`
@@ -349,6 +359,7 @@ const RecipeDetails = (props) => {
         
         <a href = {''+result.url} target="_blank">See Directions</a>
 
+        {/* Accordion component from react-bootstrap */}
         <Accordion defaultActiveKey="0" className="mt-4">
           
             <Accordion.Toggle as={Button} variant="outline-primary" eventKey="1" className={RecipeStyles.accordionButton}>
@@ -368,7 +379,7 @@ const RecipeDetails = (props) => {
                               <th></th>
                             </tr>
                           </thead>
-                           <tbody className = {RecipeStyles.tbody}>      
+                          <tbody className = {RecipeStyles.tbody}>      
                             <tr>
                               <td className = {RecipeStyles.subHead}></td>
                               <td></td>
@@ -382,6 +393,7 @@ const RecipeDetails = (props) => {
                               <td className = {RecipeStyles.header}>% Daily Value*</td>
                             </tr>                     
                             {
+                              // Loops through nutrients array and displays each item
                               nutrients.map(nut => {
                                 return (
                                   nut.group.localeCompare("getLessOf") == 0
@@ -400,6 +412,8 @@ const RecipeDetails = (props) => {
                                           ?
                                         ""
                                           :
+
+                                        // Loops through userDailyValue array and displays each item
                                         userDailyValue.map(dv => {
                                           if (dv.id.localeCompare(nut.id) === 0) {
                                             return Math.ceil(nut.amount / dv.value) + "%"
@@ -415,6 +429,7 @@ const RecipeDetails = (props) => {
                           </tbody>  
                           <tfoot>
                             {
+                                // Loops through nutrients array and displays each item
                                 nutrients.map(nut => {
                                   return (
                                     nut.group.localeCompare("getMoreOf") == 0
@@ -429,6 +444,7 @@ const RecipeDetails = (props) => {
                                       </td>
                                       <td className = {RecipeStyles.daily}>
                                         {
+                                          // Loops through userDailyValue array and displays each item
                                           userDailyValue.map(dv => {
                                             if (dv.id.localeCompare(nut.id) === 0) {
                                               return Math.ceil(nut.amount / dv.value) + "%"
@@ -449,7 +465,10 @@ const RecipeDetails = (props) => {
                         null  
                           :
                         (
+                          // Accordion component from react-bootstrap
                           <Accordion style={{width: `${tableWidth}px`, margin: "0 auto"}} defaultActiveKey="0">
+
+                          {/* Card component from react-bootstrap */}
                           <Card>
                             <Card.Header>
                               <Accordion.Toggle as={Button} variant="link" eventKey="0">

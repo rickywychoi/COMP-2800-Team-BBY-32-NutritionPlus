@@ -1,3 +1,27 @@
+/**
+ * Obtains a grocery item from the USDA FDC API based on the user's search query
+ * and creates a page with the item details. 
+ * 
+ * Uses React Bootstrap Accordion to create a collapsable menu, Button for 'back',
+ * and 'Add to My Meals', Card for expandable header, Form to get inputs of item quantity,
+ * and Popover and OverlayTrigger to display quantity selection of item.
+ * 
+ * Accordion
+ * @see https://react-bootstrap.github.io/components/accordion/
+ * 
+ * Button
+ * @see https://react-bootstrap.github.io/components/buttons/
+ * 
+ * Card
+ * @see https://react-bootstrap.github.io/components/cards/
+ * 
+ * Popover, OverlayTrigger
+ * @see https://react-bootstrap.github.io/components/overlays/#popovers
+ * 
+ * Form
+ * @see https://react-bootstrap.github.io/components/forms/
+ */
+
 import { useRouter } from 'next/router'
 import Link from 'next/link'
 import { useState, useEffect, useRef } from 'react'
@@ -7,7 +31,7 @@ import { connect } from 'react-redux'
 import axios from 'axios'
 import firebase from 'firebase'
 import firebaseConfig from '../../firebaseConfig'
-import { GOOGLE_IMAGE_SEARCH_API_KEY, GOOGLE_IMAGE_SEARCH_CX, USDA_API_KEY } from '../../apiKey'
+import { USDA_API_KEY } from '../../apiKey'
 import detailStyles from '../../styles/ItemDetailsPage.module.css'
 import buttonStyles from '../../styles/buttons.module.css'
 
@@ -358,23 +382,28 @@ const ItemDetailsPage = (props) => {
   }
 
   const popover = (
-    <Popover id="popover-basic">
-      <Popover.Title as="h3" className={detailStyles.popupTitle}>Quantity</Popover.Title>
-      <Popover.Content>
-        <Form noValidate validated={qtyValidated} onSubmit={handleSubmit}>
-          <div className={detailStyles.quantityButtonWrapper}>
-            <Button variant="outline-danger" onClick={decrementQuantity} className={detailStyles.decrement}>-</Button>
-            <Form.Control className={detailStyles.quantityInput} size="sm" type="number" value={quantity} onChange={handleQtyChange} />
-            <Form.Control.Feedback type="invalid">
-              Please confirm the quantity.
-            </Form.Control.Feedback>
-            <Button variant="outline-primary" onClick={incrementQuantity} className={detailStyles.increment}>+</Button>
-          </div>
-          <Button variant="outline-danger" onClick={resetQuantity} className={detailStyles.reset}>Reset</Button>
-          <button type="submit" onClick={toMyCart} className={detailStyles.checkoutButton}>Save item(s) to My Cart</button> 
-        </Form>
-      </Popover.Content>
-    </Popover>
+    <>
+      {/* Popover component from react-bootstrap */}
+      <Popover id="popover-basic">
+        <Popover.Title as="h3" className={detailStyles.popupTitle}>Quantity</Popover.Title>
+        <Popover.Content>
+          
+          {/* Form component from react-bootstrap */}
+          <Form noValidate validated={qtyValidated} onSubmit={handleSubmit}>
+            <div className={detailStyles.quantityButtonWrapper}>
+              <Button variant="outline-danger" onClick={decrementQuantity} className={detailStyles.decrement}>-</Button>
+              <Form.Control className={detailStyles.quantityInput} size="sm" type="number" value={quantity} onChange={handleQtyChange} />
+              <Form.Control.Feedback type="invalid">
+                Please confirm the quantity.
+              </Form.Control.Feedback>
+              <Button variant="outline-primary" onClick={incrementQuantity} className={detailStyles.increment}>+</Button>
+            </div>
+            <Button variant="outline-danger" onClick={resetQuantity} className={detailStyles.reset}>Reset</Button>
+            <button type="submit" onClick={toMyCart} className={detailStyles.checkoutButton}>Save item(s) to My Cart</button> 
+          </Form>
+        </Popover.Content>
+      </Popover>
+    </>
   );
 
   if (result.foodPortions) {
@@ -386,12 +415,16 @@ const ItemDetailsPage = (props) => {
       <div className={detailStyles.buttonWrapper}>
         <Button variant="secondary" className={buttonStyles.button} onClick={goBack}><span><MdArrowBack /> Back</span></Button>
         {
+          // if the user is signed in
           props.currentUser
             ?
           (
-            <OverlayTrigger trigger="click" placement="bottom" overlay={popover}>
-              <Button variant="success" className={buttonStyles.button} onClick={addToCart}>Add to Cart</Button>
-            </OverlayTrigger>
+            <>
+              {/* OverlayTrigger component from react-bootstrap */}
+              <OverlayTrigger trigger="click" placement="bottom" overlay={popover}>
+                <Button variant="success" className={buttonStyles.button} onClick={addToCart}>Add to Cart</Button>
+              </OverlayTrigger>
+            </>
           )
             :
           null
@@ -416,39 +449,6 @@ const ItemDetailsPage = (props) => {
             }
           })}
         </i></p>
-        {/* {
-          !itemImg
-            ?
-          (
-            <div>
-              <div className={detailStyles.imgFrame}>
-                <img src={itemImg.src} alt={"itemImage of " + itemName} className={detailStyles.img}/>
-              </div>
-              <span className={detailStyles.report}>
-                <p>Is this image inappropriate?</p>
-                <a onClick={reportWrongImg} className={detailStyles.reportButton}>Report</a>
-              </span>
-            </div>
-          )
-            :
-          (
-            <div>
-              <span className={detailStyles.report}>
-                <p><i>Image unavailable due to API issue.</i></p>
-                <a onClick={showErrorMessage} className={detailStyles.reportButton}>
-                  {!showErrorMsg ? "Why?" : "Close"}
-                </a>
-              </span>
-              {
-                showErrorMsg
-                  ?
-                <code>{errorMsg}</code>
-                :
-                null
-              }
-            </div>
-          )
-        } */}
         <div className={detailStyles.tableWrapper}>
           <table className={detailStyles.table} ref={tableRef}>
             <thead className={detailStyles.thead}>
@@ -495,6 +495,7 @@ const ItemDetailsPage = (props) => {
                 <td className = {detailStyles.header}>% Daily Value*</td>
               </tr>
               {
+                // Loops through nutrients array and displays each item
                 nutrients.map(nut => {
                   return (
                     nut.group.localeCompare("getLessOf") == 0
@@ -510,9 +511,9 @@ const ItemDetailsPage = (props) => {
                       <td className = {detailStyles.daily}>
                         {
                           nut.name.localeCompare("Protein") === 0 || nut.name.localeCompare("Sugars, total including NLEA") === 0
-                            ?
+                          ?
                           ""
-                            :
+                          :
                           userDailyValue.map(dv => {
                             if (dv.id.localeCompare(nut.id) === 0) {
                               return Math.ceil(100 * nut.amount / dv.value) + "%"
@@ -522,19 +523,20 @@ const ItemDetailsPage = (props) => {
                       </td>
                     </tr>
                       :
-                    null
-                  )
+                      null
+                      )
                 })
               }
             </tbody>
             <tfoot>
             {
+                // Loops through nutrients array and displays each item
                 nutrients.map(nut => {
                   return (
                     nut.group.localeCompare("getMoreOf") == 0
-                      ?
+                    ?
                     <tr key={nut.id}
-                      className = {detailStyles.nutrient}>
+                    className = {detailStyles.nutrient}>
                       <td>
                         <div>
                           <strong className={detailStyles.name}>{nut.name}</strong>
@@ -559,62 +561,69 @@ const ItemDetailsPage = (props) => {
             </tfoot>
           </table>
           {
+            // if there are no additional nutrients in this item
             additionalNutrients === null || additionalNutrients.length == 0 
               ?
             null  
               :
             (
-              <Accordion style={{width: `${tableWidth}px`, margin: "0 auto"}} defaultActiveKey="0">
-              <Card>
-                <Card.Header>
-                  <Accordion.Toggle as={Button} variant="link" eventKey="0">
-                    Additional nutrients
-                  </Accordion.Toggle>
-                </Card.Header>
-                <Accordion.Collapse eventKey="0">
-                  <Card.Body style={{padding: "0"}}>
-                  <table className={detailStyles.table2} >
-                    <tbody className={detailStyles.tbody}>
-                      {
-                        additionalNutrients.map(nut => {
-                          return (
-                            nut.group.localeCompare("additional") == 0
-                              ?
-                              <tr key={nut.id}
-                              className = {detailStyles.nutrient}>
-                                <td>
-                                  <div>
-                                    <strong className = {detailStyles.name}>{nut.name}</strong>
-                                    <strong className = {detailStyles.amount}>{nut.amount}{nut.unitName}</strong>
-                                  </div>
-                                </td>
-                                <td className = {detailStyles.daily}>
-                                  {
-                                    userDailyValue.map(dv => {
-                                      if (dv.id.localeCompare(nut.id) === 0) {
-                                        return Math.ceil(100 * nut.amount / dv.value) + "%"
-                                      }
-                                    })
-                                  }
-                                </td>
-                            </tr>
-                              :
-                            null
-                          )
-                        })
-                      }
-                      <tr>
-                        <td className = {detailStyles.dv}>
-                          *The % Daily Value (DV) tells you how much a nutrient in a food serving contributes to a daily diet. It is calculated using your required energy intake.<br/>If you can't see % Daily Value, visit <Link href="/questionnaire?firsttime=true"><a>here</a></Link> to get your daily value first.
-                        </td>
-                        <td></td>
-                      </tr>
-                    </tbody>
-                  </table>
-                  </Card.Body>
-                </Accordion.Collapse>
-              </Card>
-              </Accordion>
+              <>
+                {/* Accordion component from react-bootstrap */}
+                <Accordion style={{width: `${tableWidth}px`, margin: "0 auto"}} defaultActiveKey="0">
+
+                {/* Card component from react-bootstrap */}
+                <Card>
+                  <Card.Header>
+                    <Accordion.Toggle as={Button} variant="link" eventKey="0">
+                      Additional nutrients
+                    </Accordion.Toggle>
+                  </Card.Header>
+                  <Accordion.Collapse eventKey="0">
+                    <Card.Body style={{padding: "0"}}>
+                    <table className={detailStyles.table2} >
+                      <tbody className={detailStyles.tbody}>
+                        {
+                          // Loops through additionalNutrients array and displays each nutirent
+                          additionalNutrients.map(nut => {
+                            return (
+                              nut.group.localeCompare("additional") == 0
+                                ?
+                                <tr key={nut.id}
+                                className = {detailStyles.nutrient}>
+                                  <td>
+                                    <div>
+                                      <strong className = {detailStyles.name}>{nut.name}</strong>
+                                      <strong className = {detailStyles.amount}>{nut.amount}{nut.unitName}</strong>
+                                    </div>
+                                  </td>
+                                  <td className = {detailStyles.daily}>
+                                    {
+                                      userDailyValue.map(dv => {
+                                        if (dv.id.localeCompare(nut.id) === 0) {
+                                          return Math.ceil(100 * nut.amount / dv.value) + "%"
+                                        }
+                                      })
+                                    }
+                                  </td>
+                              </tr>
+                                :
+                              null
+                            )
+                          })
+                        }
+                        <tr>
+                          <td className = {detailStyles.dv}>
+                            *The % Daily Value (DV) tells you how much a nutrient in a food serving contributes to a daily diet. It is calculated using your required energy intake.<br/>If you can't see % Daily Value, visit <Link href="/questionnaire?firsttime=true"><a>here</a></Link> to get your daily value first.
+                          </td>
+                          <td></td>
+                        </tr>
+                      </tbody>
+                    </table>
+                    </Card.Body>
+                  </Accordion.Collapse>
+                </Card>
+                </Accordion>
+              </>
             )
           }
         </div>

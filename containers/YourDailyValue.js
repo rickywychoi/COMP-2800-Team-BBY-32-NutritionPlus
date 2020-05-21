@@ -1,7 +1,12 @@
-/* Your daily values calculated from user input. 
+/**
+ * Your daily values calculated from user input. 
+ * 
+ * Uses React Bootstrap Table for simple table design.
+ * 
+ * Table
+ * @see https://react-bootstrap.github.io/components/table/
+ */
 
-Uses bootstrap Table for simple table design.
-*/
 
 import resultStyles from '../styles/QuestionnaireResult.module.css'
 import Link from 'next/link'
@@ -50,6 +55,8 @@ const YourDailyValue = (props) => {
           </div>
           <h2 className={resultStyles.dailyValueTitle}>Part 1 – Daily values for macronutrients and sodium</h2>
           <div>
+
+            {/* Table component from react-bootstrap */}
             <Table striped bordered hover>
               <thead>
                 <tr>
@@ -76,6 +83,8 @@ const YourDailyValue = (props) => {
           </div>
           <h2 className={resultStyles.dailyValueTitle2}>Part 2 – Daily values for vitamin and mineral nutrients</h2>
           <div>
+
+              {/* Table component from react-bootstrap */}
               <Table striped bordered hover>
                 <thead>
                   <tr>
@@ -112,6 +121,7 @@ const YourDailyValue = (props) => {
     )
   }
   return (
+    // if the page is loaded
     isLoaded
       ?
     <div className={resultStyles.noValueYet}>

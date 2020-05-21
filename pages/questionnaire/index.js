@@ -1,4 +1,7 @@
-// entryuserinput/index.js
+/**
+ * Index page of Questionnaire.
+ */
+
 import Questionnaire from '../../containers/Questionnaire'
 
 const QuestionnairePage = () => {

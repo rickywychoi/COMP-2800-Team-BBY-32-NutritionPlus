@@ -1,4 +1,10 @@
-// app.js
+/**
+ * Top-level app.
+ * @see https://nextjs.org/docs/advanced-features/custom-app
+ * 
+ * Uses Redux to manage information of currently signed-in user in the app.
+ * @see https://redux.js.org/introduction/getting-started
+ */
 
 import '../styles/global.css'
 import 'bootstrap/dist/css/bootstrap.min.css'

@@ -1,18 +1,20 @@
-/* My Meals page to display any recipes that have been added to Firebase.
+/**
+ * My Meals page to display any recipes that have been added to Firebase.
+ * 
+ * Uses React Bootstrap Table for table design.
+ * 
+ * Table
+ * @see https://react-bootstrap.github.io/components/table/
+ */
 
-Uses bootstrap buttons for Button design and Table for table design.
-*/
 
 import firebase from 'firebase'
 import firebaseConfig from '../firebaseConfig'
-import { useRouter } from 'next/router'
 import { connect } from 'react-redux'
 import { useState, useEffect } from 'react'
 import * as actions from '../store/actions'
-import GroceryStores from '../containers/GroceryStores'
 import ErrorPage from '../components/ErrorPage/ErrorPage'
-import { Button, Table } from 'react-bootstrap'
-import buttonStyles from '../styles/buttons.module.css'
+import { Table } from 'react-bootstrap'
 import DateFormatter from '../components/DateFormatter/DateFormatter'
 import RecipeChart from '../containers/Chart/RecipeChart'
 import orderStyles from '../styles/MyOrder.module.css'
@@ -23,7 +25,6 @@ if (!firebase.apps.length) {
 let db = firebase.firestore()
 
 const MyMeals = (props) => {
-  const router = useRouter()
   const [myRecipes, setMyRecipes] = useState([])
 
   const sortArrayDesc = (arr) => {
@@ -40,12 +41,15 @@ const MyMeals = (props) => {
   }, [])
 
   return (
+    // if the user is signed in
     props.currentUser
       ?
     <div className={orderStyles.mainBody}>
       <div className={orderStyles.contents}>
         <h2>My Meals</h2>
         <div className={orderStyles.table}>
+
+          {/* Table component from react-bootstrap */}
           <Table striped bordered>
             <thead>
               <tr>
@@ -55,8 +59,10 @@ const MyMeals = (props) => {
             </thead>
             <tbody>
               {
+                // if there's an item in myRecipes
                 myRecipes.length > 0
                   ?
+                // Loop through myRecipes array and displays each item
                 myRecipes.map(item => {
                   return (
                     <tr>
@@ -68,7 +74,7 @@ const MyMeals = (props) => {
                       </td>
                       <td>
                         <p className={orderStyles.quantity}>
-                            <DateFormatter date={item.addedAt.toDate()}/>
+                          <DateFormatter date={item.addedAt.toDate()}/>
                         </p>
                       </td>
                     </tr>
@@ -82,6 +88,8 @@ const MyMeals = (props) => {
             </tbody>
           </Table>
         </div>
+        
+        {/* Nutrition composition chart */}
         <RecipeChart rawCart = {myRecipes}/>
       </div>
       <style jsx>{`

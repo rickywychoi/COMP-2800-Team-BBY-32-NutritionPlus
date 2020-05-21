@@ -1,6 +1,17 @@
-// Provides information about an order that's been placed with groceries the
-// users have selected. Uses bootstrap's Button and Table for the respective
-// buttons and table designs.
+/**
+ * Provides information about an order that's been placed with groceries the
+ * users have selected. Uses React Bootstrap Button and Table for the respective
+ * buttons and table designs.
+ * 
+ * Uses MediaQuery component from react-responsive.
+ * @see https://www.npmjs.com/package/react-responsive
+ * 
+ * Button
+ * @see https://react-bootstrap.github.io/components/buttons/
+ * 
+ * Table
+ * @see https://react-bootstrap.github.io/components/table/
+ */
 
 import firebase from 'firebase'
 import firebaseConfig from '../../../firebaseConfig'
@@ -140,6 +151,7 @@ const ArchivedOrderDetail = (props) => {
       <div style={{marginTop: "1rem"}}>
         <h3 className="header">Order made to <a href={storeUrl} target="_blank" className="storeLink">{store}</a></h3>
         {orderedAt ? <p><DateFormatter date={orderedAt.toDate()}/></p> : null}
+
         {/* Media Query for min-device-width: 500px */}
         <MediaQuery minDeviceWidth={500}>
           <div className={cartStyles.table}>
@@ -241,8 +253,12 @@ const ArchivedOrderDetail = (props) => {
             </Table>
           </div>
         </MediaQuery>
+
+        {/* Nutrition composition chart */}
         <Chart rawCart={rawCart} />
       </div>
+
+      {/* Stylesheet for this page */}
       <style jsx>{`
         td {
           vertical-align: middle;

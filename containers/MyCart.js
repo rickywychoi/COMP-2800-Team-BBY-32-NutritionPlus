@@ -1,9 +1,23 @@
-/* Displays items from Firebase in the cart.
+/**
+ * Displays items from Firebase in the cart.
+ * 
+ * Uses bootstrap Button for button design, Table for cart table design, 
+ * Dropdown Button for recipe search, Dropdown for items, and Form for
+ * Quantity field.
+ * 
+ * Button
+ * @see https://react-bootstrap.github.io/components/buttons/
+ * 
+ * Table
+ * @see https://react-bootstrap.github.io/components/table/
+ * 
+ * Dropdown
+ * @see https://react-bootstrap.github.io/components/dropdowns/
+ * 
+ * Form
+ * @see https://react-bootstrap.github.io/components/forms/
+ */
 
-Uses bootstrap Button for button design, Table for cart table design, 
-Dropdown Button for recipe search, Dropdown for items, and Form for
-Quantity field.
-*/
 
 import firebase from 'firebase'
 import firebaseConfig from '../firebaseConfig'
@@ -342,8 +356,11 @@ const MyCart = (props) => {
           myCart.length > 0
           ?
             <div>
+
+              {/* Dropdown component from react-bootstrap */}
               <DropdownButton alignRight variant="outline-success" className={buttonStyles.button} title={<span><FaSearch /> Recipes</span>}>
                 {
+                  // Loops through myCart array and displays each item
                   myCart.map(item => {
                     return(
                       <Dropdown.Item>
@@ -365,9 +382,12 @@ const MyCart = (props) => {
       </div>
       
       <h2 style={{marginTop: "1.5rem"}}>My Cart</h2>
+
       {/* Media Query for min-device-width: 500px */}
       <MediaQuery minDeviceWidth={500}>
         <div className={cartStyles.table}>
+
+          {/* Table component from react-bootstrap */}
           <Table striped bordered>
             <thead>
               <tr>
@@ -380,8 +400,10 @@ const MyCart = (props) => {
             </thead>
             <tbody>
               {
+                // if there's an item in myCart
                 myCart.length > 0
-                  ?
+                ?
+                // Loops through myCart array and displays each item
                 myCart.map(item => {
                   return (
                     <tr key={item.fdcId}>
@@ -389,7 +411,7 @@ const MyCart = (props) => {
                         <Link 
                           href={{pathname: '/search/[fdcId]', query: {itemname: (item.brandOwner ? item.description + " - " + item.brandOwner : item.description)}}} 
                           as={`/search/${item.fdcId}?itemname=${item.brandOwner ? item.description + " - " + item.brandOwner : item.description}`}
-                        >
+                          >
                           <a className={listStyles.itemLink}>
                                 {item.description}
                                 {item.brandOwner ? " - " + item.brandOwner : null}
@@ -425,8 +447,8 @@ const MyCart = (props) => {
                     </tr>
                   )
                 })
-                  :
-                  <tr>
+                :
+                <tr>
                   <td colSpan="5" align="center" style={{padding: "1rem 0"}}>Your cart is empty.</td>
                 </tr>
               }
@@ -438,6 +460,8 @@ const MyCart = (props) => {
       {/* Media Query for max-device-width: 499px */}
       <MediaQuery maxDeviceWidth={499}>
         <div className={cartStyles.table}>
+
+          {/* Table component from react-bootstrap */}
           <Table striped bordered hover>
             <thead>
               <tr>
@@ -449,8 +473,10 @@ const MyCart = (props) => {
             </thead>
             <tbody>
               {
+                // if there's an item in myCart
                 myCart.length > 0
                 ?
+                // Loops through myCart array and displays each item
                 myCart.map(item => {
                   return (
                     <tr key={item.fdcId}>
@@ -487,6 +513,7 @@ const MyCart = (props) => {
         </div>
       </MediaQuery>
       {
+        // if there's an item in myCart
         myCart.length > 0
           ?
         <div>
@@ -494,6 +521,8 @@ const MyCart = (props) => {
             <Button variant="primary" className={buttonStyles.button} onClick={toMyOrder}>Checkout</Button>
           </div>
           <br></br>
+          
+          {/* Nutrition composition chart */}
           <GroceryChart rawCart={rawCart} />
         </div>
           :
