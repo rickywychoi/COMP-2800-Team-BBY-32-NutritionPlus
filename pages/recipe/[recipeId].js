@@ -34,12 +34,15 @@ if (!firebase.apps.length) {    // if firebase not initialized
 let db = firebase.firestore()
 
 const RecipeDetails = (props) => {
+  // get params from the router
   const router = useRouter()
   const str = router.asPath
   const id = router.query.recipeId
   
+  // API 
   const url = `https://api.edamam.com/search?r=http%3A%2F%2Fwww.edamam.com%2Fontologies%2Fedamam.owl%23recipe_${id}&app_id=${EDAMAM_RECIPE_APP_ID}&app_key=${EDAMAM_RECIPE_APP_KEY}`
-  
+
+  // Make state for the following variables
   const [result, setResult] = useState({})
   const [ing, setIng] = useState([])
   const [nutrients, setNutrients] = useState([])

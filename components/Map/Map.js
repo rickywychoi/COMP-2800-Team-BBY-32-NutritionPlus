@@ -8,8 +8,10 @@ import { GOOGLE_MAP_API_KEY } from '../../apiKey' // API key
 import GoogleMapReact from 'google-map-react';
 import { useState, useEffect} from 'react'
 
+// User position icon
 const MyPositionMarker = ({ icon }) => <img style={{ height: '40px', width: '40px' }} src={icon} />
 
+// Grocery store icon and name
 const Marker = props => (
   <React.Fragment>
     <div>
@@ -19,6 +21,7 @@ const Marker = props => (
   </React.Fragment>
 )
 
+// Initiate the map with props
 const SimpleMap = (props) => {
   // User Location
   const [myPosition, setMyPosition] = useState({
@@ -26,18 +29,21 @@ const SimpleMap = (props) => {
     lng: props.lng
   })
 
+  // Make state for following variables
   const [mapApiLoaded, setMapApiLoaded] = useState(false)
   const [mapInstance, setMapInstance] = useState(null)
   const [mapApi, setMapApi] = useState(null)
   const [places, setPlaces] = useState([])
   const [searchType, setSearchType] = useState('grocery_or_supermarket')  
 
+  // Loading map
   const apiHasLoaded = (map, maps) => {
     setMapInstance(map)
     setMapApi(maps)
     setMapApiLoaded(true)
   };
 
+  // Keep user location at the center of the map
   const handleCenterChange = () => {
     if(mapApiLoaded) {
       setMyPosition({
@@ -48,6 +54,7 @@ const SimpleMap = (props) => {
     }
   }
 
+  // Find Grocery locations
   const findLocation = () => {
     if(mapApiLoaded) {
       const service = new mapApi.places.PlacesService(mapInstance)
@@ -66,6 +73,7 @@ const SimpleMap = (props) => {
     }
   }
 
+  // state changing for find grocery location and display markers
   useEffect(() => {
     findLocation()
   },[mapApiLoaded,searchType, myPosition])
