@@ -346,23 +346,23 @@ const MyCart = (props) => {
           myCart.length > 0
             ?
             <div>
-            <DropdownButton alignRight variant="outline-success" className={buttonStyles.button} title={<span><FaSearch /> Recipes</span>}>
-              {
-                myCart.map(item => {
-                  return(
-                    <Dropdown.Item>
-                      <Link
-                        href={{ pathname:"/recipe?item=[item]" }}
-                        as={`/recipe?item=${item.description}`}
-                      >
-                        {item.description}
-                      </Link>
-                    </Dropdown.Item>
-                  )
-                })
-              }
-            </DropdownButton>
-          </div>
+              <DropdownButton alignRight variant="outline-success" className={buttonStyles.button} title={<span><FaSearch /> Recipes</span>}>
+                {
+                  myCart.map(item => {
+                    return(
+                      <Dropdown.Item>
+                        <Link
+                          href={{ pathname:"/recipe?item=[item]" }}
+                          as={`/recipe?item=${item.description}`}
+                        >
+                          {item.description}
+                        </Link>
+                      </Dropdown.Item>
+                    )
+                  })
+                }
+              </DropdownButton>
+            </div>
             :
           null
         }
