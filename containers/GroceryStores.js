@@ -34,7 +34,7 @@ const GroceryStores = (props) => {
       name: "Save-On-Foods",
       url: "https://shop.saveonfoods.com/store/D28B1082/?NoStoreTracking=true&_ga=2.85212121.1797111341.1589214006-1345666087.1589214006/#/locator?queries=fq%3DMwgService%253AShop2GroPickup%26take%3D999%26_%3D1589215309953%26skip%3D0%26region%3DBC",
       option: "pickup/delivery", // can improve
-      search: "https://shop.saveonfoods.com/store/29EE1182?FulfillmentSignal=pickup#/search/[item]",
+      search: "https://shop.saveonfoods.com/store/4D301125?FulfillmentSignal=pickup#/search/[item]",
       searchDelimiter: "%20"
     },
     {
@@ -50,7 +50,7 @@ const GroceryStores = (props) => {
       name: "IGA",
       url: "https://shop.igabc.com/",
       option: "pickup only",
-      search: "https://shop.igabc.com/port_moody#/search?q=[item]",
+      search: "https://shop.igabc.com/vancouver_robson#/search?q=[item]",
       searchDelimiter: "%20"
     },
     {
