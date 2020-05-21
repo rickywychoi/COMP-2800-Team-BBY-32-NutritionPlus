@@ -2,13 +2,13 @@
 
 Nutrition+ encourages users to have a balanced diet and analyze meals during the COVID-19 pandemic.
 
-# Acknowledgement
+## Acknowledgement
 
 Thank you to [React Bootstrap](https://react-bootstrap.github.io/), ColorLib 404 v3, [Lukehaas's CSS Loading Spinners](https://lukehaas.me/projects/), and [Icons8](icons8.com/icons) for helping in designing our app.
 
 Nutrition+ uses [Health Canada's table of daily values](https://www.canada.ca/en/health-canada/services/technical-documents-labelling-requirements/table-daily-values/nutrition-labelling.html#p1) to create your daily result.
 
-# Main Features
+## Main Features
 
 The main features our app includes are:
 - a questionnaire for analyzing individual nutrition requirements,
