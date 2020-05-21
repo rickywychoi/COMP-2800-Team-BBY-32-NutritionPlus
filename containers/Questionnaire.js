@@ -13,7 +13,6 @@
 
 
 import { useState } from 'react'
-
 import { Form, Button } from 'react-bootstrap'
 import { MdArrowBack } from 'react-icons/md'
 import PopOver from '../components/UI/PopOver'
@@ -25,7 +24,10 @@ import { useRouter } from 'next/router'
 
 const Questionnaire = (props) => {
   const router = useRouter()
+
+  // to check if the form is ready to be submitted
   const [validated, setValidated] = useState(false);
+  // sets the details of user
   const [userInfo, setUserInfo] = useState({
     age: 0,
     gender: "male",
@@ -177,6 +179,7 @@ const Questionnaire = (props) => {
 
     setUserInfo({ ...userInfo, eer: Math.ceil(eer), pa: pa })
 
+    // if the form is ready to be submitted, send user information to application's state and route to the result page
     if (validated) {
       props.onSubmitEntryUserInput(userInfo)
       router.push("/questionnaire/result")
@@ -187,8 +190,6 @@ const Questionnaire = (props) => {
   const goBack = () => {
     router.back()
   }
-
-  console.log(router)
 
   return (
     <div className={questionStyles.body}>
@@ -335,6 +336,7 @@ const Questionnaire = (props) => {
   )
 }
 
+// contains the dispatch action to send details of health information to the application's state
 const mapDispatchToProps = dispatch => {
   return {
     onSubmitEntryUserInput: (userInfo) => dispatch({type: actions.SUBMITENTRYUSERINPUT, payload: userInfo})

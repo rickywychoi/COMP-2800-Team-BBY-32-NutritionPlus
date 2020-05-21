@@ -109,6 +109,8 @@ const SimpleMap = (props) => {
           />
         ))}
       </GoogleMapReact>
+
+      {/* Stylesheet for the map */}
       <style>{`
         .mainBody {
           height: 85vh;

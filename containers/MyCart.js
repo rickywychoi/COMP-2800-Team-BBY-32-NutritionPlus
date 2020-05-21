@@ -38,6 +38,7 @@ import listStyles from '../styles/SearchList.module.css'
 import buttonStyles from '../styles/buttons.module.css'
 import ErrorPage from '../components/ErrorPage/ErrorPage'
 
+// firebase settings
 if (!firebase.apps.length) {
   firebase.initializeApp(firebaseConfig);
 }
@@ -47,13 +48,18 @@ const MyCart = (props) => {
   const router = useRouter()
   // my cart with repeating single items
   const [rawCart, setRawCart] = useState([])
-  // my cart with quantity
+  // my cart with quantity counted
   const [myCart, setMyCart] = useState([])
+  // are the items ordered in descending/ascending order of date?
   const [isDesc, setDesc] = useState(true)
   
   // sets raw cart with repeating single items, and my cart with array in descending qty
   useEffect(() => {
+
+    // if the user is signed in
     if (props.currentUser) {
+
+      // gets grocery items of the user from firebase
       db.collection('users').doc(props.currentUser.uid).get().then(userInfo => {
         setRawCart(userInfo.data().cart)
         let arrayWithQuantity = getQuantity(userInfo.data().cart)
@@ -62,7 +68,7 @@ const MyCart = (props) => {
     }
   }, [])
   
-  // get quantity of each item
+  // gets quantity of each item from repeating single items
   const getQuantity = (arr) => {
     let result = []
     let visited = []
@@ -158,6 +164,7 @@ const MyCart = (props) => {
           }
         })
         
+        // updates cart items to firebase
         db.collection('users').doc(props.currentUser.uid).update({
           cart: cart
         }).then(res => {
@@ -176,6 +183,8 @@ const MyCart = (props) => {
   
   // decrements an item's quantity by 1
   const decrementQuantity = (id) => {
+
+    // if the user is signed in
     if (props.currentUser) {
       // get previous quantity from item
       let qty = 0
@@ -220,6 +229,8 @@ const MyCart = (props) => {
         cart.push(itemWithoutQty)
       }
     })
+
+    // updates cart items to firebase
     db.collection('users').doc(props.currentUser.uid).update({
       cart: cart
     }).then(res => {
@@ -231,7 +242,7 @@ const MyCart = (props) => {
     setMyCart(isDesc ? sortArrayDesc(arrayWithQuantity) : sortArrayAsc(arrayWithQuantity))
   }
 
-  // change the quantity of an item directly
+  // changes the quantity of an item directly using input field
   const handleQtyChange = (id, e) => {
     console.log(id)
     console.log(e.target.value)
@@ -280,6 +291,7 @@ const MyCart = (props) => {
           }
         })
         
+        // updates cart items to firebase
         db.collection('users').doc(props.currentUser.uid).update({
           cart: cart
         }).then(res => {
@@ -297,6 +309,8 @@ const MyCart = (props) => {
 
   // deletes the item from my cart
   const deleteItem = (id) => {
+
+    // if the user is signed in
     if (props.currentUser) {
       if (confirm("Are you sure to remove this item?")) {
         // get previous quantity from item
@@ -327,6 +341,7 @@ const MyCart = (props) => {
           }
         })
         
+        // updates cart items to firebase
         db.collection('users').doc(props.currentUser.uid).update({
           cart: cart
         }).then(res => {
@@ -521,7 +536,7 @@ const MyCart = (props) => {
             <Button variant="primary" className={buttonStyles.button} onClick={toMyOrder}>Checkout</Button>
           </div>
           <br></br>
-          
+
           {/* Nutrition composition chart */}
           <GroceryChart rawCart={rawCart} />
         </div>
@@ -539,12 +554,14 @@ const MyCart = (props) => {
       )
 }
 
+// contains the application's state - the current user object
 const mapStateToProps = state => {
   return {
     currentUser: state.currentUser
   }
 }
 
+// contains the dispatch action to send user's cart to the application's state
 const mapDispatchToProps = dispatch => {
   return {
     onCheckout: (cart) => dispatch({type: actions.SENDMYCART, payload: cart})

@@ -28,6 +28,7 @@ import RecipeChart from '../../containers/Chart/RecipeChart'
 import RecipeStyles from '../../styles/RecipeDetails.module.css'
 import buttonStyles from '../../styles/buttons.module.css'
 
+// firebase settings
 if (!firebase.apps.length) {    // if firebase not initialized
   firebase.initializeApp(firebaseConfig)
 }
@@ -39,7 +40,7 @@ const RecipeDetails = (props) => {
   const str = router.asPath
   const id = router.query.recipeId
   
-  // API 
+  // EDAMAM API with API key
   const url = `https://api.edamam.com/search?r=http%3A%2F%2Fwww.edamam.com%2Fontologies%2Fedamam.owl%23recipe_${id}&app_id=${EDAMAM_RECIPE_APP_ID}&app_key=${EDAMAM_RECIPE_APP_KEY}`
 
   // Make state for the following variables
@@ -325,7 +326,7 @@ const RecipeDetails = (props) => {
         db.collection('users').doc(props.currentUser.uid).update({
           recipes : recipes
         })
-        alert(`${result.label} successfully added to My Meals.`)
+        alert(`${result.label} is successfully added to My Meals.`)
       }).catch(err => console.log(err))
     }
   }

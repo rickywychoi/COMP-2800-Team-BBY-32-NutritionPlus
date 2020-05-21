@@ -25,11 +25,13 @@ import { useRouter } from 'next/router'
 import { connect } from 'react-redux'
 import navbarStyles from '../../styles/NavBar.module.css'
 
+// Wraps the class component to use router hook
 const NavBarWithRouter = (props) => {
   const router = useRouter()
   return <NavBar {...props} router={router} />
 }
 
+// NavBar component
 class NavBar extends Component {
   constructor(props, context) {
     super(props, context);
@@ -42,6 +44,8 @@ class NavBar extends Component {
   }
 
   componentDidMount() {
+    
+    // hides signout status with checkmark after 10 seconds of animation
     setTimeout(() => {
       if (this.signoutRef.current !== null) {
       this.signoutRef.current.style.display = "none"
@@ -50,16 +54,20 @@ class NavBar extends Component {
   }
 
   render() {
+    
+    // routes to login page to sign out
     const signout = () => {
       this.props.router.push("/login?signout=true")
     }
 
+    // toggles my account popup to display and hide
     const toggleMyAccount = () => {
       this.setState(prevState => ({
         showMyAccount: !prevState.showMyAccount
       }))
     }
 
+    // hides my account popup when the hamburger menu is collapsed
     const hideMyAccount = () => {
       this.setState({showMyAccount: false})
     }
@@ -136,6 +144,7 @@ class NavBar extends Component {
   }
 }
 
+// contains the application's state - signed-in status and the current user object
 const mapStateToProps = state => {
   return {
     isSignedIn: state.isSignedIn,

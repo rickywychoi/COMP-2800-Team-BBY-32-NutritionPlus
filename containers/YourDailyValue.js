@@ -25,11 +25,19 @@ let db = firebase.firestore()
 
 const YourDailyValue = (props) => {
   const router = useRouter()
+  // loading
   const [isLoaded, setLoaded] = useState(false)
+  // daily value of the user
   const [dailyValue, setDailyValue] = useState([])
+  // estimated energy requirement (kcal) of the user
   const [eer, setEER] = useState(0)
+
   useEffect(() => {
+
+    // if the user is signed in
     if (props.currentUser) {
+
+      // gets details of health info of the user from firebase
       db.collection('users').doc(props.currentUser.uid).get().then(userInfo => {
         if (userInfo.data().healthInfo.dailyValue.length === 0 || userInfo.data().healthInfo === undefined) {
           router.push("/questionnaire?firsttime=true")
@@ -39,11 +47,14 @@ const YourDailyValue = (props) => {
         }
       })
     }
+
+    // 0.5 seconds of loading
     setTimeout(() => {
       setLoaded(true)
     }, 500)
   }, [])
 
+  // if the user is signed in, daily value is fetched, and the page is loaded
   if (props.currentUser && dailyValue.length > 0 && isLoaded) {
     return (
       <div className={resultStyles.body}>
@@ -134,6 +145,7 @@ const YourDailyValue = (props) => {
   )
 }
 
+// contains the application's state - the current user object
 const mapStateToProps = state => {
   return {
     currentUser: state.currentUser

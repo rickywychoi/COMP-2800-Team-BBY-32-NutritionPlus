@@ -22,6 +22,7 @@ import { MdArrowBack } from 'react-icons/md'
 import buttonStyles from '../styles/buttons.module.css'
 import orderStyles from '../styles/MyOrder.module.css'
 
+// firebase settings
 if (!firebase.apps.length) {
   firebase.initializeApp(firebaseConfig);
 }
@@ -31,26 +32,34 @@ const MyOrder = (props) => {
   const router = useRouter()
   const myCart = props.myCart
 
+  // routes back to My Cart
   const goBack = () => {
     router.push("/mycart") 
   }
 
   const confirmOrder = () => {
+    
+    // if there is item(s) to make an order
     if (myCart.length > 0) {
       confirm("Confirm to proceed?")
       props.onConfirm()
 
-      // send to firebase
+      // sends to firebase
       let order, orderHistory
+
+      // if the user is signed in
       if (props.currentUser) {
+
+        // fetches order history of user from firebase
         db.collection('users').doc(props.currentUser.uid).get().then(userInfo => {
           orderHistory = userInfo.data().orderHistory
           order = {
             cart: myCart,
-            storeToVisit: props.storeToVisit,
             orderedAt: new Date()
           }
           orderHistory.unshift(order)
+
+          // updates the order history to firebase
           db.collection('users').doc(props.currentUser.uid).update({
             cart: [],
             orderHistory: orderHistory
@@ -62,6 +71,7 @@ const MyOrder = (props) => {
   }
 
   return (
+    // if the user is signed in
     props.currentUser
       ?
     <div className={orderStyles.mainBody}>
@@ -136,14 +146,15 @@ const MyOrder = (props) => {
   )
 }
 
+// contains the application's state - the current user object and the user's cart
 const mapStateToProps = state => {
   return {
     currentUser: state.currentUser,
-    myCart: state.myCart,
-    storeToVisit: state.storeToVisit
+    myCart: state.myCart
   }
 }
 
+// contains the dispatch action to empty user's cart in the application's state
 const mapDispatchToProps = dispatch => {
   return {
     onConfirm: () => dispatch({type: actions.EMPTYMYCART})

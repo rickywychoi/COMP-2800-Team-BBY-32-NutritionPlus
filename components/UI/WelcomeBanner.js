@@ -29,6 +29,7 @@ const WelcomeBanner = React.forwardRef((props, ref) => {
     "/images/coffin-guys.png"
   ]
   
+  // Five clicks on COVID-19 icon in the banner triggers the easter egg
   const easterEggTrigger = (e) => {
     e.preventDefault()
     setEasterClickCount(easterClickCount + 1)
@@ -37,12 +38,14 @@ const WelcomeBanner = React.forwardRef((props, ref) => {
     }
   }
 
+  // Hides the easter egg
   const easterEggHide = (e) => {
     e.preventDefault()
     setEasterVisible(false)
     setEasterClickCount(0)
   }
 
+  // Pushes random icons generated at random positions into the array
   const easterEggImages = []
   function generateEasterImages(arr) {
     for (let i = 0; i < 95; i++) {
@@ -64,20 +67,23 @@ const WelcomeBanner = React.forwardRef((props, ref) => {
     return arr
   }
 
-  // random generator of multiples of 5
+  // random generator of multiples of five
   const randomGeneratorPos = (max) => {
     return Math.round((Math.random() * max) / 5) * 5;
   }
   /*****************End of Easter Egg*****************/
 
+  // routes to the questionnaire page
   const toQuestionnaire = () => {
     router.push("/questionnaire")
   }
 
+  // routes to the grocery item search page
   const toItemSearch = () => {
     router.push("/search")
   }
     
+  // routes to the recipe search page
   const toRecipeSearch = () => {
     router.push("/recipe")
   }
@@ -85,7 +91,10 @@ const WelcomeBanner = React.forwardRef((props, ref) => {
   return (
     <div className={bannerStyles.body} ref={ref}>
       <div className={bannerStyles.contents}>
+
+        {/* if the easter egg is triggered, show randomly generated icons */}
         {easterVisible ? <div>{generateEasterImages(easterEggImages)}</div> : null}
+
         <h1 className={bannerStyles.head} onClick={easterEggHide}>Nutrition+</h1>
         <span className={bannerStyles.mainPara}>
           <p className={bannerStyles.p}>

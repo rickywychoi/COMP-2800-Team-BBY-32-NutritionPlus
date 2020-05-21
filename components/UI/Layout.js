@@ -12,12 +12,14 @@ import SocialMedia from '../SocialMedia/SocialMedia'
 const Layout = ({ children }) => {
   return (
     <div className={mainHomeStyles.container}>
+
       {/* Equivalent to head in html, includes icon and viewport settings */}
       <Head>
         <meta name="viewport" content="initial-scale=1.0, width=device-width" />
         <link rel="icon" href="/favicon2.ico" />
       </Head>
       <div className={mainHomeStyles.wrap}> 
+      
       {/* NavBar from react-bootstrap */}
       <NavBar />
       {children}

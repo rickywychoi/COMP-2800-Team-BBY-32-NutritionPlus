@@ -461,7 +461,7 @@ const handleFirst = (number, totalPages, search) => {
     }
   }
 
-  // get quantity of each food item in array
+  // gets quantity of each item from repeating single items
   const getQuantity = (arr) => {
     let result = []
     let visited = []
@@ -634,6 +634,7 @@ const handleFirst = (number, totalPages, search) => {
 
 }
 
+// contains the application's state - the current user object
 const mapStateToProps = state => {
   return {
     currentUser: state.currentUser

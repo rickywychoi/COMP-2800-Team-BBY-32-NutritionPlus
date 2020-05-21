@@ -32,7 +32,11 @@ const MyMeals = (props) => {
   }
 
   useEffect(() => {
+
+    // if the user is signed in
     if (props.currentUser) {
+
+      // gets stored recipes of the user from firebase
       db.collection('users').doc(props.currentUser.uid).get().then(userInfo => {
         let recipes = sortArrayDesc(userInfo.data().recipes)
         setMyRecipes(recipes)
@@ -88,7 +92,7 @@ const MyMeals = (props) => {
             </tbody>
           </Table>
         </div>
-        
+
         {/* Nutrition composition chart */}
         <RecipeChart rawCart = {myRecipes}/>
       </div>
@@ -103,18 +107,11 @@ const MyMeals = (props) => {
   )
 }
 
+// contains the application's state - the current user object
 const mapStateToProps = state => {
   return {
     currentUser: state.currentUser,
-    myCart: state.myCart,
-    storeToVisit: state.storeToVisit
   }
 }
 
-const mapDispatchToProps = dispatch => {
-  return {
-    onConfirm: () => dispatch({type: actions.EMPTYMYCART})
-  }
-}
-
-export default connect(mapStateToProps, mapDispatchToProps)(MyMeals)
+export default connect(mapStateToProps)(MyMeals)

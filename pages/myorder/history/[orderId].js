@@ -29,6 +29,7 @@ import listStyles from '../../../styles/SearchList.module.css'
 import buttonStyles from '../../../styles/buttons.module.css'
 import ErrorPage from '../../../components/ErrorPage/ErrorPage'
 
+// firebase settings
 if (!firebase.apps.length) {
   firebase.initializeApp(firebaseConfig);
 }
@@ -42,74 +43,20 @@ const ArchivedOrderDetail = (props) => {
   const [myCart, setMyCart] = useState([])
   // descending order of date by default
   const [isDesc, setDesc] = useState(true)
-  const [store, setStore] = useState("")
-  const [storeUrl, setStoreUrl] = useState("")
   const [orderedAt, setOrderedAt] = useState("")
-
-  const storeList = [
-    {
-      id: 1,
-      name: "Costco",
-      url: "https://www.costco.ca/grocery-household.html",
-      option: "7-10 day delivery",
-    },
-    {
-      id: 2,
-      name: "Save-On-Foods",
-      url: "https://shop.saveonfoods.com/store/D28B1082/?NoStoreTracking=true&_ga=2.85212121.1797111341.1589214006-1345666087.1589214006/#/locator?queries=fq%3DMwgService%253AShop2GroPickup%26take%3D999%26_%3D1589215309953%26skip%3D0%26region%3DBC",
-      option: "pickup/delivery" // can improve
-    },
-    {
-      id: 3,
-      name: "Walmart",
-      url: "https://www.walmart.ca/en/grocery/N-117",
-      option: "time-slotted delivery" // can improve
-    },
-    {
-      id: 4,
-      name: "IGA",
-      url: "https://shop.igabc.com/",
-      option: "pickup only"
-    },
-    {
-      id: 5,
-      name: "H-Mart",
-      url: "https://hmartpickup.ca/",
-      option: "pickup only"
-    },
-    {
-      id: 6,
-      name: "T&T Supermarket",
-      url: "https://www.tntsupermarket.com/",
-      option: "pickup only"
-    },
-    {
-      id: 7,
-      name: "No Frills",
-      url: "https://www.nofrills.ca/",
-      option: "pickup only"
-    },
-    {
-      id: 8,
-      name: "Real Canadian Superstore",
-      url: "https://www.realcanadiansuperstore.ca/",
-      option: "pickup/delivery"
-    }
-  ]
   
   useEffect(() => {
+    // if the user is signed in
     if (props.currentUser) {
+
+      // gets order history of the user from firebase
       db.collection('users').doc(props.currentUser.uid).get().then(userInfo => {
         let orderHistory = userInfo.data().orderHistory
+
+        // sorts orders
         orderHistory.forEach(order => {
           if (order.orderedAt.toMillis() == router.query.orderId) {
             setMyCart(sortArrayDesc(order.cart))
-            setStore(order.storeToVisit)
-            storeList.forEach(store => {
-              if (store.name.localeCompare(order.storeToVisit) == 0) {
-                setStoreUrl(store.url)
-              }
-            })
             setOrderedAt(order.orderedAt)
             let newArray = []
             let itemWithoutQty
@@ -149,8 +96,9 @@ const ArchivedOrderDetail = (props) => {
         <Button variant="secondary" className={buttonStyles.button} onClick={() => router.push("/myorder/history")}><span><MdArrowBack /> Order History</span></Button>
       </div>
       <div style={{marginTop: "1rem"}}>
-        <h3 className="header">Order made to <a href={storeUrl} target="_blank" className="storeLink">{store}</a></h3>
-        {orderedAt ? <p><DateFormatter date={orderedAt.toDate()}/></p> : null}
+        <h3 className="header">
+          Order made at {orderedAt ? <DateFormatter date={orderedAt.toDate()}/> : null}
+        </h3>
 
         {/* Media Query for min-device-width: 500px */}
         <MediaQuery minDeviceWidth={500}>

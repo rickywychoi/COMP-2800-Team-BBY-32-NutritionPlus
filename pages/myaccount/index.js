@@ -13,6 +13,8 @@ import { connect } from 'react-redux'
 import ErrorPage from '../../components/ErrorPage/ErrorPage'
 import DateFormatter from '../../components/DateFormatter/DateFormatter'
 
+
+// firebase settings
 if (!firebase.apps.length) {
   firebase.initializeApp(firebaseConfig);
 }
@@ -21,17 +23,18 @@ let db = firebase.firestore()
 
 const AccountPage = (props) => {
   const [userName, setUserName] = useState("")
+  
   useEffect(() => {
+
+    // if the user is signed in
     if (props.currentUser) {
+
+      // gets the name of the user from firebase
       db.collection('users').doc(props.currentUser.uid).get().then(userInfo => {
         setUserName(userInfo.data().name)
       })
     }
   }, [])
-
-  if (props.currentUser) {
-    console.log(Date.parse(props.currentUser.metadata.creationTime))
-  }
 
   return (
     // if the user is signed in
@@ -51,7 +54,6 @@ const AccountPage = (props) => {
         <h3>{userName}</h3>
         <p className={accountStyles.userEmail}>{props.currentUser.email}</p>
         <p>Joined Date: <DateFormatter date={Date.parse(props.currentUser.metadata.creationTime)} /></p>
-
       </div>
 
       {/* Deleting account */}

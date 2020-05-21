@@ -29,7 +29,11 @@ const OrderHistory = (props) => {
   const [orderHistory, setOrderHistory] = useState([])
   
   useEffect(() => {
+
+    // if the user is signed in
     if (props.currentUser) {
+
+      // get order history of the user from firebase
       db.collection('users').doc(props.currentUser.uid).get().then(userInfo => {
         setOrderHistory(sortArrayDesc(userInfo.data().orderHistory))
       }).catch(err => console.log(err))
@@ -68,7 +72,6 @@ const OrderHistory = (props) => {
                 >
                   <a className={orderhistoryStyles.orderLink}>
                     <div>
-                      <p className={orderhistoryStyles.orderedTo}>@{order.storeToVisit}</p>
 
                       {/* Table component from react-bootstrap */}
                       <Table striped bordered>
@@ -132,6 +135,7 @@ const OrderHistory = (props) => {
   )
 }
 
+// contains the application's state - the current user object
 const mapStateToProps = state => {
   return {
     currentUser: state.currentUser

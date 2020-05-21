@@ -12,8 +12,7 @@ export const initialState = {
   isSignedIn: false,  // Signed-in state.
   currentUser: null,  // Current user signed-in.
   userInfo: {},       // Information of user to calculate nutrient result
-  myCart: [],         // The final my cart to proceed to checkout & payment
-  storeToVisit: ""    // A store to visit and buy items
+  myCart: []          // The final my cart to proceed to checkout & payment
 }
 
 const reducer = (state = initialState, action) => {
@@ -37,13 +36,7 @@ const reducer = (state = initialState, action) => {
     case actions.EMPTYMYCART:
       return {
         ...state,
-        myCart: [],
-        storeToVisit: ""
-      }
-    case actions.SETSTORE:
-      return {
-        ...state,
-        storeToVisit: action.payload
+        myCart: []
       }
     default: 
       return {...state};

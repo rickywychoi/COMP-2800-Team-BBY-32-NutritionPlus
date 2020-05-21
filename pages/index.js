@@ -38,6 +38,7 @@ const MainHome = (props) => {
   )
 }
 
+// contains the application's state - signed-in status and the current user object
 const mapStateToProps = state => {
   return {
     isSignedIn: state.isSignedIn,

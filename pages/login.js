@@ -169,6 +169,7 @@ class SignInScreen extends React.Component {
   }
 }
 
+// contains the application's state - signed-in status and the current user object
 const mapStateToProps = state => {
   return {
     isSignedIn: state.isSignedIn,
@@ -176,6 +177,7 @@ const mapStateToProps = state => {
   }
 }
 
+// contains the dispatch action to send currently signed-in user object to the application's state
 const mapDispatchToProps = dispatch => {
   return {
     onSignIn: (user) => dispatch({type: actions.SIGNIN, payload: user})

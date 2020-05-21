@@ -24,6 +24,7 @@ import { useRouter } from 'next/router'
 import Link from 'next/link'
 import resultStyles from '../../styles/QuestionnaireResult.module.css'
 
+// firebase settings
 if (!firebase.apps.length) {
   firebase.initializeApp(firebaseConfig);
 }
@@ -32,9 +33,13 @@ let db = firebase.firestore()
 const RecipeChart = (props) => {
   const router = useRouter()
   
+  // data object used in the chart
   const [data, setData] = useState({})
+  // the array containing calculated percentage value of each nutrient
   const [amountsPercentage, setAmountsPercentage] = useState([])
+  // daily value of the user
   const [dailyValue, setDailyValue] = useState([])
+  // for toggle between weekly and daily calculation
   const [isWeekly, setWeekly] = useState(false)
 
   // called only when props.rawCart is changed
@@ -44,9 +49,11 @@ const RecipeChart = (props) => {
       datasets: null
     }
 
+    // if the user is signed in
     if (props.currentUser) {
-      // change each id corresponding to id from daily value
+      // changes each id of nutrients from cart items corresponding to the ones in user's daily value
       if (props.rawCart) {
+        // fetches user's daily value from firebase
         db.collection('users').doc(props.currentUser.uid).get().then(userInfo => {
           chartData.labels = ['Fat', 'Fatty acids', 'Fibre', 'Sugars', 'Cholesterol', 'Sodium', 'Potassium', 'Calcium', 'Iron', 'Vitamin A', 'Vitamin C', 'Vitamin D', 'Vitamin E', 'Vitamin K', 'Thiamin', 'Riboflavin', 'Niacin', 'Vitamin B6', 'Folate', 'Vitamin B12', 'Choline', 'Biotin', 'Pantothenate', 'Phosphorous', 'Iodide', 'Magnesium', 'Zinc', 'Selenium', 'Copper', 'Manganese', 'Chromium', 'Molybdenum', 'Chloride']
           setDailyValue(userInfo.data().healthInfo.dailyValue)
@@ -124,13 +131,13 @@ const RecipeChart = (props) => {
             })
           })
     
-          // set initial values for amount of each nutirent(total 33)
+          // sets initial values for amount of each nutirent (total of 33)
           let amountsArray = []
           for (let i = 0; i < 33; i++) {
             amountsArray[i] = 0
           }
     
-          // add amount of each nutrient
+          // adds amount of each nutrient
           props.rawCart.forEach(item => {
             Object.values(item.totalNutrients).forEach(nut => {
               for (let i = 0; i < 33; i++) {
@@ -141,7 +148,7 @@ const RecipeChart = (props) => {
             })
           })
     
-          // calculate percentage of each nutrient
+          // calculates percentage of each nutrient
           let percentageArray = []
           dailyValue.forEach(nut => {
             if (isWeekly) {
@@ -172,8 +179,7 @@ const RecipeChart = (props) => {
     }
   }, [props.rawCart, isWeekly])
 
-  console.log(data)
-
+  // toggles between weekly and daily calculation for the chart
   const handleToggleChange = e => {
     setWeekly(prevState => !prevState)
   }
@@ -181,6 +187,7 @@ const RecipeChart = (props) => {
   return (
     <div>
       {
+        // if the user's daily value exists
         dailyValue.length > 0
           ?
         <div>
@@ -271,6 +278,7 @@ const RecipeChart = (props) => {
   )
 }
 
+// contains the application's state - the current user object
 const mapStateToProps = state => {
   return {
     currentUser: state.currentUser

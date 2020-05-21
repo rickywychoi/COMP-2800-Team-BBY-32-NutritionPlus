@@ -31,6 +31,7 @@ const GroceryStores = (props) => {
   
   const myCart = props.myCart
 
+  // contains information of each store
   const stores = [
     {
       id: 1,
@@ -99,6 +100,8 @@ const GroceryStores = (props) => {
   ]
 
   useEffect(()=>{
+    
+    // for google maps
     if(navigator.geolocation)
       navigator.geolocation.getCurrentPosition(showPosition);
   },[])
@@ -106,11 +109,6 @@ const GroceryStores = (props) => {
   const showPosition = (position) =>{
     setLat(position.coords.latitude)
     setLng(position.coords.longitude)
-  }
-
-  const handleStoreSelect = e => {
-    e.preventDefault()
-    props.onSetStore(e.target.value)
   }
 
   const handleStoreSearch = (url, delimiter, item) => {
@@ -124,22 +122,7 @@ const GroceryStores = (props) => {
     
     <div className={groceryStoresStyles.main}>
       <div className={groceryStoresStyles.header}>
-        <h4>Grocery Stores</h4>
-
-        {/* Form component from react-bootstrap */}
-        <Form.Group controlId="formBasicGender" className="ml-3">
-          <Form.Control required as="select" defaultValue="" onChange={handleStoreSelect}>
-            <option disabled value="">Which store would you make an order to?</option>
-            <option value="Costco">Costco</option>
-            <option value="Save-On-Foods">Save-On-Foods</option>
-            <option value="Walmart">Walmart</option>
-            <option value="IGA">IGA</option>
-            <option value="H-Mart">H-Mart</option>
-            <option value="T&amp;T Supermarket">T&amp;T Supermarket</option>
-            <option value="No Frills">No Frills</option>
-            <option value="Real Canadian Superstore">Real Canadian Superstore</option>
-          </Form.Control>
-        </Form.Group>
+        <h4 style={{marginBottom: "1rem"}}>Grocery Stores</h4>
       </div>
 
       {/* Media Query for min-device-width: 500px */}
@@ -255,18 +238,12 @@ const GroceryStores = (props) => {
   )
 }
 
+// contains the application's state - the current user object and the user's cart
 const mapStateToProps = state => {
   return {
     currentUser: state.currentUser,
-    myCart: state.myCart,
-    storeToVisit: state.storeToVisit
+    myCart: state.myCart
   }
 }
 
-const mapDispatchToProps = dispatch => {
-  return {
-    onSetStore: (store) => dispatch({type: actions.SETSTORE, payload: store})
-  }
-}
-
-export default connect(mapStateToProps, mapDispatchToProps)(GroceryStores);
+export default connect(mapStateToProps)(GroceryStores);

@@ -56,6 +56,10 @@
   -moz-appearance: textfield;
 }
 
+.quantity {
+  margin-bottom: 0;
+}
+
 .date {
   text-align: center;
 }

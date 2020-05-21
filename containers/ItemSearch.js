@@ -21,12 +21,19 @@ import axios from 'axios'
 import { USDA_API_KEY } from '../apiKey'
 
 const ItemSearch = () => {
+  // search query
   const [search, setSearch] = useState("")
+  // an array that contains result of items from query
   const [result, setResult] = useState([])
+  // an array that contains Pagination components
   const [pagination, setPagination] = useState([])
+  // total pages in pagination
   const [totalPages, setTotalPages] = useState()
+
+  // USDA FDC API url with API key
   const url = `https://api.nal.usda.gov/fdc/v1/foods/search?API_KEY=${USDA_API_KEY}`
   
+  // displays 15 items per page
   const pageSizeLimit = 15
   const searchLimit = 10000
 
@@ -36,16 +43,19 @@ const ItemSearch = () => {
     let value = e.target.value
     setSearch(value)
     let results = []
+
+    // HTTP GET request
     axios.get(url, {
       params: {
         query: value,
         pageSize: pageSizeLimit
       }
     }).then(res => {
-      // console.log(res.data)
       res.data.foods.forEach(item => results.push(item))
       setResult(results)
       let maxPage = res.data.totalPages
+
+      // if the result goes over the search limit, it cuts down the maximum number of available pages
       if (res.data.totalPages * pageSizeLimit > searchLimit) {
         maxPage = Math.ceil(searchLimit / pageSizeLimit)
       }
@@ -90,6 +100,8 @@ const ItemSearch = () => {
     const prevNumber = number - 5
     if (prevNumber > 0) {
       let results = []
+      
+      // HTTP GET request
       axios.get(url, {
         params: {
           query: value,
@@ -130,6 +142,8 @@ const ItemSearch = () => {
   const handlePrev = (number, totalPages, value) => {
     const prevNumber = number - 1
     let results = []
+
+    // HTTP GET request
     axios.get(url, {
       params: {
         query: value,
@@ -199,6 +213,8 @@ const ItemSearch = () => {
   const handleNumberOne = (totalPages, value) => {
     let results = []
     const numberOne = 1
+
+    // HTTP GET request
     axios.get(url, {
       params: {
         query: value,
@@ -229,6 +245,8 @@ const ItemSearch = () => {
   const handleNumberLast = (totalPages, value) => {
     let results = []
     const numberLast = totalPages
+
+    // HTTP GET request
     axios.get(url, {
       params: {
         query: value,
@@ -259,6 +277,8 @@ const ItemSearch = () => {
   const handleNext = (number, totalPages, value) => {
     let nextNumber = number + 1
     let results = []
+
+    // HTTP GET request
     axios.get(url, {
       params: {
         query: value,
@@ -329,6 +349,8 @@ const ItemSearch = () => {
     let nextNumber = number + 5
     if (nextNumber <= totalPages) {
       let results = []
+
+      // HTTP GET request
       axios.get(url, {
         params: {
           query: value,
@@ -368,6 +390,8 @@ const ItemSearch = () => {
   // handles the results of each numbered page
   const handlePagination = (number, totalPages, value) => {
     let results = []
+
+    // HTTP GET request
     axios.get(url, {
       params: {
         query: value,

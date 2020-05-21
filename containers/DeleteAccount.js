@@ -17,6 +17,7 @@ import { connect } from 'react-redux'
 import firebase from 'firebase'
 import firebaseConfig from '../firebaseConfig'
 
+// firebase settings
 if (!firebase.apps.length) {
   firebase.initializeApp(firebaseConfig);
 }
@@ -25,22 +26,29 @@ let db = firebase.firestore()
 
 const DeleteAccount = (props) => {
   const router = useRouter()
+
   const [userName, setUserName] = useState("")
   const [password, setPassword] = useState("")
 
+  // sets the state of username as user types into input field
   const handleNameChange = e => {
     e.preventDefault()
     setUserName(e.target.value)
   }
-
+  
+  // sets the state of password as user types into input field
   const handlePasswordChange = e => {
     e.preventDefault()
     setPassword(e.target.value)
   }
 
+  // deletes current account from firebase
   const deleteAccount = e => {
     e.preventDefault()
+
     if (confirm("This action cannot be undone.\nAre you sure to delete your account?")) {
+
+      // if the user is signed in
       if (props.currentUser) {
         db.collection('users').doc(props.currentUser.uid).delete().then(() => {
           console.log("Successfully deleted data from database")
@@ -59,6 +67,8 @@ const DeleteAccount = (props) => {
               window.location.replace("/")
             }).catch(err => console.log(err));
           }).catch(err => {
+
+            // if the user inputs password incorrectly
             alert("Your given password is incorrect.\nPlease try again.")
           });
         }).catch(err => console.log(err))
@@ -131,6 +141,7 @@ const DeleteAccount = (props) => {
   )
 }
 
+// contains the application's state - the current user object
 const mapStateToProps = state => {
   return {
     currentUser: state.currentUser

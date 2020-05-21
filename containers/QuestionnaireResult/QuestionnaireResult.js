@@ -28,6 +28,7 @@ import { useRouter } from 'next/router'
 import { Accordion, Card, Button, Table } from 'react-bootstrap'
 import data from './dailyValue.json'
 
+// firebase settings
 if (!firebase.apps.length) {
   firebase.initializeApp(firebaseConfig);
 }
@@ -36,13 +37,18 @@ let db = firebase.firestore()
 const QuestionnaireResult = (props) => {
   const router = useRouter()
 
+  // to see if the user is an infant
   const [isInfants, setInfants] = useState(false)
+  // to see if the user is a children
   const [isChildren, setChildren] = useState(false)
+  // to see if the user is an adult
   const [isAdults, setAdults] = useState(false)
+  
   const user = props.userInfo
 
   useEffect(() => {
-    // get data from JSON file
+
+    // depends on the user's age
     if (user.age < 1)
       setInfants(true)
     else if (user.age >= 1 && user.age < 4)
@@ -50,11 +56,11 @@ const QuestionnaireResult = (props) => {
     else if (user.age >= 4)
       setAdults(true)
     
-    // firestore
+    // pushes daily value of nutrients in an empty array
     const numRegex = /[0-9.]/g
     if (props.currentUser) {
       let dv = []
-      if (user.age < 1) {
+      if (user.age < 1) {   // if infant
         data.infants.macronutrientsSodium.forEach(nut => {
           dv.push({
             name: nut.name,
@@ -398,6 +404,7 @@ const QuestionnaireResult = (props) => {
   )
 }
 
+// contains the application's state - the current user object
 const mapStateToProps = state => {
   return {
     currentUser: state.currentUser

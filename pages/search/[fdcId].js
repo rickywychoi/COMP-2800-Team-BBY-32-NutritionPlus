@@ -382,28 +382,26 @@ const ItemDetailsPage = (props) => {
   }
 
   const popover = (
-    <>
-      {/* Popover component from react-bootstrap */}
-      <Popover id="popover-basic">
-        <Popover.Title as="h3" className={detailStyles.popupTitle}>Quantity</Popover.Title>
-        <Popover.Content>
-          
-          {/* Form component from react-bootstrap */}
-          <Form noValidate validated={qtyValidated} onSubmit={handleSubmit}>
-            <div className={detailStyles.quantityButtonWrapper}>
-              <Button variant="outline-danger" onClick={decrementQuantity} className={detailStyles.decrement}>-</Button>
-              <Form.Control className={detailStyles.quantityInput} size="sm" type="number" value={quantity} onChange={handleQtyChange} />
-              <Form.Control.Feedback type="invalid">
-                Please confirm the quantity.
-              </Form.Control.Feedback>
-              <Button variant="outline-primary" onClick={incrementQuantity} className={detailStyles.increment}>+</Button>
-            </div>
-            <Button variant="outline-danger" onClick={resetQuantity} className={detailStyles.reset}>Reset</Button>
-            <button type="submit" onClick={toMyCart} className={detailStyles.checkoutButton}>Save item(s) to My Cart</button> 
-          </Form>
-        </Popover.Content>
-      </Popover>
-    </>
+    // Popover component from react-bootstrap
+    <Popover id="popover-basic">
+      <Popover.Title as="h3" className={detailStyles.popupTitle}>Quantity</Popover.Title>
+      <Popover.Content>
+        
+        {/* Form component from react-bootstrap */}
+        <Form noValidate validated={qtyValidated} onSubmit={handleSubmit}>
+          <div className={detailStyles.quantityButtonWrapper}>
+            <Button variant="outline-danger" onClick={decrementQuantity} className={detailStyles.decrement}>-</Button>
+            <Form.Control className={detailStyles.quantityInput} size="sm" type="number" value={quantity} onChange={handleQtyChange} />
+            <Form.Control.Feedback type="invalid">
+              Please confirm the quantity.
+            </Form.Control.Feedback>
+            <Button variant="outline-primary" onClick={incrementQuantity} className={detailStyles.increment}>+</Button>
+          </div>
+          <Button variant="outline-danger" onClick={resetQuantity} className={detailStyles.reset}>Reset</Button>
+          <button type="submit" onClick={toMyCart} className={detailStyles.checkoutButton}>Save item(s) to My Cart</button> 
+        </Form>
+      </Popover.Content>
+    </Popover>
   );
 
   if (result.foodPortions) {
@@ -419,12 +417,10 @@ const ItemDetailsPage = (props) => {
           props.currentUser
             ?
           (
-            <>
-              {/* OverlayTrigger component from react-bootstrap */}
-              <OverlayTrigger trigger="click" placement="bottom" overlay={popover}>
-                <Button variant="success" className={buttonStyles.button} onClick={addToCart}>Add to Cart</Button>
-              </OverlayTrigger>
-            </>
+            // OverlayTrigger component from react-bootstrap
+            <OverlayTrigger trigger="click" placement="bottom" overlay={popover}>
+              <Button variant="success" className={buttonStyles.button} onClick={addToCart}>Add to Cart</Button>
+            </OverlayTrigger>
           )
             :
           null
@@ -632,6 +628,7 @@ const ItemDetailsPage = (props) => {
   )
 }
 
+// contains the application's state - the current user object
 const mapStateToProps = state => {
   return {
     currentUser: state.currentUser
