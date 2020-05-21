@@ -5,7 +5,7 @@ Uses React Bootstrap Form to create the form and a drop-down menu to
 select stores. Table is used to hold grocery store data.
 */
 
-import { Table, Form } from 'react-bootstrap'
+import { Table, Form, DropdownButton, Dropdown } from 'react-bootstrap'
 import groceryStoresStyles from '../styles/GroceryStores.module.css' //replace with your Grocerystores.css
 import { connect } from 'react-redux'
 import * as actions from '../store/actions'
@@ -17,7 +17,75 @@ const GroceryStores = (props) => {
   const [lat, setLat] = useState()
   const [lng, setLng] = useState()
   
-  
+  const myCart = props.myCart
+
+  const stores = [
+    {
+      id: 1,
+      name: "Costco",
+      url: "https://www.costco.ca/grocery-household.html",
+      option: "7-10 day delivery",
+      search: "https://www.costco.ca/grocery-household.html?dept=Grocery&keyword=[item]",
+      searchDelimiter: "+"
+    },
+    {
+      id: 2,
+      name: "Save-On-Foods",
+      url: "https://shop.saveonfoods.com/store/D28B1082/?NoStoreTracking=true&_ga=2.85212121.1797111341.1589214006-1345666087.1589214006/#/locator?queries=fq%3DMwgService%253AShop2GroPickup%26take%3D999%26_%3D1589215309953%26skip%3D0%26region%3DBC",
+      option: "pickup/delivery", // can improve
+      search: "https://shop.saveonfoods.com/store/29EE1182?FulfillmentSignal=pickup#/search/[item]",
+      searchDelimiter: "%20"
+    },
+    {
+      id: 3,
+      name: "Walmart",
+      url: "https://www.walmart.ca/en/grocery/N-117",
+      option: "time-slotted delivery", // can improve
+      search: "https://www.walmart.ca/search/[item]/N-117",
+      searchDelimiter: "%20"
+    },
+    {
+      id: 4,
+      name: "IGA",
+      url: "https://shop.igabc.com/",
+      option: "pickup only",
+      search: "https://shop.igabc.com/port_moody#/search?q=[item]",
+      searchDelimiter: "%20"
+    },
+    {
+      id: 5,
+      name: "H-Mart",
+      url: "https://hmartpickup.ca/",
+      option: "pickup only",
+      search: "https://coq.hmartpickup.ca/?s=[item]&post_type=product",
+      searchDelimiter: "+"
+    },
+    {
+      id: 6,
+      name: "T&T Supermarket",
+      url: "https://www.tntsupermarket.com/",
+      option: "pickup only",
+      search: "https://www.tntsupermarket.com/catalogsearch/result/?q=[item]",
+      searchDelimiter: "+"
+    },
+    {
+      id: 7,
+      name: "No Frills",
+      url: "https://www.nofrills.ca/",
+      option: "pickup only",
+      search: "https://www.nofrills.ca/search?search-bar=[item]",
+      searchDelimiter: "%20"
+    },
+    {
+      id: 8,
+      name: "Real Canadian Superstore",
+      url: "https://www.realcanadiansuperstore.ca/",
+      option: "pickup/delivery",
+      search: "https://www.realcanadiansuperstore.ca/search?search-bar=[item]",
+      searchDelimiter: "%20"
+    }
+  ]
+
   useEffect(()=>{
     if(navigator.geolocation)
         navigator.geolocation.getCurrentPosition(showPosition);
@@ -28,63 +96,18 @@ const GroceryStores = (props) => {
     setLng(position.coords.longitude)
   }
 
-  const stores = [
-    {
-      id: 1,
-      name: "Costco",
-      url: "https://www.costco.ca/grocery-household.html",
-      option: "7-10 day delivery",
-    },
-    {
-      id: 2,
-      name: "Save-On-Foods",
-      url: "https://shop.saveonfoods.com/store/D28B1082/?NoStoreTracking=true&_ga=2.85212121.1797111341.1589214006-1345666087.1589214006/#/locator?queries=fq%3DMwgService%253AShop2GroPickup%26take%3D999%26_%3D1589215309953%26skip%3D0%26region%3DBC",
-      option: "pickup/delivery" // can improve
-    },
-    {
-      id: 3,
-      name: "Walmart",
-      url: "https://www.walmart.ca/en/grocery/N-117",
-      option: "time-slotted delivery" // can improve
-    },
-    {
-      id: 4,
-      name: "IGA",
-      url: "https://shop.igabc.com/",
-      option: "pickup only"
-    },
-    {
-      id: 5,
-      name: "H-Mart",
-      url: "https://hmartpickup.ca/",
-      option: "pickup only"
-    },
-    {
-      id: 6,
-      name: "T&T Supermarket",
-      url: "https://www.tntsupermarket.com/",
-      option: "out of stock"
-    },
-    {
-      id: 7,
-      name: "No Frills",
-      url: "https://www.nofrills.ca/",
-      option: "pickup only"
-    },
-    {
-      id: 8,
-      name: "Real Canadian Superstore",
-      url: "https://www.realcanadiansuperstore.ca/",
-      option: "pickup/delivery"
-    }
-  ]
-
   const handleStoreSelect = e => {
     e.preventDefault()
     props.onSetStore(e.target.value)
   }
 
-  // TODO: insert google maps inside div mapContainer
+  const handleStoreSearch = (url, delimiter, item) => {
+    let query = encodeURIComponent(item).replace(/%20/g, delimiter)
+    let result = url.replace("[item]", query)
+  
+    return result
+  }
+
   return (
     
     <div className={groceryStoresStyles.main}>
@@ -109,14 +132,36 @@ const GroceryStores = (props) => {
           <tr>
             <th>Store Name</th>
             <th>Delivery Option</th>
+            <th>Find Item on Store Website</th>
           </tr>
        </thead>
        <tbody>
-          {stores.map(item => {
+          {stores.map(store => {
            return (
-              <tr key={item.id}>
-                  <td><a href={item.url} target="_blank" className={groceryStoresStyles.stores}>{item.name}</a></td>
-                  <td>{item.option}</td>
+              <tr key={store.id}>
+                  <td><a href={store.url} target="_blank" className={groceryStoresStyles.stores} title={`Go to: ${store.url}`}>{store.name}</a></td>
+                  <td>{store.option}</td>
+                  <td>
+                    <DropdownButton alignRight variant="outline-secondary" title="Select an Item">
+                      <Dropdown.Header><i>Find on {store.name} Website</i></Dropdown.Header>
+                      {
+                        myCart.map(item => {
+                          return(
+                            <Dropdown.Item
+                              key={handleStoreSearch(store.search, store.searchDelimiiter, item.description)}
+                              href={handleStoreSearch(store.search, store.searchDelimiter, item.description)}
+                              target="_blank"
+                              rel="noopener"
+                              className={groceryStoresStyles.stores}
+                              title={`Go to: ${handleStoreSearch(store.search, store.searchDelimiter, item.description)}`}
+                            >
+                              {item.description}
+                            </Dropdown.Item>
+                          )
+                        })
+                      }
+                    </DropdownButton>                   
+                  </td>
               </tr>
             )
           })}
@@ -139,10 +184,18 @@ const GroceryStores = (props) => {
   )
 }
 
+const mapStateToProps = state => {
+  return {
+    currentUser: state.currentUser,
+    myCart: state.myCart,
+    storeToVisit: state.storeToVisit
+  }
+}
+
 const mapDispatchToProps = dispatch => {
   return {
     onSetStore: (store) => dispatch({type: actions.SETSTORE, payload: store})
   }
 }
 
-export default connect(null, mapDispatchToProps)(GroceryStores);
+export default connect(mapStateToProps, mapDispatchToProps)(GroceryStores);
