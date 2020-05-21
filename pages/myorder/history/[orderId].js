@@ -97,7 +97,7 @@ const ArchivedOrderDetail = (props) => {
       </div>
       <div style={{marginTop: "1rem"}}>
         <h3 className="header">
-          Order made at {orderedAt ? <DateFormatter date={orderedAt.toDate()}/> : null}
+          Ordered Time - {orderedAt ? <DateFormatter date={orderedAt.toDate()}/> : null}
         </h3>
 
         {/* Media Query for min-device-width: 500px */}

@@ -542,18 +542,21 @@ const MyCart = (props) => {
         // if there's an item in myCart
         myCart.length > 0
           ?
-        <div>
+        <>
           <div className={cartStyles.checkoutWrapper}>
             <Button variant="primary" className={buttonStyles.button} onClick={toMyOrder}>Checkout</Button>
           </div>
           <br></br>
 
-          {/* Nutrition composition chart */}
-          <GroceryChart rawCart={rawCart} />
-        </div>
+        </>
           :
         null
       }
+
+      {/* Nutrition composition chart */}
+      <GroceryChart rawCart={rawCart} />
+
+      {/* Sytlesheet for each table row */}
       <style jsx>{`
         td {
           vertical-align: middle;

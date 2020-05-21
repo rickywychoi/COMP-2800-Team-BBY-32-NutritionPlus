@@ -27,6 +27,7 @@ let db = firebase.firestore()
 
 const OrderHistory = (props) => {
   const [orderHistory, setOrderHistory] = useState([])
+  const [isLoaded, setLoaded] = useState(false)
   
   useEffect(() => {
 
