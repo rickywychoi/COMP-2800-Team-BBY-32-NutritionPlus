@@ -460,6 +460,7 @@ const ItemSearch = () => {
   return (
     <div className={searchStyles.body}>
       <h1 className={searchStyles.title}>Find a Grocery Item</h1>
+      {/* Form component from react-bootstrap */}
       <Form>
         <Form.Group controlId="formBasicPassword">
           <Form.Control 
@@ -487,6 +488,7 @@ const ItemSearch = () => {
           )
         })}
       </ul>
+      {/* Pagination component from react-bootstrap */}
       <Pagination className={searchStyles.pagination}>{pagination}</Pagination>
     </div>
   )

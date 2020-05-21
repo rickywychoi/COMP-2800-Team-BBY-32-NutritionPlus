@@ -16,6 +16,17 @@
  * 
  * Form
  * @see https://react-bootstrap.github.io/components/forms/
+ * 
+ * Uses React Icons to help customize design of buttons.
+ * 
+ * FaSearch from Font Awesome library
+ * @see https://fontawesome.com/
+ * 
+ * AiFillDelete from Ant Design Icons library
+ * @see	https://github.com/ant-design/ant-design-icons
+ * 
+ * MdArrowBack from Material Design Icons library
+ * @see http://google.github.io/material-design-icons/
  */
 
 
@@ -27,7 +38,7 @@ import React, { useState, useEffect, useRef } from 'react'
 import { connect } from 'react-redux'
 import * as actions from '../store/actions'
 import { Button, Table, DropdownButton, Dropdown, Form } from 'react-bootstrap'
-import { FaSearch, FaMinus, FaPlus } from 'react-icons/fa'
+import { FaSearch } from 'react-icons/fa'
 import { AiFillDelete } from 'react-icons/ai'
 import { MdArrowBack } from 'react-icons/md'
 import MediaQuery from 'react-responsive'

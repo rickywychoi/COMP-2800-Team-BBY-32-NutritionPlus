@@ -1,8 +1,9 @@
 /**
  * Searches a grocery item from the USDA API and displays its nutritional facts.
  * 
- * Uses React Bootstrap Form for the search field and Pagination to help with navigating
- * through larger queries.
+ * Uses React Bootstrap Button for buttons, and Pagination to help with navigating
+ * through larger queries. InputGroup and FormControl are used for the search field. 
+ * Dropdown & Dropdown Button is used to hold a list of MyCart food items.
  * 
  * Button
  * @see https://react-bootstrap.github.io/components/buttons/
@@ -18,6 +19,11 @@
  * 
  * Dropdown
  * @see https://react-bootstrap.github.io/components/dropdowns/
+ * 
+ * Uses React Icons to help customize design of buttons.
+ * 
+ * FaSearch and FaShoppingCart from Font Awesome library
+ * @see https://fontawesome.com/
  */
 
 import firebase from 'firebase'
@@ -69,11 +75,13 @@ const RecipeSearch = (props) => {
   }, [])
 
 
+  // updates value in search field
   const handleSearchInput = e => {
     let value = e.target.value
     setSearch(value)
   }
 
+  // obtains values from API by using search as query and pageSize to display 10 results per page
   const handleSearchQuery = e => {
     // console.log(search);
     let results = []
@@ -461,7 +469,7 @@ const handleFirst = (number, totalPages, search) => {
     }
   }
 
-  // gets quantity of each item from repeating single items
+  // MyCart - gets quantity of each item from repeating single items
   const getQuantity = (arr) => {
     let result = []
     let visited = []
@@ -506,11 +514,12 @@ const handleFirst = (number, totalPages, search) => {
     return result
   }
 
-  // sort array by alphabetical order
+  // MyCart - sort array by alphabetical order
   const sortArrayAlphabetically = (arr) => {
     return arr.sort((a, b) => a.description > b.description ? 1 : -1)
   }
 
+  // encodes search item to URI for href to recipe details
   const getURI = (item) => {
     const searchTerm = "recipe_";
     const lengthSearch = searchTerm.length;
@@ -521,6 +530,7 @@ const handleFirst = (number, totalPages, search) => {
     return uri;
   }
 
+  // fills out search fiell with food item from MyCart
   const handleMyCartQuery = (query) => {
 
     const promiseSearch = new Promise((resolve, reject) => {

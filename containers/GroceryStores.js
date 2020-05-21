@@ -1,9 +1,10 @@
 /**
- * A list of grovery stores from which you can order your groceries.
+ * A list of grocery stores from which you can order your groceries.
  * Grocery store data is static. Each store has its own url to redirect.
  * 
  * Uses React Bootstrap Form to create the form and a drop-down menu to 
- * select stores. Table is used to hold grocery store data.
+ * select stores. Table is used to hold grocery store data. Dropdown &
+ * DropdownButton to show list of myCart food items
  * 
  * Table
  * @see https://react-bootstrap.github.io/components/table/
@@ -16,7 +17,7 @@
  */
 
 
-import { Table, Form, DropdownButton, Dropdown } from 'react-bootstrap'
+import { Table, DropdownButton, Dropdown } from 'react-bootstrap'
 import MediaQuery from 'react-responsive'
 import groceryStoresStyles from '../styles/GroceryStores.module.css' //replace with your Grocerystores.css
 import { connect } from 'react-redux'
@@ -45,7 +46,7 @@ const GroceryStores = (props) => {
       id: 2,
       name: "Save-On-Foods",
       url: "https://shop.saveonfoods.com/store/D28B1082/?NoStoreTracking=true&_ga=2.85212121.1797111341.1589214006-1345666087.1589214006/#/locator?queries=fq%3DMwgService%253AShop2GroPickup%26take%3D999%26_%3D1589215309953%26skip%3D0%26region%3DBC",
-      option: "pickup/delivery", // can improve
+      option: "pickup/delivery",
       search: "https://shop.saveonfoods.com/store/4D301125?FulfillmentSignal=pickup#/search/[item]",
       searchDelimiter: "%20"
     },
@@ -53,7 +54,7 @@ const GroceryStores = (props) => {
       id: 3,
       name: "Walmart",
       url: "https://www.walmart.ca/en/grocery/N-117",
-      option: "time-slotted delivery", // can improve
+      option: "time-slotted delivery",
       search: "https://www.walmart.ca/search/[item]/N-117",
       searchDelimiter: "%20"
     },
@@ -106,11 +107,13 @@ const GroceryStores = (props) => {
       navigator.geolocation.getCurrentPosition(showPosition);
   },[])
 
+  //show current location of user
   const showPosition = (position) =>{
     setLat(position.coords.latitude)
     setLng(position.coords.longitude)
   }
 
+  //changes food item query to encodedURI for href to external website
   const handleStoreSearch = (url, delimiter, item) => {
     let query = encodeURIComponent(item).replace(/%20/g, delimiter)
     let result = url.replace("[item]", query)
@@ -127,6 +130,7 @@ const GroceryStores = (props) => {
 
       {/* Media Query for min-device-width: 500px */}
       <MediaQuery minDeviceWidth={500}>
+      {/* Table component from react-bootstrap */}
       <Table striped bordered hover>
         <thead>
           <tr>
@@ -136,7 +140,9 @@ const GroceryStores = (props) => {
           </tr>
        </thead>
        <tbody>
-          {stores.map(store => {
+          {
+          //Loops through stores array and shows each grocery store information
+          stores.map(store => {
            return (
               <tr key={store.id}>
                   <td><a href={store.url} target="_blank" className={groceryStoresStyles.stores} title={`Go to: ${store.url}`}>{store.name}</a></td>
@@ -147,6 +153,7 @@ const GroceryStores = (props) => {
                     <DropdownButton alignRight variant="outline-secondary" title="Select an Item">
                       <Dropdown.Header><i>Find on {store.name} Website</i></Dropdown.Header>
                       {
+                        //Loops through myCart array and shows each item as a search query to grocery store websites
                         myCart.map(item => {
                           return(
                             <Dropdown.Item
@@ -173,6 +180,7 @@ const GroceryStores = (props) => {
 
       {/* Media Query for max-device-width: 499px */}
       <MediaQuery maxDeviceWidth={499}>
+      {/* Table component from react-bootstrap */}
       <Table striped bordered hover>
         <thead>
           <tr>
@@ -181,7 +189,9 @@ const GroceryStores = (props) => {
           </tr>
        </thead>
        <tbody>
-          {stores.map(store => {
+          {
+          //Loops through stores array and shows each grocery store information
+          stores.map(store => {
             return (
               <tr key={store.id}>
                   <td>
@@ -195,6 +205,7 @@ const GroceryStores = (props) => {
                     <DropdownButton alignRight variant="outline-secondary" title="Select an Item">
                       <Dropdown.Header><i>Find on {store.name} Website</i></Dropdown.Header>
                       {
+                        //Loops through myCart array and shows each item as a search query to grocery store websites
                         myCart.map(item => {
                           return(
                             <Dropdown.Item
@@ -219,6 +230,7 @@ const GroceryStores = (props) => {
       </Table>
       </MediaQuery>
 
+      {/*Google Maps Container */}
       <h4 style={{margin: "1.5rem 0 1rem 0"}}>See Nearby Stores</h4>
       <div className={groceryStoresStyles.mapContainer}>
         { lat&&lng ?

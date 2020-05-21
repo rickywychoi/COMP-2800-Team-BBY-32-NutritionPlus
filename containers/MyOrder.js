@@ -8,6 +8,11 @@
  * 
  * Button
  * @see https://react-bootstrap.github.io/components/buttons/
+ * 
+ * Uses React Icons to help customize design of buttons.
+ * 
+ * MdArrowBack from Material Design Icons library
+ * @see http://google.github.io/material-design-icons/
  */
 
 import firebase from 'firebase'
