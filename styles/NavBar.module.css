@@ -93,6 +93,20 @@
   font-size: 1rem;
 }
 
+.mealNotifierButton {
+  background: none!important;
+  border: none;
+  padding: 0!important;
+  font-size: 1rem;
+  color: #287EFF;
+  cursor: pointer;
+}
+
+.mealNotifierButton:hover {
+  color: #069;
+  text-decoration: underline;
+}
+
 .checkMark {
   width: 25px;
   height: 25px;

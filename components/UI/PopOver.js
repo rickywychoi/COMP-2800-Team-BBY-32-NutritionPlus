@@ -1,7 +1,23 @@
+/**
+ * Informational popover for physical activity level.
+ * 
+ * Uses React Bootstrap Popover to create an informational hover, OverlayTrigger
+ * is the container for the information, and Button is the button to activate
+ * the popover.
+ * 
+ * Popover, OverlayTrigger
+ * @see https://react-bootstrap.github.io/components/overlays/#popovers
+ * 
+ * Button
+ * @see https://react-bootstrap.github.io/components/buttons/
+ */
+
 import { Popover, OverlayTrigger, Button } from 'react-bootstrap'
 import popoverStyles from '../../styles/PopOver.module.css'
 
 const popover = (
+
+  // Popover component from react-bootstrap
   <Popover id="popover-basic">
     <Popover.Title as="h3">Level of Physical Activity</Popover.Title>
     <Popover.Content>
@@ -16,9 +32,14 @@ const popover = (
 );
 
 const PopOver = () => (
-  <OverlayTrigger trigger="click" placement="top" overlay={popover}>
-    <Button className={popoverStyles.popoverButton} variant="success">?</Button>
-  </OverlayTrigger>
+  <>
+    {/* OverlayTrigger component from react-bootstrap */}
+    <OverlayTrigger trigger="click" placement="top" overlay={popover}>
+
+      {/* Button Component from react-bootstrap */}
+      <Button className={popoverStyles.popoverButton} variant="success">?</Button>
+    </OverlayTrigger>
+  </>
 );
 
 export default PopOver

@@ -1,3 +1,12 @@
+/**
+ * An error page for when users are viewing pages that they need to be signed in for.
+ * 
+ * Uses template from colorlib.com
+ * 
+ * Colorlib 404 v3
+ * @see https://colorlib.com/wp/free-404-error-page-templates/
+ */
+
 import Link from 'next/link'
 
 const ErrorPage = () => {
@@ -18,6 +27,8 @@ const ErrorPage = () => {
           </div>
         </div>
       </div>
+
+      {/* Stylesheet for this error page */}
       <style jsx>{`
         .link {
           display: block;

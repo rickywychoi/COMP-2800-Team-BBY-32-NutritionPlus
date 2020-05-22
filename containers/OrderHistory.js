@@ -1,16 +1,23 @@
-// OrderHistory.js
+/**
+ * A history of orders the user has made. Has an external link to the
+ * store website and shows what items the user made.
+ * 
+ * Uses bootstrap Table for order table design.
+ * 
+ * Table
+ * @see https://react-bootstrap.github.io/components/table/
+ */
+
 
 import firebase from 'firebase'
 import firebaseConfig from '../firebaseConfig'
 import { useState, useEffect } from 'react'
-import { useRouter } from 'next/router'
 import Link from 'next/link'
 import { connect } from 'react-redux'
-import { Button, Table } from 'react-bootstrap'
+import { Table } from 'react-bootstrap'
 import ErrorPage from '../components/ErrorPage/ErrorPage'
 import DateFormatter from '../components/DateFormatter/DateFormatter'
 import orderhistoryStyles from '../styles/OrderHistory.module.css'
-import buttonStyles from '../styles/buttons.module.css'
 import orderStyles from '../styles/MyOrder.module.css'
 
 if (!firebase.apps.length) {
@@ -19,11 +26,15 @@ if (!firebase.apps.length) {
 let db = firebase.firestore()
 
 const OrderHistory = (props) => {
-  const router = useRouter()
   const [orderHistory, setOrderHistory] = useState([])
+  const [isLoaded, setLoaded] = useState(false)
   
   useEffect(() => {
+
+    // if the user is signed in
     if (props.currentUser) {
+
+      // get order history of the user from firebase
       db.collection('users').doc(props.currentUser.uid).get().then(userInfo => {
         setOrderHistory(sortArrayDesc(userInfo.data().orderHistory))
       }).catch(err => console.log(err))
@@ -41,12 +52,12 @@ const OrderHistory = (props) => {
   }
 
   return (
+    // if the user is signed in
     props.currentUser
       ?
     <div className={orderhistoryStyles.mainBody}>
       <div className={orderhistoryStyles.buttonsWrapper}>
         <h3 className={orderhistoryStyles.header}>Your Order History</h3>
-        {/* <Button variant="secondary" className={buttonStyles.button} onClick={() => router.back()}>Back to Home</Button> */}
       </div>
       <div className={orderhistoryStyles.contents}>
         {
@@ -62,7 +73,8 @@ const OrderHistory = (props) => {
                 >
                   <a className={orderhistoryStyles.orderLink}>
                     <div>
-                      <p className={orderhistoryStyles.orderedTo}>@{order.storeToVisit}</p>
+
+                      {/* Table component from react-bootstrap */}
                       <Table striped bordered>
                         <thead>
                           <tr>
@@ -97,9 +109,14 @@ const OrderHistory = (props) => {
             )
           })
             :
-          null
+          <div style={{textAlign: "center", marginTop: "1.5rem"}}>
+            <p>You haven't made any orders yet.</p>
+            <img className="historyIcon" src="https://img.icons8.com/windows/96/000000/delete-history.png" alt="historyIcon"/>
+          </div>
         }
       </div>
+
+      {/* Stylesheet for table and an icon */}
       <style jsx>{`
         th {
           font-size: 0.9rem;
@@ -108,6 +125,10 @@ const OrderHistory = (props) => {
           vertical-align: middle;
           padding: 0.2rem 0.5rem;
           font-size: 0.9rem;
+        }
+        .historyIcon {
+          margin: 0 auto;
+        }
       `}</style>
     </div>
       :
@@ -115,6 +136,7 @@ const OrderHistory = (props) => {
   )
 }
 
+// contains the application's state - the current user object
 const mapStateToProps = state => {
   return {
     currentUser: state.currentUser

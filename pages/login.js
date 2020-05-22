@@ -1,4 +1,8 @@
-// login.js
+/**
+ * Utilizes Firebase's default login UI to allow a user to login via
+ * email and google. Redirects to landing page upon login.
+ */
+
 
 import Link from 'next/link'
 import { useRouter } from 'next/router'
@@ -42,7 +46,8 @@ class SignInScreen extends React.Component {
     },
     // Popup signin flow rather than redirect flow.
     signInFlow: 'popup',
-    // We will display Google and Facebook as auth providers.
+    credentialHelper: 'none',
+    // We will display Google and Email as auth providers.
     signInOptions: [ 
       firebase.auth.EmailAuthProvider.PROVIDER_ID,
       firebase.auth.GoogleAuthProvider.PROVIDER_ID
@@ -103,6 +108,8 @@ class SignInScreen extends React.Component {
               <Link href="/"><a className="back" align="center" >Back to home</a></Link>
             </div>
           </div>
+
+          {/* Stylesheet for login popup */}
           <style jsx>{`
             .mainWrapper {
               display: flex;
@@ -156,12 +163,13 @@ class SignInScreen extends React.Component {
     if (this.props.router.query.questionnaire) {
       this.props.router.push('/yourdailyvalue')
     } else {
-      this.props.router.back()
+      this.props.router.push('/')
     }
     return null
   }
 }
 
+// contains the application's state - signed-in status and the current user object
 const mapStateToProps = state => {
   return {
     isSignedIn: state.isSignedIn,
@@ -169,6 +177,7 @@ const mapStateToProps = state => {
   }
 }
 
+// contains the dispatch action to send currently signed-in user object to the application's state
 const mapDispatchToProps = dispatch => {
   return {
     onSignIn: (user) => dispatch({type: actions.SIGNIN, payload: user})

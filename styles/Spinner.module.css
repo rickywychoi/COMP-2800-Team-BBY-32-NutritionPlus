@@ -1,3 +1,10 @@
+/**
+ * Loading spinner
+ * 
+ * Uses template from projects.lukehaas.me
+ * @see https://projects.lukehaas.me/css-loaders/
+ */
+
 .loader,
 .loader:after {
   border-radius: 50%;

@@ -1,4 +1,10 @@
-// entryuserinput/result.js
+/**
+ * Displays the result of questionnaire.
+ * 
+ * Contains the daily value result of the user.
+ */
+
+
 import QuestionnaireResult from '../../containers/QuestionnaireResult/QuestionnaireResult'
 import { connect } from 'react-redux'
 

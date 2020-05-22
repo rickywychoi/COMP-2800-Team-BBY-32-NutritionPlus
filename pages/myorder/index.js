@@ -1,3 +1,7 @@
+/**
+ * Index page of My Order.
+ */
+
 import MyOrder from '../../containers/MyOrder'
 
 const MyOrderPage = () => {

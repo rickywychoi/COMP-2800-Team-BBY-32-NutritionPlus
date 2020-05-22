@@ -1,29 +1,49 @@
+/**
+ * Obtains a recipe from the edamam API based on the user's search query
+ * and creates a page with the recipe details. 
+ * 
+ * Uses React Bootstrap Accordion to create a collapsable menu, Button for 'back',
+ * and 'Add to My Meals', and Card for expandable header.
+ * 
+ * Accordion
+ * @see https://react-bootstrap.github.io/components/accordion/
+ * 
+ * Button
+ * @see https://react-bootstrap.github.io/components/buttons/
+ * 
+ * Card
+ * @see https://react-bootstrap.github.io/components/cards/
+ */
+
 import Link from 'next/link'
 import { connect } from 'react-redux'
 import firebase from 'firebase'
 import firebaseConfig from '../../firebaseConfig'
-import { Table, Accordion, Button, Card } from 'react-bootstrap'
+import { Accordion, Button, Card } from 'react-bootstrap'
 import axios from 'axios'
 import { useState, useEffect, useRef } from 'react'
 import { useRouter } from 'next/router'
-import {  EDAMAM_RECIPE_APP_ID, EDAMAM_RECIPE_APP_KEY } from '../../apiKey'
+import { EDAMAM_RECIPE_APP_ID, EDAMAM_RECIPE_APP_KEY } from '../../apiKey'
 import RecipeChart from '../../containers/Chart/RecipeChart'
 import RecipeStyles from '../../styles/RecipeDetails.module.css'
 import buttonStyles from '../../styles/buttons.module.css'
 
+// firebase settings
 if (!firebase.apps.length) {    // if firebase not initialized
   firebase.initializeApp(firebaseConfig)
 }
 let db = firebase.firestore()
 
 const RecipeDetails = (props) => {
+  // get params from the router
   const router = useRouter()
   const str = router.asPath
-  const idJimmy = str.substring(56)
   const id = router.query.recipeId
   
+  // EDAMAM API with API key
   const url = `https://api.edamam.com/search?r=http%3A%2F%2Fwww.edamam.com%2Fontologies%2Fedamam.owl%23recipe_${id}&app_id=${EDAMAM_RECIPE_APP_ID}&app_key=${EDAMAM_RECIPE_APP_KEY}`
-  
+
+  // Make state for the following variables
   const [result, setResult] = useState({})
   const [ing, setIng] = useState([])
   const [nutrients, setNutrients] = useState([])
@@ -40,18 +60,9 @@ const RecipeDetails = (props) => {
    
    console.log(tableRef)
 
-  // useEffect(()=>{
-  //   axios.get(url).then(res => {
-  //     setResult(res.data[0])
-  //     setIng(res.data[0].ingredientLines)
-  //     setNutrients(res.data[0].totalNutrients)
-  //   })
-  // }, [])
-
   // returns information to create nutrition facts label
   useEffect(()=>{
-    // retrieve daily value of the user
-    if (props.currentUser) {
+    if (props.currentUser) {  // retrieves daily value of the user
       let userDV = []
       db.collection('users').doc(props.currentUser.uid).get().then(userInfo => {
         console.log(userInfo.data().healthInfo.dailyValue)
@@ -59,24 +70,16 @@ const RecipeDetails = (props) => {
           userDV.push(nut)
         })
         setUserDailyValue(userDV)
-        console.log("Getting User Daily Value Success")
-      }).catch(error => {
-        console.log(error)
       })
     }
 
     // return nutrient data
     axios.get(url).then(res => {
-        console.log("43", res.data)
-        console.log(res.data[0])
-        // console.log(res.data[0].totalNutrients)
         setDetails(res.data)    // api data for firestore
         setResult(res.data[0])  // recipe data
         setIng(res.data[0].ingredientLines)
-        // setNutrients(res.data[0].totalNutrients)
 
         // number of calories (rounded)
-        // let temp = []
         let sortedNutrients = []
         let extraNutrients = []
         let cal = Math.ceil(res.data[0].calories)
@@ -87,18 +90,16 @@ const RecipeDetails = (props) => {
         setCalories({
           id: nutId,
           amount: cal,
+          servings: noServings, 
           unit: 'kcal',
           group: 'calories',
           calPerServing: calServing
         })
+
         // navigates through nutrients in recipe
         let index = res.data[0].totalNutrients
-        console.log("69", index)
-        // console.log(index.CA.label)
         let dailyValues = []
         Object.values(index).forEach(nut => {
-          // console.log(nut)
-          // temp.push(nut)
           if (nut.label.localeCompare("Fat") == 0
             || nut.label.localeCompare("Saturated") == 0
             || nut.label.localeCompare("Trans") == 0
@@ -303,7 +304,6 @@ const RecipeDetails = (props) => {
     }
     if (props.currentUser) {
       db.collection('users').doc(props.currentUser.uid).get().then(userInfo => {
-        // console.log(userInfo.data().recipes)
         setRawCart(userInfo.data().recipes)
       })
     }
@@ -315,8 +315,6 @@ const RecipeDetails = (props) => {
   const sendUserHistory = () => {
     if (props.currentUser){   // if user signed in
       db.collection('users').doc(props.currentUser.uid).get().then(userInfo => {
-        console.log(userInfo.data().recipes)
-
         let recipes = []
         let recipesWithoutDate = {}
         recipes.push(...userInfo.data().recipes)
@@ -328,25 +326,11 @@ const RecipeDetails = (props) => {
         db.collection('users').doc(props.currentUser.uid).update({
           recipes : recipes
         })
-        // console.log(Object.values(details).slice(0))
-
-        // let todayMeals = {}
-        // let date = {itemAddedAt: new Date()}
-        // Object.assign(todayMeals, date)
-        // Object.assign(todayMeals, userInfo.data())   // firestore data
-        // todayMeals.recipes = [...Object.values(details).slice(0)]
-        // console.log(todayMeals)
-
-        // // .then(
-        // //   router.push("/myhistory")
-        // // ).catch(err => console.log(err))
+        alert(`${result.label} is successfully added to My Meals.`)
       }).catch(err => console.log(err))
     }
   }
-  
-  console.log(nutrients)
-  console.log(additionalNutrients)
-  console.log(myRecipes)
+
   return (
     <div className={RecipeStyles.body}>
       <div className={RecipeStyles.buttonsWrapper}>
@@ -379,6 +363,7 @@ const RecipeDetails = (props) => {
         
         <a href = {''+result.url} target="_blank">See Directions</a>
 
+        {/* Accordion component from react-bootstrap */}
         <Accordion defaultActiveKey="0" className="mt-4">
           
             <Accordion.Toggle as={Button} variant="outline-primary" eventKey="1" className={RecipeStyles.accordionButton}>
@@ -394,24 +379,25 @@ const RecipeDetails = (props) => {
                               <th></th>
                             </tr>
                             <tr>
-                              <th className = {RecipeStyles.subHead}><strong>Servings: </strong>N/A</th>
+                              <th className = {RecipeStyles.subHead}><strong>Servings: </strong>{calories.servings}</th>
                               <th></th>
                             </tr>
                           </thead>
-                           <tbody className = {RecipeStyles.tbody}>      
+                          <tbody className = {RecipeStyles.tbody}>      
                             <tr>
-                              <td className = {RecipeStyles.subHead}>Amount per serving</td>
+                              <td className = {RecipeStyles.subHead}></td>
                               <td></td>
                             </tr>
                             <tr className = {RecipeStyles.nutrient}>
                               <td className = {RecipeStyles.caloriesTitle}>Calories</td>
-                              <td className = {RecipeStyles.calories}><strong>{calories.calPerServing}</strong></td>
+                              <td className = {RecipeStyles.calories}><strong>{calories.amount}</strong></td>
                             </tr>
                             <tr className = {RecipeStyles.nutrient}>
                               <td></td>
                               <td className = {RecipeStyles.header}>% Daily Value*</td>
                             </tr>                     
                             {
+                              // Loops through nutrients array and displays each item
                               nutrients.map(nut => {
                                 return (
                                   nut.group.localeCompare("getLessOf") == 0
@@ -430,6 +416,8 @@ const RecipeDetails = (props) => {
                                           ?
                                         ""
                                           :
+
+                                        // Loops through userDailyValue array and displays each item
                                         userDailyValue.map(dv => {
                                           if (dv.id.localeCompare(nut.id) === 0) {
                                             return Math.ceil(nut.amount / dv.value) + "%"
@@ -445,6 +433,7 @@ const RecipeDetails = (props) => {
                           </tbody>  
                           <tfoot>
                             {
+                                // Loops through nutrients array and displays each item
                                 nutrients.map(nut => {
                                   return (
                                     nut.group.localeCompare("getMoreOf") == 0
@@ -459,6 +448,7 @@ const RecipeDetails = (props) => {
                                       </td>
                                       <td className = {RecipeStyles.daily}>
                                         {
+                                          // Loops through userDailyValue array and displays each item
                                           userDailyValue.map(dv => {
                                             if (dv.id.localeCompare(nut.id) === 0) {
                                               return Math.ceil(nut.amount / dv.value) + "%"
@@ -479,7 +469,10 @@ const RecipeDetails = (props) => {
                         null  
                           :
                         (
+                          // Accordion component from react-bootstrap
                           <Accordion style={{width: `${tableWidth}px`, margin: "0 auto"}} defaultActiveKey="0">
+
+                          {/* Card component from react-bootstrap */}
                           <Card>
                             <Card.Header>
                               <Accordion.Toggle as={Button} variant="link" eventKey="0">
@@ -530,7 +523,7 @@ const RecipeDetails = (props) => {
                           </Accordion>
                         )
                       }
-
+                      <br />
                       <p>g = Grams; mg = Milligrams; µg = Micrograms</p>
                     </div>              
                 </div>

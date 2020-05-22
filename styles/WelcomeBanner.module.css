@@ -99,25 +99,26 @@
 }
 
 .coronaIcon {
-    width: 2rem;
-    display: inline-block;
-    margin: 0 0.2rem;
-    /* vertical-align: sub; */
+  width: 2rem;
+  display: inline-block;
+  margin: 0 0.2rem;
+  /* vertical-align: sub; */
 }
 
 @media only screen 
   and (max-device-width: 499px) {
-    .body{
-        text-align: center;
-      }
-      .contents {
-        margin-left: 0;
-        touch-action: manipulation;
+    .body {
+      text-align: center;
+    }
+    
+    .contents {
+      margin-left: 0;
+      touch-action: manipulation;
     }
 
     .button {
-        font-size: 0.87rem;
-        margin-bottom: 0.7rem; 
+      font-size: 0.87rem;
+      margin-bottom: 0.7rem; 
     }
 
     .easterImg {

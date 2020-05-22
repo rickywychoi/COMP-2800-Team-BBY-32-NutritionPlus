@@ -1,3 +1,7 @@
+/**
+ * Index page of Menu Questionnaire.
+ */
+
 import MenuQuestionnaire from '../../containers/MenuQuestionnaire'
 
 const MenuQuestionnairePage = () => {

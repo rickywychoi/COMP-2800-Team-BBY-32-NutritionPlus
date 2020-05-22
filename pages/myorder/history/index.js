@@ -1,3 +1,7 @@
+/**
+ * Index page of Order History.
+ */
+
 import OrderHistory from '../../../containers/OrderHistory'
 
 const OrderHistoryPage = () => {

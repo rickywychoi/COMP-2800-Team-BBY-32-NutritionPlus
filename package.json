@@ -1,9 +1,9 @@
 {
-  "name": "nutrition-plus",
+  "name": "nutritionplus",
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "next",
+    "dev": "npm install && next",
     "build": "next build",
     "start": "next start -p $PORT",
     "test": "echo \"Error: no test specified\" && exit 1",
@@ -15,7 +15,6 @@
     "chart.js": "^2.9.3",
     "chartjs-plugin-annotation": "^0.5.7",
     "date-fns": "^2.13.0",
-    "express": "^4.17.1",
     "firebase": "^7.14.3",
     "firebaseui": "^4.5.0",
     "google-map-react": "^1.1.7",
@@ -30,6 +29,7 @@
     "react-icons": "^3.10.0",
     "react-redux": "^7.2.0",
     "react-responsive": "^8.0.3",
+    "react-share": "^4.1.0",
     "redux": "^4.0.5",
     "redux-devtools-extension": "^2.13.8"
   },

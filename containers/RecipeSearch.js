@@ -1,4 +1,30 @@
-// RecipeSearch.js
+/**
+ * Searches a grocery item from the USDA API and displays its nutritional facts.
+ * 
+ * Uses React Bootstrap Button for buttons, and Pagination to help with navigating
+ * through larger queries. InputGroup and FormControl are used for the search field. 
+ * Dropdown & Dropdown Button is used to hold a list of MyCart food items.
+ * 
+ * Button
+ * @see https://react-bootstrap.github.io/components/buttons/
+ * 
+ * Pagination
+ * @see https://react-bootstrap.github.io/components/pagination/
+ * 
+ * InputGroup
+ * @see https://react-bootstrap.github.io/components/input-group/
+ * 
+ * FormControl
+ * @see https://react-bootstrap.github.io/components/forms/#form-control-props
+ * 
+ * Dropdown
+ * @see https://react-bootstrap.github.io/components/dropdowns/
+ * 
+ * Uses React Icons to help customize design of buttons.
+ * 
+ * FaSearch and FaShoppingCart from Font Awesome library
+ * @see https://fontawesome.com/
+ */
 
 import firebase from 'firebase'
 import firebaseConfig from '../firebaseConfig'
@@ -49,11 +75,13 @@ const RecipeSearch = (props) => {
   }, [])
 
 
+  // updates value in search field
   const handleSearchInput = e => {
     let value = e.target.value
     setSearch(value)
   }
 
+  // obtains values from API by using search as query and pageSize to display 10 results per page
   const handleSearchQuery = e => {
     // console.log(search);
     let results = []
@@ -441,7 +469,7 @@ const handleFirst = (number, totalPages, search) => {
     }
   }
 
-  // get quantity of each food item in array
+  // MyCart - gets quantity of each item from repeating single items
   const getQuantity = (arr) => {
     let result = []
     let visited = []
@@ -486,11 +514,12 @@ const handleFirst = (number, totalPages, search) => {
     return result
   }
 
-  // sort array by alphabetical order
+  // MyCart - sort array by alphabetical order
   const sortArrayAlphabetically = (arr) => {
     return arr.sort((a, b) => a.description > b.description ? 1 : -1)
   }
 
+  // encodes search item to URI for href to recipe details
   const getURI = (item) => {
     const searchTerm = "recipe_";
     const lengthSearch = searchTerm.length;
@@ -501,6 +530,7 @@ const handleFirst = (number, totalPages, search) => {
     return uri;
   }
 
+  // fills out search fiell with food item from MyCart
   const handleMyCartQuery = (query) => {
 
     const promiseSearch = new Promise((resolve, reject) => {
@@ -523,7 +553,11 @@ const handleFirst = (number, totalPages, search) => {
       <div className={searchStyles.container}>
 
       <div className={searchStyles.searchContainer}>
+
+        {/* InputGroup component from react-bootstrap */}
         <InputGroup>
+
+          {/* Dropdown component from react-bootstrap */}
           <DropdownButton
             id="myCartAppend"
             as={InputGroup.Prepend}
@@ -547,6 +581,8 @@ const handleFirst = (number, totalPages, search) => {
               <Dropdown.Header><i>Please Sign In First.</i></Dropdown.Header>
             }
           </DropdownButton>
+
+          {/* FormControl component from react-bootstrap */}
           <FormControl
             id="searchInput"
             placeholder="Search Recipes..."
@@ -565,6 +601,7 @@ const handleFirst = (number, totalPages, search) => {
 
         <ul className={searchStyles.listCards}>
 
+          {/* Loops through result array and displays each item */}
           {result.map(item => {
             return(
               <li 
@@ -599,6 +636,7 @@ const handleFirst = (number, totalPages, search) => {
 
       </div>
 
+      {/* Pagination component from react-bootstrap */}
       <Pagination className={searchStyles.pagination}>{pagination}</Pagination>
 
     </div>
@@ -606,6 +644,7 @@ const handleFirst = (number, totalPages, search) => {
 
 }
 
+// contains the application's state - the current user object
 const mapStateToProps = state => {
   return {
     currentUser: state.currentUser

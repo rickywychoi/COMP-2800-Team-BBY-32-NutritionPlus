@@ -1,9 +1,18 @@
+/**
+ * The welcome banner in the main page. 
+ * React Bootstrap Button for buttons to go between features.
+ * 
+ * Uses icons from icons8.com for easter egg.
+ * @see https://icons8.com/icons
+ */
+
+
 import { useRouter } from 'next/router'
 import { Button } from 'react-bootstrap'
-import { useState, useEffect } from 'react'
+import { useState } from 'react'
 import bannerStyles from '../../styles/WelcomeBanner.module.css'
 
-const WelcomeBanner = () => {
+const WelcomeBanner = React.forwardRef((props, ref) => {
   const router = useRouter()
   const [easterClickCount, setEasterClickCount] = useState(0)
   const [easterVisible, setEasterVisible] = useState(false)
@@ -20,20 +29,23 @@ const WelcomeBanner = () => {
     "/images/coffin-guys.png"
   ]
   
+  // Two clicks on COVID-19 icon in the banner triggers the easter egg
   const easterEggTrigger = (e) => {
     e.preventDefault()
     setEasterClickCount(easterClickCount + 1)
-    if (easterClickCount === 4) {
+    if (easterClickCount === 1) {
       setEasterVisible(true)
     }
   }
 
+  // Hides the easter egg
   const easterEggHide = (e) => {
     e.preventDefault()
     setEasterVisible(false)
     setEasterClickCount(0)
   }
 
+  // Pushes random icons generated at random positions into the array
   const easterEggImages = []
   function generateEasterImages(arr) {
     for (let i = 0; i < 95; i++) {
@@ -47,7 +59,7 @@ const WelcomeBanner = () => {
           style={{
             animationDelay: `${0.5 + i / 20}s`, 
             left: `${randomGeneratorPos(90)}%`,
-            top: `${randomGeneratorPos(50)}%`
+            top: `${randomGeneratorPos(370)}px`
           }}
         /> 
       )
@@ -55,28 +67,34 @@ const WelcomeBanner = () => {
     return arr
   }
 
-  // random generator of mutliples of 5
+  // random generator of multiples of five
   const randomGeneratorPos = (max) => {
     return Math.round((Math.random() * max) / 5) * 5;
   }
-  /*************************************************/
+  /*****************End of Easter Egg*****************/
 
+  // routes to the questionnaire page
   const toQuestionnaire = () => {
     router.push("/questionnaire")
   }
 
+  // routes to the grocery item search page
   const toItemSearch = () => {
     router.push("/search")
   }
     
+  // routes to the recipe search page
   const toRecipeSearch = () => {
     router.push("/recipe")
   }
 
   return (
-    <div className={bannerStyles.body}>
+    <div className={bannerStyles.body} ref={ref}>
       <div className={bannerStyles.contents}>
+
+        {/* if the easter egg is triggered, show randomly generated icons */}
         {easterVisible ? <div>{generateEasterImages(easterEggImages)}</div> : null}
+
         <h1 className={bannerStyles.head} onClick={easterEggHide}>Nutrition+</h1>
         <span className={bannerStyles.mainPara}>
           <p className={bannerStyles.p}>
@@ -92,14 +110,8 @@ const WelcomeBanner = () => {
             onClick={toQuestionnaire}
             >
             Calculate Your Required Energy Intake
-          </Button>        
-          {/* <Button 
-            variant="primary"
-            className="mr-2 mb-2" 
-            onClick={tomenuQuestionnaire}
-            >
-            Menu Questionnaire
-          </Button> */}
+          </Button>     
+
           <Button 
             variant="primary"
             className={bannerStyles.button} 
@@ -119,6 +131,6 @@ const WelcomeBanner = () => {
       </div>
     </div>
   )
-}
+})
 
 export default WelcomeBanner

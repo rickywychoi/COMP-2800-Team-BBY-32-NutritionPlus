@@ -1,7 +1,23 @@
-// EntryUserInput.js
+/**
+ * Your daily intake. Submits data from user-filled questionnaire and calculates
+ * the user's required daily values. 
+ * 
+ * Uses React Bootstrap Form for each input form, and Button to submit/proceed.
+ * 
+ * Form
+ * @see https://react-bootstrap.github.io/components/forms/
+ * 
+ * Button
+ * @see https://react-bootstrap.github.io/components/buttons/
+ * 
+ * Uses React Icons to help customize design of buttons.
+ * 
+ * MdArrowBack from Material Design Icons library
+ * @see http://google.github.io/material-design-icons/
+ */
+
 
 import { useState } from 'react'
-
 import { Form, Button } from 'react-bootstrap'
 import { MdArrowBack } from 'react-icons/md'
 import PopOver from '../components/UI/PopOver'
@@ -13,7 +29,10 @@ import { useRouter } from 'next/router'
 
 const Questionnaire = (props) => {
   const router = useRouter()
+
+  // to check if the form is ready to be submitted
   const [validated, setValidated] = useState(false);
+  // sets the details of user
   const [userInfo, setUserInfo] = useState({
     age: 0,
     gender: "male",
@@ -27,6 +46,7 @@ const Questionnaire = (props) => {
     eer: 0
   })
 
+  // checks if the form has valid information and submits
   const handleSubmit = (event) => {
     event.preventDefault()
     const form = event.currentTarget
@@ -37,40 +57,50 @@ const Questionnaire = (props) => {
     setValidated(true);
   };
 
+  // sets the age of the user
   const handleAgeChange = e => {
     setUserInfo({ ...userInfo, age: e.target.value })
   }
+  // sets the gender of the user
   const handleGenderChange = e => {
     setUserInfo({ ...userInfo, gender: e.target.value })
   }
+  // sets if the user is pregnant (if gender is female)
   const handlePregnancyChange = e => {
     setUserInfo({ ...userInfo, pregnancy: e.target.value })
   }
+  // sets the user's lactation (if gender is female)
   const handleLactationChange = e => {
     setUserInfo({ ...userInfo, lactation: e.target.value })
   }
+  // sets the user's weight (kgs)
   const handleWeightChange = e => {
     setUserInfo({ ...userInfo, weight: e.target.value })
   }
+  // sets the user's weight (lbs)
   const handlePoundsChange = e => {
     setUserInfo(prevState => ({
       ...prevState,
       isPounds: !prevState.isPounds
     }))
   }
+  // sets the user's height (cm)
   const handleHeightChange = e => {
     setUserInfo({ ...userInfo, height: e.target.value })
   }
+  // sets the user's height (inches)
   const handleInchesChange = e => {
     setUserInfo(prevState => ({
       ...prevState,
       isInches: !prevState.isInches
     }))
   }
+  // sets the user's physical activity level
   const handleActivityChange = e => {
     setUserInfo({ ...userInfo, physicalActivity: e.target.value })
   }
   
+  // sets the result to userInfo
   const showResult = () => {
     let eer, pa = 0
     let {
@@ -154,12 +184,14 @@ const Questionnaire = (props) => {
 
     setUserInfo({ ...userInfo, eer: Math.ceil(eer), pa: pa })
 
+    // if the form is ready to be submitted, send user information to application's state and route to the result page
     if (validated) {
       props.onSubmitEntryUserInput(userInfo)
       router.push("/questionnaire/result")
     }
   }
 
+  // goes back to previous screen
   const goBack = () => {
     router.back()
   }
@@ -167,9 +199,17 @@ const Questionnaire = (props) => {
   return (
     <div className={questionStyles.body}>
       <div className={questionStyles.header}>
-        <Button variant="secondary" className={buttonStyles.button} onClick={goBack}><span><MdArrowBack /> Back</span></Button>
+        {
+          !router.query.firsttime
+            ?
+          <Button variant="secondary" className={buttonStyles.button} onClick={goBack}><span><MdArrowBack /> Back</span></Button>
+            :
+          null
+        }
         <h1 className={questionStyles.mainTitle}>We are retrieving some <br/>basic information from you.</h1>
       </div>
+
+      {/* Form component from react-bootstrap */}
       <Form validated={validated} onSubmit={handleSubmit}>
         <Form.Group controlId="formBasicAge">
           <Form.Label>What is your age?</Form.Label>
@@ -196,6 +236,7 @@ const Questionnaire = (props) => {
           </Form.Control.Feedback>
         </Form.Group>
         {
+          // if the user is female - include pregnant/lactation option
           userInfo.gender.localeCompare("female") == 0
             ?
           (
@@ -300,6 +341,7 @@ const Questionnaire = (props) => {
   )
 }
 
+// contains the dispatch action to send details of health information to the application's state
 const mapDispatchToProps = dispatch => {
   return {
     onSubmitEntryUserInput: (userInfo) => dispatch({type: actions.SUBMITENTRYUSERINPUT, payload: userInfo})

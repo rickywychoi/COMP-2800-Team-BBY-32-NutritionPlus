@@ -1,14 +1,18 @@
-// store/reducer.js
+/**
+ * Manages the application's state on change of actions dispatched.
+ * 
+ * Includes the status of user signed in, the object of current user,
+ * the object containing the result of user after nutrition questionnaire,
+ * the array containing grocery items of my cart.
+ */
 
-import * as actions from '../store/actions'
-import { startOfMinute } from 'date-fns'
+import * as actions from './actions'
 
 export const initialState = {
   isSignedIn: false,  // Signed-in state.
   currentUser: null,  // Current user signed-in.
-  userInfo: {},       // information of user to calculate nutrient result
-  myCart: [],         // final my cart to proceed to checkout & payment
-  storeToVisit: ""    // store to visit and buy items
+  userInfo: {},       // Information of user to calculate nutrient result
+  myCart: []          // The final my cart to proceed to checkout & payment
 }
 
 const reducer = (state = initialState, action) => {
@@ -32,13 +36,7 @@ const reducer = (state = initialState, action) => {
     case actions.EMPTYMYCART:
       return {
         ...state,
-        myCart: [],
-        storeToVisit: ""
-      }
-    case actions.SETSTORE:
-      return {
-        ...state,
-        storeToVisit: action.payload
+        myCart: []
       }
     default: 
       return {...state};
