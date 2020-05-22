@@ -92,7 +92,6 @@ const MyCart = (props) => {
             qty++
           }
         }
-        console.log("index", i, "quantity", qty)
         
         foodItem = {
           quantity: qty,
@@ -100,11 +99,8 @@ const MyCart = (props) => {
         }
         if (!visited.includes(arr[i]['fdcId'])) {
           result.push(foodItem)
-          console.log("pushed!")
         }
-        console.log("result", result)
         visited.push(arr[i]['fdcId'])
-        console.log("visited", visited)
       }
       // last element of the array
       foodItem = {
@@ -113,7 +109,6 @@ const MyCart = (props) => {
       }
       if (!visited.includes(arr[arr.length - 1]['fdcId'])) {
         result.push(foodItem)
-        console.log("Last item, here we go! Pushed!")
       }
       // if there is only one item left
     } else if (arr.length === 1) {
@@ -156,13 +151,11 @@ const MyCart = (props) => {
       }
       // extract that item from array
       newArray.splice(extractIndex, 1)
-      console.log(itemToAdd.quantity)
       // increment
       qty = itemToAdd.quantity
       if (itemToAdd.quantity < 99) {
         qty++
         itemToAdd.quantity = qty
-        console.log(itemToAdd.quantity)
         newArray.push(itemToAdd)
         
         let cart = []
@@ -180,7 +173,6 @@ const MyCart = (props) => {
           cart: cart
         }).then(res => {
           setRawCart(cart)
-          console.log("setRawCart", cart)
         }).catch(err => console.log(err))
         
         setRawCart(cart)
@@ -211,7 +203,6 @@ const MyCart = (props) => {
       }
       // extract that item from array
       newArray.splice(extractIndex, 1)
-      console.log(itemToAdd.quantity)
       // decrement
       qty = itemToAdd.quantity
       if (itemToAdd.quantity > 1) {
@@ -246,7 +237,6 @@ const MyCart = (props) => {
       cart: cart
     }).then(res => {
       setRawCart(cart)
-      console.log("setRawCart", cart)
     }).catch(err => console.log(err))
     
     let arrayWithQuantity = getQuantity(cart)
@@ -255,8 +245,6 @@ const MyCart = (props) => {
 
   // changes the quantity of an item directly using input field
   const handleQtyChange = (id, e) => {
-    console.log(id)
-    console.log(e.target.value)
     if (props.currentUser) {
       // get previous quantity from item
       let qty = 0

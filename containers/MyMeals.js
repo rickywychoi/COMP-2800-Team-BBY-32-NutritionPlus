@@ -16,7 +16,7 @@ import * as actions from '../store/actions'
 import ErrorPage from '../components/ErrorPage/ErrorPage'
 import { Table } from 'react-bootstrap'
 import DateFormatter from '../components/DateFormatter/DateFormatter'
-import RecipeChart from '../containers/Chart/RecipeChart'
+import MyMealsChart from './Chart/MyMealsChart'
 import orderStyles from '../styles/MyOrder.module.css'
 
 if (!firebase.apps.length) {
@@ -94,7 +94,7 @@ const MyMeals = (props) => {
         </div>
 
         {/* Nutrition composition chart */}
-        <RecipeChart rawCart = {myRecipes}/>
+        <MyMealsChart rawCart = {myRecipes}/>
       </div>
       <style jsx>{`
         td {

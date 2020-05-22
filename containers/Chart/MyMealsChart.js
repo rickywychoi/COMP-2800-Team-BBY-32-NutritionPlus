@@ -12,7 +12,6 @@
  * @see https://react-bootstrap.github.io/components/forms/
  */
 
-
 import { useState, useEffect } from 'react'
 import MediaQuery from 'react-responsive'
 import { HorizontalBar } from 'react-chartjs-2'
@@ -31,7 +30,7 @@ if (!firebase.apps.length) {
 }
 let db = firebase.firestore()
 
-const Chart = (props) => {
+const MyMealsChart = (props) => {
   const router = useRouter()
   
   // data object used in the chart
@@ -58,74 +57,73 @@ const Chart = (props) => {
         db.collection('users').doc(props.currentUser.uid).get().then(userInfo => {
           chartData.labels = ['Fat', 'Fatty acids', 'Fibre', 'Sugars', 'Cholesterol', 'Sodium', 'Potassium', 'Calcium', 'Iron', 'Vitamin A', 'Vitamin C', 'Vitamin D', 'Vitamin E', 'Vitamin K', 'Thiamin', 'Riboflavin', 'Niacin', 'Vitamin B6', 'Folate', 'Vitamin B12', 'Choline', 'Biotin', 'Pantothenate', 'Phosphorous', 'Iodide', 'Magnesium', 'Zinc', 'Selenium', 'Copper', 'Manganese', 'Chromium', 'Molybdenum', 'Chloride']
           setDailyValue(userInfo.data().healthInfo.dailyValue)
-          props.rawCart.forEach(item => {
-            item.foodNutrients.forEach(nutri => {
-              let nut = nutri.nutrient
-              if (nut.name.localeCompare("Total lipid (fat)") == 0)
+          props.rawCart.forEach(recipe => {
+            Object.values(recipe.totalNutrients).forEach(nut => {
+              if (nut.label.localeCompare("Fat") == 0)
                 nut.id = "1"
-              else if (nut.name.localeCompare("Fatty acids, total saturated") == 0)
+              else if (nut.label.localeCompare("Saturated" == 0) == 0)
                 nut.id = "2"
-              else if (nut.name.localeCompare("Fiber, total dietary") == 0)
+              else if (nut.label.localeCompare("Fiber") == 0)
                 nut.id = "3"
-              else if (nut.name.localeCompare("Sugars, total including NLEA") == 0)
+              else if (nut.label.localeCompare("Sugars") == 0)
                 nut.id = "4"
-              else if (nut.name.localeCompare("Cholesterol") == 0)
+              else if (nut.label.localeCompare("Cholesterol") == 0)
                 nut.id = "5"
-              else if (nut.name.localeCompare("Sodium, Na") == 0)
+              else if (nut.label.localeCompare("Sodium") == 0)
                 nut.id = "6"
-              else if (nut.name.localeCompare("Potassium, K") == 0)
+              else if (nut.label.localeCompare("Potassium") == 0)
                 nut.id = "7"
-              else if (nut.name.localeCompare("Calcium, Ca") == 0)
+              else if (nut.label.localeCompare("Calcium") == 0)
                 nut.id = "8"
-              else if (nut.name.localeCompare("Iron, Fe") == 0)
+              else if (nut.label.localeCompare("Iron") == 0)
                 nut.id = "9"
-              else if (nut.name.localeCompare("Vitamin A, RAE") == 0)
+              else if (nut.label.localeCompare("Vitamin A") == 0)
                 nut.id = "10"
-              else if (nut.name.localeCompare("Vitamin C, total ascorbic acid") == 0)
+              else if (nut.label.localeCompare("Vitamin C") == 0)
                 nut.id = "11"
-              else if (nut.name.localeCompare("Vitamin D (D2 + D3)") == 0)
+              else if (nut.label.localeCompare("Vitamin D") == 0)
                 nut.id = "12"
-              else if (nut.name.localeCompare("Vitamin E (alpha-tocopherol)") == 0)
+              else if (nut.label.localeCompare("Vitamin E") == 0)
                 nut.id = "13"
-              else if (nut.name.localeCompare("Vitamin K (phylloquinone)") == 0)
+              else if (nut.label.localeCompare("Vitamin K (phylloquinone)") == 0)
                 nut.id = "14"
-              else if (nut.name.localeCompare("Thiamin") == 0)
+              else if (nut.label.localeCompare("Thiamin (B1)") == 0)
                 nut.id = "15"
-              else if (nut.name.localeCompare("Riboflavin") == 0)
+              else if (nut.label.localeCompare("Riboflavin (B2)") == 0)
                 nut.id = "16"
-              else if (nut.name.localeCompare("Niacin") == 0)
+              else if (nut.label.localeCompare("Niacin (B3)") == 0)
                 nut.id = "17"
-              else if (nut.name.localeCompare("Vitamin B-6") == 0)
+              else if (nut.label.localeCompare("Vitamin B6") == 0)
                 nut.id = "18"
-              else if (nut.name.localeCompare("Folate, DFE") == 0)
+              else if (nut.label.localeCompare("Folate equivalent (total)") == 0)
                 nut.id = "19"
-              else if (nut.name.localeCompare("Vitamin B-12") == 0)
+              else if (nut.label.localeCompare("Vitamin B12") == 0)
                 nut.id = "20"
-              else if (nut.name.toLowerCase().includes("chlori"))
+              else if (nut.label.toLowerCase().includes("chlori"))
                 nut.id = "21"
-              else if (nut.name.toLowerCase().includes("biotin"))
+              else if (nut.label.toLowerCase().includes("biotin"))
                 nut.id = "22"
-              else if (nut.name.localeCompare("Pantothenic acid") == 0)
+              else if (nut.label.localeCompare("Pantothenic acid") == 0)
                 nut.id = "23"
-              else if (nut.name.localeCompare("Phosphorus, P") == 0)
+              else if (nut.label.localeCompare("Phosphorus") == 0)
                 nut.id = "24"
-              else if (nut.name.localeCompare("Iodine, I") == 0)
+              else if (nut.label.localeCompare("Iodine, I") == 0)
                 nut.id = "25"
-              else if (nut.name.localeCompare("Magnesium, Mg") == 0)
+              else if (nut.label.localeCompare("Magnesium") == 0)
                 nut.id = "26"
-              else if (nut.name.localeCompare("Zinc, Zn") == 0)
+              else if (nut.label.localeCompare("Zinc") == 0)
                 nut.id = "27"
-              else if (nut.name.localeCompare("Selenium, Se") == 0)
+              else if (nut.label.localeCompare("Selenium, Se") == 0)
                 nut.id = "28"
-              else if (nut.name.localeCompare("Copper, Cu") == 0)
+              else if (nut.label.localeCompare("Copper, Cu") == 0)
                 nut.id = "29"
-              else if (nut.name.localeCompare("Manganese, Mn") == 0)
+              else if (nut.label.localeCompare("Manganese, Mn") == 0)
                 nut.id = "30"
-              else if (nut.name.toLowerCase().includes("chromium"))
+              else if (nut.label.toLowerCase().includes("chromium"))
                 nut.id = "31"
-              else if (nut.name.localeCompare("Molybdenum, Mo") == 0)
+              else if (nut.label.localeCompare("Molybdenum, Mo") == 0)
                 nut.id = "32"
-              else if (nut.name.toLowerCase().includes("chlori"))
+              else if (nut.label.toLowerCase().includes("chlori"))
                 nut.id = "33"
             })
           })
@@ -138,10 +136,10 @@ const Chart = (props) => {
     
           // adds amount of each nutrient
           props.rawCart.forEach(item => {
-            item.foodNutrients.forEach(nut => {
+            Object.values(item.totalNutrients).forEach(nut => {
               for (let i = 0; i < 33; i++) {
-                if (parseInt(nut.nutrient.id) === i + 1) {
-                  amountsArray[i] = amountsArray[i] + nut.amount
+                if (parseInt(nut.id) === i + 1) {
+                  amountsArray[i] = amountsArray[i] + nut.quantity
                 } 
               }
             })
@@ -208,6 +206,7 @@ const Chart = (props) => {
             </Form>
           </div>
 
+          
           {/* MediaQuery component from react-responsive; for desktop view */}
           <MediaQuery minDeviceWidth={500}>
 
@@ -233,7 +232,6 @@ const Chart = (props) => {
               redraw
             />
           </MediaQuery>
-
 
           {/* MediaQuery component from react-responsive; for mobile view */}
           <MediaQuery maxDeviceWidth={499}>
@@ -287,4 +285,4 @@ const mapStateToProps = state => {
   }
 }
 
-export default connect(mapStateToProps)(Chart)
+export default connect(mapStateToProps)(MyMealsChart)

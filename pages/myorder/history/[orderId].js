@@ -65,7 +65,6 @@ const ArchivedOrderDetail = (props) => {
               itemWithoutQty = {}
               Object.assign(itemWithoutQty, item)
               delete itemWithoutQty.quantity
-              console.log(itemWithoutQty)
               for (let i = 0; i < quantity; i++) {
                 newArray.push(itemWithoutQty)
               }

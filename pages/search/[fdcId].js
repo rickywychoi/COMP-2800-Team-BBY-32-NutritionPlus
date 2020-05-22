@@ -59,8 +59,6 @@ const ItemDetailsPage = (props) => {
   if (tableRef.current) {
     tableWidth = tableRef.current.clientWidth
   }
-  console.log(tableWidth)
-  
   useEffect(() => {
     setItemName(router.query.itemname)
     
@@ -68,7 +66,6 @@ const ItemDetailsPage = (props) => {
     if (props.currentUser) {
       let userDV = []
       db.collection('users').doc(props.currentUser.uid).get().then(userInfo => {
-        console.log(userInfo.data().healthInfo.dailyValue)
         userInfo.data().healthInfo.dailyValue.forEach(nut => {
           userDV.push(nut)
         })
@@ -357,7 +354,6 @@ const ItemDetailsPage = (props) => {
   const toMyCart = (e) => {
     if (props.currentUser) {
       db.collection('users').doc(props.currentUser.uid).get().then(userInfo => {
-        console.log(userInfo.data())
         // get user's cart from firestore
         let currentCart = []
         currentCart.push(...userInfo.data().cart)
@@ -403,10 +399,6 @@ const ItemDetailsPage = (props) => {
       </Popover.Content>
     </Popover>
   );
-
-  if (result.foodPortions) {
-    console.log(result.foodPortions[0])
-  }
   
   return (
     <div className={detailStyles.mainBody}>

@@ -83,7 +83,6 @@ const RecipeSearch = (props) => {
 
   // obtains values from API by using search as query and pageSize to display 10 results per page
   const handleSearchQuery = e => {
-    // console.log(search);
     let results = []
 
     axios.get(url, {
@@ -133,7 +132,6 @@ const RecipeSearch = (props) => {
 
 // << arrow
 const handleFirst = (number, totalPages, search) => {
-    console.log("handleFirst")
     const prevNumber = number - 5
     if (prevNumber > 0) {
       let results = []

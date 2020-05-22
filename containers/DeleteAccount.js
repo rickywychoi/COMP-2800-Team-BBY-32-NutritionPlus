@@ -51,9 +51,7 @@ const DeleteAccount = (props) => {
       // if the user is signed in
       if (props.currentUser) {
         db.collection('users').doc(props.currentUser.uid).delete().then(() => {
-          console.log("Successfully deleted data from database")
           var user = firebase.auth().currentUser;
-          console.log(user)
           var credential = firebase.auth.EmailAuthProvider.credential(
             user.email, 
             password

@@ -58,14 +58,11 @@ const RecipeDetails = (props) => {
    const tableRef = useRef(null)
    let tableWidth
    
-   console.log(tableRef)
-
   // returns information to create nutrition facts label
   useEffect(()=>{
     if (props.currentUser) {  // retrieves daily value of the user
       let userDV = []
       db.collection('users').doc(props.currentUser.uid).get().then(userInfo => {
-        console.log(userInfo.data().healthInfo.dailyValue)
         userInfo.data().healthInfo.dailyValue.forEach(nut => {
           userDV.push(nut)
         })
@@ -309,8 +306,6 @@ const RecipeDetails = (props) => {
     }
   }, [])
   
-  console.log(rawCart)
-
   // sends recipe to user's info in firebase
   const sendUserHistory = () => {
     if (props.currentUser){   // if user signed in
@@ -530,7 +525,13 @@ const RecipeDetails = (props) => {
             </Accordion.Collapse>                             
         </Accordion>
         <br />
-        <RecipeChart rawCart = {rawCart} />
+        {
+          nutrients.length > 0
+            ?
+          <RecipeChart nutrients = {nutrients} />
+            :
+          null
+        }
     </div>
   )
 }
