@@ -99,8 +99,6 @@ The testing for any of these features can be found [here](https://docs.google.co
     │   YourDailyValue.js                        # Shows the user their daily recommended values
     ├── node_modules                             # packages installed by npm
     ├── pages                                    # folder for pages
-    │   └── menuQuestionnaire                    # Folder for menuQuestionnaire
-    │   │       index.js                         # loads the menu questionnaire page
     │   └── myaccount                            # Folder for my account
     │   │       index.js                         # loads the my account page
     │   └── mycart                               # Folder for my cart
