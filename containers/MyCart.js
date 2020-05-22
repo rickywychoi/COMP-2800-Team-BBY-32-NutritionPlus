@@ -391,10 +391,12 @@ const MyCart = (props) => {
                     return(
                       <Dropdown.Item>
                         <Link
-                          href={{ pathname:"/recipe?item=[item]" }}
+                          href={`/recipe?item=${item.description}`}
                           as={`/recipe?item=${item.description}`}
                         >
-                          {item.description}
+                          <a>
+                            {item.description}
+                          </a>
                         </Link>
                       </Dropdown.Item>
                     )

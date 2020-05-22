@@ -48,13 +48,13 @@ class NavBar extends Component {
     // hides signout status with checkmark after 10 seconds of animation
     setTimeout(() => {
       if (this.signoutRef.current !== null) {
-      this.signoutRef.current.style.display = "none"
+        this.signoutRef.current.style.display = "none"
       }
     }, 10000);
   }
-
+  
   render() {
-    
+
     // routes to login page to sign out
     const signout = () => {
       this.props.router.push("/login?signout=true")
@@ -70,6 +70,11 @@ class NavBar extends Component {
     // hides my account popup when the hamburger menu is collapsed
     const hideMyAccount = () => {
       this.setState({showMyAccount: false})
+    }
+
+    // triggers function that hides my account popup as the path changes
+    if (this.props.router.events) {
+      this.props.router.events.on('routeChangeComplete', hideMyAccount)
     }
 
     return (
