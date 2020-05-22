@@ -55,7 +55,7 @@ The testing for any of these features can be found [here](https://docs.google.co
 
 <details>
 <summary>Click to open project hierarchy</summary>
-
+  
 ```
     The top level contains these files:
     ├── .gitignore                               # gitignore file
