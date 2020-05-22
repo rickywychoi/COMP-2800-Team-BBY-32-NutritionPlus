@@ -23,7 +23,6 @@ const MainHome = (props) => {
     }
   })
   
-  
   return (
     <div>
       <Head>

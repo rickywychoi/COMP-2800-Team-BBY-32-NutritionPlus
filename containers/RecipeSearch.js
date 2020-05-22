@@ -48,7 +48,9 @@ const RecipeSearch = (props) => {
   const [result, setResult] = useState([])
   const [pagination, setPagination] = useState([])
   const [totalPages, setTotalPages] = useState()
-  const url = `https://api.edamam.com/search?app_id=${EDAMAM_RECIPE_APP_ID}&app_key=${EDAMAM_RECIPE_APP_KEY}`
+  const [error, setError] = useState(null)
+
+  const url = `/search?app_id=${EDAMAM_RECIPE_APP_ID}&app_key=${EDAMAM_RECIPE_APP_KEY}`
   
   const pageSizeLimit = 10
   const searchLimit = 100
@@ -92,6 +94,8 @@ const RecipeSearch = (props) => {
       }
     }).then(
       res => {
+        setError(null)
+
         res.data.hits.forEach(item => results.push(item))
         setResult(results)
         let noPages = searchLimit / pageSizeLimit
@@ -127,7 +131,13 @@ const RecipeSearch = (props) => {
             setPagination(paginationItems)
         }
       }
-    )
+    ).catch(err => {
+      setError({
+        data: err.response.data,
+        status: err.response.status,
+        statusText: err.response.statusText
+      })
+    })
 }
 
 // << arrow
@@ -142,8 +152,15 @@ const handleFirst = (number, totalPages, search) => {
           to: (pageSizeLimit * prevNumber) - 1,
         }
       }).then(res => {
+        setError(null)
         res.data.hits.forEach(item => results.push(item))
         setResult(results)
+      }).catch(err => {
+        setError({
+          data: err.response.data,
+          status: err.response.status,
+          statusText: err.response.statusText
+        })
       })
       let paginationItems = []
       if (prevNumber > 3) {
@@ -181,8 +198,15 @@ const handleFirst = (number, totalPages, search) => {
         to: (pageSizeLimit * prevNumber) - 1,
       }
     }).then(res => {
-        res.data.hits.forEach(item => results.push(item))
-        setResult(results)
+      setError(null)
+      res.data.hits.forEach(item => results.push(item))
+      setResult(results)
+    }).catch(err => {
+      setError({
+        data: err.response.data,
+        status: err.response.status,
+        statusText: err.response.statusText
+      })
     })
     let paginationItems = []
     if (prevNumber > totalPages - 3) {
@@ -248,8 +272,15 @@ const handleFirst = (number, totalPages, search) => {
         to: pageSizeLimit - 1,
       }
     }).then(res => {
-        res.data.hits.forEach(item => results.push(item))
-        setResult(results)
+      setError(null)
+      res.data.hits.forEach(item => results.push(item))
+      setResult(results)
+    }).catch(err => {
+      setError({
+        data: err.response.data,
+        status: err.response.status,
+        statusText: err.response.statusText
+      })
     })
     let paginationItems = []
     for (let number = 1; number <= 5; number++) {
@@ -277,8 +308,15 @@ const handleFirst = (number, totalPages, search) => {
         to: (pageSizeLimit * numberLast) - 1,
       }
     }).then(res => {
-        res.data.hits.forEach(item => results.push(item))
-        setResult(results)
+      setError(null)
+      res.data.hits.forEach(item => results.push(item))
+      setResult(results)
+    }).catch(err => {
+      setError({
+        data: err.response.data,
+        status: err.response.status,
+        statusText: err.response.statusText
+      })
     })
     let paginationItems = []
     paginationItems.push(<Pagination.Prev key="less" onClick={() => {handlePrev(numberLast, totalPages, search)}}/>)
@@ -306,8 +344,15 @@ const handleFirst = (number, totalPages, search) => {
         to: (pageSizeLimit * nextNumber) - 1,
       }
     }).then(res => {
-        res.data.hits.forEach(item => results.push(item))
-        setResult(results)
+      setError(null)
+      res.data.hits.forEach(item => results.push(item))
+      setResult(results)
+    }).catch(err => {
+      setError({
+        data: err.response.data,
+        status: err.response.status,
+        statusText: err.response.statusText
+      })
     })
     let paginationItems = []
     if (nextNumber < 4) {
@@ -373,8 +418,15 @@ const handleFirst = (number, totalPages, search) => {
           to: (pageSizeLimit * nextNumber) - 1,
         }
       }).then(res => {
+        setError(null)
         res.data.hits.forEach(item => results.push(item))
         setResult(results)
+      }).catch(err => {
+        setError({
+          data: err.response.data,
+          status: err.response.status,
+          statusText: err.response.statusText
+        })
       })
       let paginationItems = []
       if (nextNumber < totalPages - 1) {
@@ -412,8 +464,15 @@ const handleFirst = (number, totalPages, search) => {
         to: (pageSizeLimit * number) - 1,
       }
     }).then(res => {
-        res.data.hits.forEach(item => results.push(item))
-        setResult(results)
+      setError(null)
+      res.data.hits.forEach(item => results.push(item))
+      setResult(results)
+    }).catch(err => {
+      setError({
+        data: err.response.data,
+        status: err.response.status,
+        statusText: err.response.statusText
+      })
     })
     let paginationItems = []
     if (number < 4) {
@@ -563,7 +622,7 @@ const handleFirst = (number, totalPages, search) => {
             title={<FaShoppingCart />}
           >
             {
-              props.currentUser 
+              props.currentUser
               ?
               <span>
                 <Dropdown.Header><i>Choose an Item from My Cart</i></Dropdown.Header>
@@ -600,35 +659,46 @@ const handleFirst = (number, totalPages, search) => {
         <ul className={searchStyles.listCards}>
 
           {/* Loops through result array and displays each item */}
-          {result.map(item => {
-            return(
-              <li 
-                key={getURI(item.recipe.uri)} 
-                className={searchStyles.card}>
-                  <Link 
-                    href={{ 
-                      pathname: "/recipe/[recipeId]", 
-                      query: { 
-                        search: `${search}`,
-                        prevPage: "/recipe"
-                      } 
-                    }}
-                    as={`/recipe/${getURI(item.recipe.uri)}`}
-                  >
-                    <a className={searchStyles.itemLink}>
-                      <img className={searchStyles.itemImage} src={item.recipe.image} alt={item.recipe.label} />
-                      <b>{item.recipe.label}</b>
-                      <p className={searchStyles.itemRecipeData}>{Math.floor(item.recipe.calories)}
-                      <span className={searchStyles.itemRecipeLabel}> Calories | </span>
-                      {item.recipe.ingredients.length}
-                      <span className={searchStyles.itemRecipeLabel}> Ingredients</span>
-                      </p>
-                      <p className={searchStyles.itemRecipeSource}>{item.recipe.source}</p>
-                    </a>
-                  </Link>
-              </li>
-            )
-          })}
+          {
+            !error
+              ?
+            result.map(item => {
+              return(
+                <li 
+                  key={getURI(item.recipe.uri)} 
+                  className={searchStyles.card}>
+                    <Link 
+                      href={{ 
+                        pathname: "/recipe/[recipeId]", 
+                        query: { 
+                          search: `${search}`,
+                          prevPage: "/recipe"
+                        } 
+                      }}
+                      as={`/recipe/${getURI(item.recipe.uri)}`}
+                    >
+                      <a className={searchStyles.itemLink}>
+                        <img className={searchStyles.itemImage} src={item.recipe.image} alt={item.recipe.label} />
+                        <b>{item.recipe.label}</b>
+                        <p className={searchStyles.itemRecipeData}>{Math.floor(item.recipe.calories)}
+                        <span className={searchStyles.itemRecipeLabel}> Calories | </span>
+                        {item.recipe.ingredients.length}
+                        <span className={searchStyles.itemRecipeLabel}> Ingredients</span>
+                        </p>
+                        <p className={searchStyles.itemRecipeSource}>{item.recipe.source}</p>
+                      </a>
+                    </Link>
+                </li>
+              )
+            })
+              :
+            <>
+              <div style={{paddingTop: "1.5rem"}}>
+                <code>{error.status} - {error.statusText}</code>
+                <h5 style={{marginTop: "1.5rem"}}>This error has occurred because of the limitation of free API - Please support us :)</h5>
+              </div>
+            </>
+          }
 
         </ul>
 
@@ -639,7 +709,6 @@ const handleFirst = (number, totalPages, search) => {
 
     </div>
   ) 
-
 }
 
 // contains the application's state - the current user object

@@ -13,18 +13,29 @@ const dev = process.env.NODE_ENV !== 'production'
 const app = next({ dev })
 const handle = app.getRequestHandler()
     
+// list of pathnames to access via proxy
+const proxyObj = {
+  '/v2/top-headlines': {
+    target: 'https://newsapi.org',
+    changeOrigin: true
+  },
+  '/search': {
+    target: 'https://api.edamam.com',
+    changeOrigin: true
+  }
+}
+
 app.prepare()
 .then(() => {
   // express
   const server = express()
   
   // uses proxy as middleware to resolve CORS error - ensure same origin
-  server.use(
-    createProxyMiddleware("/v2/top-headlines", {
-      target: "https://newsapi.org",
-      changeOrigin: true
+  if (proxyObj) {
+    Object.keys(proxyObj).forEach(context => {
+      server.use(createProxyMiddleware(context, proxyObj[context]))
     })
-  )
+  }
 
   // handles pages to be rendered
   server.get('*', (req, res) => {
