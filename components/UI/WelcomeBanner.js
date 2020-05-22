@@ -29,11 +29,11 @@ const WelcomeBanner = React.forwardRef((props, ref) => {
     "/images/coffin-guys.png"
   ]
   
-  // Five clicks on COVID-19 icon in the banner triggers the easter egg
+  // Two clicks on COVID-19 icon in the banner triggers the easter egg
   const easterEggTrigger = (e) => {
     e.preventDefault()
     setEasterClickCount(easterClickCount + 1)
-    if (easterClickCount === 4) {
+    if (easterClickCount === 1) {
       setEasterVisible(true)
     }
   }
