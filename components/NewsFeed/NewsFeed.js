@@ -14,18 +14,14 @@ import { NEWS_API_KEY } from '../../apiKey'
 import feedStyles from '../../styles/NewsFeed.module.css'
 
 // NewsAPI url with API key
-const url = `https://newsapi.org/v2/top-headlines?country=ca&category=health&apiKey=${NEWS_API_KEY}`
+const url = `/v2/top-headlines?country=ca&category=health&apiKey=${NEWS_API_KEY}`
 
 const NewsFeed = () => {
   const [newsList, setNewsList] = useState([])
 
   useEffect(() => {
     // HTTP GET request to fetch news articles using NewsAPI
-    axios.get(url, {
-      headers: {
-        'Access-Control-Allow-Origin': '*'
-      }
-    }).then(res => {
+    axios.get(url).then(res => {
       let results = []
       res.data.articles.forEach(item => {
         results.push(item)
