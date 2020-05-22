@@ -21,7 +21,11 @@ const NewsFeed = () => {
 
   useEffect(() => {
     // HTTP GET request to fetch news articles using NewsAPI
-    axios.get(url).then(res => {
+    axios.get(url, {
+      headers: {
+        'Access-Control-Allow-Origin': '*'
+      }
+    }).then(res => {
       let results = []
       res.data.articles.forEach(item => {
         results.push(item)

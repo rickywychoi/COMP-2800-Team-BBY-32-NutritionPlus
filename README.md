@@ -61,7 +61,7 @@ The testing for any of these features can be found [here](https://docs.google.co
     ├── .gitignore                               # gitignore file
     ├── apiKey.js                                # Contains all the keys for third-party APIs
     ├── firebaseConfig.js                        # Firebase configuration
-
+    |
     ├── .next                                    # next.js folder
     ├── components                               # Stateless components (classes and/or functions)
     │   └── DateFormatter                        # Folder for DateFormatter
@@ -83,6 +83,7 @@ The testing for any of these features can be found [here](https://docs.google.co
     ├── containers                               # Components with their own states
     │   └── Chart                                # Folder for Charts
     │            GroceryChart.js                 # Nutrient Satisfaction chart for groceries
+    |            MyMeals.js                      # Nutrient Satisfaction chart for My Meals
     │            RecipeChart.js                  # Nutrient Satisfaction chart for recipes
     │   └── QuestionnaireResult                  # Folder for QuestionnaireResults
     │            dailyValue.json                 # File for daily values of each age group
