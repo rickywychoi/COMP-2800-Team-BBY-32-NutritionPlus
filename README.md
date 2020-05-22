@@ -61,6 +61,7 @@ The testing for any of these features can be found [here](https://docs.google.co
     ├── .gitignore                               # gitignore file
     ├── apiKey.js                                # Contains all the keys for third-party APIs
     ├── firebaseConfig.js                        # Firebase configuration
+    |__ server.js                                # Server configuration to run next app on top of it
     |
     ├── .next                                    # next.js folder
     ├── components                               # Stateless components (classes and/or functions)
