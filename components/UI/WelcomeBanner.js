@@ -80,7 +80,7 @@ const WelcomeBanner = React.forwardRef((props, ref) => {
 
   // routes to the grocery item search page
   const toItemSearch = () => {
-    router.push("/search")
+    router.push("/itemsearch")
   }
     
   // routes to the recipe search page

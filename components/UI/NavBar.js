@@ -93,7 +93,7 @@ class NavBar extends Component {
           <Navbar.Collapse id="responsive-navbar-nav" >
             <Nav className="mr-auto">
               <Link href="/yourdailyvalue" ><a className={navbarStyles.link}>My Recommended Intake</a></Link>
-              <Link href="/search"><a className={navbarStyles.link}>Search an Item</a></Link>
+              <Link href="/itemsearch"><a className={navbarStyles.link}>Search an Item</a></Link>
               <Link href="/recipe"><a className={navbarStyles.link}>Search Recipes</a></Link>
               <Link href="/aboutus"><a className={navbarStyles.link}>About Us</a></Link>
             </Nav>

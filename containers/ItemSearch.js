@@ -476,8 +476,8 @@ const ItemSearch = () => {
           return (
             <li key={item.fdcId} className={listStyles.listItem}>
               <Link 
-                href={{pathname: '/search/[fdcId]', query: {itemname: (item.brandOwner ? item.description + " - " + item.brandOwner : item.description)}}} 
-                as={`/search/${item.fdcId}?itemname=${item.brandOwner ? item.description + " - " + item.brandOwner : item.description}`}
+                href={{pathname: '/itemsearch/[fdcId]', query: {itemname: (item.brandOwner ? item.description + " - " + item.brandOwner : item.description)}}} 
+                as={`/itemsearch/${item.fdcId}?itemname=${item.brandOwner ? item.description + " - " + item.brandOwner : item.description}`}
               >
                 <a className={listStyles.itemLink}>
                   {item.description}

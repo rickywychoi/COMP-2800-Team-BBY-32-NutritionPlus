@@ -140,7 +140,7 @@ const QuestionnaireResult = (props) => {
 
   // redirects to recipe search page
   const goRecipe = () => {
-    router.push("/search")
+    router.push("/recipe")
   }
 
   return (
