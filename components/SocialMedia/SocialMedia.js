@@ -5,7 +5,7 @@
  * @see https://www.npmjs.com/package/react-share
  */
 
-import Router from 'next/router'
+import { withRouter } from 'next/router'
 import { Component } from 'react'
 
 import {
@@ -27,29 +27,8 @@ import {
 } from "react-share";
 
 class SocialMedia extends Component {
-  state = {
-    currentUrl: ""
-  }
-
-  componentDidMount() {
-    if (Router.router.asPath) {
-      this.setState({
-        currentUrl: `https://nutritionplus.herokuapp.com${Router.router.asPath}`
-      })
-    }
-  }
-
   render() {
-    
-    // sets current path as it changes
-    if (Router.events) {
-      Router.events.on('routeChangeComplete', () => {
-        console.log(Router.router.asPath)
-        this.setState({
-          currentUrl: `https://nutritionplus.herokuapp.com${Router.router.asPath}`
-        })
-      })
-    }
+    const currentUrl = `https://nutritionplus.herokuapp.com${this.props.router?.asPath}`
 
     return (
       <>
@@ -59,13 +38,13 @@ class SocialMedia extends Component {
           <div className="networks">
           {
             // if current path is detected, use it as sharing url
-            this.state.currentUrl
+            this.props.router.asPath
               ?
             <>
               {/* Facebook */}
               <div className="eachNetwork">
                 <FacebookShareButton
-                  url={this.state.currentUrl}
+                  url={currentUrl}
                   className="Demo__some-network__share-button"
                   >
                   <FacebookIcon size={32} round />
@@ -75,7 +54,7 @@ class SocialMedia extends Component {
               {/* Twitter */}
               <div className="eachNetwork">
                 <TwitterShareButton
-                  url={this.state.currentUrl}
+                  url={currentUrl}
                   className="Demo__some-network__share-button"
                   >
                   <TwitterIcon size={32} round />
@@ -85,7 +64,7 @@ class SocialMedia extends Component {
               {/* WhatsApp */}
               <div className="eachNetwork">
                 <WhatsappShareButton
-                  url={this.state.currentUrl}
+                  url={currentUrl}
                   separator=":: "
                   className="Demo__some-network__share-button"
                   >
@@ -96,7 +75,7 @@ class SocialMedia extends Component {
               {/* LinkedIn */}
               <div className="eachNetwork">
                 <LinkedinShareButton 
-                  url={this.state.currentUrl} 
+                  url={currentUrl} 
                   className="Demo__some-network__share-button">
                   <LinkedinIcon size={32} round />
                 </LinkedinShareButton>
@@ -105,7 +84,7 @@ class SocialMedia extends Component {
               {/* Reddit */}
               <div className="eachNetwork">
                 <RedditShareButton
-                  url={this.state.currentUrl}
+                  url={currentUrl}
                   windowWidth={660}
                   windowHeight={460}
                   className="Demo__some-network__share-button"
@@ -117,7 +96,7 @@ class SocialMedia extends Component {
               {/* Line */}
               <div className="eachNetwork">
                 <LineShareButton
-                  url={this.state.currentUrl}
+                  url={currentUrl}
                   className="Demo__some-network__share-button"
                 >
                   <LineIcon size={32} round />
@@ -147,4 +126,4 @@ class SocialMedia extends Component {
 
 }
 
-export default SocialMedia
+export default withRouter(SocialMedia)
