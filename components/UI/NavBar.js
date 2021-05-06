@@ -84,7 +84,7 @@ class NavBar extends Component {
           <Link href="/">
             <a className={navbarStyles.appTitleLink}>
               <span className={navbarStyles.appTitle}>
-                <img className={navbarStyles.appIcon} src="./favicon2.ico" alt="nutrition_plus_icon"/>
+                <img className={navbarStyles.appIcon} src="./static/favicon2.ico" alt="nutrition_plus_icon"/>
                 Nutrition+
               </span>
             </a>

@@ -26,7 +26,7 @@ const WelcomeBanner = React.forwardRef((props, ref) => {
     "https://img.icons8.com/nolan/64/coronavirus.png",
     "https://img.icons8.com/bubbles/100/000000/protection-mask.png",
     "https://img.icons8.com/clouds/100/000000/protection-mask.png",
-    "/images/coffin-guys.png"
+    "./static/images/coffin-guys.png"
   ]
   
   // Two clicks on COVID-19 icon in the banner triggers the easter egg

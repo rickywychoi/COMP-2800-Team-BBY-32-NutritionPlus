@@ -25,7 +25,7 @@ const About = () => {
             <div className = {aboutStyle.team}>  
                 <div className = {aboutStyle.member}>
                     <div className = {aboutStyle.picture}>
-                        <img className = {aboutStyle.img} src = "./images/ricky_pic.jpg" alt = "Ricky Picture"></img>
+                        <img className = {aboutStyle.img} src = "./static/images/ricky_pic.jpg" alt = "Ricky Picture"></img>
                     </div>
                     <p className = {aboutStyle.name}>Ricky Choi</p>
                     <div className = {aboutStyle.bio}>
@@ -35,7 +35,7 @@ const About = () => {
 
                 <div className = {aboutStyle.member}>
                     <div className = {aboutStyle.picture}>
-                        <img className = {aboutStyle.img} src = "./images/brian_pic.jpg" alt = "Brian Picture"></img>
+                        <img className = {aboutStyle.img} src = "./static/images/brian_pic.jpg" alt = "Brian Picture"></img>
                     </div>
                     <p className = {aboutStyle.name}>Brian Seo</p>
                     <div className = {aboutStyle.bio}>
@@ -45,7 +45,7 @@ const About = () => {
 
                 <div className = {aboutStyle.member}>
                     <div className = {aboutStyle.picture}>
-                        <img className = {aboutStyle.img} src = "./images/jason_pic.jpg" alt = "Jason Picture"></img>
+                        <img className = {aboutStyle.img} src = "./static/images/jason_pic.jpg" alt = "Jason Picture"></img>
                     </div>
                     <p className = {aboutStyle.name}>Jason Cheung</p>
                     <div className = {aboutStyle.bio}>
@@ -55,7 +55,7 @@ const About = () => {
 
                 <div className = {aboutStyle.member}>
                     <div className = {aboutStyle.picture}>
-                        <img className = {aboutStyle.img} src = "./images/jimmy_pic.jpg" alt = "Jimmy Picture"></img>
+                        <img className = {aboutStyle.img} src = "./static/images/jimmy_pic.jpg" alt = "Jimmy Picture"></img>
                     </div>
                     <p className = {aboutStyle.name}>Jimmy Lu</p>
                     <div className = {aboutStyle.bio}>

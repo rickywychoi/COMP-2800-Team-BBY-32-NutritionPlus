@@ -1,7 +1,7 @@
 .body {
   display: flex;
   align-items: center;
-  background: linear-gradient(rgba(255,255,255,.9), rgba(255,255,255,.8)), url("../public/images/nutrition.jpg");
+  background: linear-gradient(rgba(255,255,255,.9), rgba(255,255,255,.8)), url("../public/static/images/nutrition.jpg");
   background-size: cover;  
   margin-bottom: 0;
   background-color: #e9ecef;

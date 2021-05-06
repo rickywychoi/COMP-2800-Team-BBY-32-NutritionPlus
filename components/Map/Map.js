@@ -94,13 +94,13 @@ const SimpleMap = (props) => {
         <MyPositionMarker
           lat={myPosition.lat}
           lng={myPosition.lng}
-          icon="./images/person.png"
+          icon="./static/images/person.png"
         />
 
         
         {places.map(item=>(
           <Marker
-            icon="./images/shopping.png"
+            icon="./static/images/shopping.png"
             key={item.id}
             lat={item.geometry.location.lat()}
             lng={item.geometry.location.lng()}

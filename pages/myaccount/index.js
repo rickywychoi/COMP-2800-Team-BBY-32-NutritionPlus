@@ -48,7 +48,7 @@ const AccountPage = (props) => {
               ?
             <img className={accountStyles.userImg} src={props.currentUser.photoURL} alt="user-profile-pic" />
               :
-            <img className={accountStyles.userImg} src="/images/account-placeholder.jpg" alt="user-profile-pic" />
+            <img className={accountStyles.userImg} src="./static/images/account-placeholder.jpg" alt="user-profile-pic" />
           }
         </div>
         <h3>{userName}</h3>
